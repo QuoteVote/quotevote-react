@@ -7,9 +7,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-//firebase
-import firebase from 'firebase';
-
 // @material-ui/icons
 import Face from "@material-ui/icons/Face";
 
@@ -53,9 +50,7 @@ export default function LoginPage() {
   const handleSubmit = event => {
     console.log('submitting')
     const { username, password } = input;
-    //userLogin(username, password, dispatch, history);
-    firebase.auth().signInWithEmailAndPassword(username, password)
-    .then(user => console.log('logged in as ', user))
+    userLogin(username, password, dispatch, history);
     event.preventDefault();
   };
   const handleFormSubmit = e => {
