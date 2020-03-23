@@ -151,7 +151,7 @@ export default function Scoreboard(props) {
 
   return (
     <div className={classes.wrapper}>
-      {/* <Sidebar
+      {<Sidebar
         routes={hhsbRoutes}
         logo={logo}
         handleDrawerToggle={handleDrawerToggle}
@@ -160,7 +160,7 @@ export default function Scoreboard(props) {
         bgColor={bgColor}
         miniActive={miniActive}
         {...rest}
-      /> */}
+      />}
       <div className={mainPanelClasses} ref={mainPanel}>
         {/* On the /maps/full-screen-maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
           <div className={classes.content}>
