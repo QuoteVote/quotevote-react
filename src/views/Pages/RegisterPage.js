@@ -3,6 +3,8 @@ import React from "react";
 //firebase
 import firebase from 'firebase';
 
+import { useHistory } from "react-router-dom";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -36,6 +38,7 @@ export default function RegisterPage() {
   const [checked, setChecked] = React.useState([]);
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const history = useHistory()
   const handleToggle = value => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -60,12 +63,14 @@ export default function RegisterPage() {
     console.log('submitting with ', email, password);
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(user => {
-      console.log('created', user)
+      console.log('successfully logged in user ---registerPage.js', user)
+      localStorage.setItem('token', user)
+      history.push('/hhsb/Home')
     })
   }
   
   const classes = useStyles();
-  console.log('email state is', email)
+
   return (
     <div className={classes.container}>
       <GridContainer justify="center">

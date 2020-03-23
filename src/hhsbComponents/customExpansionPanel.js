@@ -74,7 +74,7 @@ export default function CustomAccordion(props) {
             </ExpansionPanelSummary>
            
             <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-              {prop.content}
+              {prop.text}
             </ExpansionPanelDetails>
           </ExpansionPanel>
         );

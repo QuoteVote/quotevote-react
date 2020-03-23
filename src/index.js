@@ -34,6 +34,8 @@ import "assets/scss/material-dashboard-pro-react.scss?v=1.8.0";
 
 const hist = createBrowserHistory();
 
+console.log('created browser history --index.js', hist)
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>

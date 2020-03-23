@@ -1,3 +1,4 @@
+import React from 'react';
 import Buttons from "views/Components/Buttons.js";
 import Calendar from "views/Calendar/Calendar.js";
 import Charts from "views/Charts/Charts.js";
@@ -31,6 +32,7 @@ import ContentFeed from "hhsbviews/topcontent.js"
 import ContentDisplay from "hhsbviews/ContentDisplay.js"
 import Profile from "hhsbviews/profile.js"
 import HomePage from "hhsbviews/HomePage.js"
+import ManageInvites from 'hhsbviews/ManageInvites';
 import MessageContainer from "hhsbviews/MessageContainer.js"
 import BuddyList from "hhsbviews/BuddyList.js"
 import ChatComponent from 'hhsbviews/ChatComponent.js'
@@ -55,6 +57,8 @@ import Place from "@material-ui/icons/Place";
 import DashboardIcon from   "@material-ui/icons/Dashboard";
 import mdiChartTimelineVariant from  "@material-ui/icons/Timeline";
 import EmojiIcon from "hhsbIcons/EmojiIcon.js"
+
+
 var hhsbRoutes = [
   {
     path: "/Home",
@@ -71,6 +75,14 @@ var hhsbRoutes = [
     rtlName: "الحاجيات",
     icon: Avatar,
     component:Profile,
+    layout: "/hhsb"
+  },
+  {
+    path: "/invites",
+    name: "Manage Invites",
+    rtlName: "Manage Invites",
+    icon: Avatar,
+    component:ManageInvites,
     layout: "/hhsb"
   },
   
@@ -126,3 +138,4 @@ var hhsbRoutes = [
   
 ];
 export default hhsbRoutes;
+

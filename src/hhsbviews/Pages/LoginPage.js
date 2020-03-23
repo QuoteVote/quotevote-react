@@ -28,7 +28,6 @@ import { userLogin } from "actions/login";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { tokenValidator } from "../../actions/login";
 
 import styles from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.js";
 
@@ -38,6 +37,9 @@ export default function LoginPage() {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const dispatch = useDispatch();
   const history = useHistory();
+  useSelector(state => {
+    console.log('state --loginPage.js', state.loginReducer.loading)
+  })
   const { loading, loginError } = useSelector(state => state.loginReducer);
   const [input, setInput] = React.useState({ password: "", username: "" });
 
@@ -52,11 +54,15 @@ export default function LoginPage() {
   };
   const handleSubmit = event => {
     console.log('submitting')
-    const { username, password } = input;
-    //userLogin(username, password, dispatch, history);
-    firebase.auth().signInWithEmailAndPassword(username, password)
-    .then(user => console.log('logged in as ', user))
     event.preventDefault();
+    const { username, password } = input;
+    userLogin(username, password, dispatch, history);
+    // firebase.auth().signInWithEmailAndPassword(username, password)
+    // .then(user => {
+    //   console.log('logged in as ', Object.keys(user.user))
+    //   localStorage.setItem('token', user.user.refreshToken)
+    //   history.push('/hhsb/Home')
+    // })
   };
   const handleFormSubmit = e => {
     if (e.key === "Enter") {
@@ -65,7 +71,7 @@ export default function LoginPage() {
   };
   return (
     <div className={classes.container}>
-      {tokenValidator() && history.push("/hhsb/Home")}
+      {history.push("/hhsb/Home")}
       <GridContainer justify="center">
         <GridItem xs={12} sm={6} md={4}>
           <form onKeyPress={e => handleFormSubmit(e)}>
@@ -134,19 +140,15 @@ export default function LoginPage() {
                 />
               </CardBody>
               <CardFooter className={classes.justifyContentCenter}>
-                {loading ? (
-                  <CircularProgress color="secondary" />
-                ) : (
-                  <Button
-                    onClick={e => handleSubmit(e)}
-                    color="rose"
-                    simple
-                    size="lg"
-                    block
-                  >
-                    LOGIN
-                  </Button>
-                )}
+                <Button
+                  onClick={e => handleSubmit(e)}
+                  color="rose"
+                  simple
+                  size="lg"
+                  block
+                >
+                  LOGIN
+                </Button>
               </CardFooter>
             </Card>
           </form>

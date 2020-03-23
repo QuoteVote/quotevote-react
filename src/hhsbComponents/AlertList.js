@@ -6,6 +6,7 @@ import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Alert from "./Alert.js"
 import GridItem from "components/Grid/GridItem.js";
+import moment from 'moment';
 
 export default function AlertList(props){
 
@@ -18,13 +19,11 @@ return(
     alignItems="center">
         
     {Alerts.map((item,key)=>{
-        console.log(item.AlertTitle)
         return(
             <div style={{width:"90%"}}>
-            <Alert color={item.color} AlertTitle={item.AlertTitle}
-            AlertBody={item. AlertBody}
-            time={item.time}
-            points={item.points}/>
+            <Alert color={'green'} AlertTitle={item.event}
+            AlertBody={item.event}
+            time={moment(item.created).format()}/>
             <br></br>
           
             </div>

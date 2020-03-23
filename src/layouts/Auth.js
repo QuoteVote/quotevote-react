@@ -37,6 +37,7 @@ export default function Pages(props) {
         return getRoutes(prop.views);
       }
       if (prop.layout === "/auth") {
+        console.log('auth auth.js')
         return (
           <Route
             path={prop.layout + prop.path}
@@ -65,7 +66,7 @@ export default function Pages(props) {
     }
   };
   const getActiveRoute = routes => {
-    let activeRoute = "Default Brand Text";
+    let activeRoute = "Scoreboard";
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
         let collapseActiveRoute = getActiveRoute(routes[i].views);

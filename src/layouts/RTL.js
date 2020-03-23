@@ -92,7 +92,7 @@ export default function RTL(props) {
     setMobileOpen(!mobileOpen);
   };
   const getActiveRoute = routes => {
-    let activeRoute = "Default Brand Text";
+    let activeRoute = "Scoreboard";
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
         let collapseActiveRoute = getActiveRoute(routes[i].views);
@@ -139,7 +139,6 @@ export default function RTL(props) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"توقيت الإبداعية"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

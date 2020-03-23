@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react';
+
+import firebase from 'firebase';
 
 import GridContainer from "components/Grid/GridContainer.js";
 import Content from "../hhsbComponents/ContentList.js"
@@ -23,72 +25,80 @@ import Emoji from 'hhsbAssets/FollowingEmoji.svg'
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import AlertList from  'hhsbComponents/AlertList.js'
 import Box from '@material-ui/core/Box';
-export default function HomePage() {
-   let NotificationData=
-   [{AlertTitle:'Quoted',color:'#00CAE3', AlertBody:'There’s no time like the present, so present your time as if it only one in the world”',time:'Today @ 10pm',points:'+100W'},{AlertTitle:'Upvoted',color:'#55B559', AlertBody:'',time:'',points:''},
-   {AlertTitle:'Commented',color:'#FF9E0F', AlertBody:'',time:'',points:''},{AlertTitle:'Downvoted',color:'#FF1100', AlertBody:'',time:'',points:''},
-   {AlertTitle:'Submitted',color:'#000000', AlertBody:'',time:'',points:''},{AlertTitle:'Heared',color:'#E91E63', AlertBody:'',time:'',points:''}]
-   const handleClick=(x)=>{
-      console.log(x)
+
+export default class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [],
+      activities:[]
     }
+  }
 
+  componentDidMount() {
+    console.log('component mounted --homepage.js')
+    let activities = [];
+    const firestore = firebase.firestore();
+    firestore.collection('activities').limit(10).get()
+    .then(snap => {
+      snap.forEach(doc => activities.push(doc.data()));
+    })
+    .then(() => this.setState({activities}))
+  }
+  render() {
+    console.log('activities', this.state.activities.length)
     return(
-        <Card style={{display:"flex",flexBasis:"800px"}} >
-          <CardBody >
-           <GridContainer  
-               direction="row"
-               justify="center"
-               alignItems="center"
-               
-              >
-                <GridContainer alignItems="center"  direction="row"  style={{"width":"50%"}}>
-                <GridContainer justify="center" wrap="nowrap"  direction="row" >
-                     <p style={{fontSize:"20px",color:"gray",font:"League Spartan",fontWeight: "900", textDecoration:"underline",textShadow: "1px 1px gray"}} >All | Content | Votes | Comments | Quotes</p>
-                   </GridContainer >
-                  <Slider
-                    value={30}                  
-                    valueLabelDisplay="auto"
-                    aria-labelledby="range-slider"                  
-                  /> 
-                
-                </GridContainer>
-                <br></br>
-                <br></br> 
-                
-              <GridContainer alignItems="center"  direction="row"
-                justify="space-between"  style={{backgroundColor:"#FF7A00",boxShadow:"0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",width:"75%",wrap:"nowrap"}}>  
-               <h3 style={{color:"white",font:"League Spartan",fontWeight: "bold",paddingLeft:"20px",paddingBottom:"5px"}}>Activity Feed</h3>                   
-                                                
-               
-              <div style={{display:'flex',justifyContent:'flex-end',flexDirection:"row"}}>
-              <CustomizedInputBase></CustomizedInputBase>
-              <img src={Calendar} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px"}}/>
-              <img src={Filter} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px"}}/>
-              <img src={Emoji} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px",paddingRight:"15px"}}/> 
-              </div>
-                      
+      <Card style={{display:"flex",flexBasis:"800px"}} >
+        <CardBody >
+         <GridContainer  
+             direction="row"
+             justify="center"
+             alignItems="center"
+             
+            >
+              <GridContainer alignItems="center"  direction="row"  style={{"width":"50%"}}>
+              <GridContainer justify="center" wrap="nowrap"  direction="row" >
+                   <p style={{fontSize:"20px",color:"gray",font:"League Spartan",fontWeight: "900", textDecoration:"underline",textShadow: "1px 1px gray"}} >All | Content | Votes | Comments | Quotes</p>
+                     </GridContainer >
+                    <Slider
+                      value={30}                  
+                      valueLabelDisplay="auto"
+                      aria-labelledby="range-slider"                  
+                    /> 
+                  
+                  </GridContainer>
+                  <br></br>
+                  <br></br> 
+                  
+                <GridContainer alignItems="center"  direction="row"
+                  justify="space-between"  style={{backgroundColor:"#FF7A00",boxShadow:"0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",width:"75%",wrap:"nowrap"}}>  
+                 <h3 style={{color:"white",font:"League Spartan",fontWeight: "bold",paddingLeft:"20px",paddingBottom:"5px"}}>Activity Feed</h3>                   
+                                                  
                  
-                
-
-                 
-            
-                </GridContainer> 
-                
-              </GridContainer>
-           <br></br>
-           <br></br>
-        <AlertList Data={NotificationData}/>
-        </CardBody>
-        <Pagination
-          limit={10}
-          offset={0}
-          total={100}
-          onClick={(e, offset) => this.handleClick(offset)}
-        />
-        </Card>
+                <div style={{display:'flex',justifyContent:'flex-end',flexDirection:"row"}}>
+                <CustomizedInputBase></CustomizedInputBase>
+                <img src={Calendar} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px"}}/>
+                <img src={Filter} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px"}}/>
+                <img src={Emoji} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px",paddingRight:"15px"}}/> 
+                </div>
+          
+              </GridContainer> 
+              
+            </GridContainer>
+         <br></br>
+         <br></br>
+      <AlertList Data={this.state.activities}/>
+      </CardBody>
+      <Pagination
+        limit={10}
+        offset={0}
+        total={100}
+        onClick={(e, offset) => this.handleClick(offset)}
+      />
+      </Card>
 
 
     )
+  }
+}
 
-
-}    

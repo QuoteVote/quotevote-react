@@ -18,6 +18,7 @@ import routes from "routes.js";
 
 import styles from "assets/jss/material-dashboard-pro-react/layouts/adminStyle.js";
 
+
 var ps;
 
 const useStyles = makeStyles(styles);
@@ -144,7 +145,7 @@ export default function Dashboard(props) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Creative Tim"}
+        logoText={"Scoreboard"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

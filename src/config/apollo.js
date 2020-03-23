@@ -6,6 +6,8 @@ import { split } from "apollo-link";
 import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 
+
+console.log('appollo.js running')
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_SERVER + "/graphql"
 });

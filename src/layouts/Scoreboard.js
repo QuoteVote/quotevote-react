@@ -21,7 +21,6 @@ import hhsbRoutes from "hhsbroutes.js";
 
 import styles from "assets/jss/material-dashboard-pro-react/layouts/adminStyle.js";
 // import ContentFeed from "../hhsbviews/topcontent.js";
-import { tokenValidator } from "../actions/login";
 
 var ps;
 
@@ -121,7 +120,9 @@ export default function Scoreboard(props) {
   //   return activeRoute;
   // };
   const getRoutes = routes => {
+    console.log('getting routes', routes)
     return routes.map((prop, key) => {
+      console.log('component', prop.component)
       if (prop.collapse) {
         return getRoutes(prop.views);
       }
@@ -150,8 +151,7 @@ export default function Scoreboard(props) {
 
   return (
     <div className={classes.wrapper}>
-      {!tokenValidator() && history.push("/unauth")}
-      <Sidebar
+      {/* <Sidebar
         routes={hhsbRoutes}
         logo={logo}
         handleDrawerToggle={handleDrawerToggle}
@@ -160,26 +160,17 @@ export default function Scoreboard(props) {
         bgColor={bgColor}
         miniActive={miniActive}
         {...rest}
-      />
+      /> */}
       <div className={mainPanelClasses} ref={mainPanel}>
         {/* On the /maps/full-screen-maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-        {getRoute() ? (
           <div className={classes.content}>
             <div className={classes.container}>
               <Switch>
                 {getRoutes(hhsbRoutes)}
-                <Redirect from="/admin" to="/admin/dashboard" />
+                <Redirect from="/admin" to="/admin/dashboard" />s
               </Switch>
             </div>
           </div>
-        ) : (
-          <div className={classes.map}>
-            <Switch>
-              {getRoutes(hhsbRoutes)}
-              <Redirect from="/admin" to="/admin/dashboard" />
-            </Switch>
-          </div>
-        )}
       </div>
     </div>
   );
