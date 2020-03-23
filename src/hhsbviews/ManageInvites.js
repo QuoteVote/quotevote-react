@@ -79,6 +79,7 @@ const declineStyle = {
 }
 const acceptStyle = {
   'background': '#4CAF50',
+  'margin-top': '5px',
   'box-shadow': '0px 2px 4px rgba(76, 175, 80, 0.14), 0px 3px 1px rgba(76, 175, 80, 0.2), 0px 1px 5px rgba(76, 175, 80, 0.12)',
   'border-radius': '3px',
   'color': '#fff',
@@ -101,7 +102,7 @@ const Divider = () => {
 }
 
 const Table = props => {
-  const { columns } = props;
+  const { columns, rows } = props;
   return (
     <div style={tableStyles}>
       <Grid fluid>
@@ -115,26 +116,43 @@ const Table = props => {
           })}
         </Row>
         <Divider />
-        <Row>
-          <Col xs={2} md={2}> 
-            <h2 style={tableCellStyle}>1</h2>
-          </Col>
-          <Col xs={4} md={4}> 
-            <h2 style={tableCellStyle}>jonathankolman@gmail.com</h2>
-          </Col>
-          <Col xs={2} md={2}> 
-            <button style={buttonStyle}>NEW</button>
-          </Col>
-          <Col xs={2} md={2}>
-            <Row>
-            <Col>
-            <button style={declineStyle}>Decline</button>
-            <button style={acceptStyle}>Accept</button>
-            </Col>  
-            </Row> 
-            
-          </Col>
-        </Row>
+          {rows.map(row => {
+            return (
+              <Row>
+                {Object.keys(row).map((k, index) => {
+                  if(index === 1) {
+                    return (
+                      <Col xs={4} md={4}>
+                        <h2 style={tableCellStyle}>  {row[k]} </h2>
+                      </Col>
+                    )
+                  }
+                  else if(index === 2) {
+                    return (
+                      <Col xs={2} md={2}>
+                        <button style={buttonStyle}>{row[k]} </button>
+                      </Col>
+                      )
+                  }
+                  else {
+                    return (
+                      <Col xs={2} md={2}>
+                        <h2 style={tableCellStyle}> {row[k]}</h2>
+                      </Col>
+                    )
+                  }
+                  
+                })}
+                <Col xs={2} md={2}> 
+                  <button style={acceptStyle}>Accept</button>
+                </Col>
+                <Col xs={2} md={2}> 
+                  <button style={declineStyle}>Decline</button>
+                </Col>
+              </Row>
+            )
+          })}
+          
       </Grid>
     </div>
   )
@@ -143,7 +161,10 @@ const Table = props => {
 const InviteTable = props => {
   return (
     <div>
-      <Table columns={['ID', 'Email', 'Status', 'Action']} />
+      <Table 
+        columns={['ID', 'Email', 'Status', 'Action']} 
+        rows={[{id:1, email:'jonathankolman@gmail.com', status:'NEW'}, {id:2, email:'jonathankolman@gmail.com', status:'NEW'}]}
+        />
     </div>
     
   )
