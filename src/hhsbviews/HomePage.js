@@ -92,7 +92,7 @@ export default function HomePage() {
         return {
           id: activity.data._id,
           AlertTitle: activity.event,
-          color: ACTIVITY_COLORS.QOUTED,
+          color: ACTIVITY_COLORS.COMMENTED,
           AlertBody: activity.data.text,
           time,
           points: "",
