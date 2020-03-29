@@ -51,6 +51,7 @@ const ContentDisplaySkeleton = () => {
                     <Skeleton variant="text" width={210} />
                   </p>
                   <img
+                    alt=""
                     src={Chat}
                     style={{ height: "20px", paddingLeft: "10px" }}
                   />
@@ -67,6 +68,7 @@ const ContentDisplaySkeleton = () => {
                     <Skeleton variant="text" width={50} />
                   </p>
                   <img
+                    alt=""
                     src={Send}
                     style={{
                       height: "15px",
@@ -75,6 +77,7 @@ const ContentDisplaySkeleton = () => {
                     }}
                   />
                   <img
+                    alt=""
                     src={Heart}
                     style={{
                       height: "15px",

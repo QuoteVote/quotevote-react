@@ -100,9 +100,10 @@ const ADD_COMMENT = gql`
 `;
 
 const ContentDisplay = () => {
-  // temporary variables
-  const contentId = "5bdc0d928b8fc22ce6da1f30";
-  const domain = "5b8bb075fa6366464c549322";
+  const url = window.location.href
+  const urlSegment = url.split('/')
+  const domain = urlSegment[5]
+  const contentId = urlSegment[6]
 
   const [selectedText, setSelectedText] = useState("");
   const { user } = useSelector(state => state.loginReducer);
@@ -151,6 +152,8 @@ const ContentDisplay = () => {
   });
 
   if (loading) return <ContentDisplaySkeleton />;
+
+  if (error) return `Something went wrong: ${error}`
 
   const { content } = data;
 
@@ -242,6 +245,7 @@ const ContentDisplay = () => {
                     {content.title}
                   </p>
                   <img
+                    alt=""
                     src={Chat}
                     style={{ height: "20px", paddingLeft: "10px" }}
                   />
@@ -261,6 +265,7 @@ const ContentDisplay = () => {
                     {content.scoreDetails.downvotes}
                   </p>
                   <img
+                    alt=""
                     src={Send}
                     style={{
                       height: "15px",
@@ -269,6 +274,7 @@ const ContentDisplay = () => {
                     }}
                   />
                   <img
+                    alt=""
                     src={Heart}
                     style={{
                       height: "15px",
