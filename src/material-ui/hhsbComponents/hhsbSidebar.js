@@ -50,7 +50,6 @@ class SidebarWrapper extends React.Component {
   }
   render() {
     const { className, user, headerLinks, links, MiniActive } = this.props
-    console.log(MiniActive)
     return (
       <Grid container direction="row" style={{ overflow: "hidden" }}>
         <div
@@ -278,7 +277,6 @@ class Sidebar extends React.Component {
     })
   }
   render() {
-    console.log(this.props.miniActive)
     const {
       classes,
       logo,

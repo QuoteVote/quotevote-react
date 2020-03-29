@@ -42,7 +42,7 @@ export default function CustomizedInputBase() {
       </IconButton>
       <InputBase
         className={classes.input}
-        placeholder="Search Google Maps"
+        placeholder="Search"
         inputProps={{ "aria-label": "search google maps" }}
       />
       <IconButton className={classes.iconButton} aria-label="search" />
