@@ -12,6 +12,7 @@ import AlertList from 'hhsbComponents/AlertList.js'
 import gql from "graphql-tag"
 import {useQuery} from '@apollo/react-hooks'
 import moment from "moment"
+import {GET_SEARCH_KEY} from "hhsbComponents/searchBar"
 
 const ACTIVITY_COLORS = {
   "QOUTED": '#00CAE3',
@@ -23,12 +24,8 @@ const ACTIVITY_COLORS = {
 }
 
 const ACTIVITIES_QUERY = gql`
-  query activities($limit: Int!, $offset: Int!) {
-    activities(limit: $limit, offset: $offset) {
-      _id
-      event
-      data
-    }
+  query activities($limit: Int!, $offset: Int!, $searchKey: String!) {
+    activities(limit: $limit, offset: $offset, searchKey: $searchKey)
   }
 `
 
@@ -49,65 +46,72 @@ function formatContentDate(sDate) {
 export default function HomePage() {
   const limit = 5
   const [offset, setOffset] = useState(1)
+  const [total, setTotal] = useState(0)
+  const {data: {searchKey}} = useQuery(GET_SEARCH_KEY)
   const {loading, error, data} = useQuery(ACTIVITIES_QUERY, {
-    variables: {limit, offset},
+    variables: {limit, offset, searchKey: searchKey},
   })
 
-  const activitiesData = !loading && data.activities.map(activity => {
-      const time = formatContentDate(activity.data.created)
-      switch (activity.event) {
-        case "VOTED":
-          return {
-            id: activity.data._id,
-            AlertTitle: `${activity.data.type.toUpperCase()}D`,
-            color: ACTIVITY_COLORS[`${activity.data.type.toUpperCase()}D`],
-            AlertBody: activity.data.content.title,
-            time,
-            points: activity.data.type === "upvote" ? `+${activity.data.points}` : `-${activity.data.points}`,
-          }
-        case "POSTED":
-          return {
-            id: activity.data._id,
-            AlertTitle: "SUBMITTED",
-            color: ACTIVITY_COLORS.POSTED,
-            AlertBody: activity.data.title,
-            time,
-            points: "",
-          }
-        case "QUOTED":
-          return {
-            id: activity.data._id,
-            AlertTitle: activity.event,
-            color: ACTIVITY_COLORS.QOUTED,
-            AlertBody: activity.data.quote,
-            time,
-            points: "",
-          }
-        case "COMMENTED":
-          return {
-            id: activity.data._id,
-            AlertTitle: activity.event,
-            color: ACTIVITY_COLORS.QOUTED,
-            AlertBody: activity.data.text,
-            time,
-            points: "",
-          }
-        case "HEARTED":
-          return {
-            id: activity.data._id,
-            AlertTitle: activity.event,
-            color: ACTIVITY_COLORS.HEARTED,
-            AlertBody: activity.data.content.title,
-            time,
-            points: "",
-          }
+  React.useEffect(() => {
+    if (data) {
+      setTotal(data.activities.total)
+    }
+  }, [data])
 
-        default:
-          break
-      }
-      return null
-    },
-  )
+  const activitiesData = !loading && data.activities.activities.map(activity => {
+    const time = formatContentDate(activity.data.created)
+    switch (activity.event) {
+      case "VOTED":
+        return {
+          id: activity.data._id,
+          AlertTitle: `${activity.data.type.toUpperCase()}D`,
+          color: ACTIVITY_COLORS[`${activity.data.type.toUpperCase()}D`],
+          AlertBody: activity.data.content.title,
+          time,
+          points: activity.data.type === "upvote" ? `+${activity.data.points}` : `-${activity.data.points}`,
+        }
+      case "POSTED":
+        return {
+          id: activity.data._id,
+          AlertTitle: "SUBMITTED",
+          color: ACTIVITY_COLORS.POSTED,
+          AlertBody: activity.data.title,
+          time,
+          points: "",
+        }
+      case "QUOTED":
+        return {
+          id: activity.data._id,
+          AlertTitle: activity.event,
+          color: ACTIVITY_COLORS.QOUTED,
+          AlertBody: activity.data.quote,
+          time,
+          points: "",
+        }
+      case "COMMENTED":
+        return {
+          id: activity.data._id,
+          AlertTitle: activity.event,
+          color: ACTIVITY_COLORS.QOUTED,
+          AlertBody: activity.data.text,
+          time,
+          points: "",
+        }
+      case "HEARTED":
+        return {
+          id: activity.data._id,
+          AlertTitle: activity.event,
+          color: ACTIVITY_COLORS.HEARTED,
+          AlertBody: activity.data.content.title,
+          time,
+          points: "",
+        }
+
+      default:
+        break
+    }
+    return null
+  })
 
   return (
     <Card style={{display: "flex", flexBasis: "800px"}}>
@@ -155,7 +159,7 @@ export default function HomePage() {
             }}>Activity Feed</h3>
 
             <div style={{display: 'flex', justifyContent: 'flex-end', flexDirection: "row"}}>
-              <CustomizedInputBase></CustomizedInputBase>
+              <CustomizedInputBase setOffset={setOffset}/>
               <img src={Calendar} style={{display: "flex", maxHeight: "40px", paddingLeft: "15px"}}/>
               <img src={Filter} style={{display: "flex", maxHeight: "40px", paddingLeft: "15px"}}/>
               <img src={Emoji} style={{display: "flex", maxHeight: "40px", paddingLeft: "15px", paddingRight: "15px"}}/>
@@ -169,9 +173,10 @@ export default function HomePage() {
         <AlertList Data={activitiesData} loading={loading} limit={limit}/>
       </CardBody>
       <Pagination
+        style={{margin: "auto"}}
         limit={limit}
         offset={offset}
-        total={100}
+        total={total}
         onClick={(e, offset) => setOffset(offset)}
       />
     </Card>

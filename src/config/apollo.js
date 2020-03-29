@@ -1,14 +1,14 @@
-import { ApolloClient } from "apollo-boost";
-import { ApolloLink, concat } from "apollo-link";
-import { HttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { split } from "apollo-link";
-import { WebSocketLink } from "apollo-link-ws";
-import { getMainDefinition } from "apollo-utilities";
+import {ApolloClient} from "apollo-boost"
+import {ApolloLink, concat} from "apollo-link"
+import {HttpLink} from "apollo-link-http"
+import {InMemoryCache} from "apollo-cache-inmemory"
+import {split} from "apollo-link"
+import {WebSocketLink} from "apollo-link-ws"
+import {getMainDefinition} from "apollo-utilities"
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_SERVER + "/graphql"
-});
+  uri: process.env.REACT_APP_SERVER + "/graphql",
+})
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
@@ -18,52 +18,64 @@ const wsLink = new WebSocketLink({
     reconnect: true,
     timeout: 30000,
     connectionParams: () => ({
-      authToken: localStorage.getItem("token")
-    })
-  }
-});
+      authToken: localStorage.getItem("token"),
+    }),
+  },
+})
 
 const subscriptionMiddleware = {
   applyMiddleware: (options, next) => {
-    options.authToken = localStorage.getItem("token");
+    options.authToken = localStorage.getItem("token")
     options.context = {
-      token: localStorage.getItem("token")
-    };
-    next();
-  }
-};
+      token: localStorage.getItem("token"),
+    }
+    next()
+  },
+}
 // add the middleware to the web socket link via the Subscription Transport client
-wsLink.subscriptionClient.use([subscriptionMiddleware]);
+wsLink.subscriptionClient.use([subscriptionMiddleware])
 
 // using the ability to split links, you can send data to each link
 // depending on what kind of operation is being sent
 const link = split(
   // split based on operation type
-  ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    return kind === "OperationDefinition" && operation === "subscription";
+  ({query}) => {
+    const {kind, operation} = getMainDefinition(query)
+    return kind === "OperationDefinition" && operation === "subscription"
   },
   wsLink,
-  httpLink
-);
+  httpLink,
+)
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
-  const { token } = operation.getContext();
+  const {token} = operation.getContext()
   operation.setContext({
     headers: {
-      authorization: token || localStorage.getItem("token")
-    }
-  });
+      authorization: token || localStorage.getItem("token"),
+    },
+  })
 
-  return forward(operation);
-});
+  return forward(operation)
+})
+
+const cache = new InMemoryCache()
+
+cache.writeData({
+  data: {
+    searchKey: '',
+    networkStatus: {
+      __typename: 'NetworkStatus',
+      isConnected: false,
+    },
+  },
+})
 
 const client = new ApolloClient({
   // By default, this client will send queries to the
   //  `/graphql` endpoint on the same host
   link: concat(authMiddleware, link),
-  cache: new InMemoryCache()
-});
+  cache,
+})
 
-export default client;
+export default client
