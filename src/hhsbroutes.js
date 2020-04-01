@@ -28,7 +28,6 @@ import VectorMap from "views/Maps/VectorMap.js";
 import Widgets from "views/Widgets/Widgets.js";
 import Wizard from "views/Forms/Wizard.js";
 import ContentFeed from "hhsbviews/topcontent.js"
-import SubmitPost from "hhsbviews/SubmitPost.js"
 import ContentDisplay from "hhsbviews/ContentDisplay.js"
 import Profile from "hhsbviews/profile.js"
 import HomePage from "hhsbviews/HomePage.js"
@@ -74,14 +73,16 @@ var hhsbRoutes = [
     component:Profile,
     layout: "/hhsb"
   },
+  
   {
-    path: "/SubmitPost",
-    name: "Submit Post",
+    path: "/SubmitContent",
+    name: "Content Display",
     rtlName: "التقويم",
-    icon: add,
-    component:SubmitPost,
+    icon: add ,
+    component:ContentDisplay,
     layout: "/hhsb"
   },
+
   {
     path: "/TrendingContent",
     name: "Trending Content",
