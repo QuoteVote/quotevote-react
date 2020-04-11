@@ -5,7 +5,7 @@ import {
   defaultFont,
   whiteColor,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const customInputStyle = {
   disabled: {
@@ -81,7 +81,7 @@ const customInputStyle = {
       opacity: "1"
     },
     "&::placeholder": {
-      color:"black"
+      color: "black"
     }
   },
   whiteInput: {
@@ -90,6 +90,6 @@ const customInputStyle = {
       opacity: "1"
     }
   }
-};
+}
 
-export default customInputStyle;
+export default customInputStyle

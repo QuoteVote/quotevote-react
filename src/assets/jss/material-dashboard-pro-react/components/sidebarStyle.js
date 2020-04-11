@@ -15,7 +15,7 @@ import {
   blackColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const sidebarStyle = theme => ({
   drawerPaperRTL: {
@@ -415,9 +415,8 @@ const sidebarStyle = theme => ({
         ",.2)"
     }
   },
-  hidden:{
-    display:"none",
-    flex: 1
+  hidden: {
+    display: "none"
   },
   orange: {
     "&,&:hover,&:focus": {
@@ -476,7 +475,6 @@ const sidebarStyle = theme => ({
     position: "relative",
     height: "calc(100vh - 75px)",
     overflow: "auto",
-    maxWidth: "260px",
     width: "260px",
     zIndex: "4",
     overflowScrolling: "touch",
@@ -539,6 +537,6 @@ const sidebarStyle = theme => ({
       color: whiteColor
     }
   }
-});
+})
 
-export default sidebarStyle;
+export default sidebarStyle

@@ -1,40 +1,33 @@
 import React from 'react'
 
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import NavPills from "components/NavPills/NavPills.js";
-import Accordion from "components/Accordion/Accordion.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
-import Button from "components/CustomButtons/Button.js"
-import { getThemeProps } from '@material-ui/styles';
-import Badge from "components/Badge/Badge.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
+import NavPills from "mui-pro/NavPills/NavPills.js"
+import Accordion from "mui-pro/Accordion/Accordion.js"
+import Card from "mui-pro/Card/Card.js"
+import CardHeader from "mui-pro/Card/CardHeader.js"
+import CardBody from "mui-pro/Card/CardBody.js"
+import Button from "mui-pro/CustomButtons/Button.js"
+import { getThemeProps } from '@material-ui/styles'
+import Badge from "mui-pro/Badge/Badge.js"
 import CustomAccordion from  "./customExpansionPanel.js"
- const Content=(props)=> {
-    
-
-
-    return(
-        <GridContainer>
-           <GridItem
-            direction="row"
-            justify="center"
-            alignItems="center"
-        >
+const Content=(props)=> (
+  <GridContainer>
+    <GridItem
+      direction="row"
+      justify="center"
+      alignItems="center"
+    >
         
-        <CustomAccordion active={0}  collapses={props.MessageData} />
+      <CustomAccordion active={0}  collapses={props.MessageData} />
         
-        </GridItem>
+    </GridItem>
 
           
           
-        </GridContainer> 
+  </GridContainer> 
 
 
 
-    )
-    
-
-}    
+)    
 export default Content

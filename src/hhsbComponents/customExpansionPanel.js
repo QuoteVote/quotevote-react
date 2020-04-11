@@ -15,8 +15,8 @@ import styles from "assets/jss/material-dashboard-pro-react/components/accordion
 import Chat from '../hhsbAssets/Chat.svg'
 import Heart from '../hhsbAssets/Heart.svg'
 import Send from '../hhsbAssets/Send.svg'
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
 const useStyles = makeStyles(styles);
 
 export default function CustomAccordion(props) {

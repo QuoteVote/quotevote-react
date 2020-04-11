@@ -4,9 +4,9 @@ import {
   blackColor,
   hexToRgb,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
-import customCheckboxRadioSwitch from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.js";
+import customCheckboxRadioSwitch from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.js"
 
 const registerPageStyle = {
   ...customCheckboxRadioSwitch,
@@ -68,6 +68,6 @@ const registerPageStyle = {
     marginLeft: "6px",
     color: "rgba(" + hexToRgb(blackColor) + ", 0.26)"
   }
-};
+}
 
-export default registerPageStyle;
+export default registerPageStyle

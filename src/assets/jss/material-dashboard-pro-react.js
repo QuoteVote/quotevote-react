@@ -22,8 +22,8 @@
 // // // Example: input = #999 => output = 153, 153, 153
 // // // Example: input = 999 => output = 153, 153, 153
 // #############################
-const hexToRgb = (input) => {
-  input = `${input  }`
+const hexToRgb = input => {
+  input = input + ""
   input = input.replace("#", "")
   let hexRegex = /[0-9A-Fa-f]/g
   if (!hexRegex.test(input) || (input.length !== 3 && input.length !== 6)) {
@@ -40,11 +40,11 @@ const hexToRgb = (input) => {
   let second = input[2] + input[3]
   let last = input[4] + input[5]
   return (
-    `${parseInt(first, 16)
-    }, ${ 
-      parseInt(second, 16) 
-    }, ${ 
-      parseInt(last, 16)}`
+    parseInt(first, 16) +
+    ", " +
+    parseInt(second, 16) +
+    ", " +
+    parseInt(last, 16)
   )
 }
 
@@ -52,12 +52,12 @@ const hexToRgb = (input) => {
 // // // Variables - Styles that are used on more than one component
 // #############################
 
-const drawerWidth = 600 // This controls the size of the draw
+const drawerWidth = 560
 
 const drawerMiniWidth = 80
 
 const transition = {
-  transition: "all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)",
+  transition: "all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
 }
 
 const containerFluid = {
@@ -67,11 +67,11 @@ const containerFluid = {
   marginLeft: "auto",
   "&:before,&:after": {
     display: "table",
-    content: '" "',
+    content: '" "'
   },
   "&:after": {
-    clear: "both",
-  },
+    clear: "both"
+  }
 }
 
 const container = {
@@ -80,27 +80,27 @@ const container = {
   marginRight: "auto",
   marginLeft: "auto",
   "@media (min-width: 768px)": {
-    width: "750px",
+    width: "750px"
   },
   "@media (min-width: 992px)": {
-    width: "970px",
+    width: "970px"
   },
   "@media (min-width: 1200px)": {
-    width: "1170px",
+    width: "1170px"
   },
   "&:before,&:after": {
     display: "table",
-    content: '" "',
+    content: '" "'
   },
   "&:after": {
-    clear: "both",
-  },
+    clear: "both"
+  }
 }
 
 const defaultFont = {
   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   fontWeight: "300",
-  lineHeight: "1.5em",
+  lineHeight: "1.5em"
 }
 
 const primaryColor = ["#9c27b0", "#ab47bc", "#8e24aa", "#af2cc5", "#7b1fa2"]
@@ -111,7 +111,7 @@ const warningColor = [
   "#ffa21a",
   "#f57c00",
   "#faf2cc",
-  "#fcf8e3",
+  "#fcf8e3"
 ]
 const dangerColor = [
   "#f44336",
@@ -120,7 +120,7 @@ const dangerColor = [
   "#f55a4e",
   "#d32f2f",
   "#ebcccc",
-  "#f2dede",
+  "#f2dede"
 ]
 const successColor = [
   "#4caf50",
@@ -129,7 +129,7 @@ const successColor = [
   "#5cb860",
   "#388e3c",
   "#d0e9c6",
-  "#dff0d8",
+  "#dff0d8"
 ]
 const infoColor = [
   "#00acc1",
@@ -138,7 +138,7 @@ const infoColor = [
   "#00d3ee",
   "#0097a7",
   "#c4e3f3",
-  "#d9edf7",
+  "#d9edf7"
 ]
 const roseColor = ["#e91e63", "#ec407a", "#d81b60", "#eb3573", "#c2185b"]
 const grayColor = [
@@ -160,7 +160,7 @@ const grayColor = [
   "#e7e7e7",
   "#212121",
   "#c8c8c8",
-  "#505050",
+  "#505050"
 ]
 const blackColor = "#000"
 const whiteColor = "#FFF"
@@ -177,93 +177,93 @@ const redditColor = "#ff4500"
 
 const boxShadow = {
   boxShadow:
-    `0 10px 30px -12px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.42), 0 4px 25px 0px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.12), 0 8px 10px -5px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.2)`,
+    "0 10px 30px -12px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.42), 0 4px 25px 0px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.12), 0 8px 10px -5px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.2)"
 }
 
 const primaryBoxShadow = {
   boxShadow:
-    `0 4px 20px 0 rgba(${ 
-      hexToRgb(blackColor) 
-    },.14), 0 7px 10px -5px rgba(${ 
-      hexToRgb(primaryColor[0]) 
-    },.4)`,
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(primaryColor[0]) +
+    ",.4)"
 }
 const infoBoxShadow = {
   boxShadow:
-    `0 4px 20px 0 rgba(${ 
-      hexToRgb(blackColor) 
-    },.14), 0 7px 10px -5px rgba(${ 
-      hexToRgb(infoColor[0]) 
-    },.4)`,
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(infoColor[0]) +
+    ",.4)"
 }
 const successBoxShadow = {
   boxShadow:
-    `0 4px 20px 0 rgba(${ 
-      hexToRgb(blackColor) 
-    },.14), 0 7px 10px -5px rgba(${ 
-      hexToRgb(successColor[0]) 
-    },.4)`,
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(successColor[0]) +
+    ",.4)"
 }
 const warningBoxShadow = {
   boxShadow:
-    `0 4px 20px 0 rgba(${ 
-      hexToRgb(blackColor) 
-    },.14), 0 7px 10px -5px rgba(${ 
-      hexToRgb(warningColor[0]) 
-    },.4)`,
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(warningColor[0]) +
+    ",.4)"
 }
 const dangerBoxShadow = {
   boxShadow:
-    `0 4px 20px 0 rgba(${ 
-      hexToRgb(blackColor) 
-    },.14), 0 7px 10px -5px rgba(${ 
-      hexToRgb(dangerColor[0]) 
-    },.4)`,
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(dangerColor[0]) +
+    ",.4)"
 }
 const roseBoxShadow = {
   boxShadow:
-    `0 4px 20px 0 rgba(${ 
-      hexToRgb(blackColor) 
-    },.14), 0 7px 10px -5px rgba(${ 
-      hexToRgb(roseColor[0]) 
-    },.4)`,
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(roseColor[0]) +
+    ",.4)"
 }
 
 const warningCardHeader = {
   background:
-    `linear-gradient(60deg, ${  warningColor[1]  }, ${  warningColor[2]  })`,
-  ...warningBoxShadow,
+    "linear-gradient(60deg, " + warningColor[1] + ", " + warningColor[2] + ")",
+  ...warningBoxShadow
 }
 const successCardHeader = {
   background:
-    `linear-gradient(60deg, ${  successColor[1]  }, ${  successColor[2]  })`,
-  ...successBoxShadow,
+    "linear-gradient(60deg, " + successColor[1] + ", " + successColor[2] + ")",
+  ...successBoxShadow
 }
 const dangerCardHeader = {
   background:
-    `linear-gradient(60deg, ${  dangerColor[1]  }, ${  dangerColor[2]  })`,
-  ...dangerBoxShadow,
+    "linear-gradient(60deg, " + dangerColor[1] + ", " + dangerColor[2] + ")",
+  ...dangerBoxShadow
 }
 const infoCardHeader = {
   background:
-    `linear-gradient(60deg, ${  infoColor[1]  }, ${  infoColor[2]  })`,
-  ...infoBoxShadow,
+    "linear-gradient(60deg, " + infoColor[1] + ", " + infoColor[2] + ")",
+  ...infoBoxShadow
 }
 const primaryCardHeader = {
   background:
-    `linear-gradient(60deg, ${  primaryColor[1]  }, ${  primaryColor[2]  })`,
-  ...primaryBoxShadow,
+    "linear-gradient(60deg, " + primaryColor[1] + ", " + primaryColor[2] + ")",
+  ...primaryBoxShadow
 }
 const roseCardHeader = {
   background:
-    `linear-gradient(60deg, ${  roseColor[1]  }, ${  roseColor[2]  })`,
-  ...roseBoxShadow,
+    "linear-gradient(60deg, " + roseColor[1] + ", " + roseColor[2] + ")",
+  ...roseBoxShadow
 }
 
 const card = {
@@ -271,39 +271,39 @@ const card = {
   position: "relative",
   width: "100%",
   margin: "25px 0",
-  boxShadow: `0 1px 4px 0 rgba(${  hexToRgb(blackColor)  }, 0.14)`,
+  boxShadow: "0 1px 4px 0 rgba(" + hexToRgb(blackColor) + ", 0.14)",
   borderRadius: "6px",
-  color: `rgba(${  hexToRgb(blackColor)  }, 0.87)`,
-  background: whiteColor,
+  color: "rgba(" + hexToRgb(blackColor) + ", 0.87)",
+  background: whiteColor
 }
 
 const cardActions = {
   margin: "0 20px 10px",
   paddingTop: "10px",
-  borderTop: `1px solid ${  grayColor[8]}`,
+  borderTop: "1px solid " + grayColor[8],
   height: "auto",
-  ...defaultFont,
+  ...defaultFont
 }
 
 const cardHeader = {
   margin: "-20px 15px 0",
   borderRadius: "3px",
-  padding: "15px",
+  padding: "15px"
 }
 
 const defaultBoxShadow = {
   border: "0",
   borderRadius: "3px",
   boxShadow:
-    `0 10px 20px -12px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.42), 0 3px 20px 0px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.12), 0 8px 10px -5px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.2)`,
+    "0 10px 20px -12px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.42), 0 3px 20px 0px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.12), 0 8px 10px -5px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.2)",
   padding: "10px 0",
-  transition: "all 150ms ease 0s",
+  transition: "all 150ms ease 0s"
 }
 
 const tooltip = {
@@ -311,18 +311,18 @@ const tooltip = {
   minWidth: "130px",
   color: whiteColor,
   lineHeight: "1.7em",
-  background: `rgba(${  hexToRgb(grayColor[6])  },0.9)`,
+  background: "rgba(" + hexToRgb(grayColor[6]) + ",0.9)",
   border: "none",
   borderRadius: "3px",
   opacity: "1!important",
   boxShadow:
-    `0 8px 10px 1px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.14), 0 3px 14px 2px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.12), 0 5px 5px -3px rgba(${ 
-      hexToRgb(blackColor) 
-    }, 0.2)`,
+    "0 8px 10px 1px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.14), 0 3px 14px 2px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.12), 0 5px 5px -3px rgba(" +
+    hexToRgb(blackColor) +
+    ", 0.2)",
   maxWidth: "200px",
   textAlign: "center",
   fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
@@ -336,7 +336,7 @@ const tooltip = {
   wordSpacing: "normal",
   wordWrap: "normal",
   whiteSpace: "normal",
-  lineBreak: "auto",
+  lineBreak: "auto"
 }
 
 const title = {
@@ -351,8 +351,8 @@ const title = {
     color: grayColor[1],
     fontSize: "65%",
     fontWeight: "400",
-    lineHeight: "1",
-  },
+    lineHeight: "1"
+  }
 }
 
 const cardTitle = {
@@ -364,18 +364,18 @@ const cardTitle = {
     ...title,
     marginTop: ".625rem",
     marginBottom: "0.75rem",
-    minHeight: "auto",
-  },
+    minHeight: "auto"
+  }
 }
 
 const cardSubtitle = {
-  marginTop: "-.375rem",
+  marginTop: "-.375rem"
 }
 
 const cardLink = {
   "& + $cardLink": {
-    marginLeft: "1.25rem",
-  },
+    marginLeft: "1.25rem"
+  }
 }
 
 export {
@@ -427,5 +427,5 @@ export {
   title,
   cardTitle,
   cardSubtitle,
-  cardLink,
+  cardLink
 }

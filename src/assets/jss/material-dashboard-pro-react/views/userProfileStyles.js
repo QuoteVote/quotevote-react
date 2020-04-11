@@ -1,7 +1,7 @@
 import {
   cardTitle,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const userProfileStyles = {
   cardTitle,
@@ -25,5 +25,5 @@ const userProfileStyles = {
   updateProfileButton: {
     float: "right"
   }
-};
-export default userProfileStyles;
+}
+export default userProfileStyles

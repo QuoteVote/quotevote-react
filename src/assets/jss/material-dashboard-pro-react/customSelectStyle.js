@@ -5,7 +5,7 @@ import {
   blackColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const customSelectStyle = {
   select: {
@@ -132,6 +132,6 @@ const customSelectStyle = {
     backgroundColor: "transparent",
     maxHeight: "266px"
   }
-};
+}
 
-export default customSelectStyle;
+export default customSelectStyle

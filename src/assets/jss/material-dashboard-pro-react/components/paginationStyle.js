@@ -7,7 +7,7 @@ import {
   dangerColor,
   whiteColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const paginationStyle = {
   pagination: {
@@ -156,6 +156,6 @@ const paginationStyle = {
       borderColor: grayColor[5]
     }
   }
-};
+}
 
-export default paginationStyle;
+export default paginationStyle

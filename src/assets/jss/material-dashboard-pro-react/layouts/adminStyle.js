@@ -3,7 +3,7 @@ import {
   drawerMiniWidth,
   transition,
   containerFluid
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const appStyle = theme => ({
   wrapper: {
@@ -47,6 +47,7 @@ const appStyle = theme => ({
     overflowScrolling: "touch"
   },
   content: {
+    marginTop: "70px",
     padding: "30px 15px",
     minHeight: "calc(100vh - 123px)"
   },
@@ -62,6 +63,6 @@ const appStyle = theme => ({
   mainPanelWithPerfectScrollbar: {
     overflow: "hidden !important"
   }
-});
+})
 
-export default appStyle;
+export default appStyle

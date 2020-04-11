@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import GridContainer from "components/Grid/GridContainer.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
 import React from "react";
 import styles from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.js";
 import SweetAlert from "react-bootstrap-sweetalert";

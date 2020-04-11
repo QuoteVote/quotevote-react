@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { CircularProgress } from "@material-ui/core"
-import Card from "material-ui/components/Card/Card"
-import CardHeader from "material-ui/components/Card/CardHeader"
-import CardBody from "material-ui/components/Card/CardBody"
+import Card from "mui-pro/Card/Card"
+import CardHeader from "mui-pro/Card/CardHeader"
+import CardBody from "mui-pro/Card/CardBody"
 
 export default function SearchResultsView({ searchResults, isLoading, isError }) {
   const classes = sty()
@@ -16,7 +16,7 @@ export default function SearchResultsView({ searchResults, isLoading, isError })
   if (isError) {
     return (
       <Card className={classes.progress}>
-        An error has occured.
+        An error has occured.c
       </Card>
     )
   }

@@ -16,7 +16,7 @@ import {
   blackColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const customDropdownStyle = theme => ({
   popperClose: {
@@ -228,6 +228,6 @@ const customDropdownStyle = theme => ({
   noLiPadding: {
     padding: "0"
   }
-});
+})
 
-export default customDropdownStyle;
+export default customDropdownStyle

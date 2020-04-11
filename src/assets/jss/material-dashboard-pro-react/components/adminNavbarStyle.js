@@ -9,7 +9,7 @@ import {
   dangerColor,
   whiteColor,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const headerStyle = () => ({
   appBar: {
@@ -89,6 +89,6 @@ const headerStyle = () => ({
     width: "20px",
     height: "17px"
   }
-});
+})
 
-export default headerStyle;
+export default headerStyle

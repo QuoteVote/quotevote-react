@@ -7,16 +7,16 @@ import InputLabel from "@material-ui/core/InputLabel";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 
 // core components
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Clearfix from "components/Clearfix/Clearfix.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardIcon from "components/Card/CardIcon.js";
-import CardAvatar from "components/Card/CardAvatar.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
+import Button from "mui-pro/CustomButtons/Button.js";
+import CustomInput from "mui-pro/CustomInput/CustomInput.js";
+import Clearfix from "mui-pro/Clearfix/Clearfix.js";
+import Card from "mui-pro/Card/Card.js";
+import CardBody from "mui-pro/Card/CardBody.js";
+import CardHeader from "mui-pro/Card/CardHeader.js";
+import CardIcon from "mui-pro/Card/CardIcon.js";
+import CardAvatar from "mui-pro/Card/CardAvatar.js";
 
 import styles from "assets/jss/material-dashboard-pro-react/views/userProfileStyles.js";
 

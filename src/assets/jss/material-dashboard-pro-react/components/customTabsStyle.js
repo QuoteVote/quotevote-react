@@ -1,7 +1,7 @@
 import {
   whiteColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const customTabsStyle = {
   cardTitle: {
@@ -66,6 +66,6 @@ const customTabsStyle = {
       margin: "-1px 5px 0 0 !important"
     }
   }
-};
+}
 
-export default customTabsStyle;
+export default customTabsStyle

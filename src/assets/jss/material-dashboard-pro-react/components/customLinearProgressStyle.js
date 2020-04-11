@@ -7,7 +7,7 @@ import {
   roseColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const customLinearProgressStyle = {
   root: {
@@ -60,6 +60,6 @@ const customLinearProgressStyle = {
   grayBackground: {
     background: "rgba(" + hexToRgb(grayColor[5]) + ", 0.2)"
   }
-};
+}
 
-export default customLinearProgressStyle;
+export default customLinearProgressStyle

@@ -1,36 +1,36 @@
 // import { getThemeProps } from '@material-ui/styles';
-// import Accordion from "components/Accordion/Accordion.js";
-// import Badge from "components/Badge/Badge.js";
+// import Accordion from "mui-pro/Accordion/Accordion.js";
+// import Badge from "mui-pro/Badge/Badge.js";
 // import Box from '@material-ui/core/Box';
-// import Button from "components/CustomButtons/Button.js"
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
-import CardHeader from "components/Card/CardHeader.js";
-import Divider from "@material-ui/core/Divider";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
+// import Button from "mui-pro/CustomButtons/Button.js"
+import Card from "mui-pro/Card/Card.js"
+import CardBody from "mui-pro/Card/CardBody.js"
+import CardFooter from "mui-pro/Card/CardFooter.js"
+import CardHeader from "mui-pro/Card/CardHeader.js"
+import Divider from "@material-ui/core/Divider"
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
 
-// import NavPills from "components/NavPills/NavPills.js";
-import VotingBoard from "hhsbComponents/VotingComponents/VotingBoard.js";
-import VotingPopup from "hhsbComponents/VotingComponents/VotingPopup.js";
-import React, { useState } from "react";
+// import NavPills from "mui-pro/NavPills/NavPills.js";
+import VotingBoard from "hhsbComponents/VotingComponents/VotingBoard.js"
+import VotingPopup from "hhsbComponents/VotingComponents/VotingPopup.js"
+import React, { useState } from "react"
 
 // import Content from "../hhsbComponents/ContentList.js";
-import Chat from "../hhsbAssets/Chat.svg";
-import Heart from "../hhsbAssets/Heart.svg";
-import Send from "../hhsbAssets/Send.svg";
+import Chat from "../hhsbAssets/Chat.svg"
+import Heart from "../hhsbAssets/Heart.svg"
+import Send from "../hhsbAssets/Send.svg"
 
 // import styles from "assets/jss/material-dashboard-pro-react/views/dashboardStyle.js";
 
-import FaceIcon from "@material-ui/icons/Face";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import moment from "moment";
+import FaceIcon from "@material-ui/icons/Face"
+import { useQuery, useMutation } from "@apollo/react-hooks"
+import gql from "graphql-tag"
+import moment from "moment"
 
-import ContentDisplaySkeleton from "hhsbviews/Skeletons/ContentDisplaySkeleton";
-import { useSelector } from "react-redux";
-import { cloneDeep } from "lodash";
+import ContentDisplaySkeleton from "hhsbviews/Skeletons/ContentDisplaySkeleton"
+import { useSelector } from "react-redux"
+import { cloneDeep } from "lodash"
 
 const GET_CONTENT = gql`
   query content($contentId: String!, $key: String!) {
@@ -77,7 +77,7 @@ const GET_CONTENT = gql`
       messageType
     }
   }
-`;
+`
 
 const VOTE = gql`
   mutation addVote($vote: VoteInput!) {
@@ -89,7 +89,7 @@ const VOTE = gql`
       endWordIndex
     }
   }
-`;
+`
 
 const ADD_COMMENT = gql`
   mutation addComment($comment: CommentInput!) {
@@ -97,62 +97,62 @@ const ADD_COMMENT = gql`
       _id
     }
   }
-`;
+`
 
 const ContentDisplay = () => {
   // temporary variables
-  const contentId = "5bdc0d928b8fc22ce6da1f30";
-  const domain = "5b8bb075fa6366464c549322";
+  const contentId = "5bdc0d928b8fc22ce6da1f30"
+  const domain = "5b8bb075fa6366464c549322"
 
-  const [selectedText, setSelectedText] = useState("");
-  const { user } = useSelector(state => state.loginReducer);
+  const [selectedText, setSelectedText] = useState("")
+  const { user } = useSelector((state) => state.loginReducer)
   const [addVote] = useMutation(VOTE, {
     update(
       cache,
       {
-        data: { addVote }
+        data: { addVote },
       }
     ) {
       const data = cache.readQuery({
         query: GET_CONTENT,
-        variables: { contentId, key: domain }
-      });
+        variables: { contentId, key: domain },
+      })
 
-      const clonedContent = cloneDeep(data);
+      const clonedContent = cloneDeep(data)
 
       if (addVote.type === "upvote") {
-        let { upvotes } = clonedContent.content.scoreDetails;
-        clonedContent.content.scoreDetails.upvotes = upvotes + 1;
+        let { upvotes } = clonedContent.content.scoreDetails
+        clonedContent.content.scoreDetails.upvotes = upvotes + 1
       } else {
-        const { downvotes } = clonedContent.content.scoreDetails;
-        clonedContent.content.scoreDetails.downvotes = downvotes + 1;
+        const { downvotes } = clonedContent.content.scoreDetails
+        clonedContent.content.scoreDetails.downvotes = downvotes + 1
       }
 
       cache.writeQuery({
         query: GET_CONTENT,
         variables: { contentId, key: domain },
-        data: { ...clonedContent }
-      });
-    }
-  });
+        data: { ...clonedContent },
+      })
+    },
+  })
 
   const [addComment] = useMutation(ADD_COMMENT, {
     refetchQueries: [
       {
         query: GET_CONTENT,
-        variables: { contentId, key: domain }
-      }
-    ]
-  });
+        variables: { contentId, key: domain },
+      },
+    ],
+  })
   // const classes = useStyles();
 
   const { loading, error, data } = useQuery(GET_CONTENT, {
-    variables: { contentId, key: domain }
-  });
+    variables: { contentId, key: domain },
+  })
 
-  if (loading) return <ContentDisplaySkeleton />;
+  if (loading) return <ContentDisplaySkeleton />
 
-  const { content } = data;
+  const { content } = data
 
   // let data2 = {
   //   title: "a test title",
@@ -172,26 +172,26 @@ const ContentDisplay = () => {
       contentId,
       creatorId: content.creatorId,
       userId: user._id,
-      text: selectedText.text
-    };
+      text: selectedText.text,
+    }
 
-    addVote({ variables: { vote } });
-  };
+    addVote({ variables: { vote } })
+  }
 
   const handleAddComment = (comment, commentWithQuote = false) => {
-    let startIndex, endIndex, quoteText;
+    let startIndex, endIndex, quoteText
 
     const HASHTAGS_REGEX = /#(\w|\d)+/g
-    const hashtags = comment.match(HASHTAGS_REGEX);
+    const hashtags = comment.match(HASHTAGS_REGEX)
 
     if (selectedText) {
-      startIndex = selectedText.startIndex;
-      endIndex = selectedText.endIndex;
-      quoteText = selectedText.text;
+      startIndex = selectedText.startIndex
+      endIndex = selectedText.endIndex
+      quoteText = selectedText.text
     } else {
-      startIndex = 0;
-      endIndex = 0;
-      quoteText = "";
+      startIndex = 0
+      endIndex = 0
+      quoteText = ""
     }
 
     // TODO: ommit quote props if user did not highlight text
@@ -203,11 +203,11 @@ const ContentDisplay = () => {
       startWordIndex: startIndex,
       endWordIndex: endIndex,
       hashtags,
-      quote: commentWithQuote ? quoteText : ""
-    };
+      quote: commentWithQuote ? quoteText : "",
+    }
 
-    addComment({ variables: { comment: newComment } });
-  };
+    addComment({ variables: { comment: newComment } })
+  }
 
   return (
     <div>
@@ -220,7 +220,7 @@ const ContentDisplay = () => {
                   display: "flex",
                   direction: "row",
                   justifyContent: "space-between",
-                  zIndex: 0
+                  zIndex: 0,
                 }}
               >
                 <div
@@ -228,7 +228,7 @@ const ContentDisplay = () => {
                     display: "flex",
                     direction: "row",
                     alignContent: "center",
-                    justifyContent: "space-between"
+                    justifyContent: "space-between",
                   }}
                 >
                   <p
@@ -236,7 +236,7 @@ const ContentDisplay = () => {
                       color: "#E91E63",
                       fontSize: "25px",
                       font: "League Spartan",
-                      fontWeight: "bold"
+                      fontWeight: "bold",
                     }}
                   >
                     {content.title}
@@ -251,7 +251,7 @@ const ContentDisplay = () => {
                     display: "flex",
                     direction: "row",
                     justifyContent: "flex-end",
-                    flexBasis: "100px"
+                    flexBasis: "100px",
                   }}
                 >
                   <p>
@@ -265,7 +265,7 @@ const ContentDisplay = () => {
                     style={{
                       height: "15px",
                       paddingLeft: "15px",
-                      paddingTop: "3px"
+                      paddingTop: "3px",
                     }}
                   />
                   <img
@@ -273,7 +273,7 @@ const ContentDisplay = () => {
                     style={{
                       height: "15px",
                       paddingLeft: "15px",
-                      paddingTop: "3px"
+                      paddingTop: "3px",
                     }}
                   />
                 </div>
@@ -305,7 +305,7 @@ const ContentDisplay = () => {
                 style={{
                   display: "flex",
                   direction: "row",
-                  justifyContent: "space-between"
+                  justifyContent: "space-between",
                 }}
               >
                 <p
@@ -313,7 +313,7 @@ const ContentDisplay = () => {
                     color: "#E91E63",
                     fontSize: "25px",
                     font: "League Spartan",
-                    fontWeight: "bold"
+                    fontWeight: "bold",
                   }}
                 >
                   Comments
@@ -324,41 +324,39 @@ const ContentDisplay = () => {
           </Card>
           {content.comments
             .sort((a, b) => moment(b.created).diff(moment(a.created)))
-            .map((comment, index) => {
-              return (
-                <Card key={`comment-${index}`}>
-                  <CardBody>
-                    <p style={{ fontSize: 12 }}>
-                      <span
-                        style={{
-                          height: 60,
-                          width: 60,
-                          backgroundColor: "#df2769",
-                          float: "left",
-                          margin: "0px 10px 10px 0px",
-                          textAlign: "center",
-                          borderRadius: 3,
-                          paddingTop: 17
-                        }}
-                      >
-                        <FaceIcon />
-                      </span>
-                      <h5 style={{ margin: 0 }}>username</h5>
-                      {comment.text}
-                    </p>
-                  </CardBody>
-                  <CardFooter chart testimonial>
-                    <span style={{ float: "right" }}>
-                      {moment(comment.created).format("MM/DD/YYYY hh:mm A")}
+            .map((comment, index) => (
+              <Card key={`comment-${index}`}>
+                <CardBody>
+                  <p style={{ fontSize: 12 }}>
+                    <span
+                      style={{
+                        height: 60,
+                        width: 60,
+                        backgroundColor: "#df2769",
+                        float: "left",
+                        margin: "0px 10px 10px 0px",
+                        textAlign: "center",
+                        borderRadius: 3,
+                        paddingTop: 17,
+                      }}
+                    >
+                      <FaceIcon />
                     </span>
-                  </CardFooter>
-                </Card>
-              );
-          })}
+                    <h5 style={{ margin: 0 }}>username</h5>
+                    {comment.text}
+                  </p>
+                </CardBody>
+                <CardFooter chart testimonial>
+                  <span style={{ float: "right" }}>
+                    {moment(comment.created).format("MM/DD/YYYY hh:mm A")}
+                  </span>
+                </CardFooter>
+              </Card>
+            ))}
         </GridItem>
       </GridContainer>
     </div>
-  );
-};
+  )
+}
 
-export default ContentDisplay;
+export default ContentDisplay

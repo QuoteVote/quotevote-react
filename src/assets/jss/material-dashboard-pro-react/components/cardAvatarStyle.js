@@ -1,7 +1,7 @@
 import {
   blackColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const cardAvatarStyle = {
   cardAvatar: {
@@ -53,6 +53,6 @@ const cardAvatarStyle = {
     marginBottom: "-50px",
     marginTop: "10px"
   }
-};
+}
 
-export default cardAvatarStyle;
+export default cardAvatarStyle

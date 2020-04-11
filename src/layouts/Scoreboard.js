@@ -6,16 +6,16 @@ import React from "react"
 import PerfectScrollbar from "perfect-scrollbar"
 import "perfect-scrollbar/css/perfect-scrollbar.css"
 
-// import GridContainer from "components/Grid/GridContainer.js";
-// import GridItem from "components/Grid/GridItem.js";
+// import GridContainer from "mui-pro/Grid/GridContainer.js";
+// import GridItem from "mui-pro/Grid/GridItem.js";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles"
 
 // core components
-// import AdminNavbar from "components/Navbars/AdminNavbar.js";
-// import Footer from "components/Footer/Footer.js";
+// import AdminNavbar from "mui-pro/Navbars/AdminNavbar.js";
+// import Footer from "mui-pro/Footer/Footer.js";
 import Sidebar from "hhsbComponents/hhsbSidebar.js"
-// import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
+// import FixedPlugin from "mui-pro/FixedPlugin/FixedPlugin.js";
 
 import hhsbRoutes from "hhsbroutes.js"
 

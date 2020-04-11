@@ -8,9 +8,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 
 // core components
-import CustomInput from "components/CustomInput/CustomInput.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
+import CustomInput from "mui-pro/CustomInput/CustomInput.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
 
 import customSelectStyle from "assets/jss/material-dashboard-pro-react/customSelectStyle.js";
 

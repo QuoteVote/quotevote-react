@@ -7,7 +7,7 @@ import {
   roseColor,
   grayColor,
   cardTitle
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const chartsStyle = {
   cardTitle,
@@ -49,6 +49,6 @@ const chartsStyle = {
   cardFooter: {
     display: "block"
   }
-};
+}
 
-export default chartsStyle;
+export default chartsStyle

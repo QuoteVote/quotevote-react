@@ -5,7 +5,7 @@ import {
   primaryColor,
   whiteColor,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const footerStyle = {
   block: {},
@@ -56,5 +56,5 @@ const footerStyle = {
       color: whiteColor
     }
   }
-};
-export default footerStyle;
+}
+export default footerStyle

@@ -4,11 +4,11 @@ import React from "react";
 import { VectorMap } from "react-jvectormap";
 
 // core components
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Heading from "components/Heading/Heading.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
+import Heading from "mui-pro/Heading/Heading.js";
+import Card from "mui-pro/Card/Card.js";
+import CardBody from "mui-pro/Card/CardBody.js";
 
 var mapData = {
   AU: 760,

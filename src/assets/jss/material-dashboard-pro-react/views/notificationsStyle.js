@@ -1,8 +1,8 @@
 import {
   defaultFont,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
-import modalStyle from "assets/jss/material-dashboard-pro-react/modalStyle.js";
+} from "assets/jss/material-dashboard-pro-react.js"
+import modalStyle from "assets/jss/material-dashboard-pro-react/modalStyle.js"
 
 const notificationsStyle = theme => ({
   cardTitle: {
@@ -36,6 +36,6 @@ const notificationsStyle = theme => ({
     marginTop: "30px"
   },
   ...modalStyle(theme)
-});
+})
 
-export default notificationsStyle;
+export default notificationsStyle
