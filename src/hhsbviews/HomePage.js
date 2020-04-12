@@ -1,7 +1,13 @@
 import React from 'react'
 
+import Slider from '@material-ui/core/Slider';
+import { getThemeProps } from '@material-ui/styles'
+import SearchIcon from '@material-ui/icons/Search'
+import Slider from '@material-ui/core/Slider'
+import CalendarTodayTwoToneIcon from '@material-ui/icons/CalendarTodayTwoTone'
+import Box from '@material-ui/core/Box'
+
 import GridContainer from "mui-pro/Grid/GridContainer.js"
-import Content from "../hhsbComponents/ContentList.js"
 import GridItem from "mui-pro/Grid/GridItem.js"
 import NavPills from "mui-pro/NavPills/NavPills.js"
 import Accordion from "mui-pro/Accordion/Accordion.js"
@@ -10,19 +16,25 @@ import CardBody from "mui-pro/Card/CardBody.js"
 import CardHeader from "mui-pro/Card/CardHeader.js"
 import CustomInput from "mui-pro/CustomInput/CustomInput.js"
 import Button from "mui-pro/CustomButtons/Button.js"
-import { getThemeProps } from '@material-ui/styles'
 import Badge from "mui-pro/Badge/Badge.js"
-import CustomizedInputBase from 'hhsbComponents/searchBar.js'
 import Pagination from "material-ui-flat-pagination"
-import SearchIcon from '@material-ui/icons/Search'
-import Slider from '@material-ui/core/Slider'
-import CalendarTodayTwoToneIcon from '@material-ui/icons/CalendarTodayTwoTone'
 import Calendar from 'hhsbAssets/Calendar.svg'
 import Filter from 'hhsbAssets/Filter.svg'
 import Emoji from 'hhsbAssets/FollowingEmoji.svg'
+
 import SnackbarContent from "mui-pro/Snackbar/SnackbarContent.js"
+import Pagination from "material-ui-flat-pagination";
+
+import CustomizedInputBase from 'hhsbComponents/searchBar.js'
 import AlertList from  'hhsbComponents/AlertList.js'
-import Box from '@material-ui/core/Box'
+import CustomizedInputBase from 'hhsbComponents/searchBar.js'
+import AlertList from  'hhsbComponents/AlertList.js'
+import Content from "../hhsbComponents/ContentList.js"
+
+import Calendar from 'hhsbAssets/Calendar.svg'
+import Filter from 'hhsbAssets/Filter.svg'
+import Emoji from 'hhsbAssets/FollowingEmoji.svg'
+
 export default function HomePage() {
   let NotificationData=
    [{AlertTitle:'Quoted',color:'#00CAE3', AlertBody:'There’s no time like the present, so present your time as if it only one in the world”',time:'Today @ 10pm',points:'+100W'},{AlertTitle:'Upvoted',color:'#55B559', AlertBody:'',time:'',points:''},

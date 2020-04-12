@@ -10,24 +10,19 @@ import CardBody from "mui-pro/Card/CardBody.js"
 import Button from "mui-pro/CustomButtons/Button.js"
 import { getThemeProps } from '@material-ui/styles'
 import Badge from "mui-pro/Badge/Badge.js"
+
 import CustomAccordion from  "./customExpansionPanel.js"
-const Content=(props)=> (
+
+const Content = ({ MessageData }) => (
   <GridContainer>
     <GridItem
       direction="row"
       justify="center"
       alignItems="center"
     >
-        
-      <CustomAccordion active={0}  collapses={props.MessageData} />
-        
-    </GridItem>
-
-          
-          
+      <CustomAccordion active={0}  collapses={MessageData} />
+    </GridItem>    
   </GridContainer> 
+)
 
-
-
-)    
 export default Content

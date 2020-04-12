@@ -6,17 +6,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import SvgIcon from '@material-ui/core/SvgIcon';
 // @material-ui/icons
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import AddLocationIcon from '@material-ui/icons/AddLocation';
 import styles from "assets/jss/material-dashboard-pro-react/components/accordionStyle.js";
 import Chat from '../hhsbAssets/Chat.svg'
 import Heart from '../hhsbAssets/Heart.svg'
 import Send from '../hhsbAssets/Send.svg'
+
 import GridContainer from "mui-pro/Grid/GridContainer.js";
 import GridItem from "mui-pro/Grid/GridItem.js";
+
 const useStyles = makeStyles(styles);
 
 export default function CustomAccordion(props) {

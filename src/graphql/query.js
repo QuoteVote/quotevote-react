@@ -14,3 +14,20 @@ query domains($limit: Int!) {
   }
 }
 `
+export const USER_INVITE_REQUESTS = gql`
+    query userInviteRequests {
+      userInviteRequests {
+        email
+        status
+        _id
+      }
+    }
+
+
+`
+
+export const UPDATE_USER_INVITE_STATUS = gql`
+  mutation sendUserInviteApproval($user_invite_id: String!, $action: String!) {
+    sendUserInviteApproval(user_invite_id: $user_invite_id, action: $action)
+  }
+`;

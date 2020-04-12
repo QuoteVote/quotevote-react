@@ -23,26 +23,24 @@ import Emoji from 'hhsbAssets/FollowingEmoji.svg'
 import SnackbarContent from "mui-pro/Snackbar/SnackbarContent.js"
 import AlertList from  'hhsbComponents/AlertList.js'
 import Box from '@material-ui/core/Box'
+
 export default function Profile() {
   let NotificationData=
    [{AlertTitle:'Quoted',color:'#00CAE3', AlertBody:'There’s no time like the present, so present your time as if it only one in the world”',time:'Today @ 10pm',points:'+100W'},{AlertTitle:'Upvoted',color:'#55B559', AlertBody:'',time:'',points:''},
      {AlertTitle:'Commented',color:'#FF9E0F', AlertBody:'',time:'',points:''},{AlertTitle:'Downvoted',color:'#FF1100', AlertBody:'',time:'',points:''},
      {AlertTitle:'Submitted',color:'#000000', AlertBody:'',time:'',points:''},{AlertTitle:'Heared',color:'#E91E63', AlertBody:'',time:'',points:''}]
+ 
   const handleClick=(x)=>{
-    console.log(x)
+    // console.log(x)
   }
 
   return(
-    <Card style={{display:"flex",flexBasis:"800px"}} >
-      
-          
+    <Card style={{display:"flex",flexBasis:"800px"}} >     
       <CardBody >
-        
         <GridContainer  
           direction="row"
           justify="center"
           alignItems="center"
-               
         >
           <GridContainer justify="center" wrap="nowrap"  direction="column"  style={{"width":"50%"}}>
             <GridContainer justify="center" wrap="nowrap"  direction="row" >
@@ -52,8 +50,7 @@ export default function Profile() {
               value={30}                  
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"                  
-            /> 
-                
+            />     
           </GridContainer>
           <br></br>
           <br></br> 
@@ -71,14 +68,7 @@ export default function Profile() {
               <img src={Filter} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px"}}/>
               <img src={Emoji} style={{display:"flex",maxHeight:"40px",paddingLeft:"15px",paddingRight:"15px"}}/> 
             </div>
-                      
-                 
-                
-
-                 
-            
-          </GridContainer> 
-                
+          </GridContainer>                
         </GridContainer>
         <br></br>
         <br></br>
@@ -91,9 +81,5 @@ export default function Profile() {
         onClick={(e, offset) => this.handleClick(offset)}
       />
     </Card>
-
-
   )
-
-
 }    
