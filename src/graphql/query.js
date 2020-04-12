@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from "graphql-tag"
 
 export const DOMAIN_QUERY = gql`
 query domains($limit: Int!) {
@@ -14,20 +14,81 @@ query domains($limit: Int!) {
   }
 }
 `
+
 export const USER_INVITE_REQUESTS = gql`
-    query userInviteRequests {
-      userInviteRequests {
-        email
-        status
+  query userInviteRequests {
+    userInviteRequests {
+      email
+      status
+      _id
+    }
+  }
+`
+export const GET_CONTENT = gql`
+  query content($contentId: String!, $key: String!) {
+    content(contentId: $contentId) {
+      creatorId
+      _id
+      title
+      text
+      thumbnail
+      created
+      creator {
+        name
+        profileImageUrl
+        scoreDetails {
+          upvotes
+          downvotes
+          total
+        }
+      }
+      scoreDetails {
+        upvotes
+        downvotes
+        total
+      }
+      comments {
+        _id
+        userId
+        text
+        hashtags
+        created
+        quote
+      }
+    }
+    domain(key: $key) {
+      _id
+      allowedUserIds
+      pendingUserIds
+      adminIds
+      privacy
+    }
+    userContentChatRoom(contentId: $contentId) {
+      _id
+      users
+      messageType
+    }
+  }
+`
+
+export const SEARCH = gql`
+  query search($text: String!) {
+    searchContent(text: $text) {
+      _id
+      title
+      creatorId
+      domain {
+        key
         _id
       }
     }
-
-
-`
-
-export const UPDATE_USER_INVITE_STATUS = gql`
-  mutation sendUserInviteApproval($user_invite_id: String!, $action: String!) {
-    sendUserInviteApproval(user_invite_id: $user_invite_id, action: $action)
+    searchCreator(text: $text) {
+      _id
+      name
+      avatar
+      creator {
+        _id
+      }
+    }
   }
-`;
+`

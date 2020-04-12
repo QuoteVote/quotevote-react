@@ -1,22 +1,21 @@
-import React from 'react';
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Button from 'components/CustomButtons/Button.js';
-import Badge from 'components/Badge/Badge.js';
+import React from 'react'
+import { makeStyles } from "@material-ui/core/styles"
+import Paper from "@material-ui/core/Paper"
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Button from 'mui-pro/CustomButtons/Button.js'
+import Badge from 'mui-pro/Badge/Badge.js'
 
-import {useQuery} from '@apollo/react-hooks';
-import { USER_INVITE_REQUESTS, UPDATE_USER_INVITE_STATUS } from 'graphql/query';
-import { Mutation } from '@apollo/react-components';
-
-
+import {useQuery} from '@apollo/react-hooks'
+import { USER_INVITE_REQUESTS } from 'graphql/query'
+import { UPDATE_USER_INVITE_STATUS } from 'graphql/mutations'
+import { Mutation } from '@apollo/react-components'
 
 function Headers() {
   const useStyles = makeStyles({
@@ -27,40 +26,39 @@ function Headers() {
       lineHeight: '22px',
       /* identical to box height */
       letterSpacing: '0.2px',
-      color: '#E91E63'
+      color: '#E91E63',
     },
     divider: {
-        marginBottom: 10,
-        backgroundColor: '#ddd'
+      marginBottom: 10,
+      backgroundColor: '#ddd',
     },
     gridItem: {
       backgroundColor: 'white',
-    }
-  });
-  const classes = useStyles();
-    return (
-        <GridItem className={classes.gridItem} direction='row' justify='center' container backgroundColor="white"  elevation={3}> 
-            <h2 className={classes.h2}>User Invitation Requests</h2>
-        </GridItem>
-        
-    )
+    },
+  })
+  const classes = useStyles()
+  return (
+    <GridItem className={classes.gridItem} direction='row' justify='center' container backgroundColor="white"  elevation={3}> 
+      <h2 className={classes.h2}>User Invitation Requests</h2>
+    </GridItem>  
+  )
 }
 function Status({ status }) {
   switch(status) {
     case 'ACCEPT':
-    return (
-      <Badge color="success">
+      return (
+        <Badge color="success">
           Accepted
-      </Badge>
-    )
-    break
+        </Badge>
+      )
+      break
     case 'DECLINED':
-    return (
-      <Badge color="rose">
-        {status}
-      </Badge>
-    )
-    break
+      return (
+        <Badge color="rose">
+          {status}
+        </Badge>
+      )
+      break
     case 'RESEND':
       return (
         <Badge color='gray'>
@@ -68,11 +66,11 @@ function Status({ status }) {
         </Badge>
       )
     default:
-    return (
-      <Badge color="warning">
+      return (
+        <Badge color="warning">
         NEW
-      </Badge>
-    )
+        </Badge>
+      )
   }
 }
 
@@ -89,8 +87,8 @@ function ActionButton({status, id}) {
           <Button color='danger'>DECLINE</Button>
           <Mutation mutation={UPDATE_USER_INVITE_STATUS}>
             {(updateInviteStatus, { data }) => (
-                <Button color="success" onClick={(e) => updateInviteStatus({variables:{action: 'ACCEPT', user_invite_id: id}}) }>Accept</Button>
-              )}
+              <Button color="success" onClick={(e) => updateInviteStatus({variables:{action: 'ACCEPT', user_invite_id: id}}) }>Accept</Button>
+            )}
           </Mutation>
         </div>
       )
@@ -116,7 +114,7 @@ function InviteTable({ data }) {
 
     tableContainer: {
       // width: '48%',
-      marginTop: 20
+      marginTop: 20,
     },
     tableHead: {
       fontFamily: 'Roboto',
@@ -125,10 +123,10 @@ function InviteTable({ data }) {
       fontSize: '17px',
       lineHeight: '20px',
       /* identical to box height */
-      color: '#9C27B0'
-    }
+      color: '#9C27B0',
+    },
   })
-  const classes = useStyles();
+  const classes = useStyles()
   
 
   return (
@@ -159,13 +157,13 @@ function InviteTable({ data }) {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }
 
 export default function ManageInvites(props) {
-  const {data} = useQuery(USER_INVITE_REQUESTS);
-    //const {contents} = data
-    /* const handleAccept = (user) => {
+  const {data} = useQuery(USER_INVITE_REQUESTS)
+  //const {contents} = data
+  /* const handleAccept = (user) => {
       switch(user.status) {
         case 'RESEND':
           break
@@ -174,23 +172,23 @@ export default function ManageInvites(props) {
           console.log(update)
       } */
 
-    if(data) {
-      return (
-          <GridContainer> 
-            <Headers />
-            <InviteTable 
-              data={data}  
-            />
-          </GridContainer>
-      )
-    }
-    else {
-      return (
-        <GridContainer>
+  if(data) {
+    return (
+      <GridContainer> 
+        <Headers />
+        <InviteTable 
+          data={data}  
+        />
+      </GridContainer>
+    )
+  }
+  else {
+    return (
+      <GridContainer>
           loading
-        </GridContainer>
-      )
-    }
+      </GridContainer>
+    )
+  }
     
 
 }

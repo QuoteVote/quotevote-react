@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 // import { getThemeProps } from '@material-ui/styles';
 // import Accordion from "mui-pro/Accordion/Accordion.js";
 // import Badge from "mui-pro/Badge/Badge.js";
@@ -25,79 +26,14 @@ import Send from "../hhsbAssets/Send.svg"
 
 import FaceIcon from "@material-ui/icons/Face"
 import { useQuery, useMutation } from "@apollo/react-hooks"
-import gql from "graphql-tag"
 import moment from "moment"
 
 import ContentDisplaySkeleton from "hhsbviews/Skeletons/ContentDisplaySkeleton"
 import { useSelector } from "react-redux"
 import { cloneDeep } from "lodash"
 
-const GET_CONTENT = gql`
-  query content($contentId: String!, $key: String!) {
-    content(contentId: $contentId) {
-      creatorId
-      _id
-      title
-      text
-      thumbnail
-      created
-      creator {
-        name
-        profileImageUrl
-        scoreDetails {
-          upvotes
-          downvotes
-          total
-        }
-      }
-      scoreDetails {
-        upvotes
-        downvotes
-        total
-      }
-      comments {
-        _id
-        userId
-        text
-        hashtags
-        created
-        quote
-      }
-    }
-    domain(key: $key) {
-      _id
-      allowedUserIds
-      pendingUserIds
-      adminIds
-      privacy
-    }
-    userContentChatRoom(contentId: $contentId) {
-      _id
-      users
-      messageType
-    }
-  }
-`
-
-const VOTE = gql`
-  mutation addVote($vote: VoteInput!) {
-    addVote(vote: $vote) {
-      contentId
-      type
-      points
-      startWordIndex
-      endWordIndex
-    }
-  }
-`
-
-const ADD_COMMENT = gql`
-  mutation addComment($comment: CommentInput!) {
-    addComment(comment: $comment) {
-      _id
-    }
-  }
-`
+import { GET_CONTENT } from 'graphql/query'
+import { VOTE, ADD_COMMENT } from 'graphql/mutations'
 
 const ContentDisplay = () => {
   // temporary variables

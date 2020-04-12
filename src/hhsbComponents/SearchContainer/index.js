@@ -8,27 +8,8 @@ import Card from "mui-pro/Card/Card"
 import CardHeader from "mui-pro/Card/CardHeader"
 import { useQuery } from "@apollo/react-hooks"
 
-const SEARCH = gql`
-  query search($text: String!) {
-    searchContent(text: $text) {
-      _id
-      title
-      creatorId
-      domain {
-        key
-        _id
-      }
-    }
-    searchCreator(text: $text) {
-      _id
-      name
-      avatar
-      creator {
-        _id
-      }
-    }
-  }
-`
+import { SEARCH } from 'graphql/query'
+
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     zIndex: 10,
