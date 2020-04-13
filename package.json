@@ -19,7 +19,7 @@
     "axios": "^0.19.2",
     "chartist": "0.10.1",
     "clipboard-copy": "^3.1.0",
-    "firebase": "^7.10.0",
+    "firebase": "^7.14.0",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "history": "4.9.0",
@@ -90,8 +90,14 @@
     "@storybook/addons": "^3.4.2",
     "@storybook/react": "^4.0.0-alpha.24",
     "apollo-storybook-react": "^0.1.2",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.18.0"
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "install-peers": "^1.0.3"
   },
   "browserslist": {
     "production": [
