@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,15 +38,16 @@ export const GET_SEARCH_KEY = gql`
   }
 `
 
+CustomizedInputBase.propTypes = {
+  setOffset: PropTypes.func.isRequired,
+}
 
 export default function CustomizedInputBase({ setOffset }) {
   const classes = useStyles()
   const { data: { searchKey }, client } = useQuery(GET_SEARCH_KEY)
   const handleChange = (event) => {
     client.writeData({ data: { searchKey: event.target.value } })
-    if (typeof v === 'function') {
-      setOffset(0)
-    }
+    setOffset(0)
   }
 
   return (
