@@ -51,16 +51,15 @@ export default function HomePage() {
     variables: { limit, offset, searchKey },
   })
 
-  const { activities } = (data && data.activities) || []
+  const { activities } = (!loading && data.activities) || { activities: { activities: [], total: 0 } }
   React.useEffect(() => {
     if (activities) {
       setTotal(activities.total)
     }
   }, [activities])
 
-
-  const activitiesData = !loading && activities && activities.map(({ activity }) => {
-    const time = formatContentDate(activity.data.created)
+  const activitiesData = !loading && activities && activities.length && activities.map((activity) => {
+    const time = activity && formatContentDate(activity.data.created)
     switch (activity.event) {
       case 'VOTED':
         return {
@@ -107,7 +106,6 @@ export default function HomePage() {
           time,
           points: '',
         }
-
       default:
         break
     }
