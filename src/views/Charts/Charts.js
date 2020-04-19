@@ -10,15 +10,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Timeline from "@material-ui/icons/Timeline";
 
 // core components
-import Heading from "components/Heading/Heading.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
+import Heading from "mui-pro/Heading/Heading.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
 
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardIcon from "components/Card/CardIcon.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
+import Card from "mui-pro/Card/Card.js";
+import CardHeader from "mui-pro/Card/CardHeader.js";
+import CardIcon from "mui-pro/Card/CardIcon.js";
+import CardBody from "mui-pro/Card/CardBody.js";
+import CardFooter from "mui-pro/Card/CardFooter.js";
 
 import {
   roundedLineChart,

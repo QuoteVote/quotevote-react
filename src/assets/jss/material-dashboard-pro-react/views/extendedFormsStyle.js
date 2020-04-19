@@ -2,9 +2,9 @@ import {
   cardTitle,
   blackColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
-import customSelectStyle from "assets/jss/material-dashboard-pro-react/customSelectStyle.js";
-import customCheckboxRadioSwitch from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.js";
+} from "assets/jss/material-dashboard-pro-react.js"
+import customSelectStyle from "assets/jss/material-dashboard-pro-react/customSelectStyle.js"
+import customCheckboxRadioSwitch from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.js"
 
 const extendedFormsStyle = {
   ...customCheckboxRadioSwitch,
@@ -30,6 +30,6 @@ const extendedFormsStyle = {
   mlAuto: {
     marginLeft: "auto"
   }
-};
+}
 
-export default extendedFormsStyle;
+export default extendedFormsStyle

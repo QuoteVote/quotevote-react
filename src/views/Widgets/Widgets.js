@@ -10,19 +10,19 @@ import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
 import FormatQuote from "@material-ui/icons/FormatQuote";
 // core components
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Table from "components/Table/Table.js";
-import Button from "components/CustomButtons/Button.js";
-import Timeline from "components/Timeline/Timeline.js";
-import CustomTabs from "components/CustomTabs/CustomTabs.js";
-import Tasks from "components/Tasks/Tasks.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardAvatar from "components/Card/CardAvatar.js";
-import CardText from "components/Card/CardText.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
+import Table from "mui-pro/Table/Table.js";
+import Button from "mui-pro/CustomButtons/Button.js";
+import Timeline from "mui-pro/Timeline/Timeline.js";
+import CustomTabs from "mui-pro/CustomTabs/CustomTabs.js";
+import Tasks from "mui-pro/Tasks/Tasks.js";
+import Card from "mui-pro/Card/Card.js";
+import CardHeader from "mui-pro/Card/CardHeader.js";
+import CardAvatar from "mui-pro/Card/CardAvatar.js";
+import CardText from "mui-pro/Card/CardText.js";
+import CardBody from "mui-pro/Card/CardBody.js";
+import CardFooter from "mui-pro/Card/CardFooter.js";
 
 import { widgetStories, bugs, website, server } from "variables/general.js";
 

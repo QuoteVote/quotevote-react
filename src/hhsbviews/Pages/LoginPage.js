@@ -15,15 +15,15 @@ import Icon from "@material-ui/core/Icon"
 // @material-ui/icons
 import Face from "@material-ui/icons/Face"
 
-// core components
-import GridContainer from "components/Grid/GridContainer.js"
-import GridItem from "components/Grid/GridItem.js"
-import CustomInput from "components/CustomInput/CustomInput.js"
-import Button from "components/CustomButtons/Button.js"
-import Card from "components/Card/Card.js"
-import CardBody from "components/Card/CardBody.js"
-import CardHeader from "components/Card/CardHeader.js"
-import CardFooter from "components/Card/CardFooter.js"
+// core mui-pro
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
+import CustomInput from "mui-pro/CustomInput/CustomInput.js"
+import Button from "mui-pro/CustomButtons/Button.js"
+import Card from "mui-pro/Card/Card.js"
+import CardBody from "mui-pro/Card/CardBody.js"
+import CardHeader from "mui-pro/Card/CardHeader.js"
+import CardFooter from "mui-pro/Card/CardFooter.js"
 import Carousel from "react-material-ui-carousel"
 
 // login method

@@ -3,7 +3,7 @@ import {
   cardTitle,
   whiteColor,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const loginPageStyle = theme => ({
   container: {
@@ -46,6 +46,6 @@ const loginPageStyle = theme => ({
   socialLine: {
     padding: "0.9375rem 0"
   }
-});
+})
 
-export default loginPageStyle;
+export default loginPageStyle

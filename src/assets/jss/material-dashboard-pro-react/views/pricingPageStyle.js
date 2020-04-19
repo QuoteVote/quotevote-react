@@ -6,7 +6,7 @@ import {
   whiteColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const pricingPageStyle = theme => ({
   container: {
@@ -66,6 +66,6 @@ const pricingPageStyle = theme => ({
   marginTop30: {
     marginTop: "30px"
   }
-});
+})
 
-export default pricingPageStyle;
+export default pricingPageStyle

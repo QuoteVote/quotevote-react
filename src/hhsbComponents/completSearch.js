@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import GridContainer from "components/Grid/GridContainer.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
 import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";

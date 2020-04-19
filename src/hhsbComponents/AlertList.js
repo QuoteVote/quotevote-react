@@ -1,7 +1,8 @@
 import React from "react"
-import GridContainer from "components/Grid/GridContainer.js"
 import Alert from "./Alert.js"
 import Skeleton from "@material-ui/lab/Skeleton"
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
 
 function AlertSkeletonLoader({limit}) {
   const rows = Array.from(Array(limit).keys())
@@ -41,6 +42,8 @@ export default function AlertList({Data, loading, limit}) {
 
 
   )
+
+
 
 
 }

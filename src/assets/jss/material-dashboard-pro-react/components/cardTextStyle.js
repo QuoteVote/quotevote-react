@@ -6,7 +6,7 @@ import {
   primaryCardHeader,
   roseCardHeader,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const cardTextStyle = {
   cardText: {
@@ -24,6 +24,6 @@ const cardTextStyle = {
   infoCardHeader,
   primaryCardHeader,
   roseCardHeader
-};
+}
 
-export default cardTextStyle;
+export default cardTextStyle

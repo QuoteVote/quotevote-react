@@ -1,70 +1,70 @@
-import React from "react";
+import React from "react"
 
 //firebase
-import firebase from 'firebase';
+import firebase from 'firebase'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Icon from "@material-ui/core/Icon";
+import { makeStyles } from "@material-ui/core/styles"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import Checkbox from "@material-ui/core/Checkbox"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
+import Icon from "@material-ui/core/Icon"
 
 // @material-ui/icons
-import Timeline from "@material-ui/icons/Timeline";
-import Code from "@material-ui/icons/Code";
-import Group from "@material-ui/icons/Group";
-import Face from "@material-ui/icons/Face";
-import Email from "@material-ui/icons/Email";
+import Timeline from "@material-ui/icons/Timeline"
+import Code from "@material-ui/icons/Code"
+import Group from "@material-ui/icons/Group"
+import Face from "@material-ui/icons/Face"
+import Email from "@material-ui/icons/Email"
 // import LockOutline from "@material-ui/icons/LockOutline";
-import Check from "@material-ui/icons/Check";
+import Check from "@material-ui/icons/Check"
 
 // core components
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import InfoArea from "components/InfoArea/InfoArea.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
+import Button from "mui-pro/CustomButtons/Button.js"
+import CustomInput from "mui-pro/CustomInput/CustomInput.js"
+import InfoArea from "mui-pro/InfoArea/InfoArea.js"
+import Card from "mui-pro/Card/Card.js"
+import CardBody from "mui-pro/Card/CardBody.js"
 
-import styles from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
+import styles from "assets/jss/material-dashboard-pro-react/views/registerPageStyle"
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function RegisterPage() {
-  const [checked, setChecked] = React.useState([]);
+  const [checked, setChecked] = React.useState([])
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
-  const handleToggle = value => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  const handleToggle = (value) => {
+    const currentIndex = checked.indexOf(value)
+    const newChecked = [...checked]
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(value)
     } else {
-      newChecked.splice(currentIndex, 1);
+      newChecked.splice(currentIndex, 1)
     }
-    setChecked(newChecked);
-  };
-  const handleEmail = email => {
-    console.log('email changed', email);
+    setChecked(newChecked)
+  }
+  const handleEmail = (email) => {
+    console.log('email changed', email)
     setEmail(email)
   }
 
-  const handlePassword = password => {
-    console.log('password changed', password);
+  const handlePassword = (password) => {
+    console.log('password changed', password)
     setPassword(password)
   }
   const handleSubmit = () => {
-    console.log('submitting with ', email, password);
+    console.log('submitting with ', email, password)
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(user => {
-      console.log('created', user)
-    })
+      .then((user) => {
+        console.log('created', user)
+      })
   }
   
-  const classes = useStyles();
+  const classes = useStyles()
   console.log('email state is', email)
   return (
     <div className={classes.container}>
@@ -114,7 +114,7 @@ export default function RegisterPage() {
                     <CustomInput
                       formControlProps={{
                         fullWidth: true,
-                        className: classes.customFormControlClasses
+                        className: classes.customFormControlClasses,
                       }}
                       inputProps={{
                         startAdornment: (
@@ -125,13 +125,13 @@ export default function RegisterPage() {
                             <Face className={classes.inputAdornmentIcon} />
                           </InputAdornment>
                         ),
-                        placeholder: "First Name..."
+                        placeholder: "First Name...",
                       }}
                     />
                     <CustomInput
                       formControlProps={{
                         fullWidth: true,
-                        className: classes.customFormControlClasses
+                        className: classes.customFormControlClasses,
                       }}
                       inputProps={{
                         startAdornment: (
@@ -143,13 +143,13 @@ export default function RegisterPage() {
                           </InputAdornment>
                         ),
                         placeholder: "Email...",
-                        onChange: e => handleEmail(e.target.value)
+                        onChange: (e) => handleEmail(e.target.value),
                       }}
                     />
                     <CustomInput
                       formControlProps={{
                         fullWidth: true,
-                        className: classes.customFormControlClasses
+                        className: classes.customFormControlClasses,
                       }}
                       inputProps={{
                         startAdornment: (
@@ -163,13 +163,13 @@ export default function RegisterPage() {
                           </InputAdornment>
                         ),
                         placeholder: "Password...",
-                        onChange: e => handlePassword(e.target.value),
+                        onChange: (e) => handlePassword(e.target.value),
                       }}
                     />
                     <FormControlLabel
                       classes={{
                         root: classes.checkboxLabelControl,
-                        label: classes.checkboxLabel
+                        label: classes.checkboxLabel,
                       }}
                       control={
                         <Checkbox
@@ -181,7 +181,7 @@ export default function RegisterPage() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
                       }
@@ -205,5 +205,5 @@ export default function RegisterPage() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }

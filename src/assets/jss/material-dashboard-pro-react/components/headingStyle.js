@@ -1,4 +1,4 @@
-import { grayColor } from "assets/jss/material-dashboard-pro-react.js";
+import { grayColor } from "assets/jss/material-dashboard-pro-react.js"
 
 const headingStyle = {
   heading: {
@@ -21,6 +21,6 @@ const headingStyle = {
   category: {
     margin: "0 0 10px"
   }
-};
+}
 
-export default headingStyle;
+export default headingStyle

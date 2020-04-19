@@ -4,12 +4,12 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 // core components
-import Button from "components/CustomButtons/Button.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
-import CardAvatar from "components/Card/CardAvatar.js";
-import CardFooter from "components/Card/CardFooter.js";
+import Button from "mui-pro/CustomButtons/Button.js";
+import CustomInput from "mui-pro/CustomInput/CustomInput.js";
+import Card from "mui-pro/Card/Card.js";
+import CardBody from "mui-pro/Card/CardBody.js";
+import CardAvatar from "mui-pro/Card/CardAvatar.js";
+import CardFooter from "mui-pro/Card/CardFooter.js";
 
 import avatar from "assets/img/faces/avatar.jpg";
 

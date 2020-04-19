@@ -8,7 +8,7 @@ import {
   blackColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 const timelineStyle = theme => ({
   timeline: {
     [theme.breakpoints.down("sm")]: {
@@ -212,6 +212,6 @@ const timelineStyle = theme => ({
     marginTop: "10px",
     marginBottom: "5px"
   }
-});
+})
 
-export default timelineStyle;
+export default timelineStyle

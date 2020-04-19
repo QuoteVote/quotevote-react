@@ -14,7 +14,7 @@ import {
   grayColor,
   blackColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const pagesHeaderStyle = theme => ({
   appBar: {
@@ -190,6 +190,6 @@ const pagesHeaderStyle = theme => ({
     },
     top: "-2px"
   }
-});
+})
 
-export default pagesHeaderStyle;
+export default pagesHeaderStyle

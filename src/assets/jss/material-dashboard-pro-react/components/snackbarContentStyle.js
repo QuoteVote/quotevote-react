@@ -16,7 +16,7 @@ import {
   roseColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const snackbarContentStyle = {
   root: {
@@ -132,6 +132,6 @@ const snackbarContentStyle = {
     paddingLeft: "50px",
     display: "block"
   }
-};
+}
 
-export default snackbarContentStyle;
+export default snackbarContentStyle

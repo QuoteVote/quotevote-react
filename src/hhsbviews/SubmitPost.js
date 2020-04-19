@@ -31,15 +31,15 @@ import RemoveIcon from '@material-ui/icons/Remove'
 import AssignmentIcon from '@material-ui/icons/Assignment'
 
 
-import GridItem from "material-ui/components/Grid/GridItem"
-import Card from "material-ui/components/Card/Card"
-import CardHeader from "material-ui/components/Card/CardHeader"
-import CardBody from "material-ui/components/Card/CardBody"
-import Button from "material-ui/components/CustomButtons/Button"
+import GridItem from "mui-pro/Grid/GridItem"
+import Card from "mui-pro/Card/Card"
+import CardHeader from "mui-pro/Card/CardHeader"
+import CardBody from "mui-pro/Card/CardBody"
+import Button from "mui-pro/CustomButtons/Button"
 import LoadingSpinner from "hhsbComponents/LoadingSpinner.js"
-import styles from "material-ui/assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.js"
+import styles from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.js"
 
-import GridContainer from "material-ui/components/Grid/GridContainer"
+import GridContainer from "mui-pro/Grid/GridContainer"
 
 import SweetAlert from "react-bootstrap-sweetalert"
 import * as copy from "clipboard-copy"

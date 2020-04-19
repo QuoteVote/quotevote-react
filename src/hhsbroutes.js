@@ -1,17 +1,23 @@
-import ContentDisplay from "hhsbviews/ContentDisplay.js"
-import ContentFeed from "hhsbviews/topcontent.js"
-import HomePage from "hhsbviews/HomePage.js"
-import Profile from "hhsbviews/profile.js"
-import SubmitPost from "hhsbviews/SubmitPost.js"
 
-import add from 'hhsbAssets/add.png'
-import Alert from 'hhsbAssets/Alerts.png'
-import Avatar from 'hhsbAssets/Avatar.png'
+import ContentFeed from "hhsbviews/topcontent.js"
+import SubmitPost from "hhsbviews/SubmitPost.js"
+import SearchView from "hhsbviews/SearchView.js"
+import ContentDisplay from "hhsbviews/ContentDisplay.js"
+import Profile from "hhsbviews/profile.js"
+import ManageInvites from 'hhsbviews/ManageInvites';
+import HomePage from "hhsbviews/HomePage.js"
 import Chat from 'hhsbAssets/Chat.svg'
 import Home from 'hhsbAssets/Home.svg'
-import Search from 'hhsbAssets/Search.png'
-import Settings from 'hhsbAssets/Settings.png'
+import Avatar from 'hhsbAssets/Avatar.png'
+import add from 'hhsbAssets/add.png'
 import Trending from  'hhsbAssets/Trending.png'
+import Settings from 'hhsbAssets/Settings.png'
+import Search from 'hhsbAssets/Search.png'
+import Alert from 'hhsbAssets/Alerts.png'
+// @material-ui/icons
+
+//import {face} from '@mdi/js';
+//import { mdiEmail } from '@mdi/js'; 
 
 var hhsbRoutes = [
   {
@@ -20,6 +26,14 @@ var hhsbRoutes = [
     rtlName: "لوحة القيادة",
     icon: Home,
     component: HomePage,
+    layout: "/hhsb"
+  },
+  {
+    path: "/invites",
+    name: "Manage Invites",
+    rtlName: "Manage Invites",
+    icon: Avatar,
+    component: ManageInvites,
     layout: "/hhsb"
   },
   
@@ -56,6 +70,14 @@ var hhsbRoutes = [
     layout: "/hhsb"
   },
   {
+    path: "/Search",
+    name: "Search",
+    rtlName: "search",
+    icon: Search,
+    component: SearchView,
+    layout: "/hhsb"
+  },
+  {
     path: "/BuddyList",
     name: "BuddyList Test",
     rtlName: "التقويم",
@@ -79,10 +101,6 @@ var hhsbRoutes = [
     component: HomePage,
     layout: "/hhsb"
   },
-  {
-    path: "/post",
-    component: ContentDisplay,
-    layout: "/hhsb"
-  },
+  
 ];
 export default hhsbRoutes;

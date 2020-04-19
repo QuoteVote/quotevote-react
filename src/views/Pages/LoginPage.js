@@ -1,35 +1,35 @@
-import React from "react";
+import React from "react"
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
+import { makeStyles } from "@material-ui/core/styles"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import Icon from "@material-ui/core/Icon"
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face";
-import Email from "@material-ui/icons/Email";
+import Face from "@material-ui/icons/Face"
+import Email from "@material-ui/icons/Email"
 // import LockOutline from "@material-ui/icons/LockOutline";
 
-// core components
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardFooter from "components/Card/CardFooter.js";
+// core Material UI Pro components
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
+import CustomInput from "mui-pro/CustomInput/CustomInput.js"
+import Button from "mui-pro/CustomButtons/Button.js"
+import Card from "mui-pro/Card/Card.js"
+import CardBody from "mui-pro/Card/CardBody.js"
+import CardHeader from "mui-pro/Card/CardHeader.js"
+import CardFooter from "mui-pro/Card/CardFooter.js"
 
-import styles from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.js";
+import styles from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.js"
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function LoginPage() {
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-  setTimeout(function() {
-    setCardAnimation("");
-  }, 700);
-  const classes = useStyles();
+  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden")
+  setTimeout(() => {
+    setCardAnimation("")
+  }, 700)
+  const classes = useStyles()
   return (
     <div className={classes.container}>
       <GridContainer justify="center">
@@ -45,19 +45,17 @@ export default function LoginPage() {
                   {[
                     "fab fa-facebook-square",
                     "fab fa-twitter",
-                    "fab fa-google-plus"
-                  ].map((prop, key) => {
-                    return (
-                      <Button
-                        color="transparent"
-                        justIcon
-                        key={key}
-                        className={classes.customButtonClass}
-                      >
-                        <i className={prop} />
-                      </Button>
-                    );
-                  })}
+                    "fab fa-google-plus",
+                  ].map((prop, key) => (
+                    <Button
+                      color="transparent"
+                      justIcon
+                      key={key}
+                      className={classes.customButtonClass}
+                    >
+                      <i className={prop} />
+                    </Button>
+                  ))}
                 </div>
               </CardHeader>
               <CardBody>
@@ -65,35 +63,35 @@ export default function LoginPage() {
                   labelText="First Name.."
                   id="firstname"
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
                   inputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
                         <Face className={classes.inputAdornmentIcon} />
                       </InputAdornment>
-                    )
+                    ),
                   }}
                 />
                 <CustomInput
                   labelText="Email..."
                   id="email"
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
                   inputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
                         <Email className={classes.inputAdornmentIcon} />
                       </InputAdornment>
-                    )
+                    ),
                   }}
                 />
                 <CustomInput
                   labelText="Password"
                   id="password"
                   formControlProps={{
-                    fullWidth: true
+                    fullWidth: true,
                   }}
                   inputProps={{
                     endAdornment: (
@@ -104,7 +102,7 @@ export default function LoginPage() {
                       </InputAdornment>
                     ),
                     type: "password",
-                    autoComplete: "off"
+                    autoComplete: "off",
                   }}
                 />
               </CardBody>
@@ -118,5 +116,5 @@ export default function LoginPage() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }

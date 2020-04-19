@@ -9,7 +9,7 @@ import {
   blackColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const wizardStyle = {
   wizardContainer: {},
@@ -172,6 +172,6 @@ const wizardStyle = {
     },
     clear: "both"
   }
-};
+}
 
-export default wizardStyle;
+export default wizardStyle

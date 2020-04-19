@@ -1,12 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import GridItem from "components/Grid/GridItem.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
 import Box from '@material-ui/core/Box';
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,

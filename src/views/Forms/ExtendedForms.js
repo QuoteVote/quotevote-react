@@ -1,46 +1,46 @@
-import React from "react";
+import React from "react"
 // react component plugin for creating a beautiful datetime dropdown picker
-import Datetime from "react-datetime";
+import Datetime from "react-datetime"
 // react component plugin for creating beatiful tags on an input
-import TagsInput from "react-tagsinput";
+import TagsInput from "react-tagsinput"
 // plugin that creates slider
-import Slider from "nouislider";
+import Slider from "nouislider"
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputLabel from "@material-ui/core/InputLabel";
-import Switch from "@material-ui/core/Switch";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles"
+import FormControl from "@material-ui/core/FormControl"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
+import InputLabel from "@material-ui/core/InputLabel"
+import Switch from "@material-ui/core/Switch"
+import Select from "@material-ui/core/Select"
+import MenuItem from "@material-ui/core/MenuItem"
 
 // @material-ui/icons
-import Today from "@material-ui/icons/Today";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import AvTimer from "@material-ui/icons/AvTimer";
+import Today from "@material-ui/icons/Today"
+import LibraryBooks from "@material-ui/icons/LibraryBooks"
+import AvTimer from "@material-ui/icons/AvTimer"
 
-// core components
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
-import CustomLinearProgress from "components/CustomLinearProgress/CustomLinearProgress.js";
-import ImageUpload from "components/CustomUpload/ImageUpload.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardIcon from "components/Card/CardIcon.js";
-import CardBody from "components/Card/CardBody.js";
+// core mui-pro components
+import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridItem from "mui-pro/Grid/GridItem.js"
+import CustomDropdown from "mui-pro/CustomDropdown/CustomDropdown.js"
+import CustomLinearProgress from "mui-pro/CustomLinearProgress/CustomLinearProgress.js"
+import ImageUpload from "mui-pro/CustomUpload/ImageUpload.js"
+import Card from "mui-pro/Card/Card.js"
+import CardHeader from "mui-pro/Card/CardHeader.js"
+import CardIcon from "mui-pro/Card/CardIcon.js"
+import CardBody from "mui-pro/Card/CardBody.js"
 
-import styles from "assets/jss/material-dashboard-pro-react/views/extendedFormsStyle.js";
+import styles from "assets/jss/material-dashboard-pro-react/views/extendedFormsStyle.js"
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function ExtendedForms() {
-  const [checkedA, setCheckedA] = React.useState(true);
-  const [checkedB, setCheckedB] = React.useState(false);
-  const [simpleSelect, setSimpleSelect] = React.useState("");
-  const [multipleSelect, setMultipleSelect] = React.useState([]);
-  const [tags, setTags] = React.useState(["pizza", "pasta", "parmesan"]);
+  const [checkedA, setCheckedA] = React.useState(true)
+  const [checkedB, setCheckedB] = React.useState(false)
+  const [simpleSelect, setSimpleSelect] = React.useState("")
+  const [multipleSelect, setMultipleSelect] = React.useState([])
+  const [tags, setTags] = React.useState(["pizza", "pasta", "parmesan"])
   React.useEffect(() => {
     if (
       !document
@@ -51,8 +51,8 @@ export default function ExtendedForms() {
         start: [40],
         connect: [true, false],
         step: 1,
-        range: { min: 0, max: 100 }
-      });
+        range: { min: 0, max: 100 },
+      })
     }
     if (
       !document.getElementById("sliderDouble").classList.contains("noUi-target")
@@ -61,21 +61,21 @@ export default function ExtendedForms() {
         start: [20, 60],
         connect: [false, true, false],
         step: 1,
-        range: { min: 0, max: 100 }
-      });
+        range: { min: 0, max: 100 },
+      })
     }
-    return function cleanup() {};
-  });
-  const handleSimple = event => {
-    setSimpleSelect(event.target.value);
-  };
-  const handleMultiple = event => {
-    setMultipleSelect(event.target.value);
-  };
-  const handleTags = regularTags => {
-    setTags(regularTags);
-  };
-  const classes = useStyles();
+    return function cleanup() {}
+  })
+  const handleSimple = (event) => {
+    setSimpleSelect(event.target.value)
+  }
+  const handleMultiple = (event) => {
+    setMultipleSelect(event.target.value)
+  }
+  const handleTags = (regularTags) => {
+    setTags(regularTags)
+  }
+  const classes = useStyles()
   return (
     <div>
       <GridContainer>
@@ -153,18 +153,18 @@ export default function ExtendedForms() {
                       control={
                         <Switch
                           checked={checkedA}
-                          onChange={event => setCheckedA(event.target.checked)}
+                          onChange={(event) => setCheckedA(event.target.checked)}
                           value="checkedA"
                           classes={{
                             switchBase: classes.switchBase,
                             checked: classes.switchChecked,
                             thumb: classes.switchIcon,
-                            track: classes.switchBar
+                            track: classes.switchBar,
                           }}
                         />
                       }
                       classes={{
-                        label: classes.label
+                        label: classes.label,
                       }}
                       label="Toggle is on"
                     />
@@ -174,18 +174,18 @@ export default function ExtendedForms() {
                       control={
                         <Switch
                           checked={checkedB}
-                          onChange={event => setCheckedB(event.target.checked)}
+                          onChange={(event) => setCheckedB(event.target.checked)}
                           value="checkedB"
                           classes={{
                             switchBase: classes.switchBase,
                             checked: classes.switchChecked,
                             thumb: classes.switchIcon,
-                            track: classes.switchBar
+                            track: classes.switchBar,
                           }}
                         />
                       }
                       classes={{
-                        label: classes.label
+                        label: classes.label,
                       }}
                       label="Toggle is off"
                     />
@@ -207,22 +207,22 @@ export default function ExtendedForms() {
                         </InputLabel>
                         <Select
                           MenuProps={{
-                            className: classes.selectMenu
+                            className: classes.selectMenu,
                           }}
                           classes={{
-                            select: classes.select
+                            select: classes.select,
                           }}
                           value={simpleSelect}
                           onChange={handleSimple}
                           inputProps={{
                             name: "simpleSelect",
-                            id: "simple-select"
+                            id: "simple-select",
                           }}
                         >
                           <MenuItem
                             disabled
                             classes={{
-                              root: classes.selectMenuItem
+                              root: classes.selectMenuItem,
                             }}
                           >
                             Choose City
@@ -230,7 +230,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="2"
                           >
@@ -239,7 +239,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="3"
                           >
@@ -248,7 +248,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="4"
                           >
@@ -257,7 +257,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="5"
                           >
@@ -266,7 +266,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="6"
                           >
@@ -275,7 +275,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="7"
                           >
@@ -284,7 +284,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="8"
                           >
@@ -293,7 +293,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="9"
                           >
@@ -302,7 +302,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="10"
                           >
@@ -311,7 +311,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="11"
                           >
@@ -320,7 +320,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="12"
                           >
@@ -329,7 +329,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="13"
                           >
@@ -338,7 +338,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="14"
                           >
@@ -347,7 +347,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="15"
                           >
@@ -356,7 +356,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="16"
                           >
@@ -365,7 +365,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="17"
                           >
@@ -374,7 +374,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="18"
                           >
@@ -383,7 +383,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
+                              selected: classes.selectMenuItemSelected,
                             }}
                             value="19"
                           >
@@ -411,13 +411,13 @@ export default function ExtendedForms() {
                           classes={{ select: classes.select }}
                           inputProps={{
                             name: "multipleSelect",
-                            id: "multiple-select"
+                            id: "multiple-select",
                           }}
                         >
                           <MenuItem
                             disabled
                             classes={{
-                              root: classes.selectMenuItem
+                              root: classes.selectMenuItem,
                             }}
                           >
                             Choose City
@@ -425,7 +425,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="2"
                           >
@@ -434,7 +434,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="3"
                           >
@@ -443,7 +443,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="4"
                           >
@@ -452,7 +452,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="5"
                           >
@@ -461,7 +461,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="6"
                           >
@@ -470,7 +470,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="7"
                           >
@@ -479,7 +479,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="8"
                           >
@@ -488,7 +488,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="9"
                           >
@@ -497,7 +497,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="10"
                           >
@@ -506,7 +506,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="11"
                           >
@@ -515,7 +515,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="12"
                           >
@@ -524,7 +524,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="13"
                           >
@@ -533,7 +533,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="14"
                           >
@@ -542,7 +542,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="15"
                           >
@@ -551,7 +551,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="16"
                           >
@@ -560,7 +560,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="17"
                           >
@@ -569,7 +569,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="18"
                           >
@@ -578,7 +578,7 @@ export default function ExtendedForms() {
                           <MenuItem
                             classes={{
                               root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelectedMultiple
+                              selected: classes.selectMenuItemSelectedMultiple,
                             }}
                             value="19"
                           >
@@ -611,7 +611,7 @@ export default function ExtendedForms() {
                         buttonProps={{
                           round: true,
                           block: true,
-                          color: "info"
+                          color: "info",
                         }}
                         dropPlacement="bottom"
                         dropdownList={[
@@ -625,7 +625,7 @@ export default function ExtendedForms() {
                             hoverColor="info"
                             buttonProps={{
                               simple: true,
-                              block: true
+                              block: true,
                             }}
                             dropPlacement="right-start"
                             dropdownList={[
@@ -638,12 +638,12 @@ export default function ExtendedForms() {
                                 hoverColor="info"
                                 buttonText="Subsubmenu"
                                 buttonProps={{
-                                  simple: true
+                                  simple: true,
                                 }}
                                 dropPlacement="right-start"
                                 dropdownList={[
                                   "Subsubmenu action 1",
-                                  "Subsubmenu action 2"
+                                  "Subsubmenu action 2",
                                 ]}
                               />,
                               <CustomDropdown
@@ -653,16 +653,16 @@ export default function ExtendedForms() {
                                 hoverColor="info"
                                 buttonText="Second Subsubmenu"
                                 buttonProps={{
-                                  simple: true
+                                  simple: true,
                                 }}
                                 dropPlacement="right-start"
                                 dropdownList={[
                                   "Second Subsubmenu action 1",
-                                  "Second Subsubmenu action 2"
+                                  "Second Subsubmenu action 2",
                                 ]}
-                              />
+                              />,
                             ]}
-                          />
+                          />,
                         ]}
                       />
                     </GridItem>
@@ -674,7 +674,7 @@ export default function ExtendedForms() {
                           round: true,
                           fullWidth: true,
                           style: { marginBottom: "0" },
-                          color: "info"
+                          color: "info",
                         }}
                         dropdownHeader="Dropdown header"
                         dropdownList={[
@@ -684,7 +684,7 @@ export default function ExtendedForms() {
                           { divider: true },
                           "Separated link",
                           { divider: true },
-                          "One more separated link"
+                          "One more separated link",
                         ]}
                       />
                     </GridItem>
@@ -704,7 +704,7 @@ export default function ExtendedForms() {
                           round: true,
                           fullWidth: true,
                           style: { marginBottom: "0" },
-                          color: "info"
+                          color: "info",
                         }}
                         dropdownHeader="Dropdown header"
                         dropdownList={[
@@ -714,7 +714,7 @@ export default function ExtendedForms() {
                           { divider: true },
                           "Separated link",
                           { divider: true },
-                          "One more separated link"
+                          "One more separated link",
                         ]}
                       />
                     </GridItem>
@@ -768,15 +768,15 @@ export default function ExtendedForms() {
                   <ImageUpload
                     addButtonProps={{
                       color: "rose",
-                      round: true
+                      round: true,
                     }}
                     changeButtonProps={{
                       color: "rose",
-                      round: true
+                      round: true,
                     }}
                     removeButtonProps={{
                       color: "danger",
-                      round: true
+                      round: true,
                     }}
                   />
                 </GridItem>
@@ -786,15 +786,15 @@ export default function ExtendedForms() {
                     avatar
                     addButtonProps={{
                       color: "rose",
-                      round: true
+                      round: true,
                     }}
                     changeButtonProps={{
                       color: "rose",
-                      round: true
+                      round: true,
                     }}
                     removeButtonProps={{
                       color: "danger",
-                      round: true
+                      round: true,
                     }}
                   />
                 </GridItem>
@@ -804,5 +804,5 @@ export default function ExtendedForms() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }

@@ -18,6 +18,6 @@ const hoverCardStyle = {
     right: "17px",
     textAlign: "center"
   }
-};
+}
 
-export default hoverCardStyle;
+export default hoverCardStyle

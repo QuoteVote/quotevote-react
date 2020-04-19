@@ -3,7 +3,7 @@ import {
   drawerMiniWidth,
   transition,
   containerFluid
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const appStyle = theme => ({
   wrapper: {
@@ -45,6 +45,6 @@ const appStyle = theme => ({
       width: `calc(100% - ${drawerMiniWidth}px)`
     }
   }
-});
+})
 
-export default appStyle;
+export default appStyle

@@ -8,12 +8,12 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import { makeStyles } from "@material-ui/core/styles";
 
 // core components
-import Heading from "components/Heading/Heading.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
+import Heading from "mui-pro/Heading/Heading.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
+import Button from "mui-pro/CustomButtons/Button.js";
+import Card from "mui-pro/Card/Card.js";
+import CardBody from "mui-pro/Card/CardBody.js";
 
 import styles from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.js";
 

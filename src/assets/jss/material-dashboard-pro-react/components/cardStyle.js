@@ -9,7 +9,7 @@ import {
   blackColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const cardStyle = {
   card: {
@@ -181,6 +181,6 @@ const cardStyle = {
     transform: "translate3d(" + hexToRgb(blackColor) + ")",
     transition: "all 300ms linear"
   }
-};
+}
 
-export default cardStyle;
+export default cardStyle

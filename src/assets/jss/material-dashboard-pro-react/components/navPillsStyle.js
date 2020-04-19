@@ -9,7 +9,7 @@ import {
   blackColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const navPillsStyle = theme => ({
   root: {
@@ -164,6 +164,6 @@ const navPillsStyle = theme => ({
     alignItems: "center",
     justifyContent: "center"
   }
-});
+})
 
-export default navPillsStyle;
+export default navPillsStyle

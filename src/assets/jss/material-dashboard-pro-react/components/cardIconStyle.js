@@ -6,7 +6,7 @@ import {
   primaryCardHeader,
   roseCardHeader,
   grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 const cardIconStyle = {
   cardIcon: {
     "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
@@ -24,6 +24,6 @@ const cardIconStyle = {
   infoCardHeader,
   primaryCardHeader,
   roseCardHeader
-};
+}
 
-export default cardIconStyle;
+export default cardIconStyle

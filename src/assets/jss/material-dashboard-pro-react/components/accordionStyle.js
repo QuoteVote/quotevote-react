@@ -1,7 +1,4 @@
-import {
-  primaryColor,
-  grayColor
-} from "assets/jss/material-dashboard-pro-react.js";
+import { primaryColor, grayColor } from "../../material-dashboard-pro-react.js"
 
 const accordionStyle = theme => ({
   root: {
@@ -67,6 +64,6 @@ const accordionStyle = theme => ({
   expansionPanelDetails: {
     padding: "15px 0px 5px"
   }
-});
+})
 
-export default accordionStyle;
+export default accordionStyle

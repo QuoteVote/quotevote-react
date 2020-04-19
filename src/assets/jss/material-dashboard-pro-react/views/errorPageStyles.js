@@ -1,4 +1,7 @@
-import { title, whiteColor } from "assets/jss/material-dashboard-pro-react.js";
+import {
+  title,
+  whiteColor
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const errorPageStyles = () => ({
   contentCenter: {
@@ -30,6 +33,6 @@ const errorPageStyles = () => ({
     marginTop: "0",
     marginBottom: "8px"
   }
-});
+})
 
-export default errorPageStyles;
+export default errorPageStyles

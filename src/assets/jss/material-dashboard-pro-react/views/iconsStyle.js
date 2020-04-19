@@ -1,4 +1,4 @@
-import { boxShadow } from "assets/jss/material-dashboard-pro-react.js";
+import { boxShadow } from "assets/jss/material-dashboard-pro-react.js"
 
 const iconsStyle = {
   iframe: {
@@ -10,6 +10,6 @@ const iconsStyle = {
   iframeContainer: {
     margin: "0 -20px 0"
   }
-};
+}
 
-export default iconsStyle;
+export default iconsStyle

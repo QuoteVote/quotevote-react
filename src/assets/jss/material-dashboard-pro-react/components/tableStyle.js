@@ -9,7 +9,7 @@ import {
   blackColor,
   defaultFont,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const tableStyle = theme => ({
   warning: {
@@ -125,6 +125,6 @@ const tableStyle = theme => ({
   tableRowHead: {
     height: "56px"
   }
-});
+})
 
-export default tableStyle;
+export default tableStyle

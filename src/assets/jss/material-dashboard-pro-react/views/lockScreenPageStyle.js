@@ -4,7 +4,7 @@ import {
   whiteColor,
   blackColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const lockScreenPageStyle = theme => ({
   cardTitle,
@@ -39,6 +39,6 @@ const lockScreenPageStyle = theme => ({
   justifyContentCenter: {
     justifyContent: "center !important"
   }
-});
+})
 
-export default lockScreenPageStyle;
+export default lockScreenPageStyle

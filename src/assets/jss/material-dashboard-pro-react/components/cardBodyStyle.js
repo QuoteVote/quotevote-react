@@ -1,7 +1,7 @@
 import {
   whiteColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const cardBodyStyle = {
   cardBody: {
@@ -51,6 +51,6 @@ const cardBodyStyle = {
   cardBodyCalendar: {
     padding: "0px !important"
   }
-};
+}
 
-export default cardBodyStyle;
+export default cardBodyStyle

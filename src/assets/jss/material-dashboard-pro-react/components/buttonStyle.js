@@ -19,7 +19,7 @@ import {
   dribbbleColor,
   redditColor,
   hexToRgb
-} from "assets/jss/material-dashboard-pro-react.js";
+} from "assets/jss/material-dashboard-pro-react.js"
 
 const buttonStyle = {
   button: {
@@ -679,6 +679,6 @@ const buttonStyle = {
       }
     }
   }
-};
+}
 
-export default buttonStyle;
+export default buttonStyle

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import PerfectScrollbar from "perfect-scrollbar";
 import { NavLink } from "react-router-dom";
 import cx from "classnames";
+import { Link, withRouter } from "react-router-dom"
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -17,7 +18,8 @@ import Collapse from "@material-ui/core/Collapse";
 import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
 // core components
-import AdminNavbarLinks from "../components/Navbars/AdminNavbarLinks.js";
+import AdminNavbarLinks from "mui-pro/Navbars/AdminNavbarLinks.js";
+import SearchContainer from "./SearchContainer/index"
 
 import sidebarStyle from "../assets/jss/material-dashboard-pro-react/components/sidebarStyle.js";
 import MessageContainer from "./MessageContainer.js"
@@ -33,9 +35,9 @@ var ps;
 
 class SidebarWrapper extends React.Component {
   sidebarWrapper = React.createRef();
-  
-  
-  
+
+
+
   componentDidMount() {
     /** if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.sidebarWrapper.current, {
@@ -43,7 +45,7 @@ class SidebarWrapper extends React.Component {
         suppressScrollY: false
       });
     }*/
-   
+
   }
   componentWillUnmount() {
     /*if (navigator.platform.indexOf("Win") > -1) {
@@ -51,17 +53,31 @@ class SidebarWrapper extends React.Component {
     }
     */
   }
+
+  // the current view should be selected
+  switchView = (currentRoute, MiniActive) => {
+    switch (currentRoute) {
+      case "Search":
+        return <SearchContainer Display={MiniActive} />
+      default:
+        return <ChatComponent Display={MiniActive} />
+    }
+  }
+
   render() {
-    const { className, user, headerLinks, links,MiniActive } = this.props;
+    const { className, user, headerLinks, links, MiniActive, currentRoute } = this.props;
+    console.log(MiniActive)
     return (
-      <Grid container direction="row" style={{overflow:"hidden"}}>
-    
-      <div className={className} ref={this.sidebarWrapper} style={{overflow:"hidden"}}>
-        {user}
-        {headerLinks}
-        {links}
-      </div>
-      <ChatComponent Display={MiniActive} />
+      <Grid container direction="row" style={{ overflow: "hidden" }}>
+
+        <div className={className} ref={this.sidebarWrapper} style={{ overflow: "hidden" }}>
+          {user}
+          {headerLinks}
+          {links}
+        </div>
+        
+        {this.switchView(currentRoute, MiniActive)}
+
       </Grid>
     );
   }
@@ -73,7 +89,7 @@ class Sidebar extends React.Component {
     this.state = {
       openAvatar: false,
       miniActive: false,
-      MessageDisplay:null,
+      MessageDisplay: null,
       ...this.getCollapseStates(props.routes)
     };
   }
@@ -120,7 +136,6 @@ class Sidebar extends React.Component {
   createLinks = routes => {
     const { classes, color, rtlActive } = this.props;
     return routes.map((prop, key) => {
-      if (prop.path === "/post") return null
       if (prop.redirect) {
         return null;
       }
@@ -181,7 +196,7 @@ class Sidebar extends React.Component {
               { [classes.collapseItem]: prop.icon === undefined }
             )}
           >
-           
+
             <Collapse in={this.state[prop.state]} unmountOnExit>
               <List className={classes.list + " " + classes.collapseList}>
                 {this.createLinks(prop.views)}
@@ -251,16 +266,16 @@ class Sidebar extends React.Component {
           >
             {prop.icon !== undefined ? (
               typeof prop.icon === "string" ? (
-                <img src={prop.icon} className={itemIcon} style={{height:"30px"}}/>
-              /** <Icon className={itemIcon}>{prop.icon}</Icon>*/
+                <img src={prop.icon} className={itemIcon} style={{ height: "30px" }} />
+                /** <Icon className={itemIcon}>{prop.icon}</Icon>*/
               ) : (
-                <prop.icon className={itemIcon} />
-              )
+                  <prop.icon className={itemIcon} />
+                )
             ) : (
-              <span className={collapseItemMini}>
-                {rtlActive ? prop.rtlMini : prop.mini}
-              </span>
-            )}
+                <span className={collapseItemMini}>
+                  {rtlActive ? prop.rtlMini : prop.mini}
+                </span>
+              )}
             <ListItemText
               primary={rtlActive ? prop.rtlName : prop.name}
               disableTypography={true}
@@ -275,6 +290,7 @@ class Sidebar extends React.Component {
     });
   };
   render() {
+    console.log(this.props.miniActive)
     const {
       classes,
       logo,
@@ -282,10 +298,12 @@ class Sidebar extends React.Component {
       logoText,
       routes,
       bgColor,
-      rtlActive
+      rtlActive,
+      currentRoute
+
     } = this.props;
-    
-    
+
+
     const itemText =
       classes.itemText +
       " " +
@@ -496,22 +514,22 @@ class Sidebar extends React.Component {
               keepMounted: true // Better open performance on mobile.
             }}
           >
-             <Grid container direction="row" >
-            <SidebarWrapper
-              className={sidebarWrapper}
-              MiniActive={this.state.MessageDisplay}
-           
-              links={links}
-            />
-           </Grid>
+            <Grid container direction="row" >
+              <SidebarWrapper
+                className={sidebarWrapper}
+                MiniActive={this.state.MessageDisplay}
+                links={links}
+                currentRoute={currentRoute}
+              />
+            </Grid>
           </Drawer>
-        
+
 
         </Hidden>
         <Hidden smDown implementation="css">
           <Drawer
-            onMouseOver={() => this.setState({ miniActive: false,MessageDisplay:null })}
-            onMouseOut={() => this.setState({ miniActive: true,MessageDisplay:"none" })}
+            onMouseOver={() => this.setState({ miniActive: false, MessageDisplay: null })}
+            onMouseOut={() => this.setState({ miniActive: true, MessageDisplay: "none" })}
             anchor={rtlActive ? "right" : "left"}
             variant="permanent"
             open
@@ -519,11 +537,12 @@ class Sidebar extends React.Component {
               paper: drawerPaper + " " + classes[bgColor + "Background"]
             }}
           >
-            
+
             <SidebarWrapper
               className={sidebarWrapper}
               MiniActive={this.state.MessageDisplay}
               links={links}
+              currentRoute={currentRoute}
             />
             {image !== undefined ? (
               <div
@@ -532,7 +551,7 @@ class Sidebar extends React.Component {
               />
             ) : null}
           </Drawer>
-         
+
         </Hidden>
       </div>
     );
@@ -572,4 +591,4 @@ SidebarWrapper.propTypes = {
   links: PropTypes.object
 };
 
-export default withStyles(sidebarStyle)(Sidebar);
+export default withRouter(withStyles(sidebarStyle)(Sidebar))

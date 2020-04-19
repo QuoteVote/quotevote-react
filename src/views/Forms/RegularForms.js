@@ -15,15 +15,15 @@ import Contacts from "@material-ui/icons/Contacts";
 import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
 
 // core components
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardText from "components/Card/CardText.js";
-import CardIcon from "components/Card/CardIcon.js";
-import CardBody from "components/Card/CardBody.js";
+import GridContainer from "mui-pro/Grid/GridContainer.js";
+import GridItem from "mui-pro/Grid/GridItem.js";
+import CustomInput from "mui-pro/CustomInput/CustomInput.js";
+import Button from "mui-pro/CustomButtons/Button.js";
+import Card from "mui-pro/Card/Card.js";
+import CardHeader from "mui-pro/Card/CardHeader.js";
+import CardText from "mui-pro/Card/CardText.js";
+import CardIcon from "mui-pro/Card/CardIcon.js";
+import CardBody from "mui-pro/Card/CardBody.js";
 
 import styles from "assets/jss/material-dashboard-pro-react/views/regularFormsStyle";
 
