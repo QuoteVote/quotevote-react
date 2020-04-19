@@ -1,30 +1,24 @@
 /*eslint-disable*/
-import React from "react";
-import PropTypes from "prop-types";
+import React from "react"
+import PropTypes from "prop-types"
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
-import { NavLink } from "react-router-dom";
-import cx from "classnames";
-import { Link, withRouter } from "react-router-dom"
-
+import {NavLink, withRouter} from "react-router-dom"
+import cx from "classnames"
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Hidden from "@material-ui/core/Hidden";
-import Collapse from "@material-ui/core/Collapse";
-import Icon from "@material-ui/core/Icon";
-import Grid from "@material-ui/core/Grid";
+import withStyles from "@material-ui/core/styles/withStyles"
+import Drawer from "@material-ui/core/Drawer"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import Hidden from "@material-ui/core/Hidden"
+import Collapse from "@material-ui/core/Collapse"
+import Grid from "@material-ui/core/Grid"
 // core components
-import AdminNavbarLinks from "mui-pro/Navbars/AdminNavbarLinks.js";
 import SearchContainer from "./SearchContainer/index"
 
-import sidebarStyle from "../assets/jss/material-dashboard-pro-react/components/sidebarStyle.js";
-import MessageContainer from "./MessageContainer.js"
+import sidebarStyle from "../assets/jss/material-dashboard-pro-react/components/sidebarStyle.js"
 import ChatComponent from "./ChatComponent.js"
-import avatar from "../assets/img/faces/avatar.jpg";
+import avatar from "../assets/img/faces/avatar.jpg"
 
 var ps;
 
@@ -66,7 +60,6 @@ class SidebarWrapper extends React.Component {
 
   render() {
     const { className, user, headerLinks, links, MiniActive, currentRoute } = this.props;
-    console.log(MiniActive)
     return (
       <Grid container direction="row" style={{ overflow: "hidden" }}>
 
@@ -290,7 +283,6 @@ class Sidebar extends React.Component {
     });
   };
   render() {
-    console.log(this.props.miniActive)
     const {
       classes,
       logo,

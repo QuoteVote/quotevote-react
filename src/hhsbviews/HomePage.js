@@ -12,6 +12,20 @@ import AlertList from 'hhsbComponents/AlertList'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import moment from 'moment'
+import ToggleButton from '@material-ui/lab/ToggleButton'
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles({
+  headerToggle: {
+    fontSize: '20px',
+    color: 'gray',
+    font: 'League Spartan',
+    fontWeight: '900',
+    textDecoration: 'underline',
+    textShadow: '1px 1px gray',
+  },
+})
 
 const ACTIVITY_COLORS = {
   QOUTED: '#00CAE3',
@@ -23,8 +37,8 @@ const ACTIVITY_COLORS = {
 }
 
 const ACTIVITIES_QUERY = gql`
-  query activities($limit: Int!, $offset: Int!, $searchKey: String!) {
-    activities(limit: $limit, offset: $offset, searchKey: $searchKey)
+  query activities($limit: Int!, $offset: Int!, $searchKey: String!, $activityEvent: JSON!) {
+    activities(limit: $limit, offset: $offset, searchKey: $searchKey, activityEvent: $activityEvent)
   }
 `
 
@@ -43,12 +57,39 @@ function formatContentDate(sDate) {
 }
 
 export default function HomePage() {
+  const classes = useStyles()
   const limit = 5
   const [offset, setOffset] = useState(1)
-  const [total, setTotal] = useState(0)
+  const conditions = ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED']
+  const [selectedEvent, setSelectedEvent] = useState(conditions)
+  const [selectAll, setSelectAll] = useState('ALL')
+  const handleSelectAll = (event, newSelectAll) => {
+    if (newSelectAll.length) {
+      setSelectedEvent(conditions)
+    }
+    setSelectAll(newSelectAll)
+  }
+  const handleActivityEvent = (event, newActivityEvent) => {
+    if (!newActivityEvent.length) {
+      setSelectAll(['ALL'])
+      setSelectedEvent(conditions)
+    } else {
+      const isAllToggled = newActivityEvent.length === 4
+      setSelectAll(isAllToggled ? ['ALL'] : [])
+      setSelectedEvent(newActivityEvent)
+    }
+  }
+  const [total, setTotal] = useState(1)
+
+  const handleSlider = (event, newValue) => {
+    setOffset(newValue)
+  }
+
   const { data: { searchKey } } = useQuery(GET_SEARCH_KEY)
   const { loading, data } = useQuery(ACTIVITIES_QUERY, {
-    variables: { limit, offset, searchKey },
+    variables: {
+      limit, offset, searchKey, activityEvent: selectedEvent,
+    },
   })
 
   const { activities } = (!loading && data.activities) || { activities: { activities: [], total: 0 } }
@@ -74,7 +115,7 @@ export default function HomePage() {
       case 'POSTED':
         return {
           id: activity.data._id,
-          AlertTitle: 'SUBMITTED',
+          AlertTitle: 'CONTENT',
           color: ACTIVITY_COLORS.POSTED,
           AlertBody: activity.data.title,
           time,
@@ -128,23 +169,57 @@ export default function HomePage() {
         >
           <GridContainer alignItems="center" direction="row" style={{ width: '50%' }}>
             <GridContainer justify="center" wrap="nowrap" direction="row">
-              <p
-                style={{
-                  fontSize: '20px',
-                  color: 'gray',
-                  font: 'League Spartan',
-                  fontWeight: '900',
-                  textDecoration: 'underline',
-                  textShadow: '1px 1px gray',
-                }}
-              >
-                All | Content | Votes | Comments | Quotes
+              <p>
+                <ToggleButtonGroup value={selectAll} onChange={handleSelectAll} aria-label="All Event">
+                  <ToggleButton
+                    value="ALL"
+                    aria-label="All"
+                    className={classes.headerToggle}
+                  >
+                    All
+                  </ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup value={selectedEvent} onChange={handleActivityEvent} aria-label="Event">
+                  <ToggleButton
+                    value="POSTED"
+                    aria-label="Content"
+                    className={classes.headerToggle}
+                  >
+                    Content
+                  </ToggleButton>
+                  <ToggleButton
+                    value="VOTED"
+                    aria-label="phone"
+                    className={classes.headerToggle}
+                  >
+                    Votes
+                  </ToggleButton>
+                  <ToggleButton
+                    value="COMMENTED"
+                    aria-label="phone"
+                    className={classes.headerToggle}
+                  >
+                    Comments
+                  </ToggleButton>
+                  <ToggleButton
+                    value="QUOTED"
+                    aria-label="phone"
+                    className={classes.headerToggle}
+                  >
+                    Quotes
+                  </ToggleButton>
+                </ToggleButtonGroup>
               </p>
+
             </GridContainer>
             <Slider
-              value={30}
+              defaultValue={limit}
+              value={offset}
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
+              max={total}
+              min={1}
+              onChange={handleSlider}
             />
 
           </GridContainer>
