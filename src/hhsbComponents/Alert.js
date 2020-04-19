@@ -13,9 +13,23 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '75px',
     display: 'flex',
   },
-  largeIcon: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+  [theme.breakpoints.down('sm')]: {
+    avatarStyle: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+  },
+  [theme.breakpoints.up('md')]: {
+    avatarStyle: {
+      width: theme.spacing(5),
+      height: theme.spacing(5),
+    },
+  },
+  [theme.breakpoints.up('lg')]: {
+    avatarStyle: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
   },
 }))
 
@@ -27,7 +41,7 @@ export default function Alert(props) {
       <Grid container direction="row" justify="space-between" alignContent="flex-end" spacing={1}>
         <div
           style={{
-            width: '15%',
+            width: '10%',
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
@@ -72,12 +86,12 @@ export default function Alert(props) {
           }}
         >
           <Tooltip title={props.creator.name}>
-            <Avatar alt={props.creator.name} src={props.creator.profileImageUrl} className={classes.largeIcon} />
+            <Avatar alt={props.creator.name} src={props.creator.profileImageUrl} className={classes.avatarStyle} />
           </Tooltip>
         </div>
         <div
           style={{
-            width: '75%',
+            width: '70%',
             height: '100%',
             alignItems: 'center',
             display: 'flex',
@@ -121,7 +135,7 @@ export default function Alert(props) {
 
         <div
           style={{
-
+            width: '10%',
             height: '100%',
             display: 'flex',
             paddingTop: '25px',
