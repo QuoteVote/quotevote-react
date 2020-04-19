@@ -53,10 +53,10 @@ export default function HomePage() {
 
   const { activities } = (!loading && data.activities) || { activities: { activities: [], total: 0 } }
   React.useEffect(() => {
-    if (activities) {
-      setTotal(activities.total)
+    if (data) {
+      setTotal(data.activities.total)
     }
-  }, [activities])
+  }, [data])
 
   const activitiesData = !loading && activities && activities.length && activities.map((activity) => {
     const time = activity && formatContentDate(activity.data.created)
