@@ -69,6 +69,7 @@ export default function HomePage() {
           AlertBody: activity.data.content.title,
           time,
           points: activity.data.type === 'upvote' ? `+${activity.data.points}` : `-${activity.data.points}`,
+          creator: activity.data.creator,
         }
       case 'POSTED':
         return {
@@ -78,6 +79,7 @@ export default function HomePage() {
           AlertBody: activity.data.title,
           time,
           points: '',
+          creator: activity.data.creator,
         }
       case 'QUOTED':
         return {
@@ -87,6 +89,7 @@ export default function HomePage() {
           AlertBody: activity.data.quote,
           time,
           points: '',
+          creator: activity.data.creator,
         }
       case 'COMMENTED':
         return {
@@ -96,6 +99,7 @@ export default function HomePage() {
           AlertBody: activity.data.text,
           time,
           points: '',
+          creator: activity.data.creator,
         }
       case 'HEARTED':
         return {
@@ -105,6 +109,7 @@ export default function HomePage() {
           AlertBody: activity.data.content.title,
           time,
           points: '',
+          creator: activity.data.creator,
         }
       default:
         break

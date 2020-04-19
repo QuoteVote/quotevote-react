@@ -37,6 +37,7 @@ function LoadAlertList({ data }) {
         AlertBody={item.AlertBody}
         time={item.time}
         points={item.points}
+        creator={item.creator}
       />
       <br></br>
     </div>
