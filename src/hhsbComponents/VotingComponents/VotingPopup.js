@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { makeStyles } from "@material-ui/core/styles";
-import React, { useState, useEffect, Fragment } from "react";
+import { makeStyles } from '@material-ui/core/styles'
+import React, { useState, useEffect } from 'react'
 
 import {
   Paper,
@@ -8,69 +8,69 @@ import {
   InputAdornment,
   IconButton,
   Button,
-  Zoom
-} from "@material-ui/core";
-import { Up, Down, Comment, Quote } from "hhsbComponents/Icons";
-import { CONTENT_REGEX } from "utils/parser";
-import { isEmpty } from "lodash";
+  Zoom,
+} from '@material-ui/core'
+import {
+  Up, Down, Comment, Quote,
+} from 'hhsbComponents/Icons'
+import { CONTENT_REGEX } from 'utils/parser'
+import { isEmpty } from 'lodash'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paperCollapsed: {
     margin: theme.spacing(1),
-    backgroundColor: "black",
+    backgroundColor: 'black',
     padding: 10,
     paddingTop: 33,
     height: 90,
     width: 290,
-    zIndex: 1
+    zIndex: 1,
   },
   paperExpaned: {
     margin: theme.spacing(1),
-    backgroundColor: "black",
+    backgroundColor: 'black',
     padding: 10,
     paddingTop: 33,
     height: 90,
-    position: "absolute",
-    top: 55
+    position: 'absolute',
+    top: 55,
   },
   icon: { fontSize: 40 },
-  input: { color: "white", padding: 10 },
+  input: { color: 'white', padding: 10 },
   button: {
-    backgroundColor: "#df2769",
-    color: "white"
-  }
-}));
+    backgroundColor: '#df2769',
+    color: 'white',
+  },
+}))
 
-const VotingPopup = props => {
-  const classes = useStyles();
-  const [expand, setExpand] = useState(false);
-  const [comment, setComment] = useState("");
+const VotingPopup = (props) => {
+  const classes = useStyles()
+  const [expand, setExpand] = useState(false)
+  const [comment, setComment] = useState('')
 
   const handleVote = (event, type) => {
     props.onVote(event, {
       type,
-      points: props.text.match(CONTENT_REGEX).length
-    });
-  };
+      points: props.text.match(CONTENT_REGEX).length,
+    })
+  }
 
   const handleAddComment = () => {
-    const withQuote = !isEmpty(props.selectedText.text);
-    props.onAddComment(comment, withQuote);
-    /* setTimeout(() => {
-		  this.setState({ isCommenting: false })
-		}, 500) */
-    setComment("");
-  };
+    const withQuote = !isEmpty(props.selectedText.text)
+    props.onAddComment(comment, withQuote)
+    /* setTimeout(() => { this.setState({ isCommenting: false })}, 500) */
+    setComment('')
+  }
 
   useEffect(() => {
-    const selectionPopover = document.querySelector("#popButtons");
-    selectionPopover.addEventListener("mousedown", e => {
-      e.preventDefault();
-    });
-  });
+    const selectionPopover = document.querySelector('#popButtons')
+    selectionPopover.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+    })
+  })
 
   return (
-    <Fragment>
+    <>
       <Zoom in={!expand}>
         <Paper
           id="popButtons"
@@ -80,15 +80,15 @@ const VotingPopup = props => {
       </Zoom>
       <Paper
         style={{
-          backgroundColor: "#df2769",
+          backgroundColor: '#df2769',
           width: 266,
           zIndex: 1,
           top: expand ? 31 : 20,
           left: 20,
-          position: "absolute"
+          position: 'absolute',
         }}
       >
-        <IconButton onClick={e => handleVote(e, "upvote")}>
+        <IconButton onClick={(e) => handleVote(e, 'upvote')}>
           <Up
             width="419.000000pt"
             height="419.000000pt"
@@ -96,7 +96,7 @@ const VotingPopup = props => {
             className={classes.icon}
           />
         </IconButton>
-        <IconButton onClick={e => handleVote(e, "downvote")}>
+        <IconButton onClick={(e) => handleVote(e, 'downvote')}>
           <Down
             width="563.000000pt"
             height="563.000000pt"
@@ -126,7 +126,7 @@ const VotingPopup = props => {
           <Input
             placeholder="TYPE COMMENT HERE"
             className={classes.input}
-            endAdornment={
+            endAdornment={(
               <InputAdornment position="end">
                 <Button
                   variant="contained"
@@ -137,14 +137,14 @@ const VotingPopup = props => {
                   SEND
                 </Button>
               </InputAdornment>
-            }
+            )}
             value={comment}
-            onChange={e => setComment(e.target.value)}
+            onChange={(e) => setComment(e.target.value)}
           />
         </Paper>
       </Zoom>
-    </Fragment>
-  );
-};
+    </>
+  )
+}
 
-export default VotingPopup;
+export default VotingPopup

@@ -1,18 +1,22 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unreachable */
+// The `break` in the switch are reachable. If not, please resolve
 import React from 'react'
-import { makeStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import GridContainer from "mui-pro/Grid/GridContainer.js"
-import GridItem from "mui-pro/Grid/GridItem.js"
+import { makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Button from 'mui-pro/CustomButtons/Button.js'
-import Badge from 'mui-pro/Badge/Badge.js'
+import Button from 'mui-pro/CustomButtons/Button'
+import Badge from 'mui-pro/Badge/Badge'
 
-import {useQuery} from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { USER_INVITE_REQUESTS } from 'graphql/query'
 import { UPDATE_USER_INVITE_STATUS } from 'graphql/mutations'
 import { Mutation } from '@apollo/react-components'
@@ -38,13 +42,13 @@ function Headers() {
   })
   const classes = useStyles()
   return (
-    <GridItem className={classes.gridItem} direction='row' justify='center' container backgroundColor="white"  elevation={3}> 
+    <GridItem className={classes.gridItem} direction="row" justify="center" container backgroundColor="white" elevation={3}>
       <h2 className={classes.h2}>User Invitation Requests</h2>
-    </GridItem>  
+    </GridItem>
   )
 }
 function Status({ status }) {
-  switch(status) {
+  switch (status) {
     case 'ACCEPT':
       return (
         <Badge color="success">
@@ -61,33 +65,33 @@ function Status({ status }) {
       break
     case 'RESEND':
       return (
-        <Badge color='gray'>
+        <Badge color="gray">
           {status}
         </Badge>
       )
     default:
       return (
         <Badge color="warning">
-        NEW
+          NEW
         </Badge>
       )
   }
 }
 
-function ActionButton({status, id}) {
-  switch(status) {
+function ActionButton({ status, id }) {
+  switch (status) {
     case 'ACCEPT':
       return (
-        <Button color='gray'>Resend</Button>
+        <Button color="gray">Resend</Button>
       )
       break
     case 'APPROVED':
       return (
         <div>
-          <Button color='danger'>DECLINE</Button>
+          <Button color="danger">DECLINE</Button>
           <Mutation mutation={UPDATE_USER_INVITE_STATUS}>
-            {(updateInviteStatus, { data }) => (
-              <Button color="success" onClick={(e) => updateInviteStatus({variables:{action: 'ACCEPT', user_invite_id: id}}) }>Accept</Button>
+            {(updateInviteStatus) => (
+              <Button color="success" onClick={() => updateInviteStatus({ variables: { action: 'ACCEPT', user_invite_id: id } })}>Accept</Button>
             )}
           </Mutation>
         </div>
@@ -95,13 +99,13 @@ function ActionButton({status, id}) {
       break
     case 'DECLINED':
       return (
-        <Button color='gray'> RESET</Button>
+        <Button color="gray"> RESET</Button>
       )
       break
-    
+
     case 'RESEND':
       return (
-        <Button color='gray'> Resend</Button>
+        <Button color="gray"> Resend</Button>
       )
     default:
       return (
@@ -127,7 +131,7 @@ function InviteTable({ data }) {
     },
   })
   const classes = useStyles()
-  
+
 
   return (
     <TableContainer className={classes.tableContainer} component={Paper}>
@@ -150,7 +154,7 @@ function InviteTable({ data }) {
               <TableCell align="center"><Status status={row.status} /></TableCell>
               <TableCell align="center">
                 <ActionButton id={row._id} status={row.status} />
-                
+
               </TableCell>
             </TableRow>
           ))}
@@ -160,9 +164,9 @@ function InviteTable({ data }) {
   )
 }
 
-export default function ManageInvites(props) {
-  const {data} = useQuery(USER_INVITE_REQUESTS)
-  //const {contents} = data
+export default function ManageInvites() {
+  const { data } = useQuery(USER_INVITE_REQUESTS)
+  // const {contents} = data
   /* const handleAccept = (user) => {
       switch(user.status) {
         case 'RESEND':
@@ -172,25 +176,20 @@ export default function ManageInvites(props) {
           console.log(update)
       } */
 
-  if(data) {
+  if (data) {
     return (
-      <GridContainer> 
+      <GridContainer>
         <Headers />
-        <InviteTable 
-          data={data}  
+        <InviteTable
+          data={data}
         />
       </GridContainer>
     )
   }
-  else {
-    return (
-      <GridContainer>
-          loading
-      </GridContainer>
-    )
-  }
-    
 
+  return (
+    <GridContainer>
+      loading
+    </GridContainer>
+  )
 }
-
-

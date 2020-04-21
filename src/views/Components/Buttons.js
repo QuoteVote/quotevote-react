@@ -1,31 +1,31 @@
-import React from "react";
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // @material-ui/icons
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import PriorityHigh from "@material-ui/icons/PriorityHigh";
-import Check from "@material-ui/icons/Check";
-import Warning from "@material-ui/icons/Warning";
-import Close from "@material-ui/icons/Close";
-import Favorite from "@material-ui/icons/Favorite";
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import PriorityHigh from '@material-ui/icons/PriorityHigh'
+import Check from '@material-ui/icons/Check'
+import Warning from '@material-ui/icons/Warning'
+import Close from '@material-ui/icons/Close'
+import Favorite from '@material-ui/icons/Favorite'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import Pagination from "mui-pro/Pagination/Pagination.js";
-import Button from "mui-pro/CustomButtons/Button.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import Pagination from 'mui-pro/Pagination/Pagination'
+import Button from 'mui-pro/CustomButtons/Button'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/buttonsStyle.js";
+import styles from 'assets/jss/material-dashboard-pro-react/views/buttonsStyle'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function Buttons() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <Card>
       <CardBody>
@@ -62,22 +62,34 @@ export default function Buttons() {
             </div>
             <div className={classes.cardContentRight}>
               <Button className={classes.marginRight}>
-                <KeyboardArrowLeft className={classes.icons} /> Left
+                <KeyboardArrowLeft className={classes.icons} />
+                {' '}
+                Left
               </Button>
               <Button className={classes.marginRight}>
-                Right <KeyboardArrowRight className={classes.icons} />
+                Right
+                {' '}
+                <KeyboardArrowRight className={classes.icons} />
               </Button>
               <Button color="info" className={classes.marginRight}>
-                <PriorityHigh className={classes.icons} /> Info
+                <PriorityHigh className={classes.icons} />
+                {' '}
+                Info
               </Button>
               <Button color="success" className={classes.marginRight}>
-                <Check className={classes.icons} /> Success
+                <Check className={classes.icons} />
+                {' '}
+                Success
               </Button>
               <Button color="warning" className={classes.marginRight}>
-                <Warning className={classes.icons} /> Warning
+                <Warning className={classes.icons} />
+                {' '}
+                Warning
               </Button>
               <Button color="danger" className={classes.marginRight}>
-                <Close className={classes.icons} /> Danger
+                <Close className={classes.icons} />
+                {' '}
+                Danger
               </Button>
             </div>
           </GridItem>
@@ -111,7 +123,9 @@ export default function Buttons() {
                 round
               </Button>
               <Button color="primary" round className={classes.marginRight}>
-                <Favorite className={classes.icons} /> with icon
+                <Favorite className={classes.icons} />
+                {' '}
+                with icon
               </Button>
               <Button
                 justIcon
@@ -136,25 +150,25 @@ export default function Buttons() {
               <Pagination
                 pages={[
                   { text: 1 },
-                  { text: "..." },
+                  { text: '...' },
                   { text: 5 },
                   { text: 6 },
                   { active: true, text: 7 },
                   { text: 8 },
                   { text: 9 },
-                  { text: "..." },
-                  { text: 12 }
+                  { text: '...' },
+                  { text: 12 },
                 ]}
               />
               <Pagination
                 pages={[
-                  { text: "PREV" },
+                  { text: 'PREV' },
                   { text: 1 },
                   { text: 2 },
                   { active: true, text: 3 },
                   { text: 4 },
                   { text: 5 },
-                  { text: "NEXT" }
+                  { text: 'NEXT' },
                 ]}
                 color="info"
               />
@@ -192,7 +206,7 @@ export default function Buttons() {
                   4
                 </Button>
               </div>
-              {` `}
+              {' '}
               <div className={classes.buttonGroup}>
                 <Button color="info" round className={classes.firstButton}>
                   5
@@ -218,24 +232,25 @@ export default function Buttons() {
                   <Button color="twitter">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-twitter"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-twitter`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Connect with Twitter
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="twitter">
-                    <i className={"fab fa-twitter"} />
+                    <i className="fab fa-twitter" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="twitter">
                     <i
-                      className={classes.socialButtonsIcons + " fab fa-twitter"}
+                      className={`${classes.socialButtonsIcons} fab fa-twitter`}
                     />
                   </Button>
                 </GridItem>
@@ -243,10 +258,10 @@ export default function Buttons() {
                   <Button justIcon color="twitter" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-twitter"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-twitter`
                       }
                     />
                   </Button>
@@ -255,12 +270,13 @@ export default function Buttons() {
                   <Button color="twitter" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-twitter"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-twitter`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Connect with Twitter
                   </Button>
                 </GridItem>
@@ -270,25 +286,26 @@ export default function Buttons() {
                   <Button color="facebook">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-facebook-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-facebook-square`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Share · 2.2k
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="facebook">
-                    <i className={"fab fa-facebook"} />
+                    <i className="fab fa-facebook" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="facebook">
                     <i
                       className={
-                        classes.socialButtonsIcons + " fab fa-facebook"
+                        `${classes.socialButtonsIcons} fab fa-facebook`
                       }
                     />
                   </Button>
@@ -297,10 +314,10 @@ export default function Buttons() {
                   <Button justIcon color="facebook" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-facebook-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-facebook-square`
                       }
                     />
                   </Button>
@@ -309,12 +326,13 @@ export default function Buttons() {
                   <Button color="facebook" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-facebook-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-facebook-square`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Share · 2.2k
                   </Button>
                 </GridItem>
@@ -324,24 +342,25 @@ export default function Buttons() {
                   <Button color="google">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-google-plus-g"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-google-plus-g`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Share on Google+
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="google">
-                    <i className={"fab fa-google"} />
+                    <i className="fab fa-google" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="google">
                     <i
-                      className={classes.socialButtonsIcons + " fab fa-google"}
+                      className={`${classes.socialButtonsIcons} fab fa-google`}
                     />
                   </Button>
                 </GridItem>
@@ -349,10 +368,10 @@ export default function Buttons() {
                   <Button justIcon color="google" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-google"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-google`
                       }
                     />
                   </Button>
@@ -361,12 +380,13 @@ export default function Buttons() {
                   <Button color="google" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-google-plus-g"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-google-plus-g`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Share on Google+
                   </Button>
                 </GridItem>
@@ -376,25 +396,26 @@ export default function Buttons() {
                   <Button color="linkedin">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-linkedin"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-linkedin`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Connect with Linkedin
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="linkedin">
-                    <i className={"fab fa-linkedin"} />
+                    <i className="fab fa-linkedin" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="linkedin">
                     <i
                       className={
-                        classes.socialButtonsIcons + " fab fa-linkedin"
+                        `${classes.socialButtonsIcons} fab fa-linkedin`
                       }
                     />
                   </Button>
@@ -403,10 +424,10 @@ export default function Buttons() {
                   <Button justIcon color="linkedin" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-linkedin"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-linkedin`
                       }
                     />
                   </Button>
@@ -415,12 +436,13 @@ export default function Buttons() {
                   <Button color="linkedin" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-linkedin"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-linkedin`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Connect with Linkedin
                   </Button>
                 </GridItem>
@@ -430,25 +452,26 @@ export default function Buttons() {
                   <Button color="pinterest">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-pinterest"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-pinterest`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Pint it · 212
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="pinterest">
-                    <i className={"fab fa-pinterest"} />
+                    <i className="fab fa-pinterest" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="pinterest">
                     <i
                       className={
-                        classes.socialButtonsIcons + " fab fa-pinterest"
+                        `${classes.socialButtonsIcons} fab fa-pinterest`
                       }
                     />
                   </Button>
@@ -457,10 +480,10 @@ export default function Buttons() {
                   <Button justIcon color="pinterest" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-pinterest"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-pinterest`
                       }
                     />
                   </Button>
@@ -469,12 +492,13 @@ export default function Buttons() {
                   <Button color="pinterest" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-pinterest"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-pinterest`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Pint it · 212
                   </Button>
                 </GridItem>
@@ -484,25 +508,26 @@ export default function Buttons() {
                   <Button color="youtube">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-youtube"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-youtube`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     View on Youtube
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="youtube">
-                    <i className={"fab fa-youtube-square"} />
+                    <i className="fab fa-youtube-square" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="youtube">
                     <i
                       className={
-                        classes.socialButtonsIcons + " fab fa-youtube-square"
+                        `${classes.socialButtonsIcons} fab fa-youtube-square`
                       }
                     />
                   </Button>
@@ -511,10 +536,10 @@ export default function Buttons() {
                   <Button justIcon color="youtube" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-youtube-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-youtube-square`
                       }
                     />
                   </Button>
@@ -523,12 +548,13 @@ export default function Buttons() {
                   <Button color="youtube" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-youtube"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-youtube`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     View on Youtube
                   </Button>
                 </GridItem>
@@ -538,25 +564,26 @@ export default function Buttons() {
                   <Button color="tumblr">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-tumblr-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-tumblr-square`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Repost
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="tumblr">
-                    <i className={"fab fa-tumblr-square"} />
+                    <i className="fab fa-tumblr-square" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="tumblr">
                     <i
                       className={
-                        classes.socialButtonsIcons + " fab fa-tumblr-square"
+                        `${classes.socialButtonsIcons} fab fa-tumblr-square`
                       }
                     />
                   </Button>
@@ -565,10 +592,10 @@ export default function Buttons() {
                   <Button justIcon color="tumblr" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-tumblr-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-tumblr-square`
                       }
                     />
                   </Button>
@@ -577,12 +604,13 @@ export default function Buttons() {
                   <Button color="tumblr" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-tumblr-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-tumblr-square`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Repost
                   </Button>
                 </GridItem>
@@ -592,24 +620,25 @@ export default function Buttons() {
                   <Button color="github">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-github"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-github`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Connect with Github
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="github">
-                    <i className={"fab fa-github"} />
+                    <i className="fab fa-github" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="github">
                     <i
-                      className={classes.socialButtonsIcons + " fab fa-github"}
+                      className={`${classes.socialButtonsIcons} fab fa-github`}
                     />
                   </Button>
                 </GridItem>
@@ -617,10 +646,10 @@ export default function Buttons() {
                   <Button justIcon color="github" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-github"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-github`
                       }
                     />
                   </Button>
@@ -629,12 +658,13 @@ export default function Buttons() {
                   <Button color="github" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-github"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-github`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Connect with Github
                   </Button>
                 </GridItem>
@@ -644,25 +674,26 @@ export default function Buttons() {
                   <Button color="behance">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-behance-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-behance-square`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Follow us
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="behance">
-                    <i className={"fab fa-behance"} />
+                    <i className="fab fa-behance" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="behance">
                     <i
                       className={
-                        classes.socialButtonsIcons + " fab fa-behance-square"
+                        `${classes.socialButtonsIcons} fab fa-behance-square`
                       }
                     />
                   </Button>
@@ -671,10 +702,10 @@ export default function Buttons() {
                   <Button justIcon color="behance" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-behance"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-behance`
                       }
                     />
                   </Button>
@@ -683,12 +714,13 @@ export default function Buttons() {
                   <Button color="behance" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-behance-square"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-behance-square`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Follow us
                   </Button>
                 </GridItem>
@@ -698,25 +730,26 @@ export default function Buttons() {
                   <Button color="dribbble">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-dribbble"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-dribbble`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Find us on Dribble
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="dribbble">
-                    <i className={"fab fa-dribbble"} />
+                    <i className="fab fa-dribbble" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="dribbble">
                     <i
                       className={
-                        classes.socialButtonsIcons + " fab fa-dribbble"
+                        `${classes.socialButtonsIcons} fab fa-dribbble`
                       }
                     />
                   </Button>
@@ -725,10 +758,10 @@ export default function Buttons() {
                   <Button justIcon color="dribbble" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-dribbble"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-dribbble`
                       }
                     />
                   </Button>
@@ -737,12 +770,13 @@ export default function Buttons() {
                   <Button color="dribbble" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-dribbble"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-dribbble`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Find us on Dribble
                   </Button>
                 </GridItem>
@@ -752,24 +786,25 @@ export default function Buttons() {
                   <Button color="reddit">
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-reddit"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-reddit`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Repost · 232
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon color="reddit">
-                    <i className={"fab fa-reddit"} />
+                    <i className="fab fa-reddit" />
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={1} md={1}>
                   <Button justIcon round color="reddit">
                     <i
-                      className={classes.socialButtonsIcons + " fab fa-reddit"}
+                      className={`${classes.socialButtonsIcons} fab fa-reddit`}
                     />
                   </Button>
                 </GridItem>
@@ -777,10 +812,10 @@ export default function Buttons() {
                   <Button justIcon color="reddit" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-reddit"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-reddit`
                       }
                     />
                   </Button>
@@ -789,12 +824,13 @@ export default function Buttons() {
                   <Button color="reddit" simple>
                     <i
                       className={
-                        classes.socialButtonsIcons +
-                        " " +
-                        classes.marginRight +
-                        " fab fa-reddit"
+                        `${classes.socialButtonsIcons
+                        } ${
+                          classes.marginRight
+                        } fab fa-reddit`
                       }
-                    />{" "}
+                    />
+                    {' '}
                     Repost · 232
                   </Button>
                 </GridItem>
@@ -804,5 +840,5 @@ export default function Buttons() {
         </GridContainer>
       </CardBody>
     </Card>
-  );
+  )
 }

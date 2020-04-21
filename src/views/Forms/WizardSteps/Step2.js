@@ -1,62 +1,68 @@
-import React from "react";
-import PropTypes from "prop-types";
+/* eslint-disable */
+import React from 'react'
+import PropTypes from 'prop-types'
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Checkbox from "@material-ui/core/Checkbox";
+import withStyles from '@material-ui/core/styles/withStyles'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Checkbox from '@material-ui/core/Checkbox'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
 
-import customSelectStyle from "assets/jss/material-dashboard-pro-react/customSelectStyle.js";
-import customCheckboxRadioSwitch from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.js";
+import customSelectStyle from 'assets/jss/material-dashboard-pro-react/customSelectStyle'
+import customCheckboxRadioSwitch from 'assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch'
 
 const style = {
   infoText: {
-    fontWeight: "300",
-    margin: "10px 0 30px",
-    textAlign: "center"
+    fontWeight: '300',
+    margin: '10px 0 30px',
+    textAlign: 'center',
   },
   inputAdornmentIcon: {
-    color: "#555"
+    color: '#555',
   },
   choiche: {
-    textAlign: "center",
-    cursor: "pointer",
-    marginTop: "20px"
+    textAlign: 'center',
+    cursor: 'pointer',
+    marginTop: '20px',
   },
   ...customSelectStyle,
-  ...customCheckboxRadioSwitch
-};
+  ...customCheckboxRadioSwitch,
+}
 
 class Step2 extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      simpleSelect: "",
+      simpleSelect: '',
       desgin: false,
       code: false,
-      develop: false
-    };
+      develop: false,
+    }
   }
+
   sendState() {
-    return this.state;
+    return this.state
   }
-  handleSimple = event => {
-    this.setState({ [event.target.name]: event.target.value });
+
+  handleSimple = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
   };
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+
+  handleChange = (name) => (event) => {
+    this.setState({ [name]: event.target.checked })
   };
+
   isValidated() {
-    return true;
+    return true
   }
+
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <div>
         <h4 className={classes.infoText}>What are you doing? (checkboxes)</h4>
@@ -67,24 +73,24 @@ class Step2 extends React.Component {
                 <div className={classes.choiche}>
                   <Checkbox
                     tabIndex={-1}
-                    onClick={this.handleChange("desgin")}
-                    checkedIcon={
+                    onClick={this.handleChange('desgin')}
+                    checkedIcon={(
                       <i
                         className={
-                          "fas fa-pencil-alt " + classes.iconCheckboxIcon
+                          `fas fa-pencil-alt ${classes.iconCheckboxIcon}`
                         }
                       />
-                    }
-                    icon={
+                    )}
+                    icon={(
                       <i
                         className={
-                          "fas fa-pencil-alt " + classes.iconCheckboxIcon
+                          `fas fa-pencil-alt ${classes.iconCheckboxIcon}`
                         }
                       />
-                    }
+                    )}
                     classes={{
                       checked: classes.iconCheckboxChecked,
-                      root: classes.iconCheckbox
+                      root: classes.iconCheckbox,
                     }}
                   />
                   <h6>Design</h6>
@@ -94,24 +100,24 @@ class Step2 extends React.Component {
                 <div className={classes.choiche}>
                   <Checkbox
                     tabIndex={-1}
-                    onClick={this.handleChange("code")}
-                    checkedIcon={
+                    onClick={this.handleChange('code')}
+                    checkedIcon={(
                       <i
                         className={
-                          "fas fa-terminal " + classes.iconCheckboxIcon
+                          `fas fa-terminal ${classes.iconCheckboxIcon}`
                         }
                       />
-                    }
-                    icon={
+                    )}
+                    icon={(
                       <i
                         className={
-                          "fas fa-terminal " + classes.iconCheckboxIcon
+                          `fas fa-terminal ${classes.iconCheckboxIcon}`
                         }
                       />
-                    }
+                    )}
                     classes={{
                       checked: classes.iconCheckboxChecked,
-                      root: classes.iconCheckbox
+                      root: classes.iconCheckbox,
                     }}
                   />
                   <h6>Code</h6>
@@ -121,20 +127,20 @@ class Step2 extends React.Component {
                 <div className={classes.choiche}>
                   <Checkbox
                     tabIndex={-1}
-                    onClick={this.handleChange("develop")}
-                    checkedIcon={
+                    onClick={this.handleChange('develop')}
+                    checkedIcon={(
                       <i
-                        className={"fas fa-laptop " + classes.iconCheckboxIcon}
+                        className={`fas fa-laptop ${classes.iconCheckboxIcon}`}
                       />
-                    }
-                    icon={
+                    )}
+                    icon={(
                       <i
-                        className={"fas fa-laptop " + classes.iconCheckboxIcon}
+                        className={`fas fa-laptop ${classes.iconCheckboxIcon}`}
                       />
-                    }
+                    )}
                     classes={{
                       checked: classes.iconCheckboxChecked,
-                      root: classes.iconCheckbox
+                      root: classes.iconCheckbox,
                     }}
                   />
                   <h6>Develop</h6>
@@ -148,22 +154,22 @@ class Step2 extends React.Component {
                   </InputLabel>
                   <Select
                     MenuProps={{
-                      className: classes.selectMenu
+                      className: classes.selectMenu,
                     }}
                     classes={{
-                      select: classes.select
+                      select: classes.select,
                     }}
                     value={this.state.simpleSelect}
                     onChange={this.handleSimple}
                     inputProps={{
-                      name: "simpleSelect",
-                      id: "simple-select"
+                      name: 'simpleSelect',
+                      id: 'simple-select',
                     }}
                   >
                     <MenuItem
                       disabled
                       classes={{
-                        root: classes.selectMenuItem
+                        root: classes.selectMenuItem,
                       }}
                     >
                       Choose City
@@ -171,7 +177,7 @@ class Step2 extends React.Component {
                     <MenuItem
                       classes={{
                         root: classes.selectMenuItem,
-                        selected: classes.selectMenuItemSelected
+                        selected: classes.selectMenuItemSelected,
                       }}
                       value="2"
                     >
@@ -180,7 +186,7 @@ class Step2 extends React.Component {
                     <MenuItem
                       classes={{
                         root: classes.selectMenuItem,
-                        selected: classes.selectMenuItemSelected
+                        selected: classes.selectMenuItemSelected,
                       }}
                       value="3"
                     >
@@ -193,12 +199,12 @@ class Step2 extends React.Component {
           </GridItem>
         </GridContainer>
       </div>
-    );
+    )
   }
 }
 
 Step2.propTypes = {
-  classes: PropTypes.object
-};
+  classes: PropTypes.object,
+}
 
-export default withStyles(style)(Step2);
+export default withStyles(style)(Step2)

@@ -1,45 +1,45 @@
-import React from "react";
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // core components
-import Quote from "mui-pro/Typography/Quote.js";
-import Muted from "mui-pro/Typography/Muted.js";
-import Primary from "mui-pro/Typography/Primary.js";
-import Info from "mui-pro/Typography/Info.js";
-import Success from "mui-pro/Typography/Success.js";
-import Warning from "mui-pro/Typography/Warning.js";
-import Danger from "mui-pro/Typography/Danger.js";
-import Heading from "mui-pro/Heading/Heading.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import Quote from 'mui-pro/Typography/Quote'
+import Muted from 'mui-pro/Typography/Muted'
+import Primary from 'mui-pro/Typography/Primary'
+import Info from 'mui-pro/Typography/Info'
+import Success from 'mui-pro/Typography/Success'
+import Warning from 'mui-pro/Typography/Warning'
+import Danger from 'mui-pro/Typography/Danger'
+import Heading from 'mui-pro/Heading/Heading'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
 
 const styles = {
   typo: {
-    paddingLeft: "25%",
-    marginBottom: "40px",
-    position: "relative"
+    paddingLeft: '25%',
+    marginBottom: '40px',
+    position: 'relative',
   },
   note: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    bottom: "10px",
-    color: "#c0c1c2",
-    display: "block",
-    fontWeight: "400",
-    fontSize: "13px",
-    lineHeight: "13px",
-    left: "0",
-    marginLeft: "20px",
-    position: "absolute",
-    width: "260px"
-  }
-};
+    bottom: '10px',
+    color: '#c0c1c2',
+    display: 'block',
+    fontWeight: '400',
+    fontSize: '13px',
+    lineHeight: '13px',
+    left: '0',
+    marginLeft: '20px',
+    position: 'absolute',
+    width: '260px',
+  },
+}
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function Typography() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div>
       <Heading
@@ -138,12 +138,18 @@ export default function Typography() {
               Header with small subtitle
               <br />
               <small>
-                Use {'"'}small{'"'} tag for the headers
+                Use
+                {' '}
+                {'"'}
+                small
+                {'"'}
+                {' '}
+                tag for the headers
               </small>
             </h2>
           </div>
         </CardBody>
       </Card>
     </div>
-  );
+  )
 }

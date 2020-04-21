@@ -1,16 +1,18 @@
-import React from "react"
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/prop-types */
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { Grid } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-import { CircularProgress } from "@material-ui/core"
-import Card from "mui-pro/Card/Card"
-import CardHeader from "mui-pro/Card/CardHeader"
-import CardBody from "mui-pro/Card/CardBody"
+import { Grid, CircularProgress } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardBody from 'mui-pro/Card/CardBody'
 
 export default function SearchResultsView({ searchResults, isLoading, isError }) {
   const classes = sty()
 
-  // If searchResults query in 
+  // If searchResults query in
   // hhsbComponents/SearchContainer/index.js doesn't work
   // Show an error
   if (isError) {
@@ -20,17 +22,21 @@ export default function SearchResultsView({ searchResults, isLoading, isError })
       </Card>
     )
   }
-  
+
   return (
-    <div style={{ zIndex: 10, overflowY: "scroll", height: "100%", maxHeight: "100%" }}>
+    <div
+      style={{
+        zIndex: 10, overflowY: 'scroll', height: '100%', maxHeight: '100%',
+      }}
+    >
       {/* If it's loading, show a spinner */}
       {isLoading ? (
         <Card className={classes.progress}>
-          <CircularProgress disableShrink style={{ margin: "auto"}} />
+          <CircularProgress disableShrink style={{ margin: 'auto' }} />
         </Card>
       ) : (
         <>
-          {/* searchResults has more than one query. 
+          {/* searchResults has more than one query.
             *  Interate over the object to check each query's results
             */
           }
@@ -68,7 +74,7 @@ export default function SearchResultsView({ searchResults, isLoading, isError })
                   </CardBody>
                 </Card>
               )
-            } 
+            }
 
             // If the query is successful, then fill it with data.
             return (
@@ -78,30 +84,31 @@ export default function SearchResultsView({ searchResults, isLoading, isError })
                 key={`${resultCategory}${id}`}
               >
                 <CardHeader className={classes.name}>{category[0].__typename}</CardHeader>
-                <CardBody  className={classes.results}>
+                <CardBody className={classes.results}>
                   {category.map((content) => {
                     // we may want to refactor this into a switch statement, to allow for domain queries
-                    const isUser = resultCategory === "searchCreator"
+                    const isUser = resultCategory === 'searchCreator'
                     const result = isUser ? content.name : content.title
-                    const link =  isUser ?
-                      `/${content.name.replace(/\s/g, '')}` : 
+                    const link = isUser ?
+                      `/${content.name.replace(/\s/g, '')}` :
                       `/boards/${content.domain.key}/content/${content.domain._id}`
                     return (
                       <Grid
                         container
                         key={content._id}
-                        component={Link} 
+                        component={Link}
                         to={link}
                       >
                         <Grid
                           item
-                          xs={12} 
+                          xs={12}
                           className={classes.elevation1}
                         >
                           { result }
                         </Grid>
                       </Grid>
-                    )})}
+                    )
+                  })}
                 </CardBody>
               </Card>
             )
@@ -120,37 +127,37 @@ const sty = makeStyles({
     padding: 8,
   },
   name: {
-    display: "table-cell",
-    textOverflow: "ellipsis",
-    width: "100px",
-    whiteSpace: "nowrap",
-    background: "0 0",
-    fontFamily: "Lato,Helvetica Neue,Arial,Helvetica,sans-serif",
-    fontSize: "1em",
-    padding: ".4em 1em",
+    display: 'table-cell',
+    textOverflow: 'ellipsis',
+    width: '100px',
+    whiteSpace: 'nowrap',
+    background: '0 0',
+    fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif',
+    fontSize: '1em',
+    padding: '.4em 1em',
     fontWeight: 700,
-    color: "rgba(0,0,0,.4)",
-    borderBottom: "1px solid rgba(34,36,38,.1)",
+    color: 'rgba(0,0,0,.4)',
+    borderBottom: '1px solid rgba(34,36,38,.1)',
   },
   results: {
-    width: "100%",
-    display: "table-cell",
-    background: "#fff",
-    borderLeft: "1px solid rgba(34,36,38,.15)",
-    borderBottom: "2px solid rgba(34,36,38,.1)",
-    borderBottomLeftRadius:	'6px',
-    borderBottomRightRadius:	'6px',
+    width: '100%',
+    display: 'table-cell',
+    background: '#fff',
+    borderLeft: '1px solid rgba(34,36,38,.15)',
+    borderBottom: '2px solid rgba(34,36,38,.1)',
+    borderBottomLeftRadius: '6px',
+    borderBottomRightRadius: '6px',
   },
   category: {
-    display: "flex",
-    flexDirection: "column",
-    background: "#f3f4f5",
+    display: 'flex',
+    flexDirection: 'column',
+    background: '#f3f4f5',
   },
   elevation1: {
-    borderBottom: "1px solid #f3f4f5",
-    padding: "20px",
-    "& :last-child": {
-      border: "none",
+    borderBottom: '1px solid #f3f4f5',
+    padding: '20px',
+    '& :last-child': {
+      border: 'none',
     },
   },
 })

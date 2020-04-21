@@ -10,15 +10,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Timeline from "@material-ui/icons/Timeline";
 
 // core components
-import Heading from "mui-pro/Heading/Heading.js";
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
+import Heading from "mui-pro/Heading/Heading";
+import GridContainer from "mui-pro/Grid/GridContainer";
+import GridItem from "mui-pro/Grid/GridItem";
 
-import Card from "mui-pro/Card/Card.js";
-import CardHeader from "mui-pro/Card/CardHeader.js";
-import CardIcon from "mui-pro/Card/CardIcon.js";
-import CardBody from "mui-pro/Card/CardBody.js";
-import CardFooter from "mui-pro/Card/CardFooter.js";
+import Card from "mui-pro/Card/Card";
+import CardHeader from "mui-pro/Card/CardHeader";
+import CardIcon from "mui-pro/Card/CardIcon";
+import CardBody from "mui-pro/Card/CardBody";
+import CardFooter from "mui-pro/Card/CardFooter";
 
 import {
   roundedLineChart,
@@ -28,9 +28,9 @@ import {
   multipleBarsChart,
   colouredLinesChart,
   pieChart
-} from "variables/charts.js";
+} from "variables/charts";
 
-import styles from "assets/jss/material-dashboard-pro-react/views/chartsStyle.js";
+import styles from "assets/jss/material-dashboard-pro-react/views/chartsStyle";
 
 const useStyles = makeStyles(styles);
 
@@ -46,16 +46,16 @@ export default function Charts() {
             A react wrapper for{" "}
             <a
               target="_blank"
-              href="https://gionkunz.github.io/chartist-js/?ref=creativetim"
+              href="https://gionkunz.github.io/chartist/?ref=creativetim"
             >
-              Chartist.js
+              Chartist
             </a>
             . Please checkout the{" "}
             <a
-              href="https://gionkunz.github.io/chartist-js/getting-started.html?ref=creativetim"
+              href="https://gionkunz.github.io/chartist/getting-started.html?ref=creativetim"
               target="_blank"
             >
-              full documentation of Chartist.js
+              full documentation of Chartist
             </a>{" "}
             and{" "}
             <a

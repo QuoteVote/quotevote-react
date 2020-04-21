@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import React, { PureComponent } from 'react'
 
-class SearchView extends Component {
+class SearchView extends PureComponent {
   render() {
     return <div>Search View Page(todo)</div>
   }

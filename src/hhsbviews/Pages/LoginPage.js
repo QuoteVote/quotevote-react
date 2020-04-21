@@ -1,43 +1,44 @@
-import { omit } from "lodash"
-import React from "react"
+import { omit } from 'lodash'
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from '@material-ui/core/styles'
 
 import {
-  InputAdornment, 
+  InputAdornment,
   CircularProgress,
   Hidden,
-} from "@material-ui/core"
+} from '@material-ui/core'
 
-import Icon from "@material-ui/core/Icon"
+import Icon from '@material-ui/core/Icon'
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face"
+import Face from '@material-ui/icons/Face'
 
 // core mui-pro
-import GridContainer from "mui-pro/Grid/GridContainer.js"
-import GridItem from "mui-pro/Grid/GridItem.js"
-import CustomInput from "mui-pro/CustomInput/CustomInput.js"
-import Button from "mui-pro/CustomButtons/Button.js"
-import Card from "mui-pro/Card/Card.js"
-import CardBody from "mui-pro/Card/CardBody.js"
-import CardHeader from "mui-pro/Card/CardHeader.js"
-import CardFooter from "mui-pro/Card/CardFooter.js"
-import Carousel from "react-material-ui-carousel"
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import CustomInput from 'mui-pro/CustomInput/CustomInput'
+import Button from 'mui-pro/CustomButtons/Button'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardFooter from 'mui-pro/Card/CardFooter'
+import Carousel from 'react-material-ui-carousel'
 
 // login method
-import { userLogin } from "actions/login"
+import { userLogin } from 'actions/login'
 
-import { useSelector, useDispatch } from "react-redux"
-import { useHistory } from "react-router-dom"
-import { tokenValidator } from "../../actions/login"
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
+import { tokenValidator } from '../../actions/login'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.js"
 
 const useStyles = makeStyles(styles)
 
-function CarouselImage({ imageUrl,  alt}) {
+// eslint-disable-next-line react/prop-types
+function CarouselImage({ imageUrl, alt }) {
   return (
     <Card square>
       <img alt={alt} height={500} src={`/assets/${imageUrl}`} style={{ marginTop: '-15px' }} />
@@ -46,16 +47,17 @@ function CarouselImage({ imageUrl,  alt}) {
 }
 
 export default function LoginPage() {
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden")
+  const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
   const dispatch = useDispatch()
   const history = useHistory()
   const { loading, loginError } = useSelector((state) => state.loginReducer)
-  const [input, setInput] = React.useState({ password: "", username: "" })
+  const [input, setInput] = React.useState({ password: '', username: '' })
 
-  const images = ['Activities_Page.png', 'Post_Page.png', 'Profile_Page.png', 'Side_Navigation.png', 'Trending_Page.png'  ]
+  // This needs to be fixed so that we are importing the images instead of using the public/assets folder
+  const images = ['Activities_Page.png', 'Post_Page.png', 'Profile_Page.png', 'Side_Navigation.png', 'Trending_Page.png']
 
   setTimeout(() => {
-    setCardAnimation("")
+    setCardAnimation('')
   }, 700)
 
   const classes = useStyles()
@@ -69,27 +71,27 @@ export default function LoginPage() {
     userLogin(username, password, dispatch, history)
   }
   const handleFormSubmit = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSubmit(e)
     }
   }
   return (
     <div className={classes.container}>
-      {tokenValidator() && history.push("/hhsb/Home")}
+      {tokenValidator() && history.push('/hhsb/Home')}
       <GridContainer justify="center" style={{ marginRight: 24 }}>
         <Hidden smDown>
           <GridItem lg={8}>
             <Carousel interval={3000}>
               {
                 images.map((image) => (
-                  <CarouselImage imageUrl={image} alt={image}/>
+                  <CarouselImage imageUrl={image} alt={image} />
                 ))
               }
             </Carousel>
           </GridItem>
         </Hidden>
         <GridItem xs={12} sm={6} md={4}>
-          <form onKeyPress={(e) => handleFormSubmit(e)}>
+          <form onSubmit={(e) => handleFormSubmit(e)}>
             <Card login className={classes[cardAnimaton]}>
               <CardHeader
                 className={`${classes.cardHeader} ${classes.textCenter}`}
@@ -98,9 +100,9 @@ export default function LoginPage() {
                 <h4 className={classes.cardTitle}>Log in</h4>
                 <div className={classes.socialLine}>
                   {[
-                    "fab fa-facebook-square",
-                    "fab fa-twitter",
-                    "fab fa-google-plus",
+                    'fab fa-facebook-square',
+                    'fab fa-twitter',
+                    'fab fa-google-plus',
                   ].map((prop, key) => (
                     <Button
                       color="transparent"
@@ -145,8 +147,8 @@ export default function LoginPage() {
                       </InputAdornment>
                     ),
                     onChange: (e) => handleInputs(e),
-                    type: "password",
-                    autoComplete: "off",
+                    type: 'password',
+                    autoComplete: 'off',
                   }}
                   error={loginError}
                   helperText={loginError}

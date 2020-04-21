@@ -1,33 +1,33 @@
-import React from "react"
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles"
-import InputAdornment from "@material-ui/core/InputAdornment"
-import Icon from "@material-ui/core/Icon"
+import { makeStyles } from '@material-ui/core/styles'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Icon from '@material-ui/core/Icon'
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face"
-import Email from "@material-ui/icons/Email"
+import Face from '@material-ui/icons/Face'
+import Email from '@material-ui/icons/Email'
 // import LockOutline from "@material-ui/icons/LockOutline";
 
 // core Material UI Pro components
-import GridContainer from "mui-pro/Grid/GridContainer.js"
-import GridItem from "mui-pro/Grid/GridItem.js"
-import CustomInput from "mui-pro/CustomInput/CustomInput.js"
-import Button from "mui-pro/CustomButtons/Button.js"
-import Card from "mui-pro/Card/Card.js"
-import CardBody from "mui-pro/Card/CardBody.js"
-import CardHeader from "mui-pro/Card/CardHeader.js"
-import CardFooter from "mui-pro/Card/CardFooter.js"
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import CustomInput from 'mui-pro/CustomInput/CustomInput'
+import Button from 'mui-pro/CustomButtons/Button'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardFooter from 'mui-pro/Card/CardFooter'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.js"
+import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
 const useStyles = makeStyles(styles)
 
 export default function LoginPage() {
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden")
+  const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
   setTimeout(() => {
-    setCardAnimation("")
+    setCardAnimation('')
   }, 700)
   const classes = useStyles()
   return (
@@ -43,9 +43,9 @@ export default function LoginPage() {
                 <h4 className={classes.cardTitle}>Log in</h4>
                 <div className={classes.socialLine}>
                   {[
-                    "fab fa-facebook-square",
-                    "fab fa-twitter",
-                    "fab fa-google-plus",
+                    'fab fa-facebook-square',
+                    'fab fa-twitter',
+                    'fab fa-google-plus',
                   ].map((prop, key) => (
                     <Button
                       color="transparent"
@@ -101,14 +101,14 @@ export default function LoginPage() {
                         </Icon>
                       </InputAdornment>
                     ),
-                    type: "password",
-                    autoComplete: "off",
+                    type: 'password',
+                    autoComplete: 'off',
                   }}
                 />
               </CardBody>
               <CardFooter className={classes.justifyContentCenter}>
                 <Button color="rose" simple size="lg" block>
-                  Let{"'"}s Go
+                  Let&apos;s Go
                 </Button>
               </CardFooter>
             </Card>

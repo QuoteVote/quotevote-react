@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
+import { makeStyles } from '@material-ui/core/styles'
+import Icon from '@material-ui/core/Icon'
 
 // @material-ui/icons
 // import Weekend from "@material-ui/icons/Weekend";
-import Home from "@material-ui/icons/Home";
-import Business from "@material-ui/icons/Business";
-import AccountBalance from "@material-ui/icons/AccountBalance";
+import Home from '@material-ui/icons/Home'
+import Business from '@material-ui/icons/Business'
+import AccountBalance from '@material-ui/icons/AccountBalance'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import Button from "mui-pro/CustomButtons/Button.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import Button from 'mui-pro/CustomButtons/Button'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/pricingPageStyle.js";
+import styles from 'assets/jss/material-dashboard-pro-react/views/pricingPageStyle'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function PricingPage() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div className={classes.container}>
       <GridContainer justify="center">
@@ -118,5 +118,5 @@ export default function PricingPage() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }

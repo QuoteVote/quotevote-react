@@ -1,46 +1,49 @@
 /* eslint-disable react/prop-types */
-import React, { Fragment, useState } from "react";
-import { Container } from "@material-ui/core";
+import React, { Fragment, useState } from 'react'
+import { Container } from '@material-ui/core'
 
-import SelectionPopover from "./SelectionPopover";
-import { parser } from "utils/parser";
+import { parser } from 'utils/parser'
+import SelectionPopover from './SelectionPopover'
 
-const VotingBoard = props => {
-  let topOffset = props && props.topOffset ? props.topOffset : 60;
-  const [open, setOpen] = useState(false);
-  const [selection, setSelection] = useState({});
+const VotingBoard = ({
+  topOffset, onSelect, highlights, content, children, ...props
+}) => {
+  const [open, setOpen] = useState(false)
+  const [selection, setSelection] = useState({})
 
-  const handleSelect = select => {
-    const text = select.toString();
+  const handleSelect = (select) => {
+    const text = select.toString()
 
-    if (!text) return;
-    const selection = parser(props.content, text);
+    if (!text) return
+    const selectionVal = parser(content, text)
 
-    if (text.length > 0 && props.onSelect) {
-      setOpen(true);
-      setSelection(selection);
-      props.onSelect(selection);
+    if (text.length > 0 && onSelect) {
+      setOpen(true)
+      setSelection(selectionVal)
+      onSelect(selectionVal)
     } else {
-      setSelection({});
+      setSelection({})
     }
-  };
+  }
 
   const renderHighlights = () => {
-    if (props.highlights) {
-      return props.content.split(/\n/g).map((line, contentIndex) => (
+    if (highlights) {
+      return content.split(/\n/g).map((line, contentIndex) => (
         <Fragment key={`frag-${contentIndex}`}>
           {line.split(/\s+/g).map((word, index) => (
-            <span key={index + word}>{word + " "}</span>
+            <span key={index + word}>{`${word} `}</span>
           ))}
           <br />
         </Fragment>
-      ));
+      ))
     }
-    return <div dangerouslySetInnerHTML={{ __html: props.content }} />;
-  };
+    // THIS IS UNSAFE WE MUST SANTIZE THIS
+    // eslint-disable-next-line react/no-danger
+    return <div dangerouslySetInnerHTML={{ __html: content }} />
+  }
 
   return (
-    <Container style={{ position: "relative" }}>
+    <Container style={{ position: 'relative' }}>
       <div data-selectable>
         <p className="voting_board-content">{renderHighlights()}</p>
       </div>
@@ -50,10 +53,10 @@ const VotingBoard = props => {
         onSelect={handleSelect}
         onDeselect={() => setOpen(false)}
       >
-        {props && props.children({ ...selection })}
+        {props && children({ ...selection })}
       </SelectionPopover>
     </Container>
-  );
-};
+  )
+}
 
-export default VotingBoard;
+export default VotingBoard

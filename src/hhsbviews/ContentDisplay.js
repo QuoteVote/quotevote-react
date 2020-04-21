@@ -1,51 +1,53 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable prefer-destructuring */
 // import { getThemeProps } from '@material-ui/styles';
-// import Accordion from "mui-pro/Accordion/Accordion.js";
-// import Badge from "mui-pro/Badge/Badge.js";
+// import Accordion from "mui-pro/Accordion/Accordion";
+// import Badge from "mui-pro/Badge/Badge";
 // import Box from '@material-ui/core/Box';
-// import Button from "mui-pro/CustomButtons/Button.js"
-import Card from "mui-pro/Card/Card.js"
-import CardBody from "mui-pro/Card/CardBody.js"
-import CardFooter from "mui-pro/Card/CardFooter.js"
-import CardHeader from "mui-pro/Card/CardHeader.js"
-import Divider from "@material-ui/core/Divider"
-import GridContainer from "mui-pro/Grid/GridContainer.js"
-import GridItem from "mui-pro/Grid/GridItem.js"
+// import Button from "mui-pro/CustomButtons/Button"
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
+import CardFooter from 'mui-pro/Card/CardFooter'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import Divider from '@material-ui/core/Divider'
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
 
-// import NavPills from "mui-pro/NavPills/NavPills.js";
-import VotingBoard from "hhsbComponents/VotingComponents/VotingBoard.js"
-import VotingPopup from "hhsbComponents/VotingComponents/VotingPopup.js"
-import React, { useState } from "react"
+// import NavPills from "mui-pro/NavPills/NavPills";
+import VotingBoard from 'hhsbComponents/VotingComponents/VotingBoard'
+import VotingPopup from 'hhsbComponents/VotingComponents/VotingPopup'
+import React, { useState } from 'react'
 
-// import Content from "../hhsbComponents/ContentList.js";
-import Chat from "../hhsbAssets/Chat.svg"
-import Heart from "../hhsbAssets/Heart.svg"
-import Send from "../hhsbAssets/Send.svg"
+// import Content from "../hhsbComponents/ContentList";
 
-// import styles from "assets/jss/material-dashboard-pro-react/views/dashboardStyle.js";
+// import styles from "assets/jss/material-dashboard-pro-react/views/dashboardStyle";
 
-import FaceIcon from "@material-ui/icons/Face"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import moment from "moment"
+import FaceIcon from '@material-ui/icons/Face'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import moment from 'moment'
 
-import ContentDisplaySkeleton from "hhsbviews/Skeletons/ContentDisplaySkeleton"
-import { useSelector } from "react-redux"
-import { cloneDeep } from "lodash"
+import ContentDisplaySkeleton from 'hhsbviews/Skeletons/ContentDisplaySkeleton'
+import { useSelector } from 'react-redux'
+import { cloneDeep } from 'lodash'
 
 import { GET_CONTENT } from 'graphql/query'
 import { VOTE, ADD_COMMENT } from 'graphql/mutations'
+import Send from '../hhsbAssets/Send.svg'
+import Chat from '../hhsbAssets/Chat.svg'
+import Heart from '../hhsbAssets/Heart.svg'
 
 const ContentDisplay = () => {
   // temporary variables
-  const contentId = "5bdc0d928b8fc22ce6da1f30"
-  const domain = "5b8bb075fa6366464c549322"
+  const contentId = '5bdc0d928b8fc22ce6da1f30'
+  const domain = '5b8bb075fa6366464c549322'
 
-  const [selectedText, setSelectedText] = useState("")
+  const [selectedText, setSelectedText] = useState('')
   const { user } = useSelector((state) => state.loginReducer)
   const [addVote] = useMutation(VOTE, {
     update(
       cache,
       {
+        // eslint-disable-next-line no-shadow
         data: { addVote },
       }
     ) {
@@ -56,8 +58,8 @@ const ContentDisplay = () => {
 
       const clonedContent = cloneDeep(data)
 
-      if (addVote.type === "upvote") {
-        let { upvotes } = clonedContent.content.scoreDetails
+      if (addVote.type === 'upvote') {
+        const { upvotes } = clonedContent.content.scoreDetails
         clonedContent.content.scoreDetails.upvotes = upvotes + 1
       } else {
         const { downvotes } = clonedContent.content.scoreDetails
@@ -86,6 +88,8 @@ const ContentDisplay = () => {
     variables: { contentId, key: domain },
   })
 
+  if (error) return 'An error has occured'
+
   if (loading) return <ContentDisplaySkeleton />
 
   const { content } = data
@@ -100,9 +104,9 @@ const ContentDisplay = () => {
   // const sampleComment =
   //   "Some quick example text to build on the card title and make up the bulk of the cards content.";
 
-  const handleVoting = async (event, data) => {
+  const handleVoting = async (event, dataObj) => {
     const vote = {
-      ...data,
+      ...dataObj,
       startWordIndex: selectedText.startIndex,
       endWordIndex: selectedText.endIndex,
       contentId,
@@ -115,7 +119,8 @@ const ContentDisplay = () => {
   }
 
   const handleAddComment = (comment, commentWithQuote = false) => {
-    let startIndex, endIndex, quoteText
+    let startIndex; let endIndex; let
+      quoteText
 
     const HASHTAGS_REGEX = /#(\w|\d)+/g
     const hashtags = comment.match(HASHTAGS_REGEX)
@@ -127,7 +132,7 @@ const ContentDisplay = () => {
     } else {
       startIndex = 0
       endIndex = 0
-      quoteText = ""
+      quoteText = ''
     }
 
     // TODO: ommit quote props if user did not highlight text
@@ -139,7 +144,7 @@ const ContentDisplay = () => {
       startWordIndex: startIndex,
       endWordIndex: endIndex,
       hashtags,
-      quote: commentWithQuote ? quoteText : "",
+      quote: commentWithQuote ? quoteText : '',
     }
 
     addComment({ variables: { comment: newComment } })
@@ -149,67 +154,71 @@ const ContentDisplay = () => {
     <div>
       <GridContainer spacing={1} direction="col">
         <GridItem xs={6}>
-          <Card style={{ height: "800px" }}>
+          <Card style={{ height: '800px' }}>
             <CardHeader style={{ zIndex: 0 }}>
               <div
                 style={{
-                  display: "flex",
-                  direction: "row",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'space-between',
                   zIndex: 0,
                 }}
               >
                 <div
                   style={{
-                    display: "flex",
-                    direction: "row",
-                    alignContent: "center",
-                    justifyContent: "space-between",
+                    display: 'flex',
+                    direction: 'row',
+                    alignContent: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <p
                     style={{
-                      color: "#E91E63",
-                      fontSize: "25px",
-                      font: "League Spartan",
-                      fontWeight: "bold",
+                      color: '#E91E63',
+                      fontSize: '25px',
+                      font: 'League Spartan',
+                      fontWeight: 'bold',
                     }}
                   >
                     {content.title}
                   </p>
                   <img
+                    alt="Chat icon"
                     src={Chat}
-                    style={{ height: "20px", paddingLeft: "10px" }}
+                    style={{ height: '20px', paddingLeft: '10px' }}
                   />
                 </div>
                 <div
                   style={{
-                    display: "flex",
-                    direction: "row",
-                    justifyContent: "flex-end",
-                    flexBasis: "100px",
+                    display: 'flex',
+                    direction: 'row',
+                    justifyContent: 'flex-end',
+                    flexBasis: '100px',
                   }}
                 >
                   <p>
-                    <strong style={{ color: "green" }}>+</strong>
-                    {content.scoreDetails.upvotes}/
-                    <strong style={{ color: "red" }}>-</strong>
+                    <strong style={{ color: 'green' }}>+</strong>
+                    {content.scoreDetails.upvotes}
+                    /
+                    <strong style={{ color: 'red' }}>-</strong>
                     {content.scoreDetails.downvotes}
                   </p>
                   <img
+                    alt="Send icon"
                     src={Send}
                     style={{
-                      height: "15px",
-                      paddingLeft: "15px",
-                      paddingTop: "3px",
+                      height: '15px',
+                      paddingLeft: '15px',
+                      paddingTop: '3px',
                     }}
                   />
                   <img
+                    alt="Heart icon"
                     src={Heart}
                     style={{
-                      height: "15px",
-                      paddingLeft: "15px",
-                      paddingTop: "3px",
+                      height: '15px',
+                      paddingLeft: '15px',
+                      paddingTop: '3px',
                     }}
                   />
                 </div>
@@ -239,17 +248,17 @@ const ContentDisplay = () => {
             <CardHeader>
               <div
                 style={{
-                  display: "flex",
-                  direction: "row",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'space-between',
                 }}
               >
                 <p
                   style={{
-                    color: "#E91E63",
-                    fontSize: "25px",
-                    font: "League Spartan",
-                    fontWeight: "bold",
+                    color: '#E91E63',
+                    fontSize: '25px',
+                    font: 'League Spartan',
+                    fontWeight: 'bold',
                   }}
                 >
                   Comments
@@ -268,10 +277,10 @@ const ContentDisplay = () => {
                       style={{
                         height: 60,
                         width: 60,
-                        backgroundColor: "#df2769",
-                        float: "left",
-                        margin: "0px 10px 10px 0px",
-                        textAlign: "center",
+                        backgroundColor: '#df2769',
+                        float: 'left',
+                        margin: '0px 10px 10px 0px',
+                        textAlign: 'center',
                         borderRadius: 3,
                         paddingTop: 17,
                       }}
@@ -283,8 +292,8 @@ const ContentDisplay = () => {
                   </p>
                 </CardBody>
                 <CardFooter chart testimonial>
-                  <span style={{ float: "right" }}>
-                    {moment(comment.created).format("MM/DD/YYYY hh:mm A")}
+                  <span style={{ float: 'right' }}>
+                    {moment(comment.created).format('MM/DD/YYYY hh:mm A')}
                   </span>
                 </CardFooter>
               </Card>

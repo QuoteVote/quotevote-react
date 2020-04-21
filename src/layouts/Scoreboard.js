@@ -1,29 +1,30 @@
-import { Switch, Route, Redirect, useHistory } from "react-router-dom"
-import cx from "classnames"
-import React from "react"
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import {
+  Switch, Route, Redirect, useHistory,
+} from 'react-router-dom'
+import cx from 'classnames'
+import React from 'react'
 
 // creates a beautiful scrollbar
-import PerfectScrollbar from "perfect-scrollbar"
-import "perfect-scrollbar/css/perfect-scrollbar.css"
+import PerfectScrollbar from 'perfect-scrollbar'
+import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
-// import GridContainer from "mui-pro/Grid/GridContainer.js";
-// import GridItem from "mui-pro/Grid/GridItem.js";
+// Images
+import logoWhite from 'assets/img/logo-white.svg'
+
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from '@material-ui/core/styles'
 
 // core components
-// import AdminNavbar from "mui-pro/Navbars/AdminNavbar.js";
-// import Footer from "mui-pro/Footer/Footer.js";
-import Sidebar from "hhsbComponents/hhsbSidebar.js"
-// import FixedPlugin from "mui-pro/FixedPlugin/FixedPlugin.js";
+import Sidebar from 'hhsbComponents/hhsbSidebar'
 
-import hhsbRoutes from "hhsbroutes.js"
+import hhsbRoutes from 'hhsbroutes'
 
-import styles from "assets/jss/material-dashboard-pro-react/layouts/adminStyle.js"
-// import ContentFeed from "../hhsbviews/topcontent.js";
-import { tokenValidator } from "../actions/login"
+import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
+import { tokenValidator } from '../actions/login'
 
-var ps
+let ps
 
 const useStyles = makeStyles(styles)
 
@@ -32,42 +33,42 @@ export default function Scoreboard(props) {
   const history = useHistory()
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [miniActive, setMiniActive] = React.useState(true)
+  const [miniActive] = React.useState(true)
   // const [image, setImage] = React.useState(require("assets/img/sidebar-2.jpg"));
-  const [color, setColor] = React.useState("blue")
-  const [bgColor, setBgColor] = React.useState("black")
+  const [color] = React.useState('blue')
+  const [bgColor] = React.useState('black')
   // const [hasImage, setHasImage] = React.useState(true);
   // const [fixedClasses, setFixedClasses] = React.useState("dropdown");
-  const [logo, setLogo] = React.useState(require("assets/img/logo-white.svg"))
+  const [logo] = React.useState(logoWhite)
   // styles
   const classes = useStyles()
   const mainPanelClasses =
-    `${classes.mainPanel 
-    } ${ 
+    `${classes.mainPanel
+    } ${
       cx({
         [classes.mainPanelSidebarMini]: miniActive,
         [classes.mainPanelWithPerfectScrollbar]:
-        navigator.platform.indexOf("Win") > -1,
+        navigator.platform.indexOf('Win') > -1,
       })}`
   // ref for main panel div
   const mainPanel = React.createRef()
   // effect instead of componentDidMount, componentDidUpdate and componentWillUnmount
   React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
+    if (navigator.platform.indexOf('Win') > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
         suppressScrollY: false,
       })
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = 'hidden'
     }
-    window.addEventListener("resize", resizeFunction)
+    window.addEventListener('resize', resizeFunction)
 
     // Specify how to clean up after this effect:
     return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
+      if (navigator.platform.indexOf('Win') > -1) {
         ps.destroy()
       }
-      window.removeEventListener("resize", resizeFunction)
+      window.removeEventListener('resize', resizeFunction)
     }
   })
   // functions for changeing the states from components
@@ -98,7 +99,7 @@ export default function Scoreboard(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
-  const getRoute = () => window.location.pathname !== "/admin/full-screen-maps"
+  const getRoute = () => window.location.pathname !== '/admin/full-screen-maps'
   // const getActiveRoute = routes => {
   //   let activeRoute = "Default Brand Text";
   //    for (let i = 0; i < routes.length; i++) {
@@ -130,9 +131,8 @@ export default function Scoreboard(props) {
           key={key}
         />
       )
-    } else {
-      return null
     }
+    return null
   })
   // const sidebarMinimize = () => {
   //   setMiniActive(!miniActive);
@@ -147,12 +147,12 @@ export default function Scoreboard(props) {
     const {
       location: { pathname },
     } = props
-    let currLocation = pathname.split("/")
+    const currLocation = pathname.split('/')
     return currLocation[currLocation.length - 1]
   }
   return (
     <div className={classes.wrapper}>
-      {!tokenValidator() && history.push("/unauth")}
+      {!tokenValidator() && history.push('/unauth')}
       <Sidebar
         routes={hhsbRoutes}
         logo={logo}

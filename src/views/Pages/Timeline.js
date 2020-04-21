@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import Heading from "mui-pro/Heading/Heading.js";
-import Timeline from "mui-pro/Timeline/Timeline.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import Heading from 'mui-pro/Heading/Heading'
+import Timeline from 'mui-pro/Timeline/Timeline'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import { stories } from "variables/general.js";
+import { stories } from 'variables/general'
 
 export default function TimelinePage() {
   return (
@@ -24,5 +24,5 @@ export default function TimelinePage() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }

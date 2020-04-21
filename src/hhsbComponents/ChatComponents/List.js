@@ -1,37 +1,36 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import GridContainer from "mui-pro/Grid/GridContainer.js";
+/* eslint-disable react/prop-types */
+/* eslint-disable import/no-named-default */
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { default as MaterialList } from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider'
+import GridContainer from 'mui-pro/Grid/GridContainer'
 const useStyles = makeStyles(({
   root: {
-    width: "300px",
+    width: '300px',
     maxWidth: 360,
-    backgroundColor:props=>props.Color
-  }
-}));
+    backgroundColor: (props) => props.Color,
+  },
+}))
 
-export default function ListDividers(props) {
-  const classes = useStyles();
-  let Items = props.List;
+export default function ListDividers({ List }) {
+  const classes = useStyles()
   return (
-    <List component="nav" className={classes.root} aria-label="mailbox folders">
-      {Items.map(item => {
-        return (
-          <div>
-            
-            <ListItem button style={{backgroundColor:item.Color,width:"300px"}}>
-              <GridContainer alignItems="center">
-                <ListItemText primary={item.Text} />
-              </GridContainer>
-              <img src={item.icon} style={{height:"30px"}}/>
-            </ListItem>
-            <Divider />
-          </div>
-        );
-      })}
-    </List>
-  );
+    <MaterialList component="nav" className={classes.root} aria-label="mailbox folders">
+      {List.map((item) => (
+        <div>
+
+          <ListItem button style={{ backgroundColor: item.Color, width: '300px' }}>
+            <GridContainer alignItems="center">
+              <ListItemText primary={item.Text} />
+            </GridContainer>
+            <img alt={item.icon} src={item.icon} style={{ height: '30px' }} />
+          </ListItem>
+          <Divider />
+        </div>
+      ))}
+    </MaterialList>
+  )
 }

@@ -1,23 +1,23 @@
-import React from "react";
-import cx from "classnames";
-import PropTypes from "prop-types";
+import React from 'react'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
-import styles from "assets/jss/material-dashboard-pro-react/components/headingStyle.js";
+import styles from 'assets/jss/material-dashboard-pro-react/components/headingStyle'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function Heading(props) {
-  const { textAlign, category, title } = props;
-  const classes = useStyles();
+  const { textAlign, category, title } = props
+  const classes = useStyles()
   const heading =
-    classes.heading +
-    " " +
-    cx({
-      [classes[textAlign + "TextAlign"]]: textAlign !== undefined
-    });
+    `${classes.heading
+    } ${
+      cx({
+        [classes[`${textAlign}TextAlign`]]: textAlign !== undefined,
+      })}`
   if (title !== undefined || category !== undefined) {
     return (
       <div className={heading}>
@@ -28,13 +28,13 @@ export default function Heading(props) {
           <p className={classes.category}>{category}</p>
         ) : null}
       </div>
-    );
+    )
   }
-  return null;
+  return null
 }
 
 Heading.propTypes = {
   title: PropTypes.node,
   category: PropTypes.node,
-  textAlign: PropTypes.oneOf(["right", "left", "center"])
-};
+  textAlign: PropTypes.oneOf(['right', 'left', 'center']),
+}

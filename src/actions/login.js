@@ -1,81 +1,80 @@
-import axios from "axios";
+import axios from 'axios'
 
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken'
+import { persistor } from 'config/redux'
 import {
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
-  USER_LOGIN_SUCCESS
+  USER_LOGIN_SUCCESS,
   // USER_LOGOUT
-} from "./types";
-import { persistor } from "config/redux";
+} from './types'
 
 export const userLogin = async (username, password, dispatch, history) => {
-  dispatch({ type: USER_LOGIN_REQUEST });
-  const result = await getToken(username, password);
+  dispatch({ type: USER_LOGIN_REQUEST })
+  const result = await getToken(username, password)
 
-  if ("error" in result) {
+  if ('error' in result) {
     const serverConnectionRefuseError = {
-      data: { message: "Connection refuse" }
-    };
+      data: { message: 'Connection refuse' },
+    }
     const errorMessage =
-      typeof result.error.response !== "undefined"
-        ? result.error.response.data.message
-        : serverConnectionRefuseError;
+      typeof result.error.response !== 'undefined' ?
+        result.error.response.data.message :
+        serverConnectionRefuseError
     dispatch({
       type: USER_LOGIN_FAILURE,
-      payload: { loginError: errorMessage, loading: false }
-    });
+      payload: { loginError: errorMessage, loading: false },
+    })
   } else {
-    const { token, user } = result.data;
-    localStorage.setItem("token", token);
+    const { token, user } = result.data
+    localStorage.setItem('token', token)
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: {
         user,
         loading: false,
-        loginError: null
-      }
-    });
-    await persistor.flush();
+        loginError: null,
+      },
+    })
+    await persistor.flush()
 
-    history.push("/hhsb/Home");
+    history.push('/hhsb/Home')
   }
-};
+}
 
 const getToken = async (username, password) => {
   try {
     return await axios.post(
-      process.env.REACT_APP_SERVER + "/login",
+      `${process.env.REACT_APP_SERVER}/login`,
       {
-        username: username,
-        password: password
+        username,
+        password,
       },
       {
         headers: {
-          "Content-Type": "application/json"
-        }
+          'Content-Type': 'application/json',
+        },
       }
-    );
+    )
   } catch (err) {
-    return { error: err };
+    return { error: err }
   }
-};
+}
 
 export function tokenValidator() {
-  const storedToken = localStorage.getItem("token");
+  const storedToken = localStorage.getItem('token')
 
-  const result = jwt.verify(storedToken, "HHSB", function(err, decoded) {
+  const result = jwt.verify(storedToken, 'HHSB', (err) => {
     if (err) {
-      localStorage.removeItem("token");
+      localStorage.removeItem('token')
       // console.log("Error", err);
-      return false;
-    } else {
-      // console.log(decoded);
-      return true;
+      return false
     }
-  });
+    // console.log(decoded);
+    return true
+  })
 
-  return result;
+  return result
 }
 
 // export function clearToken() {

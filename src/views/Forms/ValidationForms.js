@@ -14,19 +14,19 @@ import Check from "@material-ui/icons/Check";
 import Close from "@material-ui/icons/Close";
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import CustomInput from "mui-pro/CustomInput/CustomInput.js";
-import Button from "mui-pro/CustomButtons/Button.js";
-import Card from "mui-pro/Card/Card.js";
-import CardHeader from "mui-pro/Card/CardHeader.js";
-import CardText from "mui-pro/Card/CardText.js";
-import CardIcon from "mui-pro/Card/CardIcon.js";
-import CardBody from "mui-pro/Card/CardBody.js";
-import CardFooter from "mui-pro/Card/CardFooter.js";
+import GridContainer from "mui-pro/Grid/GridContainer";
+import GridItem from "mui-pro/Grid/GridItem";
+import CustomInput from "mui-pro/CustomInput/CustomInput";
+import Button from "mui-pro/CustomButtons/Button";
+import Card from "mui-pro/Card/Card";
+import CardHeader from "mui-pro/Card/CardHeader";
+import CardText from "mui-pro/Card/CardText";
+import CardIcon from "mui-pro/Card/CardIcon";
+import CardBody from "mui-pro/Card/CardBody";
+import CardFooter from "mui-pro/Card/CardFooter";
 
 // style for this view
-import styles from "assets/jss/material-dashboard-pro-react/views/validationFormsStyle.js";
+import styles from "assets/jss/material-dashboard-pro-react/views/validationFormsStyle";
 
 const useStyles = makeStyles(styles);
 

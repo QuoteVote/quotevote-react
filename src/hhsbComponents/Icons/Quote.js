@@ -1,5 +1,5 @@
-import React from "react";
-import SvgIcon from "@material-ui/core/SvgIcon";
+import React from 'react'
+import SvgIcon from '@material-ui/core/SvgIcon'
 
 export default function Quote(props) {
   return (
@@ -25,5 +25,5 @@ export default function Quote(props) {
         />
       </g>
     </SvgIcon>
-  );
+  )
 }

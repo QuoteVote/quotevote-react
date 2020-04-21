@@ -1,43 +1,43 @@
-import React from "react";
+import React from 'react'
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Schedule from "@material-ui/icons/Schedule";
-import Info from "@material-ui/icons/Info";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Gavel from "@material-ui/icons/Gavel";
-import HelpOutline from "@material-ui/icons/HelpOutline";
+import Dashboard from '@material-ui/icons/Dashboard'
+import Schedule from '@material-ui/icons/Schedule'
+import Info from '@material-ui/icons/Info'
+import LocationOn from '@material-ui/icons/LocationOn'
+import Gavel from '@material-ui/icons/Gavel'
+import HelpOutline from '@material-ui/icons/HelpOutline'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import NavPills from "mui-pro/NavPills/NavPills.js";
-import Accordion from "mui-pro/Accordion/Accordion.js";
-import Card from "mui-pro/Card/Card.js";
-import CardHeader from "mui-pro/Card/CardHeader.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import NavPills from 'mui-pro/NavPills/NavPills'
+import Accordion from 'mui-pro/Accordion/Accordion'
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import { cardTitle } from "assets/jss/material-dashboard-pro-react.js";
+import { cardTitle } from 'assets/jss/material-dashboard-pro-react'
 
 const styles = {
   cardTitle,
   pageSubcategoriesTitle: {
-    color: "#3C4858",
-    textDecoration: "none",
-    textAlign: "center"
+    color: '#3C4858',
+    textDecoration: 'none',
+    textAlign: 'center',
   },
   cardCategory: {
-    margin: "0",
-    color: "#999999"
-  }
-};
+    margin: '0',
+    color: '#999999',
+  },
+}
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function Panels() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div>
       <GridContainer>
@@ -45,7 +45,9 @@ export default function Panels() {
           <Card>
             <CardHeader>
               <h4 className={classes.cardTitle}>
-                Navigation Pills <small> - Horizontal Tabs</small>
+                Navigation Pills
+                {' '}
+                <small> - Horizontal Tabs</small>
               </h4>
             </CardHeader>
             <CardBody>
@@ -53,7 +55,7 @@ export default function Panels() {
                 color="warning"
                 tabs={[
                   {
-                    tabButton: "Profile",
+                    tabButton: 'Profile',
                     tabContent: (
                       <span>
                         <p>
@@ -72,10 +74,10 @@ export default function Panels() {
                         <br />
                         <p>This is very nice.</p>
                       </span>
-                    )
+                    ),
                   },
                   {
-                    tabButton: "Settings",
+                    tabButton: 'Settings',
                     tabContent: (
                       <span>
                         <p>
@@ -89,16 +91,17 @@ export default function Panels() {
                           without functional solutions.
                         </p>
                       </span>
-                    )
+                    ),
                   },
                   {
-                    tabButton: "Options",
+                    tabButton: 'Options',
                     tabContent: (
                       <span>
                         <p>
                           Completely synergize resource taxing relationships via
                           premier niche markets. Professionally cultivate
-                          one-to-one customer service with robust ideas.{" "}
+                          one-to-one customer service with robust ideas.
+                          {' '}
                         </p>
                         <br />
                         <p>
@@ -106,8 +109,8 @@ export default function Panels() {
                           service for state of the art customer service.
                         </p>
                       </span>
-                    )
-                  }
+                    ),
+                  },
                 ]}
               />
             </CardBody>
@@ -117,7 +120,9 @@ export default function Panels() {
           <Card>
             <CardHeader>
               <h4 className={classes.cardTitle}>
-                Navigation Pills <small> - Vertical Tabs</small>
+                Navigation Pills
+                {' '}
+                <small> - Vertical Tabs</small>
               </h4>
             </CardHeader>
             <CardBody>
@@ -125,11 +130,11 @@ export default function Panels() {
                 color="rose"
                 horizontal={{
                   tabsGrid: { xs: 12, sm: 12, md: 4 },
-                  contentGrid: { xs: 12, sm: 12, md: 8 }
+                  contentGrid: { xs: 12, sm: 12, md: 8 },
                 }}
                 tabs={[
                   {
-                    tabButton: "Profile",
+                    tabButton: 'Profile',
                     tabContent: (
                       <span>
                         <p>
@@ -148,10 +153,10 @@ export default function Panels() {
                         <br />
                         <p>This is very nice.</p>
                       </span>
-                    )
+                    ),
                   },
                   {
-                    tabButton: "Settings",
+                    tabButton: 'Settings',
                     tabContent: (
                       <span>
                         <p>
@@ -165,16 +170,17 @@ export default function Panels() {
                           without functional solutions.
                         </p>
                       </span>
-                    )
+                    ),
                   },
                   {
-                    tabButton: "Options",
+                    tabButton: 'Options',
                     tabContent: (
                       <span>
                         <p>
                           Completely synergize resource taxing relationships via
                           premier niche markets. Professionally cultivate
-                          one-to-one customer service with robust ideas.{" "}
+                          one-to-one customer service with robust ideas.
+                          {' '}
                         </p>
                         <br />
                         <p>
@@ -182,8 +188,8 @@ export default function Panels() {
                           service for state of the art customer service.
                         </p>
                       </span>
-                    )
-                  }
+                    ),
+                  },
                 ]}
               />
             </CardBody>
@@ -201,20 +207,20 @@ export default function Panels() {
                 active={0}
                 collapses={[
                   {
-                    title: "Collapsible group Item #1",
+                    title: 'Collapsible group Item #1',
                     content:
-                      "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
+                      "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
                   },
                   {
-                    title: "Collapsible group Item #2",
+                    title: 'Collapsible group Item #2',
                     content:
-                      "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
+                      "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
                   },
                   {
-                    title: "Collapsible group Item #3",
+                    title: 'Collapsible group Item #3',
                     content:
-                      "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
-                  }
+                      "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
+                  },
                 ]}
               />
             </CardBody>
@@ -224,7 +230,9 @@ export default function Panels() {
           <Card>
             <CardHeader>
               <h4 className={classes.cardTitle}>
-                Navigation Pills Icons <small> - Vertical Tabs</small>
+                Navigation Pills Icons
+                {' '}
+                <small> - Vertical Tabs</small>
               </h4>
             </CardHeader>
             <CardBody>
@@ -232,11 +240,11 @@ export default function Panels() {
                 color="rose"
                 horizontal={{
                   tabsGrid: { xs: 12, sm: 12, md: 4 },
-                  contentGrid: { xs: 12, sm: 12, md: 8 }
+                  contentGrid: { xs: 12, sm: 12, md: 8 },
                 }}
                 tabs={[
                   {
-                    tabButton: "Dashboard",
+                    tabButton: 'Dashboard',
                     tabIcon: Dashboard,
                     tabContent: (
                       <span>
@@ -262,10 +270,10 @@ export default function Panels() {
                           installed base benefits.
                         </p>
                       </span>
-                    )
+                    ),
                   },
                   {
-                    tabButton: "Schedule",
+                    tabButton: 'Schedule',
                     tabIcon: Schedule,
                     tabContent: (
                       <span>
@@ -284,8 +292,8 @@ export default function Panels() {
                           B2C users after installed base benefits.
                         </p>
                       </span>
-                    )
-                  }
+                    ),
+                  },
                 ]}
               />
             </CardBody>
@@ -301,7 +309,7 @@ export default function Panels() {
             alignCenter
             tabs={[
               {
-                tabButton: "Description",
+                tabButton: 'Description',
                 tabIcon: Info,
                 tabContent: (
                   <Card>
@@ -323,10 +331,10 @@ export default function Panels() {
                       without revolutionary ROI.
                     </CardBody>
                   </Card>
-                )
+                ),
               },
               {
-                tabButton: "Location",
+                tabButton: 'Location',
                 tabIcon: LocationOn,
                 tabContent: (
                   <Card>
@@ -348,10 +356,10 @@ export default function Panels() {
                       functional solutions.
                     </CardBody>
                   </Card>
-                )
+                ),
               },
               {
-                tabButton: "Legal Info",
+                tabButton: 'Legal Info',
                 tabIcon: Gavel,
                 tabContent: (
                   <Card>
@@ -373,10 +381,10 @@ export default function Panels() {
                       for state of the art customer service.
                     </CardBody>
                   </Card>
-                )
+                ),
               },
               {
-                tabButton: "Help Center",
+                tabButton: 'Help Center',
                 tabIcon: HelpOutline,
                 tabContent: (
                   <Card>
@@ -399,12 +407,12 @@ export default function Panels() {
                       enclosure in a remarkable, simplified design.
                     </CardBody>
                   </Card>
-                )
-              }
+                ),
+              },
             ]}
           />
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }

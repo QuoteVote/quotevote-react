@@ -1,20 +1,20 @@
 /*eslint-disable*/
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-// nodejs library to set properties for components
+// nod library to set properties for components
 import PropTypes from "prop-types";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 
-import styles from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch.js";
+import styles from "assets/jss/material-dashboard-pro-react/customCheckboxRadioSwitch";
 
 import imagine1 from "assets/img/sidebar-1.jpg";
 import imagine2 from "assets/img/sidebar-2.jpg";
 import imagine3 from "assets/img/sidebar-3.jpg";
 import imagine4 from "assets/img/sidebar-4.jpg";
 
-import Button from "mui-pro/CustomButtons/Button.js";
+import Button from "mui-pro/CustomButtons/Button";
 
 const useStyles = makeStyles(styles);
 

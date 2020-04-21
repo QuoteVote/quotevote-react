@@ -2,31 +2,31 @@ import {
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT
-} from "actions/types";
+  USER_LOGOUT,
+} from 'actions/types'
 
 export const userInitialState = {
   loading: false,
   loginError: null,
-  user: {}
-};
+  user: {},
+}
 
 export const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return {
         ...state,
-        loading: true
-      };
+        loading: true,
+      }
     case USER_LOGIN_SUCCESS:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload }
     case USER_LOGIN_FAILURE:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload }
     case USER_LOGOUT:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default userReducer;
+export default userReducer

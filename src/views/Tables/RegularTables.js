@@ -1,37 +1,37 @@
-import React from "react";
+import React from 'react'
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // material-ui icons
-import Assignment from "@material-ui/icons/Assignment";
+import Assignment from '@material-ui/icons/Assignment'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import Table from "mui-pro/Table/Table.js";
-import Card from "mui-pro/Card/Card.js";
-import CardHeader from "mui-pro/Card/CardHeader.js";
-import CardIcon from "mui-pro/Card/CardIcon.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import Table from 'mui-pro/Table/Table'
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardIcon from 'mui-pro/Card/CardIcon'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import { cardTitle } from "assets/jss/material-dashboard-pro-react.js";
+import { cardTitle } from 'assets/jss/material-dashboard-pro-react'
 
 const styles = {
   customCardContentClass: {
-    paddingLeft: "0",
-    paddingRight: "0"
+    paddingLeft: '0',
+    paddingRight: '0',
   },
   cardIconTitle: {
     ...cardTitle,
-    marginTop: "15px",
-    marginBottom: "0px"
-  }
-};
+    marginTop: '15px',
+    marginBottom: '0px',
+  },
+}
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function RegularTables() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <GridContainer>
       <GridItem xs={12}>
@@ -45,17 +45,17 @@ export default function RegularTables() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
+              tableHead={['Name', 'Country', 'City', 'Salary']}
               tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
+                ['Dakota Rice', 'Niger', 'Oud-Turnhout', '$36,738'],
+                ['Minerva Hooper', 'Curaçao', 'Sinaai-Waas', '$23,789'],
+                ['Sage Rodriguez', 'Netherlands', 'Baileux', '$56,142'],
+                ['Philip Chaney', 'Korea, South', 'Overland Park', '$38,735'],
+                ['Doris Greene', 'Malawi', 'Feldkirchen in Kärnten', '$63,542'],
+                ['Mason Porter', 'Chile', 'Gloucester', '$78,615'],
               ]}
               coloredColls={[3]}
-              colorsColls={["primary"]}
+              colorsColls={['primary']}
             />
           </CardBody>
         </Card>
@@ -74,26 +74,26 @@ export default function RegularTables() {
           <CardBody plain>
             <Table
               hover
-              tableHead={["ID", "Name", "Salary", "Country", "City"]}
+              tableHead={['ID', 'Name', 'Salary', 'Country', 'City']}
               tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
+                ['1', 'Dakota Rice', '$36,738', 'Niger', 'Oud-Turnhout'],
+                ['2', 'Minerva Hooper', '$23,789', 'Curaçao', 'Sinaai-Waas'],
+                ['3', 'Sage Rodriguez', '$56,142', 'Netherlands', 'Baileux'],
                 [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
+                  '4',
+                  'Philip Chaney',
+                  '$38,735',
+                  'Korea, South',
+                  'Overland Park',
                 ],
                 [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten"
+                  '5',
+                  'Doris Greene',
+                  '$63,542',
+                  'Malawi',
+                  'Feldkirchen in Kärnten',
                 ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
+                ['6', 'Mason Porter', '$78,615', 'Chile', 'Gloucester'],
               ]}
             />
           </CardBody>
@@ -110,62 +110,62 @@ export default function RegularTables() {
           <CardBody className={classes.customCardContentClass}>
             <Table
               hover
-              tableHead={["ID", "Name", "Salary", "Country", "City"]}
+              tableHead={['ID', 'Name', 'Salary', 'Country', 'City']}
               tableData={[
                 {
-                  color: "success",
+                  color: 'success',
                   data: [
-                    "1",
-                    "Dakota Rice (Success)",
-                    "$36,738",
-                    "Niger",
-                    "Oud-Turnhout"
-                  ]
+                    '1',
+                    'Dakota Rice (Success)',
+                    '$36,738',
+                    'Niger',
+                    'Oud-Turnhout',
+                  ],
                 },
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
+                ['2', 'Minerva Hooper', '$23,789', 'Curaçao', 'Sinaai-Waas'],
                 {
-                  color: "info",
+                  color: 'info',
                   data: [
-                    "3",
-                    "Sage Rodriguez (Info)",
-                    "$56,142",
-                    "Netherlands",
-                    "Baileux"
-                  ]
+                    '3',
+                    'Sage Rodriguez (Info)',
+                    '$56,142',
+                    'Netherlands',
+                    'Baileux',
+                  ],
                 },
                 [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
+                  '4',
+                  'Philip Chaney',
+                  '$38,735',
+                  'Korea, South',
+                  'Overland Park',
                 ],
                 {
-                  color: "danger",
+                  color: 'danger',
                   data: [
-                    "5",
-                    "Doris Greene (Danger)",
-                    "$63,542",
-                    "Malawi",
-                    "Feldkirchen in Kärnten"
-                  ]
+                    '5',
+                    'Doris Greene (Danger)',
+                    '$63,542',
+                    'Malawi',
+                    'Feldkirchen in Kärnten',
+                  ],
                 },
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"],
+                ['6', 'Mason Porter', '$78,615', 'Chile', 'Gloucester'],
                 {
-                  color: "warning",
+                  color: 'warning',
                   data: [
-                    "7",
-                    "Mike Chaney (Warning)",
-                    "$38,735",
-                    "Romania",
-                    "Bucharest"
-                  ]
-                }
+                    '7',
+                    'Mike Chaney (Warning)',
+                    '$38,735',
+                    'Romania',
+                    'Bucharest',
+                  ],
+                },
               ]}
             />
           </CardBody>
         </Card>
       </GridItem>
     </GridContainer>
-  );
+  )
 }

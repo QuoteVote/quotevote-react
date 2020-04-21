@@ -13,17 +13,17 @@ import AddAlert from "@material-ui/icons/AddAlert";
 import Close from "@material-ui/icons/Close";
 
 // core components
-import Heading from "mui-pro/Heading/Heading.js";
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import SnackbarContent from "mui-pro/Snackbar/SnackbarContent.js";
-import Button from "mui-pro/CustomButtons/Button.js";
-import Snackbar from "mui-pro/Snackbar/Snackbar.js";
-import Instruction from "mui-pro/Instruction/Instruction.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import Heading from "mui-pro/Heading/Heading";
+import GridContainer from "mui-pro/Grid/GridContainer";
+import GridItem from "mui-pro/Grid/GridItem";
+import SnackbarContent from "mui-pro/Snackbar/SnackbarContent";
+import Button from "mui-pro/CustomButtons/Button";
+import Snackbar from "mui-pro/Snackbar/Snackbar";
+import Instruction from "mui-pro/Instruction/Instruction";
+import Card from "mui-pro/Card/Card";
+import CardBody from "mui-pro/Card/CardBody";
 
-import styles from "assets/jss/material-dashboard-pro-react/views/notificationsStyle.js";
+import styles from "assets/jss/material-dashboard-pro-react/views/notificationsStyle";
 
 import noticeModal1 from "assets/img/card-1.jpeg";
 import noticeModal2 from "assets/img/card-2.jpeg";

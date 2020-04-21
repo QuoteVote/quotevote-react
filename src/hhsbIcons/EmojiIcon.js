@@ -1,12 +1,11 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { blue, red } from '@material-ui/core/colors';
-import SvgIcon from '@material-ui/core/SvgIcon';
+import React from 'react'
+import SvgIcon from '@material-ui/core/SvgIcon'
 import Emoji from '../hhsbAssets/FollowingEmoji.svg'
 export default function EmojiIcon(props) {
-    return (
-      <SvgIcon {...props}>
-        <path d={Emoji} />
-      </SvgIcon>
-    );
-  }
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <SvgIcon {...props}>
+      <path d={Emoji} />
+    </SvgIcon>
+  )
+}

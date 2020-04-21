@@ -4,11 +4,11 @@ import React from "react";
 import { VectorMap } from "react-jvectormap";
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import Heading from "mui-pro/Heading/Heading.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from "mui-pro/Grid/GridContainer";
+import GridItem from "mui-pro/Grid/GridItem";
+import Heading from "mui-pro/Heading/Heading";
+import Card from "mui-pro/Card/Card";
+import CardBody from "mui-pro/Card/CardBody";
 
 var mapData = {
   AU: 760,
@@ -33,7 +33,7 @@ export default function VectorMaps() {
         category={
           <span>
             <a
-              href="https://www.npmjs.com/package/react-jvectormap?ref=creativetim"
+              href="https://www.np.com/package/react-jvectormap?ref=creativetim"
               target="_blank"
             >
               React wrapper component

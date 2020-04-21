@@ -7,7 +7,7 @@
 * Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
 * Copyright 2019 Creative Tim (https://www.creative-tim.com)
 
-* Coded by Creative Tim
+* Coded by Creative Timls
 
 =========================================================
 
@@ -21,17 +21,17 @@ import { Provider } from 'react-redux'
 import {
   Router, Route, Switch, Redirect,
 } from 'react-router-dom'
-import AdminLayout from 'layouts/Admin.js'
-import AuthLayout from 'layouts/Auth.js'
+import AdminLayout from 'layouts/Admin'
+import AuthLayout from 'layouts/Auth'
 import client from 'config/apollo'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import RtlLayout from 'layouts/RTL.js'
-import Scoreboard from 'layouts/Scoreboard.js'
-import TokenExpired from 'layouts/TokenExpired.js'
+import RtlLayout from 'layouts/RTL'
+import Scoreboard from 'layouts/Scoreboard'
+import TokenExpired from 'layouts/TokenExpired'
 import store, { persistor } from 'config/redux'
 
-import 'assets/scss/material-dashboard-pro-react.scss?v=1.8.0'
+import 'assets/scss/material-dashboard-pro-react.scss'
 
 const hist = createBrowserHistory()
 

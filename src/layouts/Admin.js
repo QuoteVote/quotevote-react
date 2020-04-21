@@ -1,150 +1,150 @@
-import React from "react";
-import cx from "classnames";
-import { Switch, Route, Redirect } from "react-router-dom";
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable no-shadow */
+import React from 'react'
+import cx from 'classnames'
+import { Switch, Route, Redirect } from 'react-router-dom'
 // creates a beautiful scrollbar
-import PerfectScrollbar from "perfect-scrollbar";
-import "perfect-scrollbar/css/perfect-scrollbar.css";
+import PerfectScrollbar from 'perfect-scrollbar'
+import 'perfect-scrollbar/css/perfect-scrollbar.css'
+
+// Images
+import sidebar2 from 'assets/img/sidebar-2.jpg'
+import logoSvg from 'assets/img/logo.svg'
+import logoWhite from 'assets/img/logo-white.svg'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // core components
-import AdminNavbar from "mui-pro/Navbars/AdminNavbar.js";
-import Footer from "mui-pro/Footer/Footer.js";
-import Sidebar from "mui-pro/Sidebar/Sidebar.js";
-import FixedPlugin from "mui-pro/FixedPlugin/FixedPlugin.js";
+import AdminNavbar from 'mui-pro/Navbars/AdminNavbar'
+import Footer from 'mui-pro/Footer/Footer'
+import Sidebar from 'mui-pro/Sidebar/Sidebar'
+import FixedPlugin from 'mui-pro/FixedPlugin/FixedPlugin'
 
-import routes from "routes.js";
+import routes from 'routes'
+import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 
-import styles from "assets/jss/material-dashboard-pro-react/layouts/adminStyle.js";
+let ps
 
-var ps;
-
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function Dashboard(props) {
-  const { ...rest } = props;
+  const { ...rest } = props
   // states and functions
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [miniActive, setMiniActive] = React.useState(false);
-  const [image, setImage] = React.useState(require("assets/img/sidebar-2.jpg"));
-  const [color, setColor] = React.useState("blue");
-  const [bgColor, setBgColor] = React.useState("black");
+  const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [miniActive, setMiniActive] = React.useState(false)
+  const [image, setImage] = React.useState(sidebar2)
+  const [color, setColor] = React.useState('blue')
+  const [bgColor, setBgColor] = React.useState('black')
   // const [hasImage, setHasImage] = React.useState(true);
-  const [fixedClasses, setFixedClasses] = React.useState("dropdown");
-  const [logo, setLogo] = React.useState(require("assets/img/logo-white.svg"));
+  const [fixedClasses, setFixedClasses] = React.useState('dropdown')
+  const [logo, setLogo] = React.useState(logoWhite)
   // styles
-  const classes = useStyles();
+  const classes = useStyles()
   const mainPanelClasses =
-    classes.mainPanel +
-    " " +
-    cx({
-      [classes.mainPanelSidebarMini]: miniActive,
-      [classes.mainPanelWithPerfectScrollbar]:
-        navigator.platform.indexOf("Win") > -1
-    });
+    `${classes.mainPanel
+    } ${
+      cx({
+        [classes.mainPanelSidebarMini]: miniActive,
+        [classes.mainPanelWithPerfectScrollbar]:
+        navigator.platform.indexOf('Win') > -1,
+      })}`
   // ref for main panel div
-  const mainPanel = React.createRef();
+  const mainPanel = React.createRef()
   // effect instead of componentDidMount, componentDidUpdate and componentWillUnmount
   React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
+    if (navigator.platform.indexOf('Win') > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
-        suppressScrollY: false
-      });
-      document.body.style.overflow = "hidden";
+        suppressScrollY: false,
+      })
+      document.body.style.overflow = 'hidden'
     }
-    window.addEventListener("resize", resizeFunction);
+    window.addEventListener('resize', resizeFunction)
 
     // Specify how to clean up after this effect:
     return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
-        ps.destroy();
+      if (navigator.platform.indexOf('Win') > -1) {
+        ps.destroy()
       }
-      window.removeEventListener("resize", resizeFunction);
-    };
-  });
+      window.removeEventListener('resize', resizeFunction)
+    }
+  })
   // functions for changeing the states from components
-  const handleImageClick = image => {
-    setImage(image);
-  };
-  const handleColorClick = color => {
-    setColor(color);
-  };
-  const handleBgColorClick = bgColor => {
+  const handleImageClick = (image) => {
+    setImage(image)
+  }
+  const handleColorClick = (color) => {
+    setColor(color)
+  }
+  const handleBgColorClick = (bgColor) => {
     switch (bgColor) {
-      case "white":
-        setLogo(require("assets/img/logo.svg"));
-        break;
+      case 'white':
+        setLogo(logoSvg)
+        break
       default:
-        setLogo(require("assets/img/logo-white.svg"));
-        break;
+        setLogo(logoWhite)
+        break
     }
-    setBgColor(bgColor);
-  };
+    setBgColor(bgColor)
+  }
   const handleFixedClick = () => {
-    if (fixedClasses === "dropdown") {
-      setFixedClasses("dropdown show");
+    if (fixedClasses === 'dropdown') {
+      setFixedClasses('dropdown show')
     } else {
-      setFixedClasses("dropdown");
+      setFixedClasses('dropdown')
     }
-  };
+  }
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  const getRoute = () => {
-    return window.location.pathname !== "/admin/full-screen-maps";
-  };
-  const getActiveRoute = routes => {
-    let activeRoute = "Default Brand Text";
+    setMobileOpen(!mobileOpen)
+  }
+  const getRoute = () => window.location.pathname !== '/admin/full-screen-maps'
+  const getActiveRoute = (routes) => {
+    const activeRoute = 'Default Brand Text'
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
-        let collapseActiveRoute = getActiveRoute(routes[i].views);
+        const collapseActiveRoute = getActiveRoute(routes[i].views)
         if (collapseActiveRoute !== activeRoute) {
-          return collapseActiveRoute;
+          return collapseActiveRoute
         }
-      } else {
-        if (
-          window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
-        ) {
-          return routes[i].name;
-        }
+      } else if (
+        window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
+      ) {
+        return routes[i].name
       }
     }
-    return activeRoute;
-  };
-  const getRoutes = routes => {
-    return routes.map((prop, key) => {
-      if (prop.collapse) {
-        return getRoutes(prop.views);
-      }
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
+    return activeRoute
+  }
+  const getRoutes = (routes) => routes.map((prop, key) => {
+    if (prop.collapse) {
+      return getRoutes(prop.views)
+    }
+    if (prop.layout === '/admin') {
+      return (
+        <Route
+          path={prop.layout + prop.path}
+          component={prop.component}
+          key={key}
+        />
+      )
+    }
+    return null
+  })
   const sidebarMinimize = () => {
-    setMiniActive(!miniActive);
-  };
+    setMiniActive(!miniActive)
+  }
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
-      setMobileOpen(false);
+      setMobileOpen(false)
     }
-  };
+  }
 
   return (
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Creative Tim"}
+        logoText="Creative Tim"
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
@@ -195,5 +195,5 @@ export default function Dashboard(props) {
         />
       </div>
     </div>
-  );
+  )
 }

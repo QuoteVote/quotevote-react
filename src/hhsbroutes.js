@@ -1,11 +1,10 @@
 
-import ContentFeed from 'hhsbviews/topcontent.js'
-import SubmitPost from 'hhsbviews/SubmitPost.js'
-import SearchView from 'hhsbviews/SearchView.js'
-import ContentDisplay from 'hhsbviews/ContentDisplay.js'
-import Profile from 'hhsbviews/profile.js'
+import ContentFeed from 'hhsbviews/topcontent'
+import SubmitPost from 'hhsbviews/SubmitPost'
+import SearchView from 'hhsbviews/SearchView'
+import Profile from 'hhsbviews/profile'
 import ManageInvites from 'hhsbviews/ManageInvites'
-import HomePage from 'hhsbviews/HomePage.js'
+import HomePage from 'hhsbviews/HomePage'
 import Chat from 'hhsbAssets/Chat.svg'
 import Home from 'hhsbAssets/Home.svg'
 import Avatar from 'hhsbAssets/Avatar.png'
@@ -16,8 +15,8 @@ import Search from 'hhsbAssets/Search.png'
 import Alert from 'hhsbAssets/Alerts.png'
 // @material-ui/icons
 
-// import {face} from '@mdi/js';
-// import { mdiEmail } from '@mdi/js';
+// import {face} from '@mdi';
+// import { mdiEmail } from '@mdi';
 
 const hhsbRoutes = [
   {

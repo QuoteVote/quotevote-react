@@ -1,53 +1,53 @@
-import React from "react"
+import React from 'react'
 // react component plugin for creating a beautiful datetime dropdown picker
-import Datetime from "react-datetime"
+import Datetime from 'react-datetime'
 // react component plugin for creating beatiful tags on an input
-import TagsInput from "react-tagsinput"
+import TagsInput from 'react-tagsinput'
 // plugin that creates slider
-import Slider from "nouislider"
+import Slider from 'nouislider'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles"
-import FormControl from "@material-ui/core/FormControl"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import InputLabel from "@material-ui/core/InputLabel"
-import Switch from "@material-ui/core/Switch"
-import Select from "@material-ui/core/Select"
-import MenuItem from "@material-ui/core/MenuItem"
+import { makeStyles } from '@material-ui/core/styles'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import InputLabel from '@material-ui/core/InputLabel'
+import Switch from '@material-ui/core/Switch'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 
 // @material-ui/icons
-import Today from "@material-ui/icons/Today"
-import LibraryBooks from "@material-ui/icons/LibraryBooks"
-import AvTimer from "@material-ui/icons/AvTimer"
+import Today from '@material-ui/icons/Today'
+import LibraryBooks from '@material-ui/icons/LibraryBooks'
+import AvTimer from '@material-ui/icons/AvTimer'
 
 // core mui-pro components
-import GridContainer from "mui-pro/Grid/GridContainer.js"
-import GridItem from "mui-pro/Grid/GridItem.js"
-import CustomDropdown from "mui-pro/CustomDropdown/CustomDropdown.js"
-import CustomLinearProgress from "mui-pro/CustomLinearProgress/CustomLinearProgress.js"
-import ImageUpload from "mui-pro/CustomUpload/ImageUpload.js"
-import Card from "mui-pro/Card/Card.js"
-import CardHeader from "mui-pro/Card/CardHeader.js"
-import CardIcon from "mui-pro/Card/CardIcon.js"
-import CardBody from "mui-pro/Card/CardBody.js"
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import CustomDropdown from 'mui-pro/CustomDropdown/CustomDropdown'
+import CustomLinearProgress from 'mui-pro/CustomLinearProgress/CustomLinearProgress'
+import ImageUpload from 'mui-pro/CustomUpload/ImageUpload'
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardIcon from 'mui-pro/Card/CardIcon'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/extendedFormsStyle.js"
+import styles from 'assets/jss/material-dashboard-pro-react/views/extendedFormsStyle'
 
 const useStyles = makeStyles(styles)
 
 export default function ExtendedForms() {
   const [checkedA, setCheckedA] = React.useState(true)
   const [checkedB, setCheckedB] = React.useState(false)
-  const [simpleSelect, setSimpleSelect] = React.useState("")
+  const [simpleSelect, setSimpleSelect] = React.useState('')
   const [multipleSelect, setMultipleSelect] = React.useState([])
-  const [tags, setTags] = React.useState(["pizza", "pasta", "parmesan"])
+  const [tags, setTags] = React.useState(['pizza', 'pasta', 'parmesan'])
   React.useEffect(() => {
     if (
       !document
-        .getElementById("sliderRegular")
-        .classList.contains("noUi-target")
+        .getElementById('sliderRegular')
+        .classList.contains('noUi-target')
     ) {
-      Slider.create(document.getElementById("sliderRegular"), {
+      Slider.create(document.getElementById('sliderRegular'), {
         start: [40],
         connect: [true, false],
         step: 1,
@@ -55,9 +55,9 @@ export default function ExtendedForms() {
       })
     }
     if (
-      !document.getElementById("sliderDouble").classList.contains("noUi-target")
+      !document.getElementById('sliderDouble').classList.contains('noUi-target')
     ) {
-      Slider.create(document.getElementById("sliderDouble"), {
+      Slider.create(document.getElementById('sliderDouble'), {
         start: [20, 60],
         connect: [false, true, false],
         step: 1,
@@ -92,7 +92,7 @@ export default function ExtendedForms() {
               <br />
               <FormControl fullWidth>
                 <Datetime
-                  inputProps={{ placeholder: "Datetime Picker Here" }}
+                  inputProps={{ placeholder: 'Datetime Picker Here' }}
                 />
               </FormControl>
             </CardBody>
@@ -112,7 +112,7 @@ export default function ExtendedForms() {
               <FormControl fullWidth>
                 <Datetime
                   timeFormat={false}
-                  inputProps={{ placeholder: "Date Picker Here" }}
+                  inputProps={{ placeholder: 'Date Picker Here' }}
                 />
               </FormControl>
             </CardBody>
@@ -132,7 +132,7 @@ export default function ExtendedForms() {
               <FormControl fullWidth>
                 <Datetime
                   dateFormat={false}
-                  inputProps={{ placeholder: "Time Picker Here" }}
+                  inputProps={{ placeholder: 'Time Picker Here' }}
                 />
               </FormControl>
             </CardBody>
@@ -150,7 +150,7 @@ export default function ExtendedForms() {
                   <legend>Switches</legend>
                   <div className={classes.block}>
                     <FormControlLabel
-                      control={
+                      control={(
                         <Switch
                           checked={checkedA}
                           onChange={(event) => setCheckedA(event.target.checked)}
@@ -162,7 +162,7 @@ export default function ExtendedForms() {
                             track: classes.switchBar,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
                       }}
@@ -171,7 +171,7 @@ export default function ExtendedForms() {
                   </div>
                   <div className={classes.block}>
                     <FormControlLabel
-                      control={
+                      control={(
                         <Switch
                           checked={checkedB}
                           onChange={(event) => setCheckedB(event.target.checked)}
@@ -183,7 +183,7 @@ export default function ExtendedForms() {
                             track: classes.switchBar,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
                       }}
@@ -215,8 +215,8 @@ export default function ExtendedForms() {
                           value={simpleSelect}
                           onChange={handleSimple}
                           inputProps={{
-                            name: "simpleSelect",
-                            id: "simple-select",
+                            name: 'simpleSelect',
+                            id: 'simple-select',
                           }}
                         >
                           <MenuItem
@@ -410,8 +410,8 @@ export default function ExtendedForms() {
                           MenuProps={{ className: classes.selectMenu }}
                           classes={{ select: classes.select }}
                           inputProps={{
-                            name: "multipleSelect",
-                            id: "multiple-select",
+                            name: 'multipleSelect',
+                            id: 'multiple-select',
                           }}
                         >
                           <MenuItem
@@ -598,7 +598,7 @@ export default function ExtendedForms() {
                   <TagsInput
                     value={tags}
                     onChange={handleTags}
-                    tagProps={{ className: "react-tagsinput-tag info" }}
+                    tagProps={{ className: 'react-tagsinput-tag info' }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -611,14 +611,14 @@ export default function ExtendedForms() {
                         buttonProps={{
                           round: true,
                           block: true,
-                          color: "info",
+                          color: 'info',
                         }}
                         dropPlacement="bottom"
                         dropdownList={[
-                          "Action",
-                          "Another action",
+                          'Action',
+                          'Another action',
                           <CustomDropdown
-                            key={"key"}
+                            key="key"
                             data-ref="multi"
                             innerDropDown
                             buttonText="Submenu"
@@ -629,10 +629,10 @@ export default function ExtendedForms() {
                             }}
                             dropPlacement="right-start"
                             dropdownList={[
-                              "Submenu action",
-                              "Submenu action",
+                              'Submenu action',
+                              'Submenu action',
                               <CustomDropdown
-                                key={"key"}
+                                key="key"
                                 data-ref="multi"
                                 innerDropDown
                                 hoverColor="info"
@@ -642,12 +642,12 @@ export default function ExtendedForms() {
                                 }}
                                 dropPlacement="right-start"
                                 dropdownList={[
-                                  "Subsubmenu action 1",
-                                  "Subsubmenu action 2",
+                                  'Subsubmenu action 1',
+                                  'Subsubmenu action 2',
                                 ]}
                               />,
                               <CustomDropdown
-                                key={"key"}
+                                key="key"
                                 data-ref="multi"
                                 innerDropDown
                                 hoverColor="info"
@@ -657,8 +657,8 @@ export default function ExtendedForms() {
                                 }}
                                 dropPlacement="right-start"
                                 dropdownList={[
-                                  "Second Subsubmenu action 1",
-                                  "Second Subsubmenu action 2",
+                                  'Second Subsubmenu action 1',
+                                  'Second Subsubmenu action 2',
                                 ]}
                               />,
                             ]}
@@ -673,18 +673,18 @@ export default function ExtendedForms() {
                         buttonProps={{
                           round: true,
                           fullWidth: true,
-                          style: { marginBottom: "0" },
-                          color: "info",
+                          style: { marginBottom: '0' },
+                          color: 'info',
                         }}
                         dropdownHeader="Dropdown header"
                         dropdownList={[
-                          "Action",
-                          "Another action",
-                          "Something else here",
+                          'Action',
+                          'Another action',
+                          'Something else here',
                           { divider: true },
-                          "Separated link",
+                          'Separated link',
                           { divider: true },
-                          "One more separated link",
+                          'One more separated link',
                         ]}
                       />
                     </GridItem>
@@ -703,18 +703,18 @@ export default function ExtendedForms() {
                         buttonProps={{
                           round: true,
                           fullWidth: true,
-                          style: { marginBottom: "0" },
-                          color: "info",
+                          style: { marginBottom: '0' },
+                          color: 'info',
                         }}
                         dropdownHeader="Dropdown header"
                         dropdownList={[
-                          "Action",
-                          "Another action",
-                          "Something else here",
+                          'Action',
+                          'Another action',
+                          'Something else here',
                           { divider: true },
-                          "Separated link",
+                          'Separated link',
                           { divider: true },
-                          "One more separated link",
+                          'One more separated link',
                         ]}
                       />
                     </GridItem>
@@ -740,19 +740,19 @@ export default function ExtendedForms() {
                     variant="determinate"
                     color="success"
                     value={100}
-                    style={{ width: "35%", display: "inline-block" }}
+                    style={{ width: '35%', display: 'inline-block' }}
                   />
                   <CustomLinearProgress
                     variant="determinate"
                     color="warning"
                     value={100}
-                    style={{ width: "20%", display: "inline-block" }}
+                    style={{ width: '20%', display: 'inline-block' }}
                   />
                   <CustomLinearProgress
                     variant="determinate"
                     color="danger"
                     value={25}
-                    style={{ width: "45%", display: "inline-block" }}
+                    style={{ width: '45%', display: 'inline-block' }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -767,15 +767,15 @@ export default function ExtendedForms() {
                   <legend>Regular Image</legend>
                   <ImageUpload
                     addButtonProps={{
-                      color: "rose",
+                      color: 'rose',
                       round: true,
                     }}
                     changeButtonProps={{
-                      color: "rose",
+                      color: 'rose',
                       round: true,
                     }}
                     removeButtonProps={{
-                      color: "danger",
+                      color: 'danger',
                       round: true,
                     }}
                   />
@@ -785,15 +785,15 @@ export default function ExtendedForms() {
                   <ImageUpload
                     avatar
                     addButtonProps={{
-                      color: "rose",
+                      color: 'rose',
                       round: true,
                     }}
                     changeButtonProps={{
-                      color: "rose",
+                      color: 'rose',
                       round: true,
                     }}
                     removeButtonProps={{
-                      color: "danger",
+                      color: 'danger',
                       round: true,
                     }}
                   />

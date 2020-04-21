@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react'
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import Card from 'mui-pro/Card/Card'
@@ -251,9 +252,10 @@ export default function HomePage() {
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'row' }}>
               <CustomizedInputBase setOffset={setOffset} />
-              <img src={Calendar} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
-              <img src={Filter} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
+              <img alt="Calendar Icon" src={Calendar} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
+              <img alt="Filter Icon" src={Filter} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
               <img
+                alt="Emoji Icon"
                 src={Emoji}
                 style={{
                   display: 'flex', maxHeight: '40px', paddingLeft: '15px', paddingRight: '15px',
@@ -273,7 +275,7 @@ export default function HomePage() {
         limit={limit}
         offset={offset}
         total={total}
-        onClick={(e, offset) => setOffset(offset)}
+        onClick={(e, offsetVal) => setOffset(offsetVal)}
       />
     </Card>
 

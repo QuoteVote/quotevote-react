@@ -1,5 +1,5 @@
-import React from "react";
-import SvgIcon from "@material-ui/core/SvgIcon";
+import React from 'react'
+import SvgIcon from '@material-ui/core/SvgIcon'
 
 export default function Down(props) {
   return (
@@ -18,5 +18,5 @@ export default function Down(props) {
         />
       </g>
     </SvgIcon>
-  );
+  )
 }

@@ -1,34 +1,33 @@
-import React from "react"
+import React from 'react'
 
-//firebase
-import firebase from 'firebase'
+// firebase
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles"
-import InputAdornment from "@material-ui/core/InputAdornment"
-import Checkbox from "@material-ui/core/Checkbox"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import Icon from "@material-ui/core/Icon"
+import { makeStyles } from '@material-ui/core/styles'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Icon from '@material-ui/core/Icon'
 
 // @material-ui/icons
-import Timeline from "@material-ui/icons/Timeline"
-import Code from "@material-ui/icons/Code"
-import Group from "@material-ui/icons/Group"
-import Face from "@material-ui/icons/Face"
-import Email from "@material-ui/icons/Email"
+import Timeline from '@material-ui/icons/Timeline'
+import Code from '@material-ui/icons/Code'
+import Group from '@material-ui/icons/Group'
+import Face from '@material-ui/icons/Face'
+import Email from '@material-ui/icons/Email'
 // import LockOutline from "@material-ui/icons/LockOutline";
-import Check from "@material-ui/icons/Check"
+import Check from '@material-ui/icons/Check'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js"
-import GridItem from "mui-pro/Grid/GridItem.js"
-import Button from "mui-pro/CustomButtons/Button.js"
-import CustomInput from "mui-pro/CustomInput/CustomInput.js"
-import InfoArea from "mui-pro/InfoArea/InfoArea.js"
-import Card from "mui-pro/Card/Card.js"
-import CardBody from "mui-pro/Card/CardBody.js"
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import Button from 'mui-pro/CustomButtons/Button'
+import CustomInput from 'mui-pro/CustomInput/CustomInput'
+import InfoArea from 'mui-pro/InfoArea/InfoArea'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/registerPageStyle"
+import styles from 'assets/jss/material-dashboard-pro-react/views/registerPageStyle'
 
 const useStyles = makeStyles(styles)
 
@@ -47,25 +46,25 @@ export default function RegisterPage() {
     }
     setChecked(newChecked)
   }
-  const handleEmail = (email) => {
-    console.log('email changed', email)
-    setEmail(email)
+  const handleEmail = (emailValue) => {
+    // console.log('email changed', email)
+    setEmail(emailValue)
   }
 
-  const handlePassword = (password) => {
-    console.log('password changed', password)
-    setPassword(password)
+  const handlePassword = (passwordValue) => {
+    // console.log('password changed', password)
+    setPassword(passwordValue)
   }
-  const handleSubmit = () => {
-    console.log('submitting with ', email, password)
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        console.log('created', user)
-      })
+  const handleSubmit = (event) => {
+    event.preventDeafult()
+    // THIS IS UNSAFE
+    // WIP
+    // eslint-disable-next-line no-console
+    console.log({ email, password })
   }
-  
+
   const classes = useStyles()
-  console.log('email state is', email)
+  // console.log('email state is', email)
   return (
     <div className={classes.container}>
       <GridContainer justify="center">
@@ -99,15 +98,15 @@ export default function RegisterPage() {
                     <Button justIcon round color="twitter">
                       <i className="fab fa-twitter" />
                     </Button>
-                    {` `}
+                    {' '}
                     <Button justIcon round color="dribbble">
                       <i className="fab fa-dribbble" />
                     </Button>
-                    {` `}
+                    {' '}
                     <Button justIcon round color="facebook">
                       <i className="fab fa-facebook-f" />
                     </Button>
-                    {` `}
+                    {' '}
                     <h4 className={classes.socialTitle}>or be classical</h4>
                   </div>
                   <form className={classes.form}>
@@ -125,7 +124,7 @@ export default function RegisterPage() {
                             <Face className={classes.inputAdornmentIcon} />
                           </InputAdornment>
                         ),
-                        placeholder: "First Name...",
+                        placeholder: 'First Name...',
                       }}
                     />
                     <CustomInput
@@ -142,7 +141,7 @@ export default function RegisterPage() {
                             <Email className={classes.inputAdornmentIcon} />
                           </InputAdornment>
                         ),
-                        placeholder: "Email...",
+                        placeholder: 'Email...',
                         onChange: (e) => handleEmail(e.target.value),
                       }}
                     />
@@ -162,7 +161,7 @@ export default function RegisterPage() {
                             </Icon>
                           </InputAdornment>
                         ),
-                        placeholder: "Password...",
+                        placeholder: 'Password...',
                         onChange: (e) => handlePassword(e.target.value),
                       }}
                     />
@@ -171,7 +170,7 @@ export default function RegisterPage() {
                         root: classes.checkboxLabelControl,
                         label: classes.checkboxLabel,
                       }}
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(1)}
@@ -184,13 +183,15 @@ export default function RegisterPage() {
                             root: classes.checkRoot,
                           }}
                         />
-                      }
-                      label={
+                      )}
+                      label={(
                         <span>
-                          I agree to the{" "}
-                          <a href="#pablo">terms and conditions</a>.
+                          I agree to the
+                          {' '}
+                          <a href="#pablo">terms and conditions</a>
+                          .
                         </span>
-                      }
+                      )}
                     />
                     <div className={classes.center}>
                       <Button onClick={handleSubmit} round color="primary">

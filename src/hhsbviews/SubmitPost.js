@@ -1,10 +1,11 @@
-import React, { useState } from "react"
-import { useHistory } from "react-router-dom"
+/* eslint-disable no-underscore-dangle */
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import { 
+import {
   Grid,
-  TextField, 
+  TextField,
   Select,
   MenuItem,
   InputLabel,
@@ -16,10 +17,9 @@ import {
   Tooltip,
   Radio,
   RadioGroup,
-} from "@material-ui/core"
+} from '@material-ui/core'
 
-
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from '@material-ui/core/styles'
 
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
@@ -30,19 +30,18 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AssignmentIcon from '@material-ui/icons/Assignment'
 
+import GridItem from 'mui-pro/Grid/GridItem'
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardBody from 'mui-pro/Card/CardBody'
+import Button from 'mui-pro/CustomButtons/Button'
+import LoadingSpinner from 'hhsbComponents/LoadingSpinner'
+import styles from 'assets/jss/material-dashboard-pro-react/views/sweetAlertStyle'
 
-import GridItem from "mui-pro/Grid/GridItem"
-import Card from "mui-pro/Card/Card"
-import CardHeader from "mui-pro/Card/CardHeader"
-import CardBody from "mui-pro/Card/CardBody"
-import Button from "mui-pro/CustomButtons/Button"
-import LoadingSpinner from "hhsbComponents/LoadingSpinner.js"
-import styles from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle.js"
+import GridContainer from 'mui-pro/Grid/GridContainer'
 
-import GridContainer from "mui-pro/Grid/GridContainer"
-
-import SweetAlert from "react-bootstrap-sweetalert"
-import * as copy from "clipboard-copy"
+import SweetAlert from 'react-bootstrap-sweetalert'
+import * as copy from 'clipboard-copy'
 
 
 import { useQuery, useMutation } from '@apollo/react-hooks'
@@ -52,10 +51,10 @@ import { DOMAIN_QUERY } from 'graphql/query'
 const useStyles = makeStyles(styles)
 
 const inputStyles = {
-  color: "#E91E63",
-  fontSize: "25px",
-  font: "League Spartan",
-  fontWeight: "bold",
+  color: '#E91E63',
+  fontSize: '25px',
+  font: 'League Spartan',
+  fontWeight: 'bold',
 }
 
 function SubmitPost() {
@@ -63,38 +62,40 @@ function SubmitPost() {
   const [alert, setAlert] = React.useState(null)
   const [title, setTitle] = useState('[Enter Title]')
   const [text, setText] = useState('')
-  const [domain, setDomain] = useState({domain: {
-    title: 'Default',
-  }})
+  const [domain, setDomain] = useState({
+    domain: {
+      title: 'Default',
+    },
+  })
   const [subScoreboardIsOpen, setCreateSubScoreboard] = useState(false)
   const [privacy, setPrivacy] = useState('private')
 
-  let history = useHistory()
+  const history = useHistory()
 
   const { user } = useSelector((state) => state.loginReducer)
   const { loading, error, data } = useQuery(DOMAIN_QUERY, {
     variables: { limit: 0 },
   })
 
-  const [submitText, { data: submitData }] = useMutation(SUBMIT_TEXT)
-  const [createDomain, { data: domainData}] = useMutation(CREATE_DOMAIN)
+  const [submitText] = useMutation(SUBMIT_TEXT)
+  const [createDomain] = useMutation(CREATE_DOMAIN)
 
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
 
-  const handleSubmit =  async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     let domainResult
     try {
       if (subScoreboardIsOpen) {
-        domainResult= await createDomain({
+        domainResult = await createDomain({
           variables: {
             domain: {
               userId: user.creatorId,
               title: domain,
-              url: `/${  domain.toLowerCase()}`,
+              url: `/${domain.toLowerCase()}`,
               key: domain.toLowerCase(),
               privacy,
-              description: `Description for: ${  domain  } group`,
+              description: `Description for: ${domain} group`,
             },
           },
         })
@@ -103,8 +104,8 @@ function SubmitPost() {
       const submitResult = await submitText({
         variables: {
           content: {
-            title: title,
-            text: text,
+            title,
+            text,
             creatorId: user.creatorId,
             domainId,
           },
@@ -126,7 +127,7 @@ function SubmitPost() {
     setTitle(event.target.value)
   }
 
-  const clearTitle = (event) => {
+  const clearTitle = () => {
     if (title === '[Enter Title]') {
       setTitle('')
     }
@@ -151,7 +152,7 @@ function SubmitPost() {
     setAlert(
       <SweetAlert
         success
-        style={{ display: "block", top: "50%" }}
+        style={{ display: 'block', top: '50%' }}
         title="You Created a Post!"
         onConfirm={() => history.push(shareableLink)}
         onCancel={() => hideAlert()}
@@ -159,37 +160,37 @@ function SubmitPost() {
         confirmBtnText="Go to Post"
       >
         <Typography variant="caption">Share your text to your friends and family.</Typography>
-        <Grid 
+        <Grid
           container
-          justify="space-around" 
+          justify="space-around"
           style={{ marginTop: 16 }}
           wrap="nowrap"
         >
           <GridItem style={{ overflow: 'auto' }}>
             <pre>{ DOMAIN + shareableLink }</pre>
           </GridItem>
-          <GridItem style={{ flex: 1}}>
+          <GridItem style={{ flex: 1 }}>
             <IconButton onClick={handleCopy(DOMAIN + shareableLink)}>
-              <Tooltip title="Copy Link to Clip Board"><AssignmentIcon/></Tooltip>
+              <Tooltip title="Copy Link to Clip Board"><AssignmentIcon /></Tooltip>
             </IconButton>
           </GridItem>
         </Grid>
       </SweetAlert>
     )
   }
-  
+
   const errorAlert = () => {
     setAlert(
       <SweetAlert
         error
-        style={{ display: "block", top: "50%" }}
+        style={{ display: 'block', top: '50%' }}
         title="Something went wrong!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
-        confirmBtnCssClass={`${classes.button  } ${  classes.danger}`}
+        confirmBtnCssClass={`${classes.button} ${classes.danger}`}
         confirmBtnText="Ok"
       >
-        We don't know what, yet let us know and we can find out
+        We don&apos;t know what, yet let us know and we can find out
       </SweetAlert>
     )
   }
@@ -201,37 +202,35 @@ function SubmitPost() {
     copy(shareableLink)
   }
 
- 
+
   if (loading) {
     return (
       <LoadingSpinner />
     )
   }
-  
-  if(error) {
+
+  if (error) {
     return (
       <SweetAlert
         error
-        style={{ display: "block", top: "50%" }}
+        style={{ display: 'block', top: '50%' }}
         title="Something went wrong!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
-        confirmBtnCssClass={`${classes.button  } ${  classes.danger}`}
+        confirmBtnCssClass={`${classes.button} ${classes.danger}`}
         confirmBtnText="Ok"
       >
-        We don't know what, yet let us know and we can find out
+        We don&apos;t know what, yet let us know and we can find out
       </SweetAlert>
     )
-  } 
+  }
 
-  const userAllowedDomains = data.domains.filter((domain) => {
-    const isUserAllowed = domain.allowedUserIds.find(
+  const userAllowedDomains = data.domains.filter((domainItem) => {
+    const isUserAllowed = domainItem.allowedUserIds.find(
       (id) => id === user.creatorId
     )
     return (
-      domain.privacy === "public" ||
-        (domain.privacy === "private" &&
-          isUserAllowed)
+      domainItem.privacy === 'public' || (domainItem.privacy === 'private' && isUserAllowed)
     )
   })
 
@@ -240,22 +239,22 @@ function SubmitPost() {
       {alert}
       <GridContainer spacing={1} direction="col">
         <GridItem xs={6}>
-          <Card style={{ height: "800px" }}>
+          <Card style={{ height: '800px' }}>
             <CardHeader style={{ zIndex: 0 }}>
               <div
                 style={{
-                  display: "flex",
-                  direction: "row",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'space-between',
                   zIndex: 0,
                 }}
               >
                 <div
                   style={{
-                    display: "flex",
-                    direction: "row",
-                    alignContent: "center",
-                    justifyContent: "space-between",
+                    display: 'flex',
+                    direction: 'row',
+                    alignContent: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <InputBase
@@ -270,12 +269,12 @@ function SubmitPost() {
                 </div>
                 <div
                   style={{
-                    display: "flex",
-                    direction: "row",
-                    justifyContent: "flex-end",
-                    flexBasis: "100px",
+                    display: 'flex',
+                    direction: 'row',
+                    justifyContent: 'flex-end',
+                    flexBasis: '100px',
                   }}
-                >     
+                >
                 </div>
               </div>
               <Divider />
@@ -299,11 +298,15 @@ function SubmitPost() {
                     overflow: 'auto',
                   }}
                 />
-                <div style={{marginTop: 24, display: 'flex', justifyContent: 'space-between', alixgnContent: 'center'}}>
+                <div
+                  style={{
+                    marginTop: 24, display: 'flex', justifyContent: 'space-between', alixgnContent: 'center',
+                  }}
+                >
                   <div>
                     <FormControl required>
                       {
-                        subScoreboardIsOpen && subScoreboardIsOpen                   ? 
+                        subScoreboardIsOpen && subScoreboardIsOpen ? (
                           <TextField
                             id="group"
                             label="Group"
@@ -311,9 +314,10 @@ function SubmitPost() {
                             name="group"
                             required
                             onChange={handleDomain}
-                            value={domain.title}  
+                            value={domain.title}
                             style={{ width: 280 }}
-                          /> : 
+                          />
+                        ) : (
                           <>
                             <InputLabel id="group-label" htmlFor="group">Group</InputLabel>
                             <Select
@@ -334,23 +338,24 @@ function SubmitPost() {
                                   key={publicDomain._id}
                                 >
                                   {publicDomain.title}
-                                </MenuItem>))}
+                                </MenuItem>
+                              ))}
                             </Select>
                           </>
+                        )
                       }
-                
+
                     </FormControl>
-                    <IconButton 
-                      style={{ marginTop: 8, marginLeft: 4}}
+                    <IconButton
+                      style={{ marginTop: 8, marginLeft: 4 }}
                       onClick={handleCreateSubScoreboard}
                     >
-                      { subScoreboardIsOpen && subScoreboardIsOpen ? 
-                        <Tooltip title="Choose an existing group" style={{ fontSize: 18 }}><RemoveIcon/></Tooltip> :
-                        <Tooltip title="Add a new group"><AddIcon/></Tooltip>
-                      }
+                      { subScoreboardIsOpen && subScoreboardIsOpen ?
+                        <Tooltip title="Choose an existing group" style={{ fontSize: 18 }}><RemoveIcon /></Tooltip> :
+                        <Tooltip title="Add a new group"><AddIcon /></Tooltip>}
                     </IconButton>
                   </div>
-                  <Button 
+                  <Button
                     type="submit"
                     variant="contained"
                     size="large"
@@ -358,22 +363,23 @@ function SubmitPost() {
                       backgroundColor: 'rgb(233, 30, 99)',
                     }}
                   >
-                Submit
+                    Submit
                   </Button>
                 </div>
                 {
-                  subScoreboardIsOpen &&
-                <div style={{ paddingTop  : 16}}>
-                  <FormControl required component="fieldset" >
-                    <FormLabel component="legend">Choose Visibility</FormLabel>
-                    <RadioGroup aria-label="privacy" name="privacy" value={privacy} onChange={handlePrivacy}>
-                      <FormControlLabel value="private" control={<Radio />} label="Private" />
-                      <FormControlLabel value="public" control={<Radio />} label="Pulbic" />
-                    </RadioGroup>
-                  </FormControl>
-                </div>
+                  subScoreboardIsOpen && (
+                    <div style={{ paddingTop: 16 }}>
+                      <FormControl required component="fieldset">
+                        <FormLabel component="legend">Choose Visibility</FormLabel>
+                        <RadioGroup aria-label="privacy" name="privacy" value={privacy} onChange={handlePrivacy}>
+                          <FormControlLabel value="private" control={<Radio />} label="Private" />
+                          <FormControlLabel value="public" control={<Radio />} label="Pulbic" />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                  )
                 }
-              </form>           
+              </form>
             </CardBody>
           </Card>
         </GridItem>
@@ -382,17 +388,17 @@ function SubmitPost() {
             <CardHeader>
               <div
                 style={{
-                  display: "flex",
-                  direction: "row",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'space-between',
                 }}
               >
                 <p
                   style={{
-                    color: "#E91E63",
-                    fontSize: "25px",
-                    font: "League Spartan",
-                    fontWeight: "bold",
+                    color: '#E91E63',
+                    fontSize: '25px',
+                    font: 'League Spartan',
+                    fontWeight: 'bold',
                   }}
                 >
                   Pop Prediction

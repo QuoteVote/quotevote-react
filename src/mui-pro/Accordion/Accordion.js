@@ -1,67 +1,65 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import { makeStyles } from '@material-ui/core/styles'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 // @material-ui/icons
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import styles from "assets/jss/material-dashboard-pro-react/components/accordionStyle.js";
-import Chat from "../../hhsbAssets/Chat.svg";
-const useStyles = makeStyles(styles);
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import styles from 'assets/jss/material-dashboard-pro-react/components/accordionStyle'
+import Chat from '../../hhsbAssets/Chat.svg'
+const useStyles = makeStyles(styles)
 
 export default function Accordion(props) {
-  const [active, setActive] = React.useState(props.active);
-  const handleChange = panel => (event, expanded) => {
-    setActive(expanded ? panel : -1);
-  };
-  const classes = useStyles();
-  const { collapses } = props;
+  const [active, setActive] = React.useState(props.active)
+  const handleChange = (panel) => (event, expanded) => {
+    setActive(expanded ? panel : -1)
+  }
+  const classes = useStyles()
+  const { collapses } = props
   return (
     <div className={classes.root}>
-      {collapses.map((prop, key) => {
-        return (
-          <ExpansionPanel
-            expanded={active === key}
-            onChange={handleChange(key)}
-            key={key}
+      {collapses.map((prop, key) => (
+        <ExpansionPanel
+          expanded={active === key}
+          onChange={handleChange(key)}
+          key={key}
+          classes={{
+            root: classes.expansionPanel,
+            expanded: classes.expansionPanelExpanded,
+          }}
+        >
+          <ExpansionPanelSummary
+            expandIcon={(
+              <div>
+                <ExpandMore />
+              </div>
+            )}
             classes={{
-              root: classes.expansionPanel,
-              expanded: classes.expansionPanelExpanded
+              root: classes.expansionPanelSummary,
+              expanded: classes.expansionPanelSummaryExpaned,
+              content: classes.expansionPanelSummaryContent,
+              expandIcon: classes.expansionPanelSummaryExpandIcon,
             }}
           >
-            <ExpansionPanelSummary
-              expandIcon={
-                <div>
-                  <ExpandMore />
-                </div>
-              }
-              classes={{
-                root: classes.expansionPanelSummary,
-                expanded: classes.expansionPanelSummaryExpaned,
-                content: classes.expansionPanelSummaryContent,
-                expandIcon: classes.expansionPanelSummaryExpandIcon
-              }}
-            >
-              <h4 className={classes.title}>{prop.title}</h4>
-              <img alt=" " src={Chat} />
-              <img alt=" " src={Chat} />
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-              {prop.content}
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        );
-      })}
+            <h4 className={classes.title}>{prop.title}</h4>
+            <img alt=" " src={Chat} />
+            <img alt=" " src={Chat} />
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+            {prop.content}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      ))}
     </div>
-  );
+  )
 }
 
 Accordion.defaultProps = {
-  active: -1
-};
+  active: -1,
+}
 
 Accordion.propTypes = {
   // index of the default active collapse
@@ -69,7 +67,7 @@ Accordion.propTypes = {
   collapses: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      content: PropTypes.node
+      content: PropTypes.node,
     })
-  ).isRequired
-};
+  ).isRequired,
+}

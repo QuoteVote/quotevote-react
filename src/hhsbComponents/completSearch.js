@@ -1,12 +1,13 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import GridContainer from 'mui-pro/Grid/GridContainer.js'
-import Paper from '@material-ui/core/Paper'
-import Card from '@material-ui/core/Card'
-import Grid from '@material-ui/core/Grid'
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import Slider from '@material-ui/core/Slider'
 import Box from '@material-ui/core/Box'
-import Alert from './Alert.js'
-import CustomizedInputBase from './searchBar.js'
+
+import Calendar from 'hhsbAssets/Calendar.svg'
+import Filter from 'hhsbAssets/Filter.svg'
+import Emoji from 'hhsbAssets/FollowingEmoji.svg'
+
+import CustomizedInputBase from './searchBar'
 
 export default function CompleteSearch() {
   return (
@@ -43,9 +44,9 @@ export default function CompleteSearch() {
 
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <CustomizedInputBase></CustomizedInputBase>
-            <img src={Calendar} style={{ height: '40px', paddingLeft: '15px' }} />
-            <img src={Filter} style={{ height: '40px', paddingLeft: '15px' }} />
-            <img src={Emoji} style={{ height: '40px', paddingLeft: '15px' }} />
+            <img alt="Calender Icon" src={Calendar} style={{ height: '40px', paddingLeft: '15px' }} />
+            <img alt="Filter icon" src={Filter} style={{ height: '40px', paddingLeft: '15px' }} />
+            <img alt="Emoji icon" src={Emoji} style={{ height: '40px', paddingLeft: '15px' }} />
           </div>
 
 

@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { makeStyles, fade } from "@material-ui/core/styles"
-import gql from "graphql-tag"
-import InputBase from "@material-ui/core/InputBase"
-import SearchIcon from "@material-ui/icons/Search"
-import SearchResultsView from "./SearchResults"
-import Card from "mui-pro/Card/Card"
-import CardHeader from "mui-pro/Card/CardHeader"
-import { useQuery } from "@apollo/react-hooks"
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react'
+import { makeStyles, fade } from '@material-ui/core/styles'
+import InputBase from '@material-ui/core/InputBase'
+import SearchIcon from '@material-ui/icons/Search'
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import { useQuery } from '@apollo/react-hooks'
 
 import { SEARCH } from 'graphql/query'
+import SearchResultsView from './SearchResults'
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -53,17 +53,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   root: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     flexBasis: 300,
     minWidth: 0,
-    flexWrap: "inherit",
-    height: "58px",
-    color: "#ff0000",
+    flexWrap: 'inherit',
+    height: '58px',
+    color: '#ff0000',
     zIndex: 10,
   },
   input: {
-    marginLeft: "10px",
+    marginLeft: '10px',
     flex: 1,
   },
   iconButton: {
@@ -75,49 +75,48 @@ const useStyles = makeStyles((theme) => ({
   },
 
   name: {
-    display: "table-cell",
-    textOverflow: "ellipsis",
-    width: "100px",
-    whiteSpace: "nowrap",
-    background: "0 0",
-    fontFamily: "Lato,Helvetica Neue,Arial,Helvetica,sans-serif",
-    fontSize: "1em",
-    padding: ".4em 1em",
+    display: 'table-cell',
+    textOverflow: 'ellipsis',
+    width: '100px',
+    whiteSpace: 'nowrap',
+    background: '0 0',
+    fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif',
+    fontSize: '1em',
+    padding: '.4em 1em',
     fontWeight: 700,
-    color: "rgba(0,0,0,.4)",
-    borderBottom: "1px solid rgba(34,36,38,.1)",
+    color: 'rgba(0,0,0,.4)',
+    borderBottom: '1px solid rgba(34,36,38,.1)',
   },
   results: {
-    width: "100%",
-    display: "table-cell",
-    background: "#fff",
-    borderLeft: "1px solid rgba(34,36,38,.15)",
-    borderBottom: "2px solid rgba(34,36,38,.1)",
+    width: '100%',
+    display: 'table-cell',
+    background: '#fff',
+    borderLeft: '1px solid rgba(34,36,38,.15)',
+    borderBottom: '2px solid rgba(34,36,38,.1)',
   },
   paper: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   progress: {
-    position: "absolute",
-    top: "100%",
-    width: "18em",
-    textAlign: "center",
-    transformOrigin: "center top",
-    background: "#fff",
+    position: 'absolute',
+    top: '100%',
+    width: '18em',
+    textAlign: 'center',
+    transformOrigin: 'center top',
+    background: '#fff',
     left: 0,
   },
   ruleStyle: {
-    width: "200px",
-    borderBottom: "2px solid #9C27B0",
+    width: '200px',
+    borderBottom: '2px solid #9C27B0',
   },
   textinput: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
-})
-)
+}))
 function SidebarSearchView(props) {
-  const [searchText, updateSearch] = useState("")
+  const [searchText, updateSearch] = useState('')
   const { loading, error, data } = useQuery(SEARCH, {
     variables: { text: searchText },
   })
@@ -131,9 +130,17 @@ function SidebarSearchView(props) {
 
   const { Display } = props
   return (
-    <div style={{ flex: 1, display: Display || "block", margin: "5px", marginRight: "16px", height: "90vh" }}>
-      <Card style={{ zIndex: 10, height: "fit-content" }}>
-        <CardHeader style={{ backgroundColor: "white", margin: "5px", paddingLeft: 0, paddingRight: 5 }}>
+    <div
+      style={{
+        flex: 1, display: Display || 'block', margin: '5px', marginRight: '16px', height: '90vh',
+      }}
+    >
+      <Card style={{ zIndex: 10, height: 'fit-content' }}>
+        <CardHeader
+          style={{
+            backgroundColor: 'white', margin: '5px', paddingLeft: 0, paddingRight: 5,
+          }}
+        >
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -160,6 +167,5 @@ function SidebarSearchView(props) {
       )}
     </div>
   )
-
 }
 export default SidebarSearchView

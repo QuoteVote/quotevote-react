@@ -1,37 +1,37 @@
-import React from "react";
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // core components
-import Button from "mui-pro/CustomButtons/Button.js";
-import CustomInput from "mui-pro/CustomInput/CustomInput.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
-import CardAvatar from "mui-pro/Card/CardAvatar.js";
-import CardFooter from "mui-pro/Card/CardFooter.js";
+import Button from 'mui-pro/CustomButtons/Button'
+import CustomInput from 'mui-pro/CustomInput/CustomInput'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
+import CardAvatar from 'mui-pro/Card/CardAvatar'
+import CardFooter from 'mui-pro/Card/CardFooter'
 
-import avatar from "assets/img/faces/avatar.jpg";
+import avatar from 'assets/img/faces/avatar.jpg'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/lockScreenPageStyle.js";
+import styles from 'assets/jss/material-dashboard-pro-react/views/lockScreenPageStyle'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function LockScreenPage() {
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-  setTimeout(function() {
-    setCardAnimation("");
-  }, 700);
-  const classes = useStyles();
+  const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
+  setTimeout(() => {
+    setCardAnimation('')
+  }, 700)
+  const classes = useStyles()
   return (
     <div className={classes.container}>
       <form>
         <Card
           profile
-          className={classes.customCardClass + " " + classes[cardAnimaton]}
+          className={`${classes.customCardClass} ${classes[cardAnimaton]}`}
         >
           <CardAvatar profile className={classes.cardAvatar}>
-            <a href="#pablo" onClick={e => e.preventDefault()}>
+            <a href="#pablo" onClick={(e) => e.preventDefault()}>
               <img src={avatar} alt="..." />
             </a>
           </CardAvatar>
@@ -41,11 +41,11 @@ export default function LockScreenPage() {
               labelText="Enter Password"
               id="company-disabled"
               formControlProps={{
-                fullWidth: true
+                fullWidth: true,
               }}
               inputProps={{
-                type: "password",
-                autoComplete: "off"
+                type: 'password',
+                autoComplete: 'off',
               }}
             />
           </CardBody>
@@ -57,5 +57,5 @@ export default function LockScreenPage() {
         </Card>
       </form>
     </div>
-  );
+  )
 }

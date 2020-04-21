@@ -1,56 +1,56 @@
-import React from "react";
+import React from 'react'
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Radio from "@material-ui/core/Radio";
-import Checkbox from "@material-ui/core/Checkbox";
+import { makeStyles } from '@material-ui/core/styles'
+import FormLabel from '@material-ui/core/FormLabel'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Radio from '@material-ui/core/Radio'
+import Checkbox from '@material-ui/core/Checkbox'
 
 // @material-ui/icons
-import MailOutline from "@material-ui/icons/MailOutline";
-import Check from "@material-ui/icons/Check";
-import Clear from "@material-ui/icons/Clear";
-import Contacts from "@material-ui/icons/Contacts";
-import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
+import MailOutline from '@material-ui/icons/MailOutline'
+import Check from '@material-ui/icons/Check'
+import Clear from '@material-ui/icons/Clear'
+import Contacts from '@material-ui/icons/Contacts'
+import FiberManualRecord from '@material-ui/icons/FiberManualRecord'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import CustomInput from "mui-pro/CustomInput/CustomInput.js";
-import Button from "mui-pro/CustomButtons/Button.js";
-import Card from "mui-pro/Card/Card.js";
-import CardHeader from "mui-pro/Card/CardHeader.js";
-import CardText from "mui-pro/Card/CardText.js";
-import CardIcon from "mui-pro/Card/CardIcon.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import CustomInput from 'mui-pro/CustomInput/CustomInput'
+import Button from 'mui-pro/CustomButtons/Button'
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardText from 'mui-pro/Card/CardText'
+import CardIcon from 'mui-pro/Card/CardIcon'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/regularFormsStyle";
+import styles from 'assets/jss/material-dashboard-pro-react/views/regularFormsStyle'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function RegularForms() {
-  const [checked, setChecked] = React.useState([24, 22]);
-  const [selectedEnabled, setSelectedEnabled] = React.useState("b");
-  const [selectedValue, setSelectedValue] = React.useState(null);
-  const handleChange = event => {
-    setSelectedValue(event.target.value);
-  };
-  const handleChangeEnabled = event => {
-    setSelectedEnabled(event.target.value);
-  };
-  const handleToggle = value => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  const [checked, setChecked] = React.useState([24, 22])
+  const [selectedEnabled, setSelectedEnabled] = React.useState('b')
+  const [selectedValue, setSelectedValue] = React.useState(null)
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value)
+  }
+  const handleChangeEnabled = (event) => {
+    setSelectedEnabled(event.target.value)
+  }
+  const handleToggle = (value) => {
+    const currentIndex = checked.indexOf(value)
+    const newChecked = [...checked]
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(value)
     } else {
-      newChecked.splice(currentIndex, 1);
+      newChecked.splice(currentIndex, 1)
     }
-    setChecked(newChecked);
-  };
-  const classes = useStyles();
+    setChecked(newChecked)
+  }
+  const classes = useStyles()
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={6}>
@@ -67,26 +67,26 @@ export default function RegularForms() {
                 labelText="Email adress"
                 id="email_adress"
                 formControlProps={{
-                  fullWidth: true
+                  fullWidth: true,
                 }}
                 inputProps={{
-                  type: "email"
+                  type: 'email',
                 }}
               />
               <CustomInput
                 labelText="Password"
                 id="password"
                 formControlProps={{
-                  fullWidth: true
+                  fullWidth: true,
                 }}
                 inputProps={{
-                  type: "password",
-                  autoComplete: "off"
+                  type: 'password',
+                  autoComplete: 'off',
                 }}
               />
               <div className={classes.checkboxAndRadio}>
                 <FormControlLabel
-                  control={
+                  control={(
                     <Checkbox
                       tabIndex={-1}
                       onClick={() => handleToggle(2)}
@@ -94,13 +94,13 @@ export default function RegularForms() {
                       icon={<Check className={classes.uncheckedIcon} />}
                       classes={{
                         checked: classes.checked,
-                        root: classes.checkRoot
+                        root: classes.checkRoot,
                       }}
                     />
-                  }
+                  )}
                   classes={{
                     label: classes.label,
-                    root: classes.labelRoot
+                    root: classes.labelRoot,
                   }}
                   label="Subscribe to newsletter"
                 />
@@ -130,10 +130,10 @@ export default function RegularForms() {
                   <CustomInput
                     id="email_adress2"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
-                      type: "email"
+                      type: 'email',
                     }}
                   />
                 </GridItem>
@@ -148,11 +148,11 @@ export default function RegularForms() {
                   <CustomInput
                     id="password2"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
-                      type: "password",
-                      autoComplete: "off"
+                      type: 'password',
+                      autoComplete: 'off',
                     }}
                   />
                 </GridItem>
@@ -161,7 +161,7 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={12} md={9}>
                   <div className={classes.checkboxAndRadio}>
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(1)}
@@ -171,13 +171,13 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Remember me"
                     />
@@ -212,10 +212,10 @@ export default function RegularForms() {
                   <CustomInput
                     id="help-text"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
-                      type: "text"
+                      type: 'text',
                     }}
                     helpText="A block of help text that breaks onto a new line."
                   />
@@ -231,11 +231,11 @@ export default function RegularForms() {
                   <CustomInput
                     id="pass"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
-                      type: "password",
-                      autoComplete: "off"
+                      type: 'password',
+                      autoComplete: 'off',
                     }}
                   />
                 </GridItem>
@@ -250,10 +250,10 @@ export default function RegularForms() {
                   <CustomInput
                     id="placeholder"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
-                      placeholder: "placeholder"
+                      placeholder: 'placeholder',
                     }}
                   />
                 </GridItem>
@@ -268,11 +268,11 @@ export default function RegularForms() {
                   <CustomInput
                     id="disabled"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
-                      placeholder: "Disabled",
-                      disabled: true
+                      placeholder: 'Disabled',
+                      disabled: true,
                     }}
                   />
                 </GridItem>
@@ -295,9 +295,9 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={2}>
                   <FormLabel
                     className={
-                      classes.labelHorizontal +
-                      " " +
-                      classes.labelHorizontalRadioCheckbox
+                      `${classes.labelHorizontal
+                      } ${
+                        classes.labelHorizontalRadioCheckbox}`
                     }
                   >
                     Checkboxes and radios
@@ -306,13 +306,13 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={10}>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(3)}
@@ -322,26 +322,26 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="First Checkbox"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(4)}
@@ -351,89 +351,89 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Second Checkbox"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Radio
-                          checked={selectedValue === "a"}
+                          checked={selectedValue === 'a'}
                           onChange={handleChange}
                           value="a"
                           name="radio button demo"
                           aria-label="A"
-                          icon={
+                          icon={(
                             <FiberManualRecord
                               className={classes.radioUnchecked}
                             />
-                          }
-                          checkedIcon={
+                          )}
+                          checkedIcon={(
                             <FiberManualRecord
                               className={classes.radioChecked}
                             />
-                          }
+                          )}
                           classes={{
                             checked: classes.radio,
-                            root: classes.radioRoot
+                            root: classes.radioRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="First Radio"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Radio
-                          checked={selectedValue === "b"}
+                          checked={selectedValue === 'b'}
                           onChange={handleChange}
                           value="b"
                           name="radio button demo"
                           aria-label="B"
-                          icon={
+                          icon={(
                             <FiberManualRecord
                               className={classes.radioUnchecked}
                             />
-                          }
-                          checkedIcon={
+                          )}
+                          checkedIcon={(
                             <FiberManualRecord
                               className={classes.radioChecked}
                             />
-                          }
+                          )}
                           classes={{
                             checked: classes.radio,
-                            root: classes.radioRoot
+                            root: classes.radioRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Second Radio"
                     />
@@ -444,9 +444,9 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={2}>
                   <FormLabel
                     className={
-                      classes.labelHorizontal +
-                      " " +
-                      classes.labelHorizontalRadioCheckbox
+                      `${classes.labelHorizontal
+                      } ${
+                        classes.labelHorizontalRadioCheckbox}`
                     }
                   >
                     Inline checkboxes
@@ -455,7 +455,7 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={10}>
                   <div className={classes.inlineChecks}>
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(10)}
@@ -465,18 +465,18 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="a"
                     />
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(11)}
@@ -486,18 +486,18 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="b"
                     />
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(12)}
@@ -507,13 +507,13 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="c"
                     />
@@ -537,9 +537,9 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={2}>
                   <FormLabel
                     className={
-                      classes.labelHorizontal +
-                      " " +
-                      classes.labelHorizontalRadioCheckbox
+                      `${classes.labelHorizontal
+                      } ${
+                        classes.labelHorizontalRadioCheckbox}`
                     }
                   >
                     Custom Checkboxes & Radios
@@ -548,13 +548,13 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={4}>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(21)}
@@ -564,57 +564,57 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Unchecked"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           onClick={() => handleToggle(22)}
-                          checked={checked.indexOf(22) !== -1 ? true : false}
+                          checked={checked.indexOf(22) !== -1}
                           checkedIcon={
                             <Check className={classes.checkedIcon} />
                           }
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Checked"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
                       disabled
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
                           checkedIcon={
@@ -623,45 +623,45 @@ export default function RegularForms() {
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
                         disabled: classes.disabledCheckboxAndRadio,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Disabled Unchecked"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
                       disabled
-                      control={
+                      control={(
                         <Checkbox
                           tabIndex={-1}
-                          checked={checked.indexOf(24) !== -1 ? true : false}
+                          checked={checked.indexOf(24) !== -1}
                           checkedIcon={
                             <Check className={classes.checkedIcon} />
                           }
                           icon={<Check className={classes.uncheckedIcon} />}
                           classes={{
                             checked: classes.checked,
-                            root: classes.checkRoot
+                            root: classes.checkRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
                         disabled: classes.disabledCheckboxAndRadio,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Disabled Checked"
                     />
@@ -670,154 +670,154 @@ export default function RegularForms() {
                 <GridItem xs={12} sm={4}>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Radio
-                          checked={selectedEnabled === "a"}
+                          checked={selectedEnabled === 'a'}
                           onChange={handleChangeEnabled}
                           value="a"
                           name="radio button enabled"
                           aria-label="A"
-                          icon={
+                          icon={(
                             <FiberManualRecord
                               className={classes.radioUnchecked}
                             />
-                          }
-                          checkedIcon={
+                          )}
+                          checkedIcon={(
                             <FiberManualRecord
                               className={classes.radioChecked}
                             />
-                          }
+                          )}
                           classes={{
                             checked: classes.radio,
-                            root: classes.radioRoot
+                            root: classes.radioRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="First Radio"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
-                      control={
+                      control={(
                         <Radio
-                          checked={selectedEnabled === "b"}
+                          checked={selectedEnabled === 'b'}
                           onChange={handleChangeEnabled}
                           value="b"
                           name="radio button enabled"
                           aria-label="B"
-                          icon={
+                          icon={(
                             <FiberManualRecord
                               className={classes.radioUnchecked}
                             />
-                          }
-                          checkedIcon={
+                          )}
+                          checkedIcon={(
                             <FiberManualRecord
                               className={classes.radioChecked}
                             />
-                          }
+                          )}
                           classes={{
                             checked: classes.radio,
-                            root: classes.radioRoot
+                            root: classes.radioRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Second Radio"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
                       disabled
-                      control={
+                      control={(
                         <Radio
                           checked={false}
                           value="a"
                           name="radio button disabled"
                           aria-label="B"
-                          icon={
+                          icon={(
                             <FiberManualRecord
                               className={classes.radioUnchecked}
                             />
-                          }
-                          checkedIcon={
+                          )}
+                          checkedIcon={(
                             <FiberManualRecord
                               className={classes.radioChecked}
                             />
-                          }
+                          )}
                           classes={{
                             checked: classes.radio,
                             disabled: classes.disabledCheckboxAndRadio,
-                            root: classes.radioRoot
+                            root: classes.radioRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Second Radio"
                     />
                   </div>
                   <div
                     className={
-                      classes.checkboxAndRadio +
-                      " " +
-                      classes.checkboxAndRadioHorizontal
+                      `${classes.checkboxAndRadio
+                      } ${
+                        classes.checkboxAndRadioHorizontal}`
                     }
                   >
                     <FormControlLabel
                       disabled
-                      control={
+                      control={(
                         <Radio
-                          checked={true}
+                          checked
                           value="b"
                           name="radio button disabled"
                           aria-label="B"
-                          icon={
+                          icon={(
                             <FiberManualRecord
                               className={classes.radioUnchecked}
                             />
-                          }
-                          checkedIcon={
+                          )}
+                          checkedIcon={(
                             <FiberManualRecord
                               className={classes.radioChecked}
                             />
-                          }
+                          )}
                           classes={{
                             checked: classes.radio,
                             disabled: classes.disabledCheckboxAndRadio,
-                            root: classes.radioRoot
+                            root: classes.radioRoot,
                           }}
                         />
-                      }
+                      )}
                       classes={{
                         label: classes.label,
-                        root: classes.labelRoot
+                        root: classes.labelRoot,
                       }}
                       label="Second Radio"
                     />
@@ -835,7 +835,7 @@ export default function RegularForms() {
                     id="success"
                     labelText="Success"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
                       endAdornment: (
@@ -847,7 +847,7 @@ export default function RegularForms() {
                             className={classes.inputAdornmentIconSuccess}
                           />
                         </InputAdornment>
-                      )
+                      ),
                     }}
                     success
                   />
@@ -864,7 +864,7 @@ export default function RegularForms() {
                     id="error"
                     labelText="Error"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
                       endAdornment: (
@@ -874,7 +874,7 @@ export default function RegularForms() {
                         >
                           <Clear className={classes.inputAdornmentIconError} />
                         </InputAdornment>
-                      )
+                      ),
                     }}
                     error
                   />
@@ -892,10 +892,10 @@ export default function RegularForms() {
                       <CustomInput
                         id="md3"
                         formControlProps={{
-                          fullWidth: true
+                          fullWidth: true,
                         }}
                         inputProps={{
-                          placeholder: "md={3}"
+                          placeholder: 'md={3}',
                         }}
                       />
                     </GridItem>
@@ -903,10 +903,10 @@ export default function RegularForms() {
                       <CustomInput
                         id="md4"
                         formControlProps={{
-                          fullWidth: true
+                          fullWidth: true,
                         }}
                         inputProps={{
-                          placeholder: "md={4}"
+                          placeholder: 'md={4}',
                         }}
                       />
                     </GridItem>
@@ -914,10 +914,10 @@ export default function RegularForms() {
                       <CustomInput
                         id="md5"
                         formControlProps={{
-                          fullWidth: true
+                          fullWidth: true,
                         }}
                         inputProps={{
-                          placeholder: "md={5}"
+                          placeholder: 'md={5}',
                         }}
                       />
                     </GridItem>
@@ -929,5 +929,5 @@ export default function RegularForms() {
         </Card>
       </GridItem>
     </GridContainer>
-  );
+  )
 }

@@ -1,21 +1,22 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-import memoize from "memoize-one"
-import CircularProgress from '@material-ui/core/CircularProgress';
+/* eslint-disable react/static-property-placement */
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import memoize from 'memoize-one'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const DEFAULT_LOADER_STYLE = {
-  width: "auto",
-  height: "auto",
-  zIndex: "100",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
+  width: 'auto',
+  height: 'auto',
+  zIndex: '100',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }
 
 const ABSOLUTELY_POSITIONED_STYLE = {
-  position: "absolute",
-  top: "calc(50% - 15px)",
-  left: "calc(50% - 36px)"
+  position: 'absolute',
+  top: 'calc(50% - 15px)',
+  left: 'calc(50% - 36px)',
 }
 
 class Loader extends PureComponent {
@@ -25,7 +26,7 @@ class Loader extends PureComponent {
     mergeStyles: PropTypes.bool,
     absolutelyPositioned: PropTypes.bool,
     PulseLoaderProps: PropTypes.object,
-    thickness: PropTypes.number
+    thickness: PropTypes.number,
   }
 
   static defaultProps = {
@@ -33,7 +34,7 @@ class Loader extends PureComponent {
     mergeStyles: false,
     absolutelyPositioned: true,
     PulseLoaderProps: {},
-    thickness: 3.6
+    thickness: 3.6,
   }
 
   getLoaderStyle = memoize((loaderStyle, mergeStyles, absolutelyPositioned) => {
@@ -42,7 +43,7 @@ class Loader extends PureComponent {
     return {
       ...DEFAULT_LOADER_STYLE,
       ...(absolutelyPositioned ? ABSOLUTELY_POSITIONED_STYLE : {}),
-      ...(loaderStyle || {})
+      ...(loaderStyle || {}),
     }
   })
 
@@ -54,7 +55,8 @@ class Loader extends PureComponent {
       PulseLoaderProps,
       size,
       thickness,
-      loadingLabel
+      // eslint-disable-next-line react/prop-types
+      loadingLabel,
     } = this.props
 
     return (
@@ -63,6 +65,7 @@ class Loader extends PureComponent {
         <CircularProgress
           size={size}
           thickness={thickness}
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...PulseLoaderProps}
         />
         { loadingLabel && (

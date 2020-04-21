@@ -1,161 +1,174 @@
-import React from "react";
+/* eslint-disable */
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/gridSystemStyle.js";
+import styles from 'assets/jss/material-dashboard-pro-react/views/gridSystemStyle'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function GridSystem() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div>
       <h4 className={classes.title}>
-        XS Grid <small>Always Horizontal</small>
+        XS Grid
+        {' '}
+        <small>Always Horizontal</small>
       </h4>
       <GridContainer>
         <GridItem xs={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`xs={4}`}</code>
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem xs={4}>
-          <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`xs={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'xs={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`xs={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'xs={4}'}</code>
+            </CardBody>
+          </Card>
+        </GridItem>
+        <GridItem xs={4}>
+          <Card>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'xs={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
       <h4 className={classes.title}>
-        SM Grid <small>Collapsed at 768px</small>
+        SM Grid
+        {' '}
+        <small>Collapsed at 768px</small>
       </h4>
       <GridContainer>
         <GridItem xs={12} sm={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`sm={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'sm={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`sm={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'sm={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`sm={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'sm={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
       <h4 className={classes.title}>
-        MD Grid <small>Collapsed at 992px</small>
+        MD Grid
+        {' '}
+        <small>Collapsed at 992px</small>
       </h4>
       <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={4}`}</code>
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={4}'}</code>
+            </CardBody>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={12} md={4}>
+          <Card>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
       <h4 className={classes.title}>
-        LG Grid <small>Collapsed at 1200px</small>
+        LG Grid
+        {' '}
+        <small>Collapsed at 1200px</small>
       </h4>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12} lg={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`lg={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'lg={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={12} lg={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`lg={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'lg={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={12} lg={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`lg={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'lg={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
       <h4 className={classes.title}>
-        Mixed Grid <small>Showing different sizes on different screens</small>
+        Mixed Grid
+        {' '}
+        <small>Showing different sizes on different screens</small>
       </h4>
       <GridContainer>
         <GridItem xs={12} sm={6} md={6} lg={3}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`sm={6} lg={3}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'sm={6} lg={3}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={6} lg={3}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`sm={6} lg={3}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'sm={6} lg={3}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={6} lg={3}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`sm={6} lg={3}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'sm={6} lg={3}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={6} lg={3}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`sm={6} lg={3}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'sm={6} lg={3}'}</code>
             </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
       <h4 className={classes.title}>
-        Offset Grid <small>Adding some space when needed</small>
+        Offset Grid
+        {' '}
+        <small>Adding some space when needed</small>
       </h4>
       <GridContainer
         justify="space-between"
@@ -164,22 +177,22 @@ export default function GridSystem() {
       >
         <GridItem xs={12} sm={12} md={3}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={3}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={3}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={3}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={3}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={3}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={3}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={3}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={3}'}</code>
             </CardBody>
           </Card>
         </GridItem>
@@ -187,15 +200,15 @@ export default function GridSystem() {
       <GridContainer justify="space-between">
         <GridItem xs={12} sm={12} md={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={4}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={4}'}</code>
             </CardBody>
           </Card>
         </GridItem>
@@ -203,8 +216,8 @@ export default function GridSystem() {
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardBody style={{ textAlign: "center" }}>
-              <code>{`md={6}`}</code>
+            <CardBody style={{ textAlign: 'center' }}>
+              <code>{'md={6}'}</code>
             </CardBody>
           </Card>
         </GridItem>
@@ -223,8 +236,14 @@ export default function GridSystem() {
                 arches into stiff sections. The bedding was hardly able to cover
                 it and seemed ready to slide off any moment. His many legs,
                 pitifully thin compared with the size of the rest of him, waved
-                about helplessly as he looked. {'"'}What{"'"}s happened to me?
-                {'"'} he thought.
+                about helplessly as he looked.
+                {' '}
+                &quot;
+                What
+                &apos;
+                s happened to me?
+                &quot;
+                he thought.
               </p>
             </GridItem>
             <GridItem xs={12} sm={6}>
@@ -237,8 +256,13 @@ export default function GridSystem() {
                 arches into stiff sections. The bedding was hardly able to cover
                 it and seemed ready to slide off any moment. His many legs,
                 pitifully thin compared with the size of the rest of him, waved
-                about helplessly as he looked. {'"'}What{"'"}s happened to me?
-                {'"'} he thought.
+                about helplessly as he looked.
+                {' '}
+                &quot;
+                What
+                &apos;
+                s happened to me?
+                &quot; he thought.
               </p>
             </GridItem>
           </GridContainer>
@@ -312,5 +336,5 @@ export default function GridSystem() {
         </CardBody>
       </Card>
     </div>
-  );
+  )
 }

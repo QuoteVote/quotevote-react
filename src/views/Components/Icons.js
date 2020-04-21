@@ -7,11 +7,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 
 // core components
-import Heading from "mui-pro/Heading/Heading.js";
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
-import Card from "mui-pro/Card/Card.js";
-import CardBody from "mui-pro/Card/CardBody.js";
+import Heading from "mui-pro/Heading/Heading";
+import GridContainer from "mui-pro/Grid/GridContainer";
+import GridItem from "mui-pro/Grid/GridItem";
+import Card from "mui-pro/Card/Card";
+import CardBody from "mui-pro/Card/CardBody";
 
 import styles from "assets/jss/material-dashboard-pro-react/views/iconsStyle";
 

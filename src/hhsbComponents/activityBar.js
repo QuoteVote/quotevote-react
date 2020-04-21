@@ -1,20 +1,21 @@
 import React from 'react'
-import GridContainer from "mui-pro/Grid/GridContainer.js"
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
 
 const ActivityBar = () => (
-             
-  <GridContainer  
+
+  <GridContainer
     direction="row"
     justify="center"
     alignItems="center"
-    style={{"height":"200px","backgroundColor":"FF7A00"}}    
+    style={{ height: '200px', backgroundColor: 'FF7A00' }}
   >
-    <Grid item xs={6} sm={3} />
-    <Grid item xs={6} >
-      <h4>Activity Feed</h4>    
-    </Grid>
-    <Grid item xs={6} sm={3} />
-  </GridContainer>        
-)    
-     
-export default Content
+    <GridItem xs={6} sm={3} />
+    <GridItem xs={6}>
+      <h4>Activity Feed</h4>
+    </GridItem>
+    <GridItem xs={6} sm={3} />
+  </GridContainer>
+)
+
+export default ActivityBar

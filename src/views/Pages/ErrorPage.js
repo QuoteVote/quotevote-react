@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // core components
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import GridItem from "mui-pro/Grid/GridItem.js";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
 
-import styles from "assets/jss/material-dashboard-pro-react/views/errorPageStyles.js";
+import styles from 'assets/jss/material-dashboard-pro-react/views/errorPageStyles'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 export default function ErrorPage() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div className={classes.contentCenter}>
       <GridContainer>
@@ -25,5 +25,5 @@ export default function ErrorPage() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }
