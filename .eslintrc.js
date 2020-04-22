@@ -116,9 +116,6 @@ module.exports = {
         extensions: ['.js'],
         moduleDirectory: ['node_modules'],
       },
-      // webpack: {
-      //   config: './webpack/webpack.prod.babel.js',
-      // },
     },
   },
 }
