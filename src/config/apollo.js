@@ -6,8 +6,10 @@ import {split} from "apollo-link"
 import {WebSocketLink} from "apollo-link-ws"
 import {getMainDefinition} from "apollo-utilities"
 
+console.log('appollo')
+console.log(process.env.REACT_APP_SERVER)
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_SERVER + "/graphql",
+  uri: process.env.REACT_APP_SERVER,
 })
 
 // Create a WebSocket link:

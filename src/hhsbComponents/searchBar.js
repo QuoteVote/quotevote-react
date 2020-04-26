@@ -32,11 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const GET_SEARCH_KEY = gql`
-  {
-    searchKey @client
-  }
-`
 
 CustomizedInputBase.propTypes = {
   setOffset: PropTypes.func.isRequired,
@@ -44,11 +39,6 @@ CustomizedInputBase.propTypes = {
 
 export default function CustomizedInputBase({ setOffset }) {
   const classes = useStyles()
-  const { data: { searchKey }, client } = useQuery(GET_SEARCH_KEY)
-  const handleChange = (event) => {
-    client.writeData({ data: { searchKey: event.target.value } })
-    setOffset(0)
-  }
 
   return (
     <Paper className={classes.root}>
@@ -59,8 +49,8 @@ export default function CustomizedInputBase({ setOffset }) {
         className={classes.input}
         placeholder="Search"
         inputProps={{ 'aria-label': 'search' }}
-        value={searchKey}
-        onChange={handleChange}
+        value={'searchKey'}
+        onChange={() => console.log('change')}
       />
       <IconButton className={classes.iconButton} aria-label="search" />
       <Divider className={classes.divider} orientation="vertical" />

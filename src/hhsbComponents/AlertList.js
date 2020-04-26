@@ -2,6 +2,7 @@ import React from 'react'
 import Skeleton from '@material-ui/lab/Skeleton'
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import Alert from './Alert'
+import { Grid } from '@material-ui/core'
 
 function AlertSkeletonLoader({ limit }) {
   const rows = Array.from(Array(limit).keys())
@@ -19,7 +20,8 @@ function AlertSkeletonLoader({ limit }) {
   )
 }
 
-function LoadAlertList({ data }) {
+function LoadAlertList(x) {
+  let {data} = x
   if (!data || data.length === 0) {
     return (
       <div style={{ width: '90%' }}>
@@ -30,14 +32,11 @@ function LoadAlertList({ data }) {
   }
 
   return data.map((item, key) => (
-    <div style={{ width: '90%' }}>
+    <div key={key} style={{ width: '90%' }}>
       <Alert
-        color={item.color}
-        AlertTitle={item.AlertTitle}
-        AlertBody={item.AlertBody}
-        time={item.time}
-        points={item.points}
-        creator={item.creator}
+        color={'grey'}
+        AlertTitle={item.content}
+        AlertBody={item.content}
       />
       <br></br>
     </div>
@@ -46,6 +45,21 @@ function LoadAlertList({ data }) {
 
 
 export default function AlertList({ Data, loading, limit }) {
+  if(Data) {
+    return (
+      <GridContainer
+        direction='column'
+        justify='space-between'
+        alignItems='center'
+      >
+        <LoadAlertList data={Data} />
+
+      </GridContainer>
+    )
+  }
+  else {
+    return (<div></div>)
+  }
   return (
     <GridContainer
       direction="column"

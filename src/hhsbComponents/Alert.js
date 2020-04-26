@@ -85,8 +85,8 @@ export default function Alert(props) {
             alignContent: 'center',
           }}
         >
-          <Tooltip title={props.creator.name}>
-            <Avatar alt={props.creator.name} src={props.creator.profileImageUrl} className={classes.avatarStyle} />
+          <Tooltip title={''}>
+            <Avatar alt={''} src={''} className={classes.avatarStyle} />
           </Tooltip>
         </div>
         <div

@@ -37,9 +37,14 @@ const ACTIVITY_COLORS = {
 }
 
 const ACTIVITIES_QUERY = gql`
-  query activities($limit: Int!, $offset: Int!, $searchKey: String!, $activityEvent: JSON!) {
-    activities(limit: $limit, offset: $offset, searchKey: $searchKey, activityEvent: $activityEvent)
+{
+  Activities {
+    userId
+    activityType
+    postId
+    content
   }
+}
 `
 
 function formatContentDate(sDate) {
@@ -58,106 +63,14 @@ function formatContentDate(sDate) {
 
 export default function HomePage() {
   const classes = useStyles()
-  const limit = 5
-  const [offset, setOffset] = useState(1)
-  const conditions = ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED']
-  const [selectedEvent, setSelectedEvent] = useState(conditions)
-  const [selectAll, setSelectAll] = useState('ALL')
-  const handleSelectAll = (event, newSelectAll) => {
-    if (newSelectAll.length) {
-      setSelectedEvent(conditions)
-    }
-    setSelectAll(newSelectAll)
-  }
-  const handleActivityEvent = (event, newActivityEvent) => {
-    if (!newActivityEvent.length) {
-      setSelectAll(['ALL'])
-      setSelectedEvent(conditions)
-    } else {
-      const isAllToggled = newActivityEvent.length === 4
-      setSelectAll(isAllToggled ? ['ALL'] : [])
-      setSelectedEvent(newActivityEvent)
-    }
-  }
-  const [total, setTotal] = useState(1)
 
-  const handleSlider = (event, newValue) => {
-    setOffset(newValue)
-  }
+  const { loading, data } = useQuery(ACTIVITIES_QUERY)
+  console.log('got data', data)
 
-  const { data: { searchKey } } = useQuery(GET_SEARCH_KEY)
-  const { loading, data } = useQuery(ACTIVITIES_QUERY, {
-    variables: {
-      limit, offset, searchKey, activityEvent: selectedEvent,
-    },
-  })
+  const { Activities } = data ? data: []
+  console.log(Activities)
 
-  const { activities } = (!loading && data.activities) || { activities: { activities: [], total: 0 } }
-  React.useEffect(() => {
-    if (data) {
-      setTotal(data.activities.total)
-    }
-  }, [data])
-
-  const activitiesData = !loading && activities && activities.length && activities.map((activity) => {
-    const time = activity && formatContentDate(activity.data.created)
-    switch (activity.event) {
-      case 'VOTED':
-        return {
-          id: activity.data._id,
-          AlertTitle: `${activity.data.type.toUpperCase()}D`,
-          color: ACTIVITY_COLORS[`${activity.data.type.toUpperCase()}D`],
-          AlertBody: activity.data.content.title,
-          time,
-          points: activity.data.type === 'upvote' ? `+${activity.data.points}` : `-${activity.data.points}`,
-          creator: activity.data.creator,
-        }
-      case 'POSTED':
-        return {
-          id: activity.data._id,
-          AlertTitle: 'CONTENT',
-          color: ACTIVITY_COLORS.POSTED,
-          AlertBody: activity.data.title,
-          time,
-          points: '',
-          creator: activity.data.creator,
-        }
-      case 'QUOTED':
-        return {
-          id: activity.data._id,
-          AlertTitle: activity.event,
-          color: ACTIVITY_COLORS.QOUTED,
-          AlertBody: activity.data.quote,
-          time,
-          points: '',
-          creator: activity.data.creator,
-        }
-      case 'COMMENTED':
-        return {
-          id: activity.data._id,
-          AlertTitle: activity.event,
-          color: ACTIVITY_COLORS.COMMENTED,
-          AlertBody: activity.data.text,
-          time,
-          points: '',
-          creator: activity.data.creator,
-        }
-      case 'HEARTED':
-        return {
-          id: activity.data._id,
-          AlertTitle: activity.event,
-          color: ACTIVITY_COLORS.HEARTED,
-          AlertBody: activity.data.content.title,
-          time,
-          points: '',
-          creator: activity.data.creator,
-        }
-      default:
-        break
-    }
-    return null
-  })
-
+  
   return (
     <Card style={{ display: 'flex', flexBasis: '800px' }}>
       <CardBody>
@@ -170,7 +83,7 @@ export default function HomePage() {
           <GridContainer alignItems="center" direction="row" style={{ width: '50%' }}>
             <GridContainer justify="center" wrap="nowrap" direction="row">
               <p>
-                <ToggleButtonGroup value={selectAll} onChange={handleSelectAll} aria-label="All Event">
+                <ToggleButtonGroup value={''} onChange={() => console.log('yoo')} aria-label="All Event">
                   <ToggleButton
                     value="ALL"
                     aria-label="All"
@@ -179,7 +92,7 @@ export default function HomePage() {
                     All
                   </ToggleButton>
                 </ToggleButtonGroup>
-                <ToggleButtonGroup value={selectedEvent} onChange={handleActivityEvent} aria-label="Event">
+                <ToggleButtonGroup value={''} onChange={() => console.log('yooo')} aria-label="Event">
                   <ToggleButton
                     value="POSTED"
                     aria-label="Content"
@@ -213,13 +126,13 @@ export default function HomePage() {
 
             </GridContainer>
             <Slider
-              defaultValue={limit}
-              value={offset}
+              defaultValue={0}
+              value={1}
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
-              max={total}
+              max={10}
               min={1}
-              onChange={handleSlider}
+              onChange={() => console.log('yooo')}
             />
 
           </GridContainer>
@@ -250,7 +163,7 @@ export default function HomePage() {
             </h3>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'row' }}>
-              <CustomizedInputBase setOffset={setOffset} />
+              <CustomizedInputBase setOffset={0} />
               <img src={Calendar} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
               <img src={Filter} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
               <img
@@ -266,14 +179,14 @@ export default function HomePage() {
         </GridContainer>
         <br></br>
         <br></br>
-        <AlertList Data={activitiesData} loading={loading} limit={limit} />
+        <AlertList Data={Activities} loading={false} limit={10} />
       </CardBody>
       <Pagination
         style={{ margin: 'auto' }}
-        limit={limit}
-        offset={offset}
-        total={total}
-        onClick={(e, offset) => setOffset(offset)}
+        limit={10}
+        offset={0}
+        total={10}
+        onClick={() => console.log('yooo')}
       />
     </Card>
 
