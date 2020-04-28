@@ -84,22 +84,6 @@ const hhsbRoutes = [
     component: HomePage,
     layout: '/hhsb',
   },
-  {
-    path: '/ChatBar',
-    name: 'Chat Feed',
-    rtlName: 'التقويم',
-    icon: Alert,
-    component: HomePage,
-    layout: '/hhsb',
-  },
-  {
-    path: '/ChatBar',
-    name: 'Chat Feed',
-    rtlName: 'التقويم',
-    icon: Settings,
-    component: HomePage,
-    layout: '/hhsb',
-  },
 
 ]
 export default hhsbRoutes
