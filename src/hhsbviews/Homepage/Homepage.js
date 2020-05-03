@@ -10,12 +10,12 @@ import Calendar from 'hhsbAssets/Calendar.svg'
 import Filter from 'hhsbAssets/Filter.svg'
 import Emoji from 'hhsbAssets/FollowingEmoji.svg'
 import AlertList from 'hhsbComponents/AlertList'
-import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import moment from 'moment'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import { makeStyles } from '@material-ui/core/styles'
+import { ACTIVITIES_QUERY } from './HomepageGQL'
 
 const useStyles = makeStyles({
   headerToggle: {
@@ -37,11 +37,6 @@ const ACTIVITY_COLORS = {
   POSTED: '#020202',
 }
 
-const ACTIVITIES_QUERY = gql`
-  query activities($limit: Int!, $offset: Int!, $searchKey: String!, $activityEvent: JSON!) {
-    activities(limit: $limit, offset: $offset, searchKey: $searchKey, activityEvent: $activityEvent)
-  }
-`
 
 function formatContentDate(sDate) {
   const a = moment.utc()
@@ -57,7 +52,7 @@ function formatContentDate(sDate) {
   return moment(sDate).format('MMM Do')
 }
 
-export default function HomePage() {
+export default function Homepage() {
   const classes = useStyles()
   const limit = 5
   const [offset, setOffset] = useState(1)
@@ -93,7 +88,7 @@ export default function HomePage() {
     },
   })
 
-  const { activities } = (!loading && data.activities) || { activities: { activities: [], total: 0 } }
+  const { activities } = (!loading && data && data.activities) || { activities: { activities: [], total: 0 } }
   React.useEffect(() => {
     if (data) {
       setTotal(data.activities.total)
@@ -252,7 +247,11 @@ export default function HomePage() {
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'row' }}>
               <CustomizedInputBase setOffset={setOffset} />
-              <img alt="Calendar Icon" src={Calendar} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
+              <img
+                alt="Calendar Icon"
+                src={Calendar}
+                style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }}
+              />
               <img alt="Filter Icon" src={Filter} style={{ display: 'flex', maxHeight: '40px', paddingLeft: '15px' }} />
               <img
                 alt="Emoji Icon"

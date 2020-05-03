@@ -6,6 +6,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
+    'plugin:jest/recommended',
   ],
   env: {
     browser: true,
@@ -27,6 +28,14 @@ module.exports = {
   globals: {
     moment: true,
     Rollbar: true,
+    shallow: true,
+    render: true,
+    mount: true,
+    cache: true,
+    client: true,
+    create: true,
+    act: true,
+    wait: true,
   },
   rules: {
     'prefer-destructuring': 1,

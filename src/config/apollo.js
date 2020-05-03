@@ -62,15 +62,15 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 })
 
 const cache = new InMemoryCache()
-
-cache.writeData({
-  data: {
-    searchKey: '',
-    networkStatus: {
-      __typename: 'NetworkStatus',
-      isConnected: false,
-    },
+const data = {
+  searchKey: '',
+  networkStatus: {
+    __typename: 'NetworkStatus',
+    isConnected: false,
   },
+}
+cache.writeData({
+  data,
 })
 
 const client = new ApolloClient({
@@ -78,6 +78,8 @@ const client = new ApolloClient({
   //  `/graphql` endpoint on the same host
   link: concat(authMiddleware, link),
   cache,
+  resolvers: {},
 })
+client.onResetStore(() => cache.writeData({ data }))
 
 export default client

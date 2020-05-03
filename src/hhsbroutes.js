@@ -4,7 +4,7 @@ import SubmitPost from 'hhsbviews/SubmitPost'
 import SearchView from 'hhsbviews/SearchView'
 import Profile from 'hhsbviews/profile'
 import ManageInvites from 'hhsbviews/ManageInvites'
-import HomePage from 'hhsbviews/HomePage'
+import Homepage from 'hhsbviews/Homepage/Homepage'
 import Chat from 'hhsbAssets/Chat.svg'
 import Home from 'hhsbAssets/Home.svg'
 import Avatar from 'hhsbAssets/Avatar.png'
@@ -24,7 +24,7 @@ const hhsbRoutes = [
     name: 'Home Page',
     rtlName: 'لوحة القيادة',
     icon: Home,
-    component: HomePage,
+    component: Homepage,
     layout: '/hhsb',
   },
   {
@@ -65,7 +65,7 @@ const hhsbRoutes = [
     name: 'Chat Feed',
     rtlName: 'التقويم',
     icon: Chat,
-    component: HomePage,
+    component: Homepage,
     layout: '/hhsb',
   },
   {
@@ -81,7 +81,7 @@ const hhsbRoutes = [
     name: 'BuddyList Test',
     rtlName: 'التقويم',
     icon: Search,
-    component: HomePage,
+    component: Homepage,
     layout: '/hhsb',
   },
 
