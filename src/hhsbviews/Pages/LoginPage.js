@@ -52,6 +52,32 @@ export default function LoginPage() {
   const history = useHistory()
   const { loading, loginError } = useSelector((state) => state.loginReducer)
   const [input, setInput] = React.useState({ password: '', username: '' })
+  const loginButton = <Button
+                          onClick={(e) => handleSubmit(e)}
+                          color="rose"
+                          simple
+                          size="lg"
+                          block
+                        >
+                          LOGIN
+                      </Button>
+  const requestInvite = <a
+                          href='/auth/requestInvite'
+                        >
+                          Request an Invite
+                        </a>
+  let cardFooter
+   if(loading) {
+      cardFooter = <CircularProgress color="secondary" />
+   }
+   else {
+     cardFooter = 
+     (
+     <> 
+      {loginButton}
+      {requestInvite}
+     </>)
+   }
 
   // This needs to be fixed so that we are importing the images instead of using the public/assets folder
   const images = ['Activities_Page.png', 'Post_Page.png', 'Profile_Page.png', 'Side_Navigation.png', 'Trending_Page.png']
@@ -155,19 +181,7 @@ export default function LoginPage() {
                 />
               </CardBody>
               <CardFooter className={classes.justifyContentCenter}>
-                {loading ? (
-                  <CircularProgress color="secondary" />
-                ) : (
-                  <Button
-                    onClick={(e) => handleSubmit(e)}
-                    color="rose"
-                    simple
-                    size="lg"
-                    block
-                  >
-                    LOGIN
-                  </Button>
-                )}
+                  {cardFooter}
               </CardFooter>
             </Card>
           </form>

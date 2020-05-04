@@ -4,6 +4,7 @@ import SubmitPost from 'hhsbviews/SubmitPost'
 import SearchView from 'hhsbviews/SearchView'
 import Profile from 'hhsbviews/profile'
 import ManageInvites from 'hhsbviews/ManageInvites'
+import Posts from 'hhsbviews/Posts'
 import HomePage from 'hhsbviews/HomePage'
 import Chat from 'hhsbAssets/Chat.svg'
 import Home from 'hhsbAssets/Home.svg'
@@ -98,6 +99,14 @@ const hhsbRoutes = [
     rtlName: 'التقويم',
     icon: Settings,
     component: HomePage,
+    layout: '/hhsb',
+  },
+  {
+    path: '/Posts',
+    name: 'Posts',
+    rtlName: 'التقويم',
+    icon: Trending,
+    component: Posts,
     layout: '/hhsb',
   },
 

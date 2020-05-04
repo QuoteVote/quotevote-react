@@ -13,6 +13,7 @@ import LoginPage from 'hhsbviews/Pages/LoginPage'
 import Notifications from 'views/Components/Notifications'
 import Panels from 'views/Components/Panels'
 import PricingPage from 'views/Pages/PricingPage'
+import RequestInvite from 'views/Pages/RequestInvite'
 import RTLSupport from 'views/Pages/RTLSupport'
 import ReactTables from 'views/Tables/ReactTables'
 import RegisterPage from 'views/Pages/RegisterPage'
@@ -60,6 +61,15 @@ const dashRoutes = [
         mini: 'PP',
         rtlMini: 'ع',
         component: PricingPage,
+        layout: '/auth',
+      },
+      {
+        path: '/requestInvite',
+        name: 'Request Invite',
+        rtlName: 'عالتسعير',
+        mini: 'PP',
+        rtlMini: 'ع',
+        component: RequestInvite,
         layout: '/auth',
       },
       {
