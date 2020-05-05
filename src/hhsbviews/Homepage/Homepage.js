@@ -30,8 +30,8 @@ const useStyles = makeStyles({
 
 const ACTIVITY_COLORS = {
   QOUTED: '#00CAE3',
-  UPVOTED: '#55B559',
-  DOWNVOTED: '#FF1100',
+  UP: '#55B559',
+  DOWN: '#FF1100',
   COMMENTED: '#FF9E0F',
   HEARTED: '#E91E63',
   POSTED: '#020202',
@@ -101,11 +101,11 @@ export default function Homepage() {
       case 'VOTED':
         return {
           id: activity.data._id,
-          AlertTitle: `${activity.data.type.toUpperCase()}D`,
-          color: ACTIVITY_COLORS[`${activity.data.type.toUpperCase()}D`],
+          AlertTitle: `${activity.data.type.toUpperCase()}VOTED`,
+          color: ACTIVITY_COLORS[`${activity.data.type.toUpperCase()}`],
           AlertBody: activity.data.content.title,
           time,
-          points: activity.data.type === 'upvote' ? `+${activity.data.points}` : `-${activity.data.points}`,
+          points: activity.data.type === 'up' ? `+${activity.data.points}` : `-${activity.data.points}`,
           creator: activity.data.creator,
         }
       case 'POSTED':
@@ -123,7 +123,7 @@ export default function Homepage() {
           id: activity.data._id,
           AlertTitle: activity.event,
           color: ACTIVITY_COLORS.QOUTED,
-          AlertBody: activity.data.quote,
+          AlertBody: `"${activity.data.quote}"`,
           time,
           points: '',
           creator: activity.data.creator,
@@ -133,7 +133,7 @@ export default function Homepage() {
           id: activity.data._id,
           AlertTitle: activity.event,
           color: ACTIVITY_COLORS.COMMENTED,
-          AlertBody: activity.data.text,
+          AlertBody: `"${activity.data.content}"`,
           time,
           points: '',
           creator: activity.data.creator,

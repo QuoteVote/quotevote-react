@@ -127,7 +127,7 @@ export default function Alert(props) {
                 paddingTop: '25px',
               }}
             >
-              {props.AlertBody}
+              {` - ${props.AlertBody}`}
             </p>
 
 

@@ -1,8 +1,8 @@
 import Card from 'mui-pro/Card/Card'
 import Pagination from 'material-ui-flat-pagination'
-import {ACTIVITIES_QUERY} from '../HomepageGQL'
+import { ACTIVITIES_QUERY } from '../HomepageGQL'
 import Homepage from '../Homepage'
-import {GET_SEARCH_KEY} from '../../../hhsbComponents/searchBar'
+import { GET_SEARCH_KEY } from '../../../hhsbComponents/searchBar'
 
 const searchKey = 'Test'
 const mocks = [
@@ -39,7 +39,7 @@ describe('Homepage component unit tests', () => {
   beforeEach(async () => {
     component = mount(
       <MockedProvider mocks={mocks} cache={cache} resolvers={{}} addTypename={false}>
-        <Homepage/>
+        <Homepage />
       </MockedProvider>,
     )
   })
