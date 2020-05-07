@@ -1,48 +1,49 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable prefer-destructuring */
 // import { getThemeProps } from '@material-ui/styles';
-// import Accordion from "mui-pro/Accordion/Accordion";
-// import Badge from "mui-pro/Badge/Badge";
+// import Accordion from 'mui-pro/Accordion/Accordion.js';
+// import Badge from 'mui-pro/Badge/Badge.js';
 // import Box from '@material-ui/core/Box';
-// import Button from "mui-pro/CustomButtons/Button"
-import Card from 'mui-pro/Card/Card'
-import CardBody from 'mui-pro/Card/CardBody'
-import CardFooter from 'mui-pro/Card/CardFooter'
-import CardHeader from 'mui-pro/Card/CardHeader'
+// import Button from 'mui-pro/CustomButtons/Button.js'
+import Card from 'mui-pro/Card/Card.js'
+import CardBody from 'mui-pro/Card/CardBody.js'
+import CardFooter from 'mui-pro/Card/CardFooter.js'
+import CardHeader from 'mui-pro/Card/CardHeader.js'
 import Divider from '@material-ui/core/Divider'
-import GridContainer from 'mui-pro/Grid/GridContainer'
-import GridItem from 'mui-pro/Grid/GridItem'
+import GridContainer from 'mui-pro/Grid/GridContainer.js'
+import GridItem from 'mui-pro/Grid/GridItem.js'
 
-// import NavPills from "mui-pro/NavPills/NavPills";
-import VotingBoard from 'hhsbComponents/VotingComponents/VotingBoard'
-import VotingPopup from 'hhsbComponents/VotingComponents/VotingPopup'
+// import NavPills from 'mui-pro/NavPills/NavPills.js';
+import VotingBoard from 'hhsbComponents/VotingComponents/VotingBoard.js'
+import VotingPopup from 'hhsbComponents/VotingComponents/VotingPopup.js'
 import React, { useState } from 'react'
 
-// import Content from "../hhsbComponents/ContentList";
+// import Content from '../hhsbComponents/ContentList.js';
+import Chat from '../hhsbAssets/Chat.svg'
+import Heart from '../hhsbAssets/Heart.svg'
+import Send from '../hhsbAssets/Send.svg'
 
-// import styles from "assets/jss/material-dashboard-pro-react/views/dashboardStyle";
+// import styles from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle.js';
 
 import FaceIcon from '@material-ui/icons/Face'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import moment from 'moment'
 
-import ContentDisplaySkeleton from 'hhsbviews/Skeletons/ContentDisplaySkeleton'
+import PostPageSkeleton from 'hhsbviews/Skeletons/PostPageSkeleton'
 import { useSelector } from 'react-redux'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, findIndex } from 'lodash'
 
-import { GET_CONTENT } from 'graphql/query'
+import { GET_POST, GET_TOP_POSTS } from 'graphql/query'
 import { VOTE, ADD_COMMENT } from 'graphql/mutations'
-import Send from '../hhsbAssets/Send.svg'
-import Chat from '../hhsbAssets/Chat.svg'
-import Heart from '../hhsbAssets/Heart.svg'
 
-const ContentDisplay = () => {
-  // temporary variables
-  const contentId = '5bdc0d928b8fc22ce6da1f30'
-  const domain = '5b8bb075fa6366464c549322'
+const PostPage = () => {
+  // const url = window.location.href
+  // const urlSegment = url.split('/')
+  // const domain = urlSegment[5]
+  // const contentId = urlSegment[6]
 
   const [selectedText, setSelectedText] = useState('')
   const { user } = useSelector((state) => state.loginReducer)
+  const { id: postId } = useSelector((state) => state.postReducer.selectedPost)
   const [addVote] = useMutation(VOTE, {
     update(
       cache,
@@ -52,78 +53,82 @@ const ContentDisplay = () => {
       }
     ) {
       const data = cache.readQuery({
-        query: GET_CONTENT,
-        variables: { contentId, key: domain },
+        query: GET_POST,
+        variables: { postId },
       })
-
-      const clonedContent = cloneDeep(data)
-
-      if (addVote.type === 'upvote') {
-        const { upvotes } = clonedContent.content.scoreDetails
-        clonedContent.content.scoreDetails.upvotes = upvotes + 1
+      const clonedPost = cloneDeep(data)
+      
+      const index = findIndex(clonedPost.post.votedBy, vote => vote.userId === user._id)
+      if (index !== -1) {
+        clonedPost.post.votedBy[index].type = addVote.type
+        clonedPost.post.upvotes = addVote.type === 'up' ? 
+          clonedPost.post.upvotes + 1 : clonedPost.post.upvotes - 1
+        
+        clonedPost.post.downvotes = addVote.type === 'down' ? 
+          clonedPost.post.downvotes + 1 : clonedPost.post.downvotes - 1
       } else {
-        const { downvotes } = clonedContent.content.scoreDetails
-        clonedContent.content.scoreDetails.downvotes = downvotes + 1
+        clonedPost.post.votedBy.push({ type: addVote.type, userId: user._id })
+        if (addVote.type === 'up') {
+          clonedPost.post.upvotes = clonedPost.post.upvotes + 1
+        } else {
+          clonedPost.post.downvotes = clonedPost.post.downvotes + 1
+        }
       }
-
       cache.writeQuery({
-        query: GET_CONTENT,
-        variables: { contentId, key: domain },
-        data: { ...clonedContent },
+        query: GET_POST,
+        variables: { postId },
+        data: { ...clonedPost },
       })
     },
+    refetchQueries: [
+      {
+        query: GET_TOP_POSTS,
+        variables: { limit: 5, offset: 0, searchKey: '' },
+      },
+    ],
   })
 
   const [addComment] = useMutation(ADD_COMMENT, {
     refetchQueries: [
       {
-        query: GET_CONTENT,
-        variables: { contentId, key: domain },
+        query: GET_TOP_POSTS,
+        variables: { limit: 5, offset: 0, searchKey: '' },
       },
+      {
+        query: GET_POST,
+        variables: { postId },
+      }
     ],
   })
   // const classes = useStyles();
 
-  const { loading, error, data } = useQuery(GET_CONTENT, {
-    variables: { contentId, key: domain },
+  const { loading, error, data } = useQuery(GET_POST, {
+    variables: { postId },
   })
 
-  if (error) return 'An error has occured'
+  if (loading) return <PostPageSkeleton />
 
-  if (loading) return <ContentDisplaySkeleton />
+  if (error) return `Something went wrong: ${error}`
 
-  const { content } = data
+  const { post } = data;
 
-  // let data2 = {
-  //   title: "a test title",
-  //   Body: "this is some test text",
-  //   Comments: "this is pretty cool"
-  // };
-  // let sample =
-  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-  // const sampleComment =
-  //   "Some quick example text to build on the card title and make up the bulk of the cards content.";
-
-  const handleVoting = async (event, dataObj) => {
+  const handleVoting = async (type) => {
     const vote = {
-      ...dataObj,
+      // text: selectedText.text,
+      postId: data.post._id,
+      userId: user._id,
+      type,
       startWordIndex: selectedText.startIndex,
       endWordIndex: selectedText.endIndex,
-      contentId,
-      creatorId: content.creatorId,
-      userId: user._id,
-      text: selectedText.text,
     }
-
     addVote({ variables: { vote } })
   }
 
   const handleAddComment = (comment, commentWithQuote = false) => {
-    let startIndex; let endIndex; let
-      quoteText
+    let startIndex, endIndex, quoteText
 
-    const HASHTAGS_REGEX = /#(\w|\d)+/g
-    const hashtags = comment.match(HASHTAGS_REGEX)
+    // const HASHTAGS_REGEX = /#(\w|\d)+/g
+    // const hashtags = comment.match(HASHTAGS_REGEX)
 
     if (selectedText) {
       startIndex = selectedText.startIndex
@@ -137,13 +142,15 @@ const ContentDisplay = () => {
 
     // TODO: ommit quote props if user did not highlight text
     const newComment = {
-      contentId,
-      creatorId: content.creatorId,
+      // contentId,
+      // creatorId: content.creatorId,
       userId: user._id,
-      text: comment,
+      content: comment,
       startWordIndex: startIndex,
       endWordIndex: endIndex,
-      hashtags,
+      postId,
+      url: post.url,
+      // hashtags,
       quote: commentWithQuote ? quoteText : '',
     }
 
@@ -152,7 +159,7 @@ const ContentDisplay = () => {
 
   return (
     <div>
-      <GridContainer spacing={1} direction="col">
+      <GridContainer spacing={1} direction='col'>
         <GridItem xs={6}>
           <Card style={{ height: '800px' }}>
             <CardHeader style={{ zIndex: 0 }}>
@@ -180,10 +187,10 @@ const ContentDisplay = () => {
                       fontWeight: 'bold',
                     }}
                   >
-                    {content.title}
+                    {post.title}
                   </p>
                   <img
-                    alt="Chat icon"
+                    alt=''
                     src={Chat}
                     style={{ height: '20px', paddingLeft: '10px' }}
                   />
@@ -198,13 +205,12 @@ const ContentDisplay = () => {
                 >
                   <p>
                     <strong style={{ color: 'green' }}>+</strong>
-                    {content.scoreDetails.upvotes}
-                    /
+                    {post.upvotes}/
                     <strong style={{ color: 'red' }}>-</strong>
-                    {content.scoreDetails.downvotes}
+                    {post.downvotes}
                   </p>
                   <img
-                    alt="Send icon"
+                    alt='Send icon'
                     src={Send}
                     style={{
                       height: '15px',
@@ -213,7 +219,7 @@ const ContentDisplay = () => {
                     }}
                   />
                   <img
-                    alt="Heart icon"
+                    alt='Heart icon'
                     src={Heart}
                     style={{
                       height: '15px',
@@ -227,7 +233,7 @@ const ContentDisplay = () => {
             </CardHeader>
             <CardBody>
               <VotingBoard
-                content={content.text}
+                content={post.text}
                 onSelect={setSelectedText}
                 selectedText={selectedText}
               >
@@ -237,6 +243,7 @@ const ContentDisplay = () => {
                     onAddComment={handleAddComment}
                     text={text}
                     selectedText={selectedText}
+                    votedBy={post.votedBy}
                   />
                 )}
               </VotingBoard>
@@ -267,7 +274,7 @@ const ContentDisplay = () => {
               <Divider />
             </CardHeader>
           </Card>
-          {content.comments
+          {post.comments
             .sort((a, b) => moment(b.created).diff(moment(a.created)))
             .map((comment, index) => (
               <Card key={`comment-${index}`}>
@@ -288,7 +295,7 @@ const ContentDisplay = () => {
                       <FaceIcon />
                     </span>
                     <h5 style={{ margin: 0 }}>username</h5>
-                    {comment.text}
+                    {comment.content}
                   </p>
                 </CardBody>
                 <CardFooter chart testimonial>
@@ -304,4 +311,4 @@ const ContentDisplay = () => {
   )
 }
 
-export default ContentDisplay
+export default PostPage

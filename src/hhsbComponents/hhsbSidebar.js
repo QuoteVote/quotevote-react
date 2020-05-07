@@ -129,6 +129,7 @@ class Sidebar extends React.Component {
   createLinks = routes => {
     const { classes, color, rtlActive } = this.props;
     return routes.map((prop, key) => {
+      if (prop.path === "/post") return null
       if (prop.redirect) {
         return null;
       }

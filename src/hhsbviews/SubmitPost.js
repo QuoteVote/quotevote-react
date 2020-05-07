@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import {
   Grid,
@@ -42,11 +42,13 @@ import GridContainer from 'mui-pro/Grid/GridContainer'
 
 import SweetAlert from 'react-bootstrap-sweetalert'
 import * as copy from 'clipboard-copy'
-
+import { isEmpty } from 'lodash'
 
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { CREATE_DOMAIN, SUBMIT_TEXT } from 'graphql/mutations'
-import { DOMAIN_QUERY } from 'graphql/query'
+import { CREATE_GROUP, SUBMIT_POST } from 'graphql/mutations'
+import { GROUPS_QUERY } from 'graphql/query'
+
+import { SET_SELECTED_POST } from 'actions/types';
 
 const useStyles = makeStyles(styles)
 
@@ -60,85 +62,85 @@ const inputStyles = {
 function SubmitPost() {
   const classes = useStyles()
   const [alert, setAlert] = React.useState(null)
-  const [title, setTitle] = useState('[Enter Title]')
-  const [text, setText] = useState('')
-  const [domain, setDomain] = useState({
-    domain: {
-      title: 'Default',
-    },
-  })
+  const [postTitle, setPostTitle] = useState('[Enter Title]')
+  const [postText, setPostText] = useState('')
+  const [groupName, setGroupName] = useState('')
+  const [groupId, setGroupId] = useState('')
   const [subScoreboardIsOpen, setCreateSubScoreboard] = useState(false)
   const [privacy, setPrivacy] = useState('private')
 
-  const history = useHistory()
+  const dispatch = useDispatch()
+
+  let history = useHistory()
 
   const { user } = useSelector((state) => state.loginReducer)
-  const { loading, error, data } = useQuery(DOMAIN_QUERY, {
+  const { loading, error, data } = useQuery(GROUPS_QUERY, {
     variables: { limit: 0 },
   })
-
-  const [submitText] = useMutation(SUBMIT_TEXT)
-  const [createDomain] = useMutation(CREATE_DOMAIN)
+  const [submitPost] = useMutation(SUBMIT_POST)
+  const [createGroup] = useMutation(CREATE_GROUP)
 
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    let domainResult
+
     try {
+      let newGroup 
       if (subScoreboardIsOpen) {
-        domainResult = await createDomain({
+        newGroup = await createGroup({
           variables: {
-            domain: {
-              userId: user.creatorId,
-              title: domain,
-              url: `/${domain.toLowerCase()}`,
-              key: domain.toLowerCase(),
+            group: {
+              creatorId: user._id,
+              title: groupName,
+              description: `Description for: ${groupName} group`,
               privacy,
-              description: `Description for: ${domain} group`,
             },
           },
         })
       }
-      const domainId = domain._id ? domain._id : domainResult.data.createDomain._id
-      const submitResult = await submitText({
+      const postGroupId = newGroup ? newGroup.data.createGroup._id : groupId
+      const submitResult = await submitPost({
         variables: {
-          content: {
-            title,
-            text,
-            creatorId: user.creatorId,
-            domainId,
+          post: {
+            userId: user._id,
+            text: postText,
+            title: postTitle,
+            groupId: postGroupId,
           },
         },
       })
-      const { _id } = submitResult.data.addContent
-      const domainKey = domain.key ? domain.key : domain.toLowerCase()
-      successAlert(domainKey, _id)
+      const { _id, url } = submitResult.data.addPost
+      dispatch({
+        type: SET_SELECTED_POST,
+        payload: _id
+      })
+      successAlert(url, _id)
     } catch (err) {
-      errorAlert()
+      errorAlert(err)
     }
   }
 
-  const handleText = (event) => {
-    setText(event.target.value)
+  const handlePostText = (event) => {
+    setPostText(event.target.value)
   }
 
-  const handleTitle = (event) => {
-    setTitle(event.target.value)
+  const handlePostTitle = (event) => {
+    setPostTitle(event.target.value)
   }
 
-  const clearTitle = () => {
-    if (title === '[Enter Title]') {
-      setTitle('')
+  const clearPostTitle = (event) => {
+    if (postTitle === '[Enter Title]') {
+      setPostTitle('')
     }
   }
 
-  const handleDomain = (event) => {
-    setDomain(event.target.value)
+  const handleGroup = (event) => {
+    setGroupName(event.target.value)
   }
 
   const handleCreateSubScoreboard = () => {
-    setDomain('')
+    setGroupName('')
     setCreateSubScoreboard(!subScoreboardIsOpen)
   }
 
@@ -146,32 +148,32 @@ function SubmitPost() {
     setPrivacy(event.target.value)
   }
 
-  const successAlert = (domainKey, id) => {
-    const shareableLink = `/boards/${domainKey}/content/${id}`
+  const successAlert = (shareableLink, id) => {
+    // const shareableLink = `/hhsb/${domainKey}/content/${id}`
 
     setAlert(
       <SweetAlert
         success
         style={{ display: 'block', top: '50%' }}
-        title="You Created a Post!"
+        title='You Created a Post!'
         onConfirm={() => history.push(shareableLink)}
         onCancel={() => hideAlert()}
         confirmBtnCssClass={`${classes.button} ${classes.success}`}
-        confirmBtnText="Go to Post"
+        confirmBtnText='Go to Post'
       >
-        <Typography variant="caption">Share your text to your friends and family.</Typography>
+        <Typography variant='caption'>Share your text to your friends and family.</Typography>
         <Grid
           container
-          justify="space-around"
+          justify='space-around'
           style={{ marginTop: 16 }}
-          wrap="nowrap"
+          wrap='nowrap'
         >
           <GridItem style={{ overflow: 'auto' }}>
             <pre>{ DOMAIN + shareableLink }</pre>
           </GridItem>
           <GridItem style={{ flex: 1 }}>
             <IconButton onClick={handleCopy(DOMAIN + shareableLink)}>
-              <Tooltip title="Copy Link to Clip Board"><AssignmentIcon /></Tooltip>
+              <Tooltip title='Copy Link to Clip Board'><AssignmentIcon /></Tooltip>
             </IconButton>
           </GridItem>
         </Grid>
@@ -179,18 +181,19 @@ function SubmitPost() {
     )
   }
 
-  const errorAlert = () => {
+  const errorAlert = (err) => {
     setAlert(
       <SweetAlert
         error
         style={{ display: 'block', top: '50%' }}
-        title="Something went wrong!"
+        title='Something went wrong!'
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         confirmBtnCssClass={`${classes.button} ${classes.danger}`}
-        confirmBtnText="Ok"
+        confirmBtnText='Ok'
       >
-        We don&apos;t know what, yet let us know and we can find out
+        {/* We don't know what, yet let us know and we can find out */}
+        Error: {err}
       </SweetAlert>
     )
   }
@@ -214,30 +217,32 @@ function SubmitPost() {
       <SweetAlert
         error
         style={{ display: 'block', top: '50%' }}
-        title="Something went wrong!"
+        title='Something went wrong!'
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         confirmBtnCssClass={`${classes.button} ${classes.danger}`}
-        confirmBtnText="Ok"
+        confirmBtnText='Ok'
       >
         We don&apos;t know what, yet let us know and we can find out
       </SweetAlert>
     )
   }
 
-  const userAllowedDomains = data.domains.filter((domainItem) => {
-    const isUserAllowed = domainItem.allowedUserIds.find(
-      (id) => id === user.creatorId
+  const userAllowedGroups = (data && data.groups.filter((group) => {
+    const isUserAllowed = group.allowedUserIds.find(
+      (id) => id === user._id
     )
     return (
-      domainItem.privacy === 'public' || (domainItem.privacy === 'private' && isUserAllowed)
+      group.privacy === 'public' ||
+        (group.privacy === 'private' &&
+          isUserAllowed)
     )
-  })
+  })) || []
 
   return (
-    <>
+    <Fragment>
       {alert}
-      <GridContainer spacing={1} direction="col">
+      <GridContainer spacing={1} direction='col'>
         <GridItem xs={6}>
           <Card style={{ height: '800px' }}>
             <CardHeader style={{ zIndex: 0 }}>
@@ -259,11 +264,11 @@ function SubmitPost() {
                 >
                   <InputBase
                     style={inputStyles}
-                    onClick={clearTitle}
-                    onFocus={clearTitle}
-                    onChange={handleTitle}
-                    value={title}
-                    name="title"
+                    onClick={clearPostTitle}
+                    onFocus={clearPostTitle}
+                    onChange={handlePostTitle}
+                    value={postTitle}
+                    name='title'
                     required
                   />
                 </div>
@@ -284,15 +289,15 @@ function SubmitPost() {
                 onSubmit={handleSubmit}
               >
                 <TextField
-                  id="post"
-                  label="Post"
-                  placeholder="Input text to submit post"
+                  id='post'
+                  label='Post'
+                  placeholder='Input text to submit post'
                   multiline
                   fullWidth
-                  name="text"
+                  name='text'
                   required
-                  onChange={handleText}
-                  value={text}
+                  onChange={handlePostText}
+                  value={postText}
                   style={{
                     maxHeight: 600,
                     overflow: 'auto',
@@ -308,57 +313,54 @@ function SubmitPost() {
                       {
                         subScoreboardIsOpen && subScoreboardIsOpen ? (
                           <TextField
-                            id="group"
-                            label="Group"
-                            placeholder="Create a new group"
-                            name="group"
+                            id='group'
+                            label='Group'
+                            placeholder='Create a new group'
+                            name='group'
                             required
-                            onChange={handleDomain}
-                            value={domain.title}
+                            onChange={handleGroup}
+                            value={groupName}  
                             style={{ width: 280 }}
                           />
-                        ) : (
-                          <>
-                            <InputLabel id="group-label" htmlFor="group">Group</InputLabel>
+                         ) : (
+                          <Fragment>
+                            <InputLabel id='group-label' htmlFor='group'>Group</InputLabel>
                             <Select
-                              id="group"
-                              value={domain.title}
-                              placeholder={domain.title}
+                              id='group'
+                              value={groupId}
+                              placeholder={groupName}
                               required
-                              onChange={handleDomain}
+                              onChange={(e) => setGroupId(e.target.value)}
                               style={{ width: 280 }}
                             >
-                              <MenuItem value={domain.title}>
-                                {domain.title}
+                              <MenuItem value={groupName}>
+                                {groupName}
                               </MenuItem>
-                              {userAllowedDomains.map((publicDomain) => (
+                              {!isEmpty(userAllowedGroups) && userAllowedGroups.map((publicGroup) => (
                                 <MenuItem
-                                  name={publicDomain.key}
-                                  value={publicDomain}
-                                  key={publicDomain._id}
+                                  value={publicGroup._id}
+                                  key={publicGroup._id}
                                 >
-                                  {publicDomain.title}
-                                </MenuItem>
-                              ))}
+                                  {publicGroup.title}
+                                </MenuItem>))}
                             </Select>
-                          </>
+                          </Fragment>
                         )
                       }
-
                     </FormControl>
                     <IconButton
                       style={{ marginTop: 8, marginLeft: 4 }}
                       onClick={handleCreateSubScoreboard}
                     >
                       { subScoreboardIsOpen && subScoreboardIsOpen ?
-                        <Tooltip title="Choose an existing group" style={{ fontSize: 18 }}><RemoveIcon /></Tooltip> :
-                        <Tooltip title="Add a new group"><AddIcon /></Tooltip>}
+                        <Tooltip title='Choose an existing group' style={{ fontSize: 18 }}><RemoveIcon /></Tooltip> :
+                        <Tooltip title='Add a new group'><AddIcon /></Tooltip>}
                     </IconButton>
                   </div>
                   <Button
-                    type="submit"
-                    variant="contained"
-                    size="large"
+                    type='submit'
+                    variant='contained'
+                    size='large'
                     style={{
                       backgroundColor: 'rgb(233, 30, 99)',
                     }}
@@ -369,11 +371,11 @@ function SubmitPost() {
                 {
                   subScoreboardIsOpen && (
                     <div style={{ paddingTop: 16 }}>
-                      <FormControl required component="fieldset">
-                        <FormLabel component="legend">Choose Visibility</FormLabel>
-                        <RadioGroup aria-label="privacy" name="privacy" value={privacy} onChange={handlePrivacy}>
-                          <FormControlLabel value="private" control={<Radio />} label="Private" />
-                          <FormControlLabel value="public" control={<Radio />} label="Pulbic" />
+                      <FormControl required component='fieldset'>
+                        <FormLabel component='legend'>Choose Visibility</FormLabel>
+                        <RadioGroup aria-label='privacy' name='privacy' value={privacy} onChange={handlePrivacy}>
+                          <FormControlLabel value='private' control={<Radio />} label='Private' />
+                          <FormControlLabel value='public' control={<Radio />} label='Pulbic' />
                         </RadioGroup>
                       </FormControl>
                     </div>
@@ -408,7 +410,7 @@ function SubmitPost() {
           </Card>
         </GridItem>
       </GridContainer>
-    </>
+    </Fragment>
   )
 }
 

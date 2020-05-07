@@ -9,12 +9,13 @@ import {
   IconButton,
   Button,
   Zoom,
-} from '@material-ui/core'
+  Tooltip
+} from '@material-ui/core';
 import {
   Up, Down, Comment, Quote,
 } from 'hhsbComponents/Icons'
-import { CONTENT_REGEX } from 'utils/parser'
-import { isEmpty } from 'lodash'
+import { isEmpty, findIndex } from 'lodash'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   paperCollapsed: {
@@ -43,17 +44,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const VotingPopup = (props) => {
+const VotingPopup = props => {
   const classes = useStyles()
+  const { user } = useSelector((state) => state.loginReducer)
   const [expand, setExpand] = useState(false)
   const [comment, setComment] = useState('')
 
-  const handleVote = (event, type) => {
-    props.onVote(event, {
-      type,
-      points: props.text.match(CONTENT_REGEX).length,
-    })
+  let showUpvoteTooltip = false
+  
+  let showDownvoteTooltip = false 
+  const index = findIndex(props.votedBy, vote => vote.userId === user._id)
+  if (index !== -1) {
+    if (props.votedBy[index].type === 'up') {
+      showUpvoteTooltip = true
+    } else {
+      showDownvoteTooltip = true
+    }
   }
+  const handleVote = (type) => {
+    props.onVote(type)
+  };
 
   const handleAddComment = () => {
     const withQuote = !isEmpty(props.selectedText.text)
@@ -70,7 +80,7 @@ const VotingPopup = (props) => {
   })
 
   return (
-    <>
+    <React.Fragment>
       <Zoom in={!expand}>
         <Paper
           id="popButtons"
@@ -88,22 +98,48 @@ const VotingPopup = (props) => {
           position: 'absolute',
         }}
       >
-        <IconButton onClick={(e) => handleVote(e, 'upvote')}>
-          <Up
-            width="419.000000pt"
-            height="419.000000pt"
-            viewBox="0 0 419.000000 419.000000"
-            className={classes.icon}
-          />
-        </IconButton>
-        <IconButton onClick={(e) => handleVote(e, 'downvote')}>
-          <Down
-            width="563.000000pt"
-            height="563.000000pt"
-            viewBox="0 0 563.000000 563.000000"
-            className={classes.icon}
-          />
-        </IconButton>
+        {showUpvoteTooltip ? (
+          <Tooltip title="Upvoted" placement="bottom" arrow>
+            <IconButton>
+              <Up
+                width="419.000000pt"
+                height="419.000000pt"
+                viewBox="0 0 419.000000 419.000000"
+                className={classes.icon}
+              />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <IconButton onClick={e => handleVote('up')}>
+            <Up
+              width="419.000000pt"
+              height="419.000000pt"
+              viewBox="0 0 419.000000 419.000000"
+              className={classes.icon}
+            />
+          </IconButton>
+        )}
+        {showDownvoteTooltip ? (
+          <Tooltip title="Downvoted" placement="bottom" arrow>
+            <IconButton>
+              <Down
+                width="563.000000pt"
+                height="563.000000pt"
+                viewBox="0 0 563.000000 563.000000"
+                className={classes.icon}
+              />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <IconButton onClick={e => handleVote('down')}>
+            <Down
+              width="563.000000pt"
+              height="563.000000pt"
+              viewBox="0 0 563.000000 563.000000"
+              className={classes.icon}
+            />
+          </IconButton>
+        )}
         <IconButton onClick={() => setExpand(!expand)}>
           <Comment
             width="598.000000pt"
@@ -143,7 +179,7 @@ const VotingPopup = (props) => {
           />
         </Paper>
       </Zoom>
-    </>
+    </React.Fragment>
   )
 }
 

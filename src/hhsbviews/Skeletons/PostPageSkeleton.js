@@ -17,7 +17,7 @@ import Send from 'hhsbAssets/Send.svg'
 import FaceIcon from '@material-ui/icons/Face'
 import Skeleton from '@material-ui/lab/Skeleton'
 
-const ContentDisplaySkeleton = () => (
+const PostPageSkeleton = () => (
   <div>
     <GridContainer spacing={1} direction="col">
       <GridItem xs={6}>
@@ -39,7 +39,31 @@ const ContentDisplaySkeleton = () => (
                   justifyContent: 'space-between',
                 }}
               >
-                <p
+                <div
+                  style={{
+                    display: "flex",
+                    direction: "row",
+                    alignContent: "center",
+                    justifyContent: "space-between"
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "#E91E63",
+                      fontSize: "25px",
+                      font: "League Spartan",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    <Skeleton variant="text" width={210} />
+                  </p>
+                  <img
+                    alt="chat"
+                    src={Chat}
+                    style={{ height: "20px", paddingLeft: "10px" }}
+                  />
+                </div>
+                <div
                   style={{
                     color: '#E91E63',
                     fontSize: '25px',
@@ -47,13 +71,28 @@ const ContentDisplaySkeleton = () => (
                     fontWeight: 'bold',
                   }}
                 >
-                  <Skeleton variant="text" width={210} />
-                </p>
-                <img
-                  alt="Chat Icon"
-                  src={Chat}
-                  style={{ height: '20px', paddingLeft: '10px' }}
-                />
+                  <p>
+                    <Skeleton variant="text" width={50} />
+                  </p>
+                  <img
+                    alt="share"
+                    src={Send}
+                    style={{
+                      height: "15px",
+                      paddingLeft: "15px",
+                      paddingTop: "3px"
+                    }}
+                  />
+                  <img
+                    alt="bookmark"
+                    src={Heart}
+                    style={{
+                      height: "15px",
+                      paddingLeft: "15px",
+                      paddingTop: "3px"
+                    }}
+                  />
+                </div>
               </div>
               <div
                 style={{
@@ -67,7 +106,7 @@ const ContentDisplaySkeleton = () => (
                   <Skeleton variant="text" width={50} />
                 </p>
                 <img
-                  alt="Send Icon"
+                  alt="share"
                   src={Send}
                   style={{
                     height: '15px',
@@ -76,7 +115,7 @@ const ContentDisplaySkeleton = () => (
                   }}
                 />
                 <img
-                  alt="Heart Icon"
+                  alt="favorite"
                   src={Heart}
                   style={{
                     height: '15px',
@@ -156,4 +195,4 @@ const ContentDisplaySkeleton = () => (
   </div>
 )
 
-export default ContentDisplaySkeleton
+export default PostPageSkeleton

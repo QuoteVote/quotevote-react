@@ -1,5 +1,11 @@
+import PostPage from 'hhsbviews/PostPage.js'
+import LoginPage from 'hhsbviews/Pages/LoginPage.js'
 
-import ContentFeed from 'hhsbviews/topcontent'
+import add from 'hhsbAssets/add.png'
+import Alert from 'hhsbAssets/Alerts.png'
+import Avatar from 'hhsbAssets/Avatar.png'
+
+import TrendingPosts from 'hhsbviews/TrendingPosts'
 import SubmitPost from 'hhsbviews/SubmitPost'
 import SearchView from 'hhsbviews/SearchView'
 import Profile from 'hhsbviews/profile'
@@ -7,12 +13,9 @@ import ManageInvites from 'hhsbviews/ManageInvites'
 import Homepage from 'hhsbviews/Homepage/Homepage'
 import Chat from 'hhsbAssets/Chat.svg'
 import Home from 'hhsbAssets/Home.svg'
-import Avatar from 'hhsbAssets/Avatar.png'
-import add from 'hhsbAssets/add.png'
-import Trending from 'hhsbAssets/Trending.png'
-import Settings from 'hhsbAssets/Settings.png'
 import Search from 'hhsbAssets/Search.png'
-import Alert from 'hhsbAssets/Alerts.png'
+import Settings from 'hhsbAssets/Settings.png'
+import Trending from  'hhsbAssets/Trending.png'
 // @material-ui/icons
 
 // import {face} from '@mdi';
@@ -57,7 +60,7 @@ const hhsbRoutes = [
     name: 'Trending Content',
     rtlName: 'التقويم',
     icon: Trending,
-    component: ContentFeed,
+    component: TrendingPosts,
     layout: '/hhsb',
   },
   {
@@ -84,6 +87,35 @@ const hhsbRoutes = [
     component: Homepage,
     layout: '/hhsb',
   },
-
-]
-export default hhsbRoutes
+  {
+    path: '/ChatBar',
+    name: 'Chat Feed',
+    rtlName: 'التقويم',
+    icon: Alert,
+    component: HomePage,
+    layout: '/hhsb',
+  },
+  {
+    path: '/ChatBar',
+    name: 'Chat Feed',
+    rtlName: 'التقويم',
+    icon: Settings,
+    component: HomePage,
+    layout: '/hhsb',
+  },
+  {
+    path: "/post",
+    component: PostPage,
+    layout: "/hhsb"
+  },
+  {
+    path: "/login-page",
+    name: "Login Page",
+    rtlName: "هعذاتسجيل الدخول",
+    mini: "L",
+    rtlMini: "هعذا",
+    component: LoginPage,
+    layout: "/auth"
+  },
+];
+export default hhsbRoutes;

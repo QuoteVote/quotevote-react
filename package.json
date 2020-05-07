@@ -55,6 +55,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "string-limit": "^0.0.4",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
