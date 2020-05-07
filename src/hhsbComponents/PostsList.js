@@ -2,31 +2,31 @@ import React from 'react'
 import Skeleton from '@material-ui/lab/Skeleton'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import { Link, Tooltip, IconButton } from "@material-ui/core"
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import { makeStyles } from '@material-ui/core/styles'
+import { Link, Tooltip, IconButton } from '@material-ui/core'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 // @material-ui/icons
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import styles from "assets/jss/material-dashboard-pro-react/components/accordionStyle.js";
-import Chat from '../hhsbAssets/Chat.svg'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import styles from 'assets/jss/material-dashboard-pro-react/components/accordionStyle'
 // import Heart from '../hhsbAssets/Heart.svg'
-import Send from '../hhsbAssets/Send.svg'
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 
-import GridContainer from "mui-pro/Grid/GridContainer.js";
-import { useHistory } from "react-router-dom";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import { useHistory } from 'react-router-dom'
 import limit from 'string-limit'
 import copy from 'clipboard-copy'
-import { useDispatch, useSelector } from "react-redux"
-import { SET_SELECTED_POST } from "actions/types";
-import { useMutation } from "@apollo/react-hooks"
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_SELECTED_POST } from 'actions/types'
+import { useMutation } from '@apollo/react-hooks'
 import { GET_TOP_POSTS } from 'graphql/query'
 import { UPDATE_POST_BOOKMARK } from 'graphql/mutations'
+import Chat from '../hhsbAssets/Chat.svg'
+import Send from '../hhsbAssets/Send.svg'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 function AlertSkeletonLoader({ limit }) {
   const rows = Array.from(Array(limit).keys())
@@ -34,10 +34,10 @@ function AlertSkeletonLoader({ limit }) {
     <div style={{ width: '90%' }}>
       {
         rows.map((row) => (
-          <React.Fragment>
+          <>
             <Skeleton variant="rect" animation="wave" height={50} />
             <br />
-          </React.Fragment>
+          </>
         ))
       }
     </div>
@@ -46,28 +46,28 @@ function AlertSkeletonLoader({ limit }) {
 
 function LoadPostsList({ data }) {
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
-  const history = useHistory();
-  const classes = useStyles();
+  const history = useHistory()
+  const classes = useStyles()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.loginReducer)
-  const [active, setActive] = React.useState(0);
-  const [activeKey, setActiveKey] = React.useState(null);
+  const [active, setActive] = React.useState(0)
+  const [activeKey, setActiveKey] = React.useState(null)
   const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK, {
     refetchQueries: [
       {
         query: GET_TOP_POSTS,
-        variables: { limit: 5, offset: 0, searchKey: "" },
+        variables: { limit: 5, offset: 0, searchKey: '' },
       },
     ],
   })
 
-  const handleChange = panel => (event, expanded) => {
-    setActive(expanded ? panel : -1);
-  };
+  const handleChange = (panel) => (event, expanded) => {
+    setActive(expanded ? panel : -1)
+  }
 
   const handleCopy = (shareableLink, key) => {
     copy(shareableLink)
-    setActiveKey(key);
+    setActiveKey(key)
   }
 
   const handleBookmark = (postId) => {
@@ -84,7 +84,9 @@ function LoadPostsList({ data }) {
   }
 
   return data.posts.map((prop, key) => {
-    let { _id, text, title, upvotes, downvotes, url, bookmarkedBy } = prop
+    const {
+      _id, text, title, upvotes, downvotes, url, bookmarkedBy,
+    } = prop
     const isBookmarked = bookmarkedBy.includes(user._id)
     // const postURL = `/hhsb/post/${title}/${_id}`
     return (
@@ -95,26 +97,32 @@ function LoadPostsList({ data }) {
           key={key}
           classes={{
             root: classes.expansionPanel,
-            expanded: classes.expansionPanelExpanded
+            expanded: classes.expansionPanelExpanded,
           }}
         >
           <ExpansionPanelSummary
-            expandIcon={<div> <ExpandMore/> </div>}
+            expandIcon={(
+              <div>
+                {' '}
+                <ExpandMore />
+                {' '}
+              </div>
+            )}
             classes={{
               root: classes.expansionPanelSummary,
               expanded: classes.expansionPanelSummaryExpaned,
               content: classes.expansionPanelSummaryContent,
-              expandIcon: classes.expansionPanelSummaryExpandIcon
+              expandIcon: classes.expansionPanelSummaryExpandIcon,
             }}
           >
-            <h4 className={classes.title} style={{ width:"10%" }}>
+            <h4 className={classes.title} style={{ width: '10%' }}>
               <Link
                 className={classes.title}
                 onClick={() => {
                   // add post id to redux state
                   dispatch({
                     type: SET_SELECTED_POST,
-                    payload: _id
+                    payload: _id,
                   })
                   history.push(url)
                 }}
@@ -122,16 +130,24 @@ function LoadPostsList({ data }) {
                 {title}
               </Link>
             </h4>
-            <div style={{ diplay:'flex', width:"87%", alignItems:'flex-end', flex:'flex-shrink' }}>
+            <div
+              style={{
+                diplay: 'flex', width: '87%', alignItems: 'flex-end', flex: 'flex-shrink',
+              }}
+            >
               <GridContainer direction="row" justify="space-between" spacing={3}>
-                <div style={{ display:'flex', alignItems:'center', flexDirection: "row" }}>
-                  <img alt="" src={Chat} style={{ paddingBottom:"10px", marginLeft:"20px", marginRight:'5px' }} />
+                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
+                  <img alt="" src={Chat} style={{ paddingBottom: '10px', marginLeft: '20px', marginRight: '5px' }} />
                   <p>
-                    <span style={{ color: "green" }}>{`+${upvotes}/`}</span>
-                    <span style={{ color: "red" }}>{`+${downvotes}`}</span>
+                    <span style={{ color: 'green' }}>{`+${upvotes}/`}</span>
+                    <span style={{ color: 'red' }}>{`+${downvotes}`}</span>
                   </p>
                 </div>
-                <div style={{ display:'flex', alignItems:'center', flexDirection: "row", marginRight: '2%' }}>
+                <div
+                  style={{
+                    display: 'flex', alignItems: 'center', flexDirection: 'row', marginRight: '2%',
+                  }}
+                >
                   <Link onClick={() => handleCopy(DOMAIN + url, key)}>
                     {activeKey === key ? (
                       <Tooltip
@@ -141,10 +157,14 @@ function LoadPostsList({ data }) {
                         arrow
                         open
                       >
-                        <img alt="" src={Send} style={{ paddingBottom:"10px", paddingTop:"10px", marginRight:'10px' }} />
+                        <img
+                          alt=""
+                          src={Send}
+                          style={{ paddingBottom: '10px', paddingTop: '10px', marginRight: '10px' }}
+                        />
                       </Tooltip>
                     ) : (
-                      <img alt="" src={Send} style={{ paddingBottom:"10px", paddingTop:"10px", marginRight:'10px' }} />
+                      <img alt="" src={Send} style={{ paddingBottom: '10px', paddingTop: '10px', marginRight: '10px' }} />
                     )}
                   </Link>
                   <IconButton color="secondary" component="span" onClick={() => handleBookmark(_id)}>
@@ -160,7 +180,7 @@ function LoadPostsList({ data }) {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
-    );
+    )
   })
 }
 
