@@ -31,7 +31,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
 
-import styles from 'assets/jss/material-dashboard-pro-react/views/registerPageStyle'
+import styles from 'assets/jss/material-dashboard-pro-react/views/requestInvitePageStyle'
 
 import 'assets/css/stripe-common.css'
 import { Radio } from '@material-ui/core'
