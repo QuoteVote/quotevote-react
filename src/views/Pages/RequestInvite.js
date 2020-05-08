@@ -96,7 +96,6 @@ const CheckoutForm = ({product}) => {
       <Button
           color="rose"
           size="lg"
-          style={{'marginLeft':'100px'}}
           onClick={handleSubmit}
       >
           Pay Now
