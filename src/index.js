@@ -31,7 +31,7 @@ import Scoreboard from 'layouts/Scoreboard'
 import TokenExpired from 'layouts/TokenExpired'
 import store, { persistor } from 'config/redux'
 
-import 'assets/scss/material-dashboard-pro-react.scss'
+//import 'assets/scss/material-dashboard-pro-react.scss'
 
 const hist = createBrowserHistory()
 

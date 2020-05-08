@@ -13,8 +13,8 @@ import Icon from '@material-ui/core/Icon'
 import Timeline from '@material-ui/icons/Timeline'
 import Code from '@material-ui/icons/Code'
 import Group from '@material-ui/icons/Group'
-import Face from '@material-ui/icons/Face'
 import Email from '@material-ui/icons/Email'
+import CreditCard from '@material-ui/icons/CreditCard'
 // import LockOutline from "@material-ui/icons/LockOutline";
 import Check from '@material-ui/icons/Check'
 
@@ -32,14 +32,81 @@ import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
 
 import styles from 'assets/jss/material-dashboard-pro-react/views/registerPageStyle'
+
+import 'assets/css/stripe-common.css'
 import { Radio } from '@material-ui/core'
 
 const useStyles = makeStyles(styles)
 const stripePromise = loadStripe('pk_test_qIQR5bxjcD4pkfx0Cwq0XVtJ001dsWFwah');
 
+const CheckoutForm = ({product}) => {
   
-export default function RequestInvite() {
+  const [email, setEmail] = useState('')
+  const [paymentMethod, setPaymentMethod] = useState(null);
+  const classes = useStyles()
+  const stripe = useStripe()
+  const elements = useElements();
+  const [error, setError] = useState(null);
+  const [cardComplete, setCardComplete] = useState(false);
+  const [processing, setProcessing] = useState(false);
 
+  const handleSubmit = async () => {
+    console.log('submitting', product)
+    const billingDetails = {
+      email
+    }
+    const payload = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement),
+      billing_details: billingDetails,
+    });
+    if(payload.error) {
+      console.log('error', error)
+    }
+    else {
+      setPaymentMethod(payload.paymentMethod)
+    }
+
+    
+
+  }
+  return (
+    <form>
+      {paymentMethod ? <div style={{color: 'black'}}> No money was charged but stripe is working!</div>:null}
+      <GridContainer>
+        <GridItem xs={12} md={12} sm={12}>
+        <CustomInput
+          inputProps={{
+              startAdornment: (
+              <InputAdornment
+                  position="start"
+                  className={classes.inputAdornment}
+              >
+                  <Email className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+              ),
+              placeholder: 'Enter email',
+              onChange:(e) => setEmail(e.target.value)
+          }}
+      />
+      </GridItem>
+    </GridContainer>
+      <CardElement />
+      
+      <Button
+          color="rose"
+          size="lg"
+          style={{'marginLeft':'100px'}}
+          onClick={handleSubmit}
+      >
+          Pay Now
+      </Button>
+      </form>
+  )
+}
+export default function RequestInvite() {
+  const [productSelection, selectProduct] = useState(0)
+  
   const classes = useStyles()
   return (
     <div className={classes.container}>
@@ -58,7 +125,10 @@ export default function RequestInvite() {
                   />
 
                   </GridItem>
-                  <Radio/>
+                  <Radio
+                    checked={productSelection === 0}
+                    onChange={() => selectProduct(0)}
+                  />
               </GridContainer>
             </CardBody>
           </Card>
@@ -76,7 +146,10 @@ export default function RequestInvite() {
                     iconColor="rose"
                   />
                 </GridItem>
-                <Radio/>
+                <Radio
+                  checked={productSelection===1}
+                  onChange={() => selectProduct(1) }
+                />
               </GridContainer>
             </CardBody>
           </Card>
@@ -85,83 +158,11 @@ export default function RequestInvite() {
       <GridContainer style={{backgroundColor:'#fff'}}>
           <GridItem xs={12} md={12} sm={12}>
           <Elements stripe={stripePromise}>
-                    <GridContainer md={12} xs={12} sm={12}>
-                        <form>
-                        <CustomInput
-                            formControlProps={{
-                                className: classes.customFormControlClasses,
-                            }}
-                            inputProps={{
-                                startAdornment: (
-                                <InputAdornment
-                                    position="start"
-                                    className={classes.inputAdornment}
-                                >
-                                    <Face className={classes.inputAdornmentIcon} />
-                                </InputAdornment>
-                                ),
-                                placeholder: 'Enter email',
-                            }}
-                        />
-                        <CustomInput
-                            formControlProps={{
-                                className: classes.customFormControlClasses,
-                            }}
-                            inputProps={{
-                                startAdornment: (
-                                <InputAdornment
-                                    position="start"
-                                    className={classes.inputAdornment}
-                                >
-                                    <Face className={classes.inputAdornmentIcon} />
-                                </InputAdornment>
-                                ),
-                                placeholder: 'Credit Card Number',
-                            }}
-                        />
-                        <CustomInput
-                            formControlProps={{
-                                className: classes.customFormControlClasses,
-                            }}
-                            inputProps={{
-                                startAdornment: (
-                                <InputAdornment
-                                    position="start"
-                                    className={classes.inputAdornment}
-                                >
-                                    <Face className={classes.inputAdornmentIcon} />
-                                </InputAdornment>
-                                ),
-                                placeholder: 'Expiration',
-                            }}
-                        />
-                        <CustomInput
-                            formControlProps={{
-                                className: classes.customFormControlClasses,
-                            }}
-                            inputProps={{
-                                startAdornment: (
-                                <InputAdornment
-                                    position="start"
-                                    className={classes.inputAdornment}
-                                >
-                                    <Face className={classes.inputAdornmentIcon} />
-                                </InputAdornment>
-                                ),
-                                placeholder: 'CVV',
-                            }}
-                        />
-                        <Button
-                            color="rose"
-                            size="lg"
-                            style={{'marginLeft':'100px'}}
-                        >
-                            Pay Now
-                        </Button>
-                        </form>
+                <GridContainer md={12} xs={12} sm={12}>
+                     <CheckoutForm product={productSelection} />
 
-                    </GridContainer>
-                 </Elements>
+                </GridContainer>
+            </Elements>
           </GridItem>
       </GridContainer>
     </div>
