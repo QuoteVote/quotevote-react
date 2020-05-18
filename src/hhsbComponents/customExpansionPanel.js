@@ -1,7 +1,8 @@
-import React from 'react';
+// TODO: Fix links to have href
+import React from 'react'
 import PropTypes from 'prop-types'
-
 // @material-ui/core components
+
 import { makeStyles } from '@material-ui/core/styles'
 import { Link, Tooltip } from '@material-ui/core'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
@@ -9,36 +10,35 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 // @material-ui/icons
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import styles from 'assets/jss/material-dashboard-pro-react/components/accordionStyle.js'
-import Chat from '../hhsbAssets/Chat.svg'
-import Heart from '../hhsbAssets/Heart.svg'
-import Send from '../hhsbAssets/Send.svg'
-import GridContainer from 'mui-pro/Grid/GridContainer.js'
-// import GridItem from 'mui-pro/Grid/GridItem.js'
-import { useHistory } from 'react-router-dom'
+import styles from 'assets/jss/material-dashboard-pro-react/components/accordionStyle'
+import GridContainer from 'mui-pro/Grid/GridContainer'
+// import GridItem from 'mui-pro/Grid/GridItem'
 import limit from 'string-limit'
 import copy from 'clipboard-copy'
+import Send from '../hhsbAssets/Send.svg'
+import Heart from '../hhsbAssets/Heart.svg'
+import Chat from '../hhsbAssets/Chat.svg'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
-export default function CustomAccordion(props) {
-  const history = useHistory();
+export default function CustomAccordion({ collapses, active: activeProp }) {
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
-  const [active, setActive] = React.useState(props.active);
-  const [activeKey, setActiveKey] = React.useState(null);
-  const handleChange = panel => (event, expanded) => {
-    setActive(expanded ? panel : -1);
-  };
-  const classes = useStyles();
-  const { collapses } = props;
+  const [active, setActive] = React.useState(activeProp)
+  const [activeKey, setActiveKey] = React.useState(null)
+  const handleChange = (panel) => (event, expanded) => {
+    setActive(expanded ? panel : -1)
+  }
+  const classes = useStyles()
   const handleCopy = (shareableLink, key) => {
     copy(shareableLink)
-    setActiveKey(key);
+    setActiveKey(key)
   }
   return (
     <div className={classes.root}>
       {collapses.map((prop, key) => {
-        let { text, /* _id, */ title, upvotes, downvotes, url } = prop
+        const {
+          text, /* _id, */ title, upvotes, downvotes, url,
+        } = prop
         // const postURL = `/hhsb/post/${title}/${_id}`
         return (
           <ExpansionPanel
@@ -47,52 +47,68 @@ export default function CustomAccordion(props) {
             key={key}
             classes={{
               root: classes.expansionPanel,
-              expanded: classes.expansionPanelExpanded
+              expanded: classes.expansionPanelExpanded,
             }}
           >
             <ExpansionPanelSummary
-              expandIcon={<div> <ExpandMore/> </div>}
+              expandIcon={(
+                <div>
+                  {' '}
+                  <ExpandMore />
+                  {' '}
+                </div>
+              )}
               classes={{
                 root: classes.expansionPanelSummary,
                 expanded: classes.expansionPanelSummaryExpaned,
                 content: classes.expansionPanelSummaryContent,
-                expandIcon: classes.expansionPanelSummaryExpandIcon
+                expandIcon: classes.expansionPanelSummaryExpandIcon,
               }}
             >
-              <h4 className={classes.title} style={{ width:'10%' }}>
+              <h4 className={classes.title} style={{ width: '10%' }}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <Link
                   className={classes.title}
-                  onClick={() => history.push(url)}
+                  tp
                 >
                   {title}
                 </Link>
               </h4>
-              <div style={{ diplay:'flex', width:'87%', alignItems:'flex-end', flex:'flex-shrink' }}>
-                <GridContainer direction='row' justify='space-between' spacing={3}>
-                  <div style={{ display:'flex', alignItems:'center', flexDirection: 'row' }}>
-                    <img alt='Chat icon' src={Chat} style={{ paddingBottom:'10px', marginLeft:'20px', marginRight:'5px' }} />
+              <div
+                style={{
+                  diplay: 'flex', width: '87%', alignItems: 'flex-end', flex: 'flex-shrink',
+                }}
+              >
+                <GridContainer direction="row" justify="space-between" spacing={3}>
+                  <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
+                    <img alt="Chat icon" src={Chat} style={{ paddingBottom: '10px', marginLeft: '20px', marginRight: '5px' }} />
                     <p>
                       <span style={{ color: 'green' }}>{`+${upvotes}`}</span>
                       <span style={{ color: 'red' }}>{`+${downvotes}`}</span>
                     </p>
                   </div>
-                  <div style={{ display:'flex', alignItems:'center', flexDirection: 'row', marginRight: '2%' }}>
+                  <div
+                    style={{
+                      display: 'flex', alignItems: 'center', flexDirection: 'row', marginRight: '2%',
+                    }}
+                  >
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <Link onClick={() => handleCopy(DOMAIN + url, key)}>
                       {activeKey === key ? (
                         <Tooltip
-                          placement='top'
-                          title='URL copied'
+                          placement="top"
+                          title="URL copied"
                           onClose={() => setActiveKey(null)}
                           arrow
                           open
                         >
-                          <img alt='Send icon' src={Send} style={{ paddingBottom:'10px', paddingTop:'10px', marginRight:'10px' }} />
+                          <img alt="Send icon" src={Send} style={{ paddingBottom: '10px', paddingTop: '10px', marginRight: '10px' }} />
                         </Tooltip>
                       ) : (
-                        <img alt='Send icon' src={Send} style={{ paddingBottom:'10px', paddingTop:'10px', marginRight:'10px' }} />
+                        <img alt="Send icon" src={Send} style={{ paddingBottom: '10px', paddingTop: '10px', marginRight: '10px' }} />
                       )}
                     </Link>
-                    <img alt='Heart icon' src={Heart} style={{ paddingBottom:'10px', paddingTop:'10px' }} />
+                    <img alt="Heart icon" src={Heart} style={{ paddingBottom: '10px', paddingTop: '10px' }} />
                   </div>
                 </GridContainer>
               </div>
@@ -101,15 +117,15 @@ export default function CustomAccordion(props) {
               {limit(text || '', 300)}
             </ExpansionPanelDetails>
           </ExpansionPanel>
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
 CustomAccordion.defaultProps = {
-  active: -1
-};
+  active: -1,
+}
 
 CustomAccordion.propTypes = {
   // index of the default active collapse
@@ -117,7 +133,7 @@ CustomAccordion.propTypes = {
   collapses: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      content: PropTypes.node
+      content: PropTypes.node,
     })
-  ).isRequired
-};
+  ).isRequired,
+}

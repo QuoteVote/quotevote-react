@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -48,7 +48,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { CREATE_GROUP, SUBMIT_POST } from 'graphql/mutations'
 import { GROUPS_QUERY } from 'graphql/query'
 
-import { SET_SELECTED_POST } from 'actions/types';
+import { SET_SELECTED_POST } from 'actions/types'
 
 const useStyles = makeStyles(styles)
 
@@ -71,7 +71,7 @@ function SubmitPost() {
 
   const dispatch = useDispatch()
 
-  let history = useHistory()
+  const history = useHistory()
 
   const { user } = useSelector((state) => state.loginReducer)
   const { loading, error, data } = useQuery(GROUPS_QUERY, {
@@ -86,7 +86,7 @@ function SubmitPost() {
     event.preventDefault()
 
     try {
-      let newGroup 
+      let newGroup
       if (subScoreboardIsOpen) {
         newGroup = await createGroup({
           variables: {
@@ -113,7 +113,7 @@ function SubmitPost() {
       const { _id, url } = submitResult.data.addPost
       dispatch({
         type: SET_SELECTED_POST,
-        payload: _id
+        payload: _id,
       })
       successAlert(url, _id)
     } catch (err) {
@@ -129,7 +129,7 @@ function SubmitPost() {
     setPostTitle(event.target.value)
   }
 
-  const clearPostTitle = (event) => {
+  const clearPostTitle = () => {
     if (postTitle === '[Enter Title]') {
       setPostTitle('')
     }
@@ -148,32 +148,32 @@ function SubmitPost() {
     setPrivacy(event.target.value)
   }
 
-  const successAlert = (shareableLink, id) => {
+  const successAlert = (shareableLink) => {
     // const shareableLink = `/hhsb/${domainKey}/content/${id}`
 
     setAlert(
       <SweetAlert
         success
         style={{ display: 'block', top: '50%' }}
-        title='You Created a Post!'
+        title="You Created a Post!"
         onConfirm={() => history.push(shareableLink)}
         onCancel={() => hideAlert()}
         confirmBtnCssClass={`${classes.button} ${classes.success}`}
-        confirmBtnText='Go to Post'
+        confirmBtnText="Go to Post"
       >
-        <Typography variant='caption'>Share your text to your friends and family.</Typography>
+        <Typography variant="caption">Share your text to your friends and family.</Typography>
         <Grid
           container
-          justify='space-around'
+          justify="space-around"
           style={{ marginTop: 16 }}
-          wrap='nowrap'
+          wrap="nowrap"
         >
           <GridItem style={{ overflow: 'auto' }}>
             <pre>{ DOMAIN + shareableLink }</pre>
           </GridItem>
           <GridItem style={{ flex: 1 }}>
             <IconButton onClick={handleCopy(DOMAIN + shareableLink)}>
-              <Tooltip title='Copy Link to Clip Board'><AssignmentIcon /></Tooltip>
+              <Tooltip title="Copy Link to Clip Board"><AssignmentIcon /></Tooltip>
             </IconButton>
           </GridItem>
         </Grid>
@@ -186,14 +186,16 @@ function SubmitPost() {
       <SweetAlert
         error
         style={{ display: 'block', top: '50%' }}
-        title='Something went wrong!'
+        title="Something went wrong!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         confirmBtnCssClass={`${classes.button} ${classes.danger}`}
-        confirmBtnText='Ok'
+        confirmBtnText="Ok"
       >
         {/* We don't know what, yet let us know and we can find out */}
-        Error: {err}
+        Error:
+        {' '}
+        {err}
       </SweetAlert>
     )
   }
@@ -217,11 +219,11 @@ function SubmitPost() {
       <SweetAlert
         error
         style={{ display: 'block', top: '50%' }}
-        title='Something went wrong!'
+        title="Something went wrong!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         confirmBtnCssClass={`${classes.button} ${classes.danger}`}
-        confirmBtnText='Ok'
+        confirmBtnText="Ok"
       >
         We don&apos;t know what, yet let us know and we can find out
       </SweetAlert>
@@ -240,9 +242,9 @@ function SubmitPost() {
   })) || []
 
   return (
-    <Fragment>
+    <>
       {alert}
-      <GridContainer spacing={1} direction='col'>
+      <GridContainer spacing={1} direction="col">
         <GridItem xs={6}>
           <Card style={{ height: '800px' }}>
             <CardHeader style={{ zIndex: 0 }}>
@@ -268,7 +270,7 @@ function SubmitPost() {
                     onFocus={clearPostTitle}
                     onChange={handlePostTitle}
                     value={postTitle}
-                    name='title'
+                    name="title"
                     required
                   />
                 </div>
@@ -289,12 +291,12 @@ function SubmitPost() {
                 onSubmit={handleSubmit}
               >
                 <TextField
-                  id='post'
-                  label='Post'
-                  placeholder='Input text to submit post'
+                  id="post"
+                  label="Post"
+                  placeholder="Input text to submit post"
                   multiline
                   fullWidth
-                  name='text'
+                  name="text"
                   required
                   onChange={handlePostText}
                   value={postText}
@@ -313,20 +315,20 @@ function SubmitPost() {
                       {
                         subScoreboardIsOpen && subScoreboardIsOpen ? (
                           <TextField
-                            id='group'
-                            label='Group'
-                            placeholder='Create a new group'
-                            name='group'
+                            id="group"
+                            label="Group"
+                            placeholder="Create a new group"
+                            name="group"
                             required
                             onChange={handleGroup}
-                            value={groupName}  
+                            value={groupName}
                             style={{ width: 280 }}
                           />
-                         ) : (
-                          <Fragment>
-                            <InputLabel id='group-label' htmlFor='group'>Group</InputLabel>
+                        ) : (
+                          <>
+                            <InputLabel id="group-label" htmlFor="group">Group</InputLabel>
                             <Select
-                              id='group'
+                              id="group"
                               value={groupId}
                               placeholder={groupName}
                               required
@@ -342,9 +344,10 @@ function SubmitPost() {
                                   key={publicGroup._id}
                                 >
                                   {publicGroup.title}
-                                </MenuItem>))}
+                                </MenuItem>
+                              ))}
                             </Select>
-                          </Fragment>
+                          </>
                         )
                       }
                     </FormControl>
@@ -353,14 +356,14 @@ function SubmitPost() {
                       onClick={handleCreateSubScoreboard}
                     >
                       { subScoreboardIsOpen && subScoreboardIsOpen ?
-                        <Tooltip title='Choose an existing group' style={{ fontSize: 18 }}><RemoveIcon /></Tooltip> :
-                        <Tooltip title='Add a new group'><AddIcon /></Tooltip>}
+                        <Tooltip title="Choose an existing group" style={{ fontSize: 18 }}><RemoveIcon /></Tooltip> :
+                        <Tooltip title="Add a new group"><AddIcon /></Tooltip>}
                     </IconButton>
                   </div>
                   <Button
-                    type='submit'
-                    variant='contained'
-                    size='large'
+                    type="submit"
+                    variant="contained"
+                    size="large"
                     style={{
                       backgroundColor: 'rgb(233, 30, 99)',
                     }}
@@ -371,11 +374,11 @@ function SubmitPost() {
                 {
                   subScoreboardIsOpen && (
                     <div style={{ paddingTop: 16 }}>
-                      <FormControl required component='fieldset'>
-                        <FormLabel component='legend'>Choose Visibility</FormLabel>
-                        <RadioGroup aria-label='privacy' name='privacy' value={privacy} onChange={handlePrivacy}>
-                          <FormControlLabel value='private' control={<Radio />} label='Private' />
-                          <FormControlLabel value='public' control={<Radio />} label='Pulbic' />
+                      <FormControl required component="fieldset">
+                        <FormLabel component="legend">Choose Visibility</FormLabel>
+                        <RadioGroup aria-label="privacy" name="privacy" value={privacy} onChange={handlePrivacy}>
+                          <FormControlLabel value="private" control={<Radio />} label="Private" />
+                          <FormControlLabel value="public" control={<Radio />} label="Pulbic" />
                         </RadioGroup>
                       </FormControl>
                     </div>
@@ -410,7 +413,7 @@ function SubmitPost() {
           </Card>
         </GridItem>
       </GridContainer>
-    </Fragment>
+    </>
   )
 }
 

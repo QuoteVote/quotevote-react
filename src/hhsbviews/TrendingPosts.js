@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-import {useQuery} from '@apollo/react-hooks';
-import Card from "mui-pro/Card/Card.js"
-import CardBody from "mui-pro/Card/CardBody.js"
+import { useQuery } from '@apollo/react-hooks'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
 import CustomizedInputBase, { GET_SEARCH_KEY } from 'hhsbComponents/searchBar'
-import GridContainer from "mui-pro/Grid/GridContainer.js"
-import Pagination from "material-ui-flat-pagination";
-import Slider from '@material-ui/core/Slider';
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import Pagination from 'material-ui-flat-pagination'
+import Slider from '@material-ui/core/Slider'
 
 import Calendar from 'hhsbAssets/Calendar.svg'
 import Emoji from 'hhsbAssets/FollowingEmoji.svg'
@@ -21,9 +21,9 @@ export default function TrendingPosts() {
   const [total, setTotal] = useState(1)
   const { data: { searchKey } } = useQuery(GET_SEARCH_KEY)
   const { loading, error, data } = useQuery(GET_TOP_POSTS, {
-    variables: { limit, offset: 0, searchKey }
+    variables: { limit, offset: 0, searchKey },
   })
-  
+
   React.useEffect(() => {
     if (data) {
       setTotal(data.total)
@@ -104,8 +104,9 @@ export default function TrendingPosts() {
         limit={limit}
         offset={offset}
         total={total}
+        // eslint-disable-next-line
         onClick={(e, offset) => setOffset(offset)}
       />
     </Card>
   )
-}    
+}

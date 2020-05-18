@@ -9,8 +9,8 @@ import {
   IconButton,
   Button,
   Zoom,
-  Tooltip
-} from '@material-ui/core';
+  Tooltip,
+} from '@material-ui/core'
 import {
   Up, Down, Comment, Quote,
 } from 'hhsbComponents/Icons'
@@ -44,30 +44,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const VotingPopup = props => {
+const VotingPopup = ({ votedBy, onVote, onAddComment, selectedText }) => {
   const classes = useStyles()
   const { user } = useSelector((state) => state.loginReducer)
   const [expand, setExpand] = useState(false)
   const [comment, setComment] = useState('')
 
   let showUpvoteTooltip = false
-  
-  let showDownvoteTooltip = false 
-  const index = findIndex(props.votedBy, vote => vote.userId === user._id)
+
+  let showDownvoteTooltip = false
+  const index = findIndex(votedBy, (vote) => vote.userId === user._id)
   if (index !== -1) {
-    if (props.votedBy[index].type === 'up') {
+    if (votedBy[index].type === 'up') {
       showUpvoteTooltip = true
     } else {
       showDownvoteTooltip = true
     }
   }
   const handleVote = (type) => {
-    props.onVote(type)
-  };
+    onVote(type)
+  }
 
   const handleAddComment = () => {
-    const withQuote = !isEmpty(props.selectedText.text)
-    props.onAddComment(comment, withQuote)
+    const withQuote = !isEmpty(selectedText.text)
+    onAddComment(comment, withQuote)
     /* setTimeout(() => { this.setState({ isCommenting: false })}, 500) */
     setComment('')
   }
@@ -80,7 +80,7 @@ const VotingPopup = props => {
   })
 
   return (
-    <React.Fragment>
+    <>
       <Zoom in={!expand}>
         <Paper
           id="popButtons"
@@ -110,7 +110,7 @@ const VotingPopup = props => {
             </IconButton>
           </Tooltip>
         ) : (
-          <IconButton onClick={e => handleVote('up')}>
+          <IconButton onClick={() => handleVote('up')}>
             <Up
               width="419.000000pt"
               height="419.000000pt"
@@ -131,7 +131,7 @@ const VotingPopup = props => {
             </IconButton>
           </Tooltip>
         ) : (
-          <IconButton onClick={e => handleVote('down')}>
+          <IconButton onClick={() => handleVote('down')}>
             <Down
               width="563.000000pt"
               height="563.000000pt"
@@ -179,7 +179,7 @@ const VotingPopup = props => {
           />
         </Paper>
       </Zoom>
-    </React.Fragment>
+    </>
   )
 }
 

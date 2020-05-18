@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+// TODO fix Links
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Skeleton from '@material-ui/lab/Skeleton'
 
@@ -16,7 +19,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import { useHistory } from 'react-router-dom'
-import limit from 'string-limit'
+import stringLimit from 'string-limit'
 import copy from 'clipboard-copy'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SELECTED_POST } from 'actions/types'
@@ -28,12 +31,13 @@ import Send from '../hhsbAssets/Send.svg'
 
 const useStyles = makeStyles(styles)
 
+// eslint-disable-next-line
 function AlertSkeletonLoader({ limit }) {
   const rows = Array.from(Array(limit).keys())
   return (
     <div style={{ width: '90%' }}>
       {
-        rows.map((row) => (
+        rows.map(() => (
           <>
             <Skeleton variant="rect" animation="wave" height={50} />
             <br />
@@ -71,6 +75,7 @@ function LoadPostsList({ data }) {
   }
 
   const handleBookmark = (postId) => {
+    // eslint-disable-next-line no-underscore-dangle
     updatePostBookmark({ variables: { postId, userId: user._id } })
   }
 
@@ -176,7 +181,7 @@ function LoadPostsList({ data }) {
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-            {limit(text || '', 300)}
+            {stringLimit(text || '', 300)}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

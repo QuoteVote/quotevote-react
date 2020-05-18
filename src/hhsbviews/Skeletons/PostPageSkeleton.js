@@ -41,18 +41,18 @@ const PostPageSkeleton = () => (
               >
                 <div
                   style={{
-                    display: "flex",
-                    direction: "row",
-                    alignContent: "center",
-                    justifyContent: "space-between"
+                    display: 'flex',
+                    direction: 'row',
+                    alignContent: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <p
                     style={{
-                      color: "#E91E63",
-                      fontSize: "25px",
-                      font: "League Spartan",
-                      fontWeight: "bold"
+                      color: '#E91E63',
+                      fontSize: '25px',
+                      font: 'League Spartan',
+                      fontWeight: 'bold',
                     }}
                   >
                     <Skeleton variant="text" width={210} />
@@ -60,7 +60,7 @@ const PostPageSkeleton = () => (
                   <img
                     alt="chat"
                     src={Chat}
-                    style={{ height: "20px", paddingLeft: "10px" }}
+                    style={{ height: '20px', paddingLeft: '10px' }}
                   />
                 </div>
                 <div
@@ -78,18 +78,18 @@ const PostPageSkeleton = () => (
                     alt="share"
                     src={Send}
                     style={{
-                      height: "15px",
-                      paddingLeft: "15px",
-                      paddingTop: "3px"
+                      height: '15px',
+                      paddingLeft: '15px',
+                      paddingTop: '3px',
                     }}
                   />
                   <img
                     alt="bookmark"
                     src={Heart}
                     style={{
-                      height: "15px",
-                      paddingLeft: "15px",
-                      paddingTop: "3px"
+                      height: '15px',
+                      paddingLeft: '15px',
+                      paddingTop: '3px',
                     }}
                   />
                 </div>

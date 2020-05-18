@@ -1,28 +1,26 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable prefer-destructuring */
 // import { getThemeProps } from '@material-ui/styles';
-// import Accordion from 'mui-pro/Accordion/Accordion.js';
-// import Badge from 'mui-pro/Badge/Badge.js';
+// import Accordion from 'mui-pro/Accordion/Accordion';
+// import Badge from 'mui-pro/Badge/Badge';
 // import Box from '@material-ui/core/Box';
-// import Button from 'mui-pro/CustomButtons/Button.js'
-import Card from 'mui-pro/Card/Card.js'
-import CardBody from 'mui-pro/Card/CardBody.js'
-import CardFooter from 'mui-pro/Card/CardFooter.js'
-import CardHeader from 'mui-pro/Card/CardHeader.js'
+// import Button from 'mui-pro/CustomButtons/Button'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
+import CardFooter from 'mui-pro/Card/CardFooter'
+import CardHeader from 'mui-pro/Card/CardHeader'
 import Divider from '@material-ui/core/Divider'
-import GridContainer from 'mui-pro/Grid/GridContainer.js'
-import GridItem from 'mui-pro/Grid/GridItem.js'
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
 
-// import NavPills from 'mui-pro/NavPills/NavPills.js';
-import VotingBoard from 'hhsbComponents/VotingComponents/VotingBoard.js'
-import VotingPopup from 'hhsbComponents/VotingComponents/VotingPopup.js'
+// import NavPills from 'mui-pro/NavPills/NavPills';
+import VotingBoard from 'hhsbComponents/VotingComponents/VotingBoard'
+import VotingPopup from 'hhsbComponents/VotingComponents/VotingPopup'
 import React, { useState } from 'react'
 
-// import Content from '../hhsbComponents/ContentList.js';
-import Chat from '../hhsbAssets/Chat.svg'
-import Heart from '../hhsbAssets/Heart.svg'
-import Send from '../hhsbAssets/Send.svg'
+// import Content from '../hhsbComponents/ContentList';
 
-// import styles from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle.js';
+// import styles from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle';
 
 import FaceIcon from '@material-ui/icons/Face'
 import { useQuery, useMutation } from '@apollo/react-hooks'
@@ -34,6 +32,9 @@ import { cloneDeep, findIndex } from 'lodash'
 
 import { GET_POST, GET_TOP_POSTS } from 'graphql/query'
 import { VOTE, ADD_COMMENT } from 'graphql/mutations'
+import Send from '../hhsbAssets/Send.svg'
+import Heart from '../hhsbAssets/Heart.svg'
+import Chat from '../hhsbAssets/Chat.svg'
 
 const PostPage = () => {
   // const url = window.location.href
@@ -57,21 +58,21 @@ const PostPage = () => {
         variables: { postId },
       })
       const clonedPost = cloneDeep(data)
-      
-      const index = findIndex(clonedPost.post.votedBy, vote => vote.userId === user._id)
+
+      const index = findIndex(clonedPost.post.votedBy, (vote) => vote.userId === user._id)
       if (index !== -1) {
         clonedPost.post.votedBy[index].type = addVote.type
-        clonedPost.post.upvotes = addVote.type === 'up' ? 
+        clonedPost.post.upvotes = addVote.type === 'up' ?
           clonedPost.post.upvotes + 1 : clonedPost.post.upvotes - 1
-        
-        clonedPost.post.downvotes = addVote.type === 'down' ? 
+
+        clonedPost.post.downvotes = addVote.type === 'down' ?
           clonedPost.post.downvotes + 1 : clonedPost.post.downvotes - 1
       } else {
         clonedPost.post.votedBy.push({ type: addVote.type, userId: user._id })
         if (addVote.type === 'up') {
-          clonedPost.post.upvotes = clonedPost.post.upvotes + 1
+          clonedPost.post.upvotes++
         } else {
-          clonedPost.post.downvotes = clonedPost.post.downvotes + 1
+          clonedPost.post.downvotes++
         }
       }
       cache.writeQuery({
@@ -97,7 +98,7 @@ const PostPage = () => {
       {
         query: GET_POST,
         variables: { postId },
-      }
+      },
     ],
   })
   // const classes = useStyles();
@@ -110,7 +111,7 @@ const PostPage = () => {
 
   if (error) return `Something went wrong: ${error}`
 
-  const { post } = data;
+  const { post } = data
 
   const handleVoting = async (type) => {
     const vote = {
@@ -125,7 +126,8 @@ const PostPage = () => {
   }
 
   const handleAddComment = (comment, commentWithQuote = false) => {
-    let startIndex, endIndex, quoteText
+    let startIndex; let endIndex; let
+      quoteText
 
     // const HASHTAGS_REGEX = /#(\w|\d)+/g
     // const hashtags = comment.match(HASHTAGS_REGEX)
@@ -159,7 +161,7 @@ const PostPage = () => {
 
   return (
     <div>
-      <GridContainer spacing={1} direction='col'>
+      <GridContainer spacing={1} direction="col">
         <GridItem xs={6}>
           <Card style={{ height: '800px' }}>
             <CardHeader style={{ zIndex: 0 }}>
@@ -190,7 +192,7 @@ const PostPage = () => {
                     {post.title}
                   </p>
                   <img
-                    alt=''
+                    alt=""
                     src={Chat}
                     style={{ height: '20px', paddingLeft: '10px' }}
                   />
@@ -205,12 +207,13 @@ const PostPage = () => {
                 >
                   <p>
                     <strong style={{ color: 'green' }}>+</strong>
-                    {post.upvotes}/
+                    {post.upvotes}
+                    /
                     <strong style={{ color: 'red' }}>-</strong>
                     {post.downvotes}
                   </p>
                   <img
-                    alt='Send icon'
+                    alt="Send icon"
                     src={Send}
                     style={{
                       height: '15px',
@@ -219,7 +222,7 @@ const PostPage = () => {
                     }}
                   />
                   <img
-                    alt='Heart icon'
+                    alt="Heart icon"
                     src={Heart}
                     style={{
                       height: '15px',

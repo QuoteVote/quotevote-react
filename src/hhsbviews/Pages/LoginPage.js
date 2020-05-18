@@ -4,6 +4,14 @@ import React from 'react'
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
 
+// images
+import activiesPageImg from 'assets/img/carousel/Activities_Page.png'
+import postPageImg from 'assets/img/carousel/Post_Page.png'
+import profilePageImg from 'assets/img/carousel/Profile_Page.png'
+import sideNavImg from 'assets/img/carousel/Side_Navigation.png'
+import trendingPageImg from 'assets/img/carousel/Trending_Page.png'
+
+
 import {
   InputAdornment,
   CircularProgress,
@@ -27,12 +35,11 @@ import CardFooter from 'mui-pro/Card/CardFooter'
 import Carousel from 'react-material-ui-carousel'
 
 // login method
-import { userLogin } from 'actions/login'
+import { userLogin, tokenValidator } from 'actions/login'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
-import { tokenValidator } from '../../actions/login'
 
 
 const useStyles = makeStyles(styles)
@@ -41,7 +48,7 @@ const useStyles = makeStyles(styles)
 function CarouselImage({ imageUrl, alt }) {
   return (
     <Card square>
-      <img alt={alt} height={500} src={`/assets/${imageUrl}`} style={{ marginTop: '-15px' }} />
+      <img alt={alt} height={500} src={`${imageUrl}`} style={{ marginTop: '-15px' }} />
     </Card>
   )
 }
@@ -54,7 +61,7 @@ export default function LoginPage() {
   const [input, setInput] = React.useState({ password: '', username: '' })
 
   // This needs to be fixed so that we are importing the images instead of using the public/assets folder
-  const images = ['Activities_Page.png', 'Post_Page.png', 'Profile_Page.png', 'Side_Navigation.png', 'Trending_Page.png']
+  const images = [activiesPageImg, postPageImg, profilePageImg, sideNavImg, trendingPageImg]
 
   setTimeout(() => {
     setCardAnimation('')
