@@ -7,7 +7,6 @@ import Avatar from 'hhsbAssets/Avatar.png'
 import TrendingPosts from 'hhsbviews/TrendingPosts'
 import SubmitPost from 'hhsbviews/SubmitPost'
 import SearchView from 'hhsbviews/SearchView'
-import Profile from 'hhsbviews/profile'
 import ManageInvites from 'hhsbviews/ManageInvites'
 import HomePage from 'hhsbviews/Homepage/Homepage'
 import Chat from 'hhsbAssets/Chat.svg'
@@ -37,11 +36,11 @@ const hhsbRoutes = [
   },
 
   {
-    path: '/Trending',
+    path: '/Profile',
     name: 'My Profile',
     rtlName: 'الحاجيات',
     icon: Avatar,
-    component: Profile,
+    component: HomePage,
     layout: '/hhsb',
   },
   {
@@ -98,7 +97,7 @@ const hhsbRoutes = [
     layout: '/hhsb',
   },
   {
-    path: '/',
+    path: '/logout',
     name: 'Logout',
     rtlName: 'هعذاتسجيل الدخول',
     mini: 'L',
