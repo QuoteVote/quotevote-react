@@ -1,5 +1,4 @@
 import PostPage from 'hhsbviews/PostPage'
-import LoginPage from 'hhsbviews/Pages/LoginPage'
 
 import add from 'hhsbAssets/add.png'
 import Alert from 'hhsbAssets/Alerts.png'
@@ -16,6 +15,8 @@ import Home from 'hhsbAssets/Home.svg'
 import Search from 'hhsbAssets/Search.png'
 import Settings from 'hhsbAssets/Settings.png'
 import Trending from 'hhsbAssets/Trending.png'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import LogoutPage from './hhsbComponents/LogoutPage'
 
 const hhsbRoutes = [
   {
@@ -76,24 +77,16 @@ const hhsbRoutes = [
     layout: '/hhsb',
   },
   {
-    path: '/BuddyList',
-    name: 'BuddyList Test',
-    rtlName: 'التقويم',
-    icon: Search,
-    component: HomePage,
-    layout: '/hhsb',
-  },
-  {
-    path: '/ChatBar',
-    name: 'Chat Feed',
+    path: '/Notifications',
+    name: 'Notifications',
     rtlName: 'التقويم',
     icon: Alert,
     component: HomePage,
     layout: '/hhsb',
   },
   {
-    path: '/ChatBar',
-    name: 'Chat Feed',
+    path: '/Settings',
+    name: 'Settings',
     rtlName: 'التقويم',
     icon: Settings,
     component: HomePage,
@@ -105,13 +98,14 @@ const hhsbRoutes = [
     layout: '/hhsb',
   },
   {
-    path: '/login-page',
-    name: 'Login Page',
+    path: '/',
+    name: 'Logout',
     rtlName: 'هعذاتسجيل الدخول',
     mini: 'L',
     rtlMini: 'هعذا',
-    component: LoginPage,
-    layout: '/auth',
+    icon: ExitToAppIcon,
+    component: LogoutPage,
+    layout: '/logout',
   },
 ]
 export default hhsbRoutes

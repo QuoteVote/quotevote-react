@@ -31,14 +31,10 @@ const useStyles = makeStyles(styles)
 export default function Scoreboard(props) {
   const { ...rest } = props
   const history = useHistory()
-  // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [miniActive] = React.useState(true)
-  // const [image, setImage] = React.useState(require("assets/img/sidebar-2.jpg"));
   const [color] = React.useState('blue')
   const [bgColor] = React.useState('black')
-  // const [hasImage, setHasImage] = React.useState(true);
-  // const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [logo] = React.useState(logoWhite)
   // styles
   const classes = useStyles()
@@ -71,54 +67,11 @@ export default function Scoreboard(props) {
       window.removeEventListener('resize', resizeFunction)
     }
   })
-  // functions for changeing the states from components
-  // const handleImageClick = image => {
-  //   setImage(image);
-  // };
-  // const handleColorClick = color => {
-  //   setColor(color);
-  // };
-  // const handleBgColorClick = bgColor => {
-  //   switch (bgColor) {
-  //     case "white":
-  //       setLogo(require("assets/img/logo.svg"));
-  //       break;
-  //     default:
-  //       setLogo(require("assets/img/logo-white.svg"));
-  //       break;
-  //   }
-  //   setBgColor(bgColor);
-  // };
-  // const handleFixedClick = () => {
-  //   if (fixedClasses === "dropdown") {
-  //     setFixedClasses("dropdown show");
-  //   } else {
-  //     setFixedClasses("dropdown");
-  //   }
-  // };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
   const getRoute = () => window.location.pathname !== '/admin/full-screen-maps'
-  // const getActiveRoute = routes => {
-  //   let activeRoute = "Default Brand Text";
-  //    for (let i = 0; i < routes.length; i++) {
-  //     if (routes[i].collapse) {
-  //       let collapseActiveRoute = getActiveRoute(routes[i].views);
-  //       if (collapseActiveRoute !== activeRoute) {
-  //         return collapseActiveRoute;
-  //       }
-  //     } else {
-  //       if (
-  //         window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
-  //       ) {
-  //         console.log(routes[i].name)
-  //         return routes[i].name;
-  //       }
-  //     }
-  //   }
-  //   return activeRoute;
-  // };
   const getRoutes = (routes) => routes.map((prop, key) => {
     if (prop.collapse) {
       return getRoutes(prop.views)

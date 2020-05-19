@@ -19,7 +19,7 @@ import { createBrowserHistory } from 'history'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import {
-  Router, Route, Switch, Redirect,
+  Redirect, Route, Router, Switch,
 } from 'react-router-dom'
 import AdminLayout from 'layouts/Admin'
 import AuthLayout from 'layouts/Auth'
@@ -32,6 +32,7 @@ import TokenExpired from 'layouts/TokenExpired'
 import store, { persistor } from 'config/redux'
 
 import 'assets/scss/material-dashboard-pro-react.scss'
+import LogoutPage from './hhsbComponents/LogoutPage'
 
 const hist = createBrowserHistory()
 
@@ -46,6 +47,7 @@ ReactDOM.render(
             <Route path="/admin" component={AdminLayout} />
             <Route path="/hhsb" component={Scoreboard} />
             <Route path="/unauth" component={TokenExpired} />
+            <Route path="/logout" component={LogoutPage} />
             <Redirect from="/" to="/auth" />
           </Switch>
         </Router>

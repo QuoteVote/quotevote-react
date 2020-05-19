@@ -52,12 +52,16 @@ export const SEARCH = gql`
   }
 `
 
-export const GET_BOOK_MARKED = gql`
-  query getBookmarkedContents {
-    getBookmarkedContents {
-      lastMessage
+export const GET_CHAT_ROOMS = gql`
+  query chatRooms {
+    messageRooms {
+      _id
+      users
+      messageType
+      created
+      title
     }
-  } 
+  }
 `
 
 export const GET_TOP_POSTS = gql`
