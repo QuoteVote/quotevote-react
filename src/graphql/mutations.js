@@ -20,6 +20,22 @@ export const SUBMIT_POST = gql`
   }
 `
 
+export const APPROVE_POST = gql`
+  mutation approvePost($postId: String!, $userId: String!) {
+    approvePost(postId: $postId, userId: $userId) {
+      _id
+    }
+  }
+`
+
+export const REJECT_POST = gql`
+  mutation rejectPost($postId: String!, $userId: String!) {
+    rejectPost(postId: $postId, userId: $userId) {
+      _id
+    }
+  }
+`
+
 export const UPDATE_USER_INVITE_STATUS = gql`
   mutation sendUserInviteApproval($user_invite_id: String!, $action: String!) {
     sendUserInviteApproval(user_invite_id: $user_invite_id, action: $action)

@@ -1,21 +1,20 @@
 /* eslint-disable prefer-destructuring */
-// import { getThemeProps } from '@material-ui/styles';
-// import Accordion from 'mui-pro/Accordion/Accordion.js';
-// import Badge from 'mui-pro/Badge/Badge.js';
-// import Box from '@material-ui/core/Box';
-// import Button from 'mui-pro/CustomButtons/Button.js'
+import React, { useState } from 'react'
+
+import Button from 'mui-pro/CustomButtons/Button.js'
 import Card from 'mui-pro/Card/Card.js'
 import CardBody from 'mui-pro/Card/CardBody.js'
 import CardFooter from 'mui-pro/Card/CardFooter.js'
 import CardHeader from 'mui-pro/Card/CardHeader.js'
-import Divider from '@material-ui/core/Divider'
 import GridContainer from 'mui-pro/Grid/GridContainer.js'
 import GridItem from 'mui-pro/Grid/GridItem.js'
 
-// import NavPills from 'mui-pro/NavPills/NavPills.js';
+import Divider from '@material-ui/core/Divider'
+import CardActions from '@material-ui/core/CardActions'
+
 import VotingBoard from 'hhsbComponents/VotingComponents/VotingBoard.js'
 import VotingPopup from 'hhsbComponents/VotingComponents/VotingPopup.js'
-import React, { useState } from 'react'
+import ApproveRejectPopover from 'hhsbComponents/ApproveRejectPopover'
 
 // import Content from '../hhsbComponents/ContentList.js';
 import Chat from '../hhsbAssets/Chat.svg'
@@ -25,6 +24,8 @@ import Send from '../hhsbAssets/Send.svg'
 // import styles from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle.js';
 
 import FaceIcon from '@material-ui/icons/Face'
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import moment from 'moment'
 
@@ -33,7 +34,7 @@ import { useSelector } from 'react-redux'
 import { cloneDeep, findIndex } from 'lodash'
 
 import { GET_POST, GET_TOP_POSTS } from 'graphql/query'
-import { VOTE, ADD_COMMENT } from 'graphql/mutations'
+import { VOTE, ADD_COMMENT, APPROVE_POST, REJECT_POST } from 'graphql/mutations'
 
 const PostPage = () => {
   // const url = window.location.href
@@ -42,6 +43,8 @@ const PostPage = () => {
   // const contentId = urlSegment[6]
 
   const [selectedText, setSelectedText] = useState('')
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [buttonType, setButtonType] = useState('approved');
   const { user } = useSelector((state) => state.loginReducer)
   const { id: postId } = useSelector((state) => state.postReducer.selectedPost)
   const [addVote] = useMutation(VOTE, {
@@ -100,6 +103,24 @@ const PostPage = () => {
       }
     ],
   })
+
+  const [approvePost] = useMutation(APPROVE_POST, {
+    refetchQueries: [
+      {
+        query: GET_POST,
+        variables: { postId },
+      }
+    ],
+  })
+
+  const [rejectPost] = useMutation(REJECT_POST, {
+    refetchQueries: [
+      {
+        query: GET_POST,
+        variables: { postId },
+      }
+    ],
+  })
   // const classes = useStyles();
 
   const { loading, error, data } = useQuery(GET_POST, {
@@ -111,6 +132,10 @@ const PostPage = () => {
   if (error) return `Something went wrong: ${error}`
 
   const { post } = data;
+  
+  const disableApproveReject = user._id === post.userId
+  const disablApprove = post.approvedBy.includes(user._id)
+  const disableReject = post.rejectedBy.includes(user._id)
 
   const handleVoting = async (type) => {
     const vote = {
@@ -155,6 +180,27 @@ const PostPage = () => {
     }
 
     addComment({ variables: { comment: newComment } })
+  }
+
+  const handlePopoverOpen = (event, type) => {
+    setAnchorEl(event.currentTarget);
+    setButtonType(type);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleApprovePost = () => {
+    if (!disableApproveReject || !disablApprove) {
+      approvePost({ variables: { userId: user._id, postId: post._id } })
+    }
+  }
+
+  const handleRejectPost = () => {
+    if (!disableApproveReject || !disableReject) {
+      rejectPost({ variables: { userId: user._id, postId: post._id } })
+    }
   }
 
   return (
@@ -248,6 +294,40 @@ const PostPage = () => {
                 )}
               </VotingBoard>
             </CardBody>
+            <CardActions>
+              <GridContainer spacing={4} justify='center'>
+                <GridItem>
+                  <Button 
+                    variant='contained'
+                    startIcon={<CloseIcon />}
+                    onMouseEnter={(e) => handlePopoverOpen(e, 'rejected')}
+                    onClick={handleRejectPost}
+                    style={{ 
+                      backgroundColor: '#f44336',
+                      color: 'white',
+                      opacity: disableApproveReject || disableReject ? 0.65 : 1
+                    }}
+                  >
+                    { disableReject ? 'REJECTED' : 'REJECT' }
+                  </Button>
+                </GridItem>
+                <GridItem>
+                  <Button 
+                    variant='contained'
+                    startIcon={<CheckIcon />}
+                    onMouseEnter={(e) => handlePopoverOpen(e, 'approved')}
+                    onClick={handleApprovePost}
+                    style={{ 
+                      backgroundColor: '#4caf50',
+                      color: 'white',
+                      opacity: disableApproveReject || disablApprove ? 0.65 : 1
+                    }}
+                  >
+                    { disablApprove ? 'APPROVED' : 'APPROVE' }
+                  </Button>
+                </GridItem>
+              </GridContainer>
+            </CardActions>
           </Card>
         </GridItem>
         <GridItem xs={6} style={{ paddingBottom: 0 }}>
@@ -307,6 +387,13 @@ const PostPage = () => {
             ))}
         </GridItem>
       </GridContainer>
+      <ApproveRejectPopover
+        anchorEl={anchorEl}
+        handlePopoverClose={handlePopoverClose}
+        type={buttonType}
+        approvedBy={post.approvedBy}
+        rejectedBy={post.rejectedBy}
+      />
     </div>
   )
 }

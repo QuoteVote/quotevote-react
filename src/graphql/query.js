@@ -24,6 +24,17 @@ export const USER_INVITE_REQUESTS = gql`
     }
   }
 `
+
+export const GET_USERS = gql`
+  query users {
+    users {
+      _id
+      name
+      username
+    }
+  } 
+`
+
 export const GET_POST = gql`
   query post($postId: String!) {
     post(postId: $postId) 
