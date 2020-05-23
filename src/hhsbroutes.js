@@ -17,6 +17,7 @@ import Search from 'hhsbAssets/Search.png'
 import Settings from 'hhsbAssets/Settings.png'
 import Trending from 'hhsbAssets/Trending.png'
 
+
 const hhsbRoutes = [
   {
     path: '/Home',
@@ -113,5 +114,7 @@ const hhsbRoutes = [
     component: LoginPage,
     layout: '/auth',
   },
+
+
 ]
 export default hhsbRoutes

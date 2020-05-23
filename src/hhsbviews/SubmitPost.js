@@ -17,12 +17,14 @@ import {
   Tooltip,
   Radio,
   RadioGroup,
+  Switch
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
 
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
+import FormGroup from '@material-ui/core/FormGroup'
 
 
 // Materi Icons
@@ -68,6 +70,10 @@ function SubmitPost() {
   const [groupId, setGroupId] = useState('')
   const [subScoreboardIsOpen, setCreateSubScoreboard] = useState(false)
   const [privacy, setPrivacy] = useState('private')
+  const [switchVal, setSwitch] = React.useState({
+    checkedA: true,
+    checkedB: true,
+  });
 
   const dispatch = useDispatch()
 
@@ -81,6 +87,9 @@ function SubmitPost() {
   const [createGroup] = useMutation(CREATE_GROUP)
 
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
+  const handleSwitchChange = (event) => {
+    setSwitch({ ...switchVal, [event.target.name]: event.target.checked });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -407,6 +416,31 @@ function SubmitPost() {
                 </p>
               </div>
             </CardHeader>
+            <CardBody>
+              <FormControl requried> 
+                  <TextField
+                    style={{width: '500px'}}
+                    placeholder='input text to submit predict truth or sentiment'
+                  >
+                    
+                  </TextField>
+              </FormControl>
+              <div style={{top: 145, marginLeft: 300}}>
+                <h2 style={{color:'#4baf4f',}}> 85%</h2>
+                <h2 style={{color:'#4baf4f', fontSize: 20}} > Very Agreeable</h2>
+              </div>
+              <div style={{top: 150, marginLeft: 300}}>
+              <FormGroup row>
+                <FormControlLabel
+                  control={<Switch checked={switchVal.checkedA} onChange={handleSwitchChange} name="checkedA" />}
+                  label="Truth"
+                />
+                <Button style={{backgroundColor:'#ff9800'}}> Pop</Button>
+              </FormGroup>
+
+
+              </div>
+            </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
