@@ -17,12 +17,12 @@ import logoWhite from 'assets/img/logo-white.svg'
 import { makeStyles } from '@material-ui/core/styles'
 
 // core components
-import Sidebar from 'hhsbComponents/hhsbSidebar'
+import Sidebar from 'components/hhsbSidebar'
 
-import hhsbRoutes from 'hhsbroutes'
+import routes from 'routes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
-import { tokenValidator } from '../actions/login'
+import { tokenValidator } from 'store/actions/login'
 
 let ps
 
@@ -119,7 +119,7 @@ export default function Scoreboard(props) {
   //   }
   //   return activeRoute;
   // };
-  const getRoutes = (routes) => routes.map((prop, key) => {
+  const getRoutes = (routesParam) => routesParam.map((prop, key) => {
     if (prop.collapse) {
       return getRoutes(prop.views)
     }
@@ -154,7 +154,7 @@ export default function Scoreboard(props) {
     <div className={classes.wrapper}>
       {!tokenValidator() && history.push('/unauth')}
       <Sidebar
-        routes={hhsbRoutes}
+        routes={routes}
         logo={logo}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen} // true for development. mobileOpen for prod
@@ -171,7 +171,7 @@ export default function Scoreboard(props) {
           <div className={classes.content}>
             <div className={classes.container}>
               <Switch>
-                {getRoutes(hhsbRoutes)}
+                {getRoutes(routes)}
                 <Redirect from="/admin" to="/admin/dashboard" />
               </Switch>
             </div>
@@ -179,7 +179,7 @@ export default function Scoreboard(props) {
         ) : (
           <div className={classes.map}>
             <Switch>
-              {getRoutes(hhsbRoutes)}
+              {getRoutes(routes)}
               <Redirect from="/admin" to="/admin/dashboard" />
             </Switch>
           </div>

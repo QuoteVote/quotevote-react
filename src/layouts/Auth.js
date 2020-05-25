@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import AuthNavbar from 'mui-pro/Navbars/AuthNavbar'
 import Footer from 'mui-pro/Footer/Footer'
 
-import routes from 'routes'
+import routes from 'mui-pro/mui-routes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/authStyle'
 

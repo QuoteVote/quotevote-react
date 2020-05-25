@@ -1,29 +1,16 @@
-import { omit } from 'lodash'
 import React from 'react'
 
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
-
-// images
-import activiesPageImg from 'assets/img/carousel/Activities_Page.png'
-import postPageImg from 'assets/img/carousel/Post_Page.png'
-import profilePageImg from 'assets/img/carousel/Profile_Page.png'
-import sideNavImg from 'assets/img/carousel/Side_Navigation.png'
-import trendingPageImg from 'assets/img/carousel/Trending_Page.png'
-
-
-import {
-  InputAdornment,
-  CircularProgress,
-  Hidden,
-} from '@material-ui/core'
-
+import InputAdornment from '@material-ui/core/InputAdornment'
 import Icon from '@material-ui/core/Icon'
 
 // @material-ui/icons
 import Face from '@material-ui/icons/Face'
+import Email from '@material-ui/icons/Email'
+// import LockOutline from "@material-ui/icons/LockOutline";
 
-// core mui-pro
+// core Material UI Pro components
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
 import CustomInput from 'mui-pro/CustomInput/CustomInput'
@@ -32,73 +19,22 @@ import Card from 'mui-pro/Card/Card'
 import CardBody from 'mui-pro/Card/CardBody'
 import CardHeader from 'mui-pro/Card/CardHeader'
 import CardFooter from 'mui-pro/Card/CardFooter'
-import Carousel from 'react-material-ui-carousel'
 
-// login method
-import { userLogin, tokenValidator } from 'store/actions/login'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
-
 
 const useStyles = makeStyles(styles)
 
-// eslint-disable-next-line react/prop-types
-function CarouselImage({ imageUrl, alt }) {
-  return (
-    <Card square>
-      <img alt={alt} height={500} src={`${imageUrl}`} style={{ marginTop: '-15px' }} />
-    </Card>
-  )
-}
-
 export default function LoginPage() {
   const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const { loading, loginError } = useSelector((state) => state.loginReducer)
-  const [input, setInput] = React.useState({ password: '', username: '' })
-
-  // This needs to be fixed so that we are importing the images instead of using the public/assets folder
-  const images = [activiesPageImg, postPageImg, profilePageImg, sideNavImg, trendingPageImg]
-
   setTimeout(() => {
     setCardAnimation('')
   }, 700)
-
   const classes = useStyles()
-  const handleInputs = (e) => {
-    const { id, value } = e.target
-    setInput({ ...omit(input, [id]), [id]: value })
-  }
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const { username, password } = input
-    userLogin(username, password, dispatch, history)
-  }
-  const handleFormSubmit = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit(e)
-    }
-  }
   return (
     <div className={classes.container}>
-      {tokenValidator() && history.push('/hhsb/Home')}
-      <GridContainer justify="center" style={{ marginRight: 24 }}>
-        <Hidden smDown>
-          <GridItem lg={8}>
-            <Carousel interval={3000}>
-              {
-                images.map((image) => (
-                  <CarouselImage imageUrl={image} alt={image} />
-                ))
-              }
-            </Carousel>
-          </GridItem>
-        </Hidden>
+      <GridContainer justify="center">
         <GridItem xs={12} sm={6} md={4}>
-          <form onSubmit={(e) => handleFormSubmit(e)}>
+          <form>
             <Card login className={classes[cardAnimaton]}>
               <CardHeader
                 className={`${classes.cardHeader} ${classes.textCenter}`}
@@ -124,8 +60,8 @@ export default function LoginPage() {
               </CardHeader>
               <CardBody>
                 <CustomInput
-                  labelText="Username"
-                  id="username"
+                  labelText="First Name.."
+                  id="firstname"
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -135,9 +71,21 @@ export default function LoginPage() {
                         <Face className={classes.inputAdornmentIcon} />
                       </InputAdornment>
                     ),
-                    onChange: (e) => handleInputs(e),
                   }}
-                  error={loginError}
+                />
+                <CustomInput
+                  labelText="Email..."
+                  id="email"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Email className={classes.inputAdornmentIcon} />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <CustomInput
                   labelText="Password"
@@ -153,28 +101,15 @@ export default function LoginPage() {
                         </Icon>
                       </InputAdornment>
                     ),
-                    onChange: (e) => handleInputs(e),
                     type: 'password',
                     autoComplete: 'off',
                   }}
-                  error={loginError}
-                  helperText={loginError}
                 />
               </CardBody>
               <CardFooter className={classes.justifyContentCenter}>
-                {loading ? (
-                  <CircularProgress color="secondary" />
-                ) : (
-                  <Button
-                    onClick={(e) => handleSubmit(e)}
-                    color="rose"
-                    simple
-                    size="lg"
-                    block
-                  >
-                    LOGIN
-                  </Button>
-                )}
+                <Button color="rose" simple size="lg" block>
+                  Let&apos;s Go
+                </Button>
               </CardFooter>
             </Card>
           </form>
