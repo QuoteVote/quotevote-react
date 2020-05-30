@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 import BuddyList from './BuddyList'
 import MessageContainer from './MessageContainer'
@@ -11,13 +11,11 @@ export default function ChatComponent({ Display, ...props }) {
     chatContainer: {
       width: '100%%',
       maxWidth: '300px',
-
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'center',
-      height: '800px',
+      height: '100%',
       wrap: 'wrapContent',
-      paddingBottom: '5px',
       zIndex: 2000,
       display: Display,
     },
@@ -41,7 +39,7 @@ export default function ChatComponent({ Display, ...props }) {
 
   return (
     <div className={classes.chatContainer}>
-      {getDisplay() }
+      {getDisplay()}
     </div>
   )
 }
