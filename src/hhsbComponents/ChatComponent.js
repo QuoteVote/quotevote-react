@@ -1,16 +1,17 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/core/styles'
 
 import BuddyList from './BuddyList'
 import MessageContainer from './MessageContainer'
 
 // eslint-disable-next-line react/prop-types
-export default function ChatComponent({ Display, ...props }) {
-  const [Chat, setChat] = React.useState(true)
+export default function ChatComponent({Display, ...props}) {
+  const [Chat, setChat] = React.useState(false)
+  const [selectedRoom, setSelectedRoom] = React.useState(null)
   const useStyles = makeStyles({
     chatContainer: {
-      width: '100%%',
-      maxWidth: '300px',
+      width: '280px',
+      maxWidth: 360,
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -22,19 +23,17 @@ export default function ChatComponent({ Display, ...props }) {
 
   })
   const classes = useStyles(props)
-  const toggleDisplay = () => {
-    // console.log('setting chat')
-    setChat(!Chat)
+  const toggleDisplay = (newSelectedRoom) => {
+    const isChat = !Chat
+    setChat(isChat)
+    setSelectedRoom(newSelectedRoom)
   }
 
   const getDisplay = () => {
-    // console.log(Chat)
     if (Chat === true) {
-      return <MessageContainer toggle={toggleDisplay} />
-      // console.log('chat is true')
+      return <MessageContainer toggle={toggleDisplay} selectedRoom={selectedRoom}/>
     }
-    return <BuddyList toggle={toggleDisplay} />
-    // console.log('chat is false')
+    return <BuddyList toggle={toggleDisplay}/>
   }
 
   return (

@@ -5,7 +5,7 @@ import GridContainer from 'mui-pro/Grid/GridContainer'
 import { useQuery } from '@apollo/react-hooks'
 import ChatListPanel from './ChatListPanel'
 import { GET_CHAT_ROOMS } from '../../graphql/query'
-import ChatListPanelLoader from './ChatListPanelLoader'
+import ChatLoader from './ChatLoader'
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: '100%',
     wrap: 'wrapContent',
+    flexGrow: 1,
   },
   bullet: {
     display: 'inline-block',
@@ -48,19 +49,19 @@ export default function BuddyList(props) {
   const Data =
     (!loading && !isEmpty(data.messageRooms) &&
       data.messageRooms.map((item) => ({
+        room: item,
         Text: item.title,
         color: '#191919',
         type: item.messageType,
         avatar: item.avatar,
       }))) ||
     []
-
   return (
     <GridContainer className={classes.chatContainer}>
-      <GridContainer className={classes.header} onClick={props.toggle}>
+      <GridContainer className={classes.header}>
         <p className={classes.headerText}>Buddy Lists</p>
       </GridContainer>
-      {loading ? <ChatListPanelLoader /> : <ChatListPanel data={Data} />}
+      {loading ? <ChatLoader /> : <ChatListPanel {...props} data={Data} />}
     </GridContainer>
   )
 }

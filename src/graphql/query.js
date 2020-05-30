@@ -65,6 +65,21 @@ export const GET_CHAT_ROOMS = gql`
   }
 `
 
+export const GET_ROOM_MESSAGES = gql`
+  query messages ($messageRomId: String!){
+    messages(messageRoomId: $messageRomId) {
+      _id
+      messageRoomId
+      userName
+      userId
+      title
+      text
+      type
+      created
+    }
+  }
+`
+
 export const GET_TOP_POSTS = gql`
   query topPosts($limit: Int!, $offset: Int!, $searchKey: String!) {
     posts(limit: $limit, offset: $offset, searchKey: $searchKey)

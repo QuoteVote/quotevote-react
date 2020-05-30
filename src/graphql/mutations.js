@@ -51,3 +51,16 @@ export const UPDATE_POST_BOOKMARK = gql`
     }
   }
 `
+export const SEND_MESSAGE = gql`
+  mutation chat($message: MessageInput!) {
+    createMessage(message: $message) {
+      _id
+      userId
+      messageRoomId
+      title
+      text
+      type
+      created
+    }
+  }
+`

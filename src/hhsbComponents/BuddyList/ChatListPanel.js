@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -28,17 +28,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 // eslint-disable-next-line react/prop-types
-function ListItemLink({classes, listData}) {
+function ListItemLink({ classes, listData, toggle }) {
   return (
     <List disablePadding>
       {listData.map((item, i) => (
-        <ListItem button className={classes.listItem} key={i}>
+        <ListItem button className={classes.listItem} key={i} onClick={() => toggle(item)}>
           <ListItemAvatar>
             <Avatar alt={item.Text} src={item.avatar}>
               {initials(item.Text)}
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={item.Text}/>
+          <ListItemText primary={item.Text} />
         </ListItem>
       ))}
     </List>
@@ -47,7 +47,7 @@ function ListItemLink({classes, listData}) {
 
 
 // eslint-disable-next-line react/prop-types
-export default function ChatListPanel({data}) {
+export default function ChatListPanel({ data, toggle }) {
   const classes = useStyles()
   // eslint-disable-next-line react/prop-types
   const followingData = data.filter((following) => following.type === 'USER')
@@ -59,12 +59,12 @@ export default function ChatListPanel({data}) {
         <ListSubheader component="div" className={classes.listSubHeader}>
           Following
         </ListSubheader>
-        <ListItemLink classes={classes} listData={followingData}/>
-        <Divider className={classes.dividerClass}/>
+        <ListItemLink toggle={toggle} classes={classes} listData={followingData} key={"FollowingList"} />
+        <Divider className={classes.dividerClass} />
         <ListSubheader component="div" className={classes.listSubHeader}>
           Posts
         </ListSubheader>
-        <ListItemLink classes={classes} listData={postsData}/>
+        <ListItemLink toggle={toggle} classes={classes} listData={postsData} key={"PostList"}/>
       </List>
     </div>
   )
