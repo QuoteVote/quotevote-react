@@ -1,4 +1,4 @@
-name: ESLint Action
+name: ESLint
 
 on: pull_request
 
