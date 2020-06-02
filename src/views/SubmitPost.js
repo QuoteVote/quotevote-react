@@ -111,7 +111,7 @@ function SubmitPost() {
         },
       })
       const { _id, url } = submitResult.data.addPost
-      dispatch(SET_SELECTED_POST)
+      dispatch(SET_SELECTED_POST(_id))
       successAlert(url, _id)
     } catch (err) {
       errorAlert(err)
