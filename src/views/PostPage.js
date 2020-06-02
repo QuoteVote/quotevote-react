@@ -13,8 +13,8 @@ import GridItem from 'mui-pro/Grid/GridItem.js'
 import Divider from '@material-ui/core/Divider'
 import CardActions from '@material-ui/core/CardActions'
 
-import VotingBoard from 'hhsbComponents/VotingComponents/VotingBoard.js'
-import VotingPopup from 'hhsbComponents/VotingComponents/VotingPopup.js'
+import VotingBoard from 'components/VotingComponents/VotingBoard.js'
+import VotingPopup from 'components/VotingComponents/VotingPopup.js'
 import ApproveRejectPopover from 'hhsbComponents/ApproveRejectPopover'
 
 // import Content from '../components/ContentList';
@@ -33,6 +33,9 @@ import { cloneDeep, findIndex } from 'lodash'
 
 import { GET_POST, GET_TOP_POSTS } from 'graphql/query'
 import { VOTE, ADD_COMMENT, APPROVE_POST, REJECT_POST } from 'graphql/mutations'
+import Chat from 'assets/img/Chat.svg'
+import Heart from 'assets/img/Heart.svg'
+import Send from 'assets/img/Send.svg'
 
 const PostPage = () => {
   // const url = window.location.href
