@@ -22,7 +22,8 @@ import Sidebar from 'components/hhsbSidebar'
 import routes from 'routes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
-import { tokenValidator } from 'store/actions/login'
+import { tokenValidator } from 'store/user'
+import { useDispatch } from 'react-redux'
 
 let ps
 
@@ -31,6 +32,7 @@ const useStyles = makeStyles(styles)
 export default function Scoreboard(props) {
   const { ...rest } = props
   const history = useHistory()
+  const dispatch = useDispatch()
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [miniActive] = React.useState(true)
@@ -71,6 +73,15 @@ export default function Scoreboard(props) {
       window.removeEventListener('resize', resizeFunction)
     }
   })
+
+  // TODO: Abstract tokenValidator function
+  React.useEffect(() => {
+    const validated = tokenValidator(dispatch)
+    if (!validated) {
+      history.push('/unauth')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   // functions for changeing the states from components
   // const handleImageClick = image => {
   //   setImage(image);
@@ -152,7 +163,6 @@ export default function Scoreboard(props) {
   }
   return (
     <div className={classes.wrapper}>
-      {!tokenValidator() && history.push('/unauth')}
       <Sidebar
         routes={routes}
         logo={logo}

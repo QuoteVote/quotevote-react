@@ -43,7 +43,7 @@ const PostPage = () => {
   // const contentId = urlSegment[6]
 
   const [selectedText, setSelectedText] = useState('')
-  const { user } = useSelector((state) => state.loginReducer)
+  const { user } = useSelector((state) => state.user)
   const { id: postId } = useSelector((state) => state.postReducer.selectedPost)
   const [addVote] = useMutation(VOTE, {
     update(

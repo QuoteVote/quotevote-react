@@ -16,7 +16,6 @@
 */
 import { ApolloProvider } from '@apollo/react-hooks'
 import { createBrowserHistory } from 'history'
-import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import {
   Router, Route, Switch, Redirect,
@@ -29,7 +28,7 @@ import ReactDOM from 'react-dom'
 import RtlLayout from 'layouts/RTL'
 import Scoreboard from 'layouts/Scoreboard'
 import TokenExpired from 'layouts/TokenExpired'
-import store, { persistor } from 'store/store'
+import store from 'store/store'
 
 import 'assets/scss/material-dashboard-pro-react.scss'
 
@@ -38,18 +37,16 @@ const hist = createBrowserHistory()
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router history={hist}>
-          <Switch>
-            <Route path="/rtl" component={RtlLayout} />
-            <Route path="/auth" component={AuthLayout} />
-            <Route path="/admin" component={AdminLayout} />
-            <Route path="/hhsb" component={Scoreboard} />
-            <Route path="/unauth" component={TokenExpired} />
-            <Redirect from="/" to="/auth" />
-          </Switch>
-        </Router>
-      </PersistGate>
+      <Router history={hist}>
+        <Switch>
+          <Route path="/rtl" component={RtlLayout} />
+          <Route path="/auth" component={AuthLayout} />
+          <Route path="/admin" component={AdminLayout} />
+          <Route path="/hhsb" component={Scoreboard} />
+          <Route path="/unauth" component={TokenExpired} />
+          <Redirect from="/" to="/auth" />
+        </Switch>
+      </Router>
     </Provider>
   </ApolloProvider>,
   document.getElementById('root')

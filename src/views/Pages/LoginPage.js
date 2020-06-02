@@ -35,8 +35,7 @@ import CardFooter from 'mui-pro/Card/CardFooter'
 import Carousel from 'react-material-ui-carousel'
 
 // login method
-import { userLogin, tokenValidator } from 'store/actions/login'
-
+import { userLogin, tokenValidator } from 'store/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
@@ -57,8 +56,18 @@ export default function LoginPage() {
   const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
   const dispatch = useDispatch()
   const history = useHistory()
-  const { loading, loginError } = useSelector((state) => state.loginReducer)
+  const loading = useSelector((state) => state.user.loading)
+  const loginError = useSelector((state) => state.user.loginError)
   const [input, setInput] = React.useState({ password: '', username: '' })
+
+  // TODO: Abstract tokenValidator function
+  React.useEffect(() => {
+    const validated = tokenValidator(dispatch)
+    if (validated) {
+      history.push('/hhsb/Home')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // This needs to be fixed so that we are importing the images instead of using the public/assets folder
   const images = [activiesPageImg, postPageImg, profilePageImg, sideNavImg, trendingPageImg]
@@ -84,7 +93,6 @@ export default function LoginPage() {
   }
   return (
     <div className={classes.container}>
-      {tokenValidator() && history.push('/hhsb/Home')}
       <GridContainer justify="center" style={{ marginRight: 24 }}>
         <Hidden smDown>
           <GridItem lg={8}>
