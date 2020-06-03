@@ -11,14 +11,14 @@ import logoWhite from 'assets/img/logo-white.svg'
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
 // core components
-import Sidebar from 'hhsbComponents/hhsbSidebar'
+import Sidebar from 'components/hhsbSidebar'
 
 import hhsbRoutes from 'hhsbroutes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
-import { tokenValidator } from '../actions/login'
-import PopoverMenu from '../hhsbComponents/PopoverMenu'
-import ChatDrawer from '../hhsbComponents/ChatComponents/ChatDrawer'
+import PopoverMenu from '../components/PopoverMenu'
+import ChatDrawer from '../components/ChatComponents/ChatDrawer'
+import { tokenValidator } from 'store/actions/login'
 
 const useStyles = makeStyles(styles)
 

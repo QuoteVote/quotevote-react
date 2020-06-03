@@ -29,10 +29,10 @@ import ReactDOM from 'react-dom'
 import RtlLayout from 'layouts/RTL'
 import Scoreboard from 'layouts/Scoreboard'
 import TokenExpired from 'layouts/TokenExpired'
-import store, { persistor } from 'config/redux'
+import store, { persistor } from 'store/store'
 
 import 'assets/scss/material-dashboard-pro-react.scss'
-import LogoutPage from './hhsbComponents/LogoutPage'
+import LogoutPage from './components/LogoutPage'
 
 const hist = createBrowserHistory()
 

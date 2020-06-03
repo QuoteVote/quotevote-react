@@ -9,7 +9,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 // @material-ui/icons
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import styles from 'assets/jss/material-dashboard-pro-react/components/accordionStyle'
-import Chat from '../../hhsbAssets/Chat.svg'
+import Chat from '../../assets/img/Chat.svg'
 const useStyles = makeStyles(styles)
 
 export default function Accordion(props) {

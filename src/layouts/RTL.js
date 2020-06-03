@@ -20,7 +20,7 @@ import Footer from 'mui-pro/Footer/Footer'
 import Sidebar from 'mui-pro/Sidebar/Sidebar'
 import FixedPlugin from 'mui-pro/FixedPlugin/FixedPlugin'
 
-import routes from 'routes'
+import routes from 'mui-pro/mui-routes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/rtlStyle'
 

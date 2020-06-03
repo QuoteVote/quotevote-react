@@ -38,7 +38,9 @@ module.exports = {
     wait: true,
   },
   rules: {
+    'linebreak-style': 0,
     'prefer-destructuring': 1,
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'no-buffer-constructor': 1,
     'react/destructuring-assignment': 1,
     'react/no-unused-state': 1,
