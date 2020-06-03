@@ -72,20 +72,21 @@ export default function MessageSend({ messageRoomId, type, title }) {
       text,
     }
     setText('')
+    const dateSubmitted = new Date()
     await createMessage({
       variables: { message },
       optimisticResponse: {
         __typename: 'Mutation',
         createMessage: {
           __typename: 'Message',
-          _id: 'newMessage',
+          _id: dateSubmitted, // dummy
           messageRoomId,
           userName: user.name,
           userId: user._id,
           title,
           text,
           type,
-          created: new Date(),
+          created: dateSubmitted,
         },
       },
       // eslint-disable-next-line no-shadow

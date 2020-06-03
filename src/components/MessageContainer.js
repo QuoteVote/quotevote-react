@@ -87,8 +87,7 @@ export default function MessageContainer(props) {
     NEW_MESSAGE_SUBSCRIPTION,
     {
       variables: { messageRoomId },
-      onSubscriptionData: async (subscriptionData) => {
-        console.log('onSubscriptionData', { subscriptionData })
+      onSubscriptionData: async () => {
         await refetch()
       },
     },
