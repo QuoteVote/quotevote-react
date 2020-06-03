@@ -66,8 +66,8 @@ export const GET_CHAT_ROOMS = gql`
 `
 
 export const GET_ROOM_MESSAGES = gql`
-  query messages ($messageRomId: String!){
-    messages(messageRoomId: $messageRomId) {
+  query messages ($messageRoomId: String!){
+    messages(messageRoomId: $messageRoomId) {
       _id
       messageRoomId
       userName

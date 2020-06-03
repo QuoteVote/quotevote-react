@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { CHAT_SUBMITTING } from 'store/actions/types'
 import { SEND_MESSAGE } from '../../graphql/mutations'
+import { GET_ROOM_MESSAGES } from '../../graphql/query'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,10 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function InputWithIcon({ messageRoomId, type, title }) {
+export default function MessageSend({ messageRoomId, type, title }) {
   const dispatch = useDispatch()
   const classes = useStyles()
-  const { submitting, text } = useSelector((state) => state.chatReducer)
+  const [text, setText] = React.useState('')
+  const { submitting } = useSelector((state) => state.chatReducer)
+  const { user } = useSelector((state) => state.loginReducer)
 
   const [createMessage] = useMutation(SEND_MESSAGE, {
     onCompleted: (data) => {
@@ -47,7 +50,6 @@ export default function InputWithIcon({ messageRoomId, type, title }) {
         type: CHAT_SUBMITTING,
         payload: {
           submitting: true,
-          text: '',
         },
       })
     },
@@ -61,7 +63,6 @@ export default function InputWithIcon({ messageRoomId, type, title }) {
       type: CHAT_SUBMITTING,
       payload: {
         submitting: true,
-        text,
       },
     })
     const message = {
@@ -70,8 +71,39 @@ export default function InputWithIcon({ messageRoomId, type, title }) {
       messageRoomId,
       text,
     }
+    setText('')
     await createMessage({
       variables: { message },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createMessage: {
+          __typename: 'Message',
+          _id: 'newMessage',
+          messageRoomId,
+          userName: user.name,
+          userId: user._id,
+          title,
+          text,
+          type,
+          created: new Date(),
+        },
+      },
+      // eslint-disable-next-line no-shadow
+      update: (proxy, { data: { createMessage } }) => {
+        // Read the data from our cache for this query.
+        const data = proxy.readQuery({ query: GET_ROOM_MESSAGES, variables: { messageRoomId } })
+        if (data) {
+          // Write our data back to the cache with the new message in it
+          proxy.writeQuery({
+            query: GET_ROOM_MESSAGES,
+            variables: { messageRoomId },
+            data: {
+              ...data,
+              messages: [...data.messages, createMessage],
+            },
+          })
+        }
+      },
     })
   }
 
@@ -83,16 +115,18 @@ export default function InputWithIcon({ messageRoomId, type, title }) {
         </Grid>
         <Grid item className={classes.content}>
           <TextField
+            multiline
+            rows={2}
             id="input-with-icon-grid"
-            label="type here"
+            placeholder="type here"
             value={text}
             onChange={(event) => {
               const { value } = event.target
+              setText(value)
               dispatch({
                 type: CHAT_SUBMITTING,
                 payload: {
                   submitting: false,
-                  text: value,
                 },
               })
             }}

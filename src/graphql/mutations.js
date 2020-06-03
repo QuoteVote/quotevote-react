@@ -56,6 +56,7 @@ export const SEND_MESSAGE = gql`
     createMessage(message: $message) {
       _id
       userId
+      userName
       messageRoomId
       title
       text
