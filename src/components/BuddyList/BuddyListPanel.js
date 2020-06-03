@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -8,7 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import initials from 'initials'
-import {Typography} from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,17 +34,19 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 // eslint-disable-next-line react/prop-types
-function ListItemLink({classes, listData, toggle}) {
+function ListItemLink({ classes, listData, toggle }) {
   return (
     <List disablePadding>
+      {/* eslint-disable-next-line react/prop-types */}
       {listData.map((item, i) => (
+        // eslint-disable-next-line react/prop-types
         <ListItem button className={classes.listItem} key={i} onClick={() => toggle(item)}>
           <ListItemAvatar>
             <Avatar alt={item.Text} src={item.avatar}>
               {initials(item.Text)}
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={item.Text}/>
+          <ListItemText primary={item.Text} />
         </ListItem>
       ))}
     </List>
@@ -53,7 +55,7 @@ function ListItemLink({classes, listData, toggle}) {
 
 
 // eslint-disable-next-line react/prop-types
-export default function BuddyListPanel({data, toggle}) {
+export default function BuddyListPanel({ data, toggle }) {
   const classes = useStyles()
   // eslint-disable-next-line react/prop-types
   const followingData = data.filter((following) => following.type === 'USER')
@@ -67,14 +69,14 @@ export default function BuddyListPanel({data, toggle}) {
             Following
           </Typography>
         </ListSubheader>
-        <ListItemLink toggle={toggle} classes={classes} listData={followingData} key="FollowingList"/>
-        <Divider className={classes.dividerClass}/>
+        <ListItemLink toggle={toggle} classes={classes} listData={followingData} key="FollowingList" />
+        <Divider className={classes.dividerClass} />
         <ListSubheader component="div" className={classes.listSubHeader}>
           <Typography variant="subtitle1">
             Posts
           </Typography>
         </ListSubheader>
-        <ListItemLink toggle={toggle} classes={classes} listData={postsData} key="PostList"/>
+        <ListItemLink toggle={toggle} classes={classes} listData={postsData} key="PostList" />
       </List>
     </div>
   )

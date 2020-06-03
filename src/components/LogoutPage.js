@@ -7,7 +7,6 @@ function LogoutPage() {
   useEffect(() => {
     localStorage.removeItem('token')
     client.resetStore()
-    console.log("LOGOUT")
   }, [client])
 
   return <Redirect to="/auth/logout" />

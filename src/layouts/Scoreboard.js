@@ -16,9 +16,9 @@ import Sidebar from 'components/hhsbSidebar'
 import hhsbRoutes from 'hhsbroutes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
+import { tokenValidator } from 'store/actions/login'
 import PopoverMenu from '../components/PopoverMenu'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
-import { tokenValidator } from 'store/actions/login'
 
 const useStyles = makeStyles(styles)
 
