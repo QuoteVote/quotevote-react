@@ -11,9 +11,9 @@ import logoWhite from 'assets/img/logo-white.svg'
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
 // core components
-import Sidebar from 'components/hhsbSidebar'
+import MenuSidebar from 'components/MenuSidebar'
 
-import hhsbRoutes from 'routes'
+import appRoutes from 'routes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 import { tokenValidator } from 'store/actions/login'
@@ -68,14 +68,14 @@ export default function Scoreboard(props) {
   const handleClose = () => {
     setAnchorEl(null)
   }
-  const routes = getRoutes(hhsbRoutes)
+  const routes = getRoutes(appRoutes)
   useEffect(() => {
     const {
       location: { pathname },
     } = props
     const currLocation = pathname.split('/')
-    const currentPage = hhsbRoutes.filter(
-      (hhsbRoute) => hhsbRoute.layout === `/${currLocation[1]}` && hhsbRoute.path === `/${currLocation[2]}`,
+    const currentPage = appRoutes.filter(
+      (appRoute) => appRoute.layout === `/${currLocation[1]}` && appRoute.path === `/${currLocation[2]}`,
     )
     setPage(currentPage[0].name)
   }, [props])
@@ -83,8 +83,8 @@ export default function Scoreboard(props) {
   return (
     <div className={classes.wrapper}>
       {!tokenValidator() && history.push('/unauth')}
-      <Sidebar
-        routes={hhsbRoutes}
+      <MenuSidebar
+        routes={appRoutes}
         logo={logo}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen} // true for development. mobileOpen for prod
@@ -100,7 +100,7 @@ export default function Scoreboard(props) {
           anchorEl={anchorEl}
           handleClick={handleClick}
           handleClose={handleClose}
-          hhsbRoutes={hhsbRoutes}
+          appRoutes={appRoutes}
           page={page}
         />
         {getRoute() ? (

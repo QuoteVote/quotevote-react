@@ -17,8 +17,6 @@ import Grid from "@material-ui/core/Grid"
 
 import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sidebarStyle"
 
-var ps
-
 // We've created this component so we can have a ref to the wrapper of the links that appears in our sidebar.
 // This was necessary so that we could initialize PerfectScrollbar on the links.
 // There might be something with the Hidden component from material-ui, and we didn't have access to
@@ -42,7 +40,7 @@ class SidebarWrapper extends React.Component {
   }
 }
 
-class Sidebar extends React.Component {
+class MenuSidebar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -177,7 +175,7 @@ class Sidebar extends React.Component {
           >
             {prop.icon !== undefined ? (
               typeof prop.icon === "string" ? (
-                <img src={prop.icon} className={itemIcon} style={{height: "30px"}}/>
+                <img alt='' src={prop.icon} className={itemIcon} style={{height: "30px"}}/>
                 /** <Icon className={itemIcon}>{prop.icon}</Icon>*/
               ) : (
                 <prop.icon className={itemIcon}/>
@@ -291,11 +289,11 @@ class Sidebar extends React.Component {
   }
 }
 
-Sidebar.defaultProps = {
+MenuSidebar.defaultProps = {
   bgColor: "blue",
 }
 
-Sidebar.propTypes = {
+MenuSidebar.propTypes = {
   classes: PropTypes.object.isRequired,
   bgColor: PropTypes.oneOf(["white", "black", "blue"]),
   rtlActive: PropTypes.bool,
@@ -324,4 +322,4 @@ SidebarWrapper.propTypes = {
   links: PropTypes.object,
 }
 
-export default withRouter(withStyles(sidebarStyle)(Sidebar))
+export default withRouter(withStyles(sidebarStyle)(MenuSidebar))

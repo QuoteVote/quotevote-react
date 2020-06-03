@@ -20,7 +20,7 @@ const theme = createMuiTheme({
 })
 
 function PopoverMenu({
-  hhsbRoutes, handleClick, handleClose, anchorEl, page,
+  appRoutes, handleClick, handleClose, anchorEl, page,
 }) {
   return (
     <ThemeProvider theme={theme}>
@@ -42,14 +42,14 @@ function PopoverMenu({
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {hhsbRoutes.map((hhsbRoute) => (
+              {appRoutes.map((appRoute) => (
                 <MenuItem
-                  selected={hhsbRoute.name === page}
+                  selected={appRoute.name === page}
                   component={Link}
-                  to={`${hhsbRoute.layout}${hhsbRoute.path}`}
+                  to={`${appRoute.layout}${appRoute.path}`}
                   onClick={handleClose}
                 >
-                  {hhsbRoute.name}
+                  {appRoute.name}
                 </MenuItem>
               ))}
             </Menu>
@@ -63,7 +63,7 @@ function PopoverMenu({
   )
 }
 PopoverMenu.propTypes = {
-  hhsbRoutes: PropTypes.object.isRequired,
+  appRoutes: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   anchorEl: PropTypes.any.isRequired,
