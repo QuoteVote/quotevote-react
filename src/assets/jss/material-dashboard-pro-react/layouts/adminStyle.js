@@ -7,14 +7,7 @@ import {
 
 const appStyle = (theme) => ({
   wrapper: {
-    position: 'relative',
-    top: '0',
-    height: '100vh',
-    '&:after': {
-      display: 'table',
-      clear: 'both',
-      content: '" "',
-    },
+    display: 'flex',
   },
   mainPanel: {
     transitionProperty: 'top, bottom, width',
@@ -47,8 +40,16 @@ const appStyle = (theme) => ({
     overflowScrolling: 'touch',
   },
   content: {
-    padding: '30px 15px',
-    minHeight: 'calc(100vh - 123px)',
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      marginLeft: drawerWidth,
+      marginRight: drawerWidth,
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
+      marginRight: drawerWidth,
+    },
   },
   container: { ...containerFluid },
   map: {

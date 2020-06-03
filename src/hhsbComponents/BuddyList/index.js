@@ -3,13 +3,17 @@ import { isEmpty } from 'lodash'
 import { makeStyles } from '@material-ui/core/styles'
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import { useQuery } from '@apollo/react-hooks'
-import ChatListPanel from './ChatListPanel'
+import BuddyListPanel from './BuddyListPanel'
 import { GET_CHAT_ROOMS } from '../../graphql/query'
-import ChatLoader from './ChatLoader'
+import BuddyListLoader from './BuddyListLoader'
+
+// For testing purposes
+// const data = require('./chatRooms.json')
+// const loading = false
+// const error = null
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
-    maxWidth: '300px',
     backgroundColor: '#191919',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -17,26 +21,33 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     wrap: 'wrapContent',
     flexGrow: 1,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  margin: {
-    width: '95%',
+    overflow: 'auto',
+    overflowX: 'hidden',
   },
   header: {
-    width: '100%',
     backgroundColor: '#615B5B',
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     height: '8%',
   },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
   headerText: {
     fontSize: 'x-large',
     fontWeight: 900,
+  },
+  loader: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '80%',
+    maxHeight: '100%',
+    overflowY: 'hidden',
+    overflowX: 'hidden',
+    margin: theme.spacing(1),
   },
 }))
 
@@ -56,12 +67,17 @@ export default function BuddyList(props) {
         avatar: item.avatar,
       }))) ||
     []
+
   return (
     <GridContainer className={classes.chatContainer}>
       <GridContainer className={classes.header}>
         <p className={classes.headerText}>Buddy Lists</p>
       </GridContainer>
-      {loading ? <ChatLoader /> : <ChatListPanel {...props} data={Data} />}
+      {loading ? (
+        <GridContainer className={classes.loader}>
+          <BuddyListLoader />
+        </GridContainer>
+      ) : <BuddyListPanel {...props} data={Data} />}
     </GridContainer>
   )
 }

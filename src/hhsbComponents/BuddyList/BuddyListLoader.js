@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     maxWidth: 360,
-    height: '70%',
     backgroundColor: '#191919',
     marginTop: 20,
   },
@@ -16,12 +15,15 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '300px',
     alignContent: 'center',
     textAlign: 'center',
+    flexGrow: 1,
+    maxHeight: '100%',
+    height: '100%',
   },
 }))
 
 
 // eslint-disable-next-line react/prop-types
-export default function ChatLoader() {
+export default function BuddyListLoader() {
   const classes = useStyles()
   return (
     <div className={classes.root}>

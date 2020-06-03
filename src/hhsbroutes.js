@@ -93,6 +93,7 @@ const hhsbRoutes = [
   },
   {
     path: '/post',
+    name: 'Posts',
     component: PostPage,
     layout: '/hhsb',
   },
