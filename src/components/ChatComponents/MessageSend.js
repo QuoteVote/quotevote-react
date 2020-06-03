@@ -7,10 +7,11 @@ import Button from '@material-ui/core/Button'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { CHAT_SUBMITTING } from 'store/actions/types'
+import SweetAlert from 'react-bootstrap-sweetalert'
 import { SEND_MESSAGE } from '../../graphql/mutations'
 import { GET_ROOM_MESSAGES } from '../../graphql/query'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     color: 'white',
@@ -37,15 +38,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+// eslint-disable-next-line react/prop-types
 export default function MessageSend({ messageRoomId, type, title }) {
   const dispatch = useDispatch()
   const classes = useStyles()
   const [text, setText] = React.useState('')
   const { submitting } = useSelector((state) => state.chatReducer)
   const { user } = useSelector((state) => state.loginReducer)
+  const { error, setError } = React.useState('')
 
   const [createMessage] = useMutation(SEND_MESSAGE, {
-    onCompleted: (data) => {
+    onCompleted: () => {
       dispatch({
         type: CHAT_SUBMITTING,
         payload: {
@@ -53,8 +56,8 @@ export default function MessageSend({ messageRoomId, type, title }) {
         },
       })
     },
-    onError: (error) => {
-      console.log('ERROR', error)
+    onError: (err) => {
+      setError(err)
     },
   })
 
@@ -110,6 +113,15 @@ export default function MessageSend({ messageRoomId, type, title }) {
 
   return (
     <div className={classes.root}>
+      {error && (
+        <SweetAlert
+          style={{ display: 'block', marginTop: '-100px' }}
+          title="Message Send Error"
+          onConfirm={() => setError(null)}
+          onCancel={() => setError(null)}
+          confirmBtnCssClass={`${classes.button} ${classes.success}`}
+        />
+      )}
       <Grid container className={classes.gridContainer}>
         <Grid className={classes.content}>
           <FaceIcon className={classes.fadeIcon} />
