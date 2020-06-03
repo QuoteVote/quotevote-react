@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles'
 // core components
 import Sidebar from 'components/hhsbSidebar'
 
-import hhsbRoutes from 'hhsbroutes'
+import hhsbRoutes from 'routes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 import { tokenValidator } from 'store/actions/login'

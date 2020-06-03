@@ -1,5 +1,4 @@
 import PostPage from 'views/PostPage'
-import LoginPage from 'views/Pages/LoginPage'
 
 import add from 'assets/img/add.png'
 import Alert from 'assets/img/Alerts.png'
@@ -8,7 +7,6 @@ import Avatar from 'assets/img/Avatar.png'
 import TrendingPosts from 'views/TrendingPosts'
 import SubmitPost from 'views/SubmitPost'
 import SearchView from 'views/SearchView'
-import Profile from 'views/profile'
 import ManageInvites from 'views/ManageInvites'
 import HomePage from 'views/Homepage/Homepage'
 import Chat from 'assets/img/Chat.svg'
@@ -16,8 +14,10 @@ import Home from 'assets/img/Home.svg'
 import Search from 'assets/img/Search.png'
 import Settings from 'assets/img/Settings.png'
 import Trending from 'assets/img/Trending.png'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import LogoutPage from './components/LogoutPage'
 
-const hhsbRoutes = [
+const routes = [
   {
     path: '/Home',
     name: 'Home Page',
@@ -36,11 +36,11 @@ const hhsbRoutes = [
   },
 
   {
-    path: '/Trending',
+    path: '/Profile',
     name: 'My Profile',
     rtlName: 'الحاجيات',
     icon: Avatar,
-    component: Profile,
+    component: HomePage,
     layout: '/hhsb',
   },
   {
@@ -76,24 +76,16 @@ const hhsbRoutes = [
     layout: '/hhsb',
   },
   {
-    path: '/BuddyList',
-    name: 'BuddyList Test',
-    rtlName: 'التقويم',
-    icon: Search,
-    component: HomePage,
-    layout: '/hhsb',
-  },
-  {
-    path: '/ChatBar',
-    name: 'Chat Feed',
+    path: '/Notifications',
+    name: 'Notifications',
     rtlName: 'التقويم',
     icon: Alert,
     component: HomePage,
     layout: '/hhsb',
   },
   {
-    path: '/ChatBar',
-    name: 'Chat Feed',
+    path: '/Settings',
+    name: 'Settings',
     rtlName: 'التقويم',
     icon: Settings,
     component: HomePage,
@@ -101,17 +93,19 @@ const hhsbRoutes = [
   },
   {
     path: '/post',
+    name: 'Posts',
     component: PostPage,
     layout: '/hhsb',
   },
   {
-    path: '/login-page',
-    name: 'Login Page',
+    path: '/logout',
+    name: 'Logout',
     rtlName: 'هعذاتسجيل الدخول',
     mini: 'L',
     rtlMini: 'هعذا',
-    component: LoginPage,
-    layout: '/auth',
+    icon: ExitToAppIcon,
+    component: LogoutPage,
+    layout: '/logout',
   },
 ]
-export default hhsbRoutes
+export default routes
