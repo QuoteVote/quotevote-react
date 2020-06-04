@@ -63,6 +63,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "env-cmd -f .env.development react-scripts start",
+    "start:local": "env-cmd -f .env.local react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test -u -w 1 --env=jsdom --silent",
     "eject": "react-scripts eject",
