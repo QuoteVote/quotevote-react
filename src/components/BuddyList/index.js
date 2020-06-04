@@ -55,10 +55,8 @@ export default function BuddyList(props) {
   const classes = useStyles()
   const { loading, error, data } = useQuery(GET_CHAT_ROOMS)
 
-  if (error) return `Something went wrong: ${error}`
-
   const Data =
-    (!loading && !isEmpty(data.messageRooms) &&
+    (!error && !loading && !isEmpty(data.messageRooms) &&
       data.messageRooms.map((item) => ({
         room: item,
         Text: item.title,
