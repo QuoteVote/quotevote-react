@@ -40,7 +40,7 @@ export default function ChatDrawer() {
     if (Chat === true) {
       return <MessageContainer toggle={toggleDisplay} selectedRoom={selectedRoom} />
     }
-    return <BuddyList className={classes.largeDevices} toggle={toggleDisplay} />
+    return <BuddyList toggle={toggleDisplay} />
   }
 
   return (
