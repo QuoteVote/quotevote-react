@@ -44,6 +44,7 @@ function PopoverMenu({
             >
               {appRoutes.map((appRoute) => (
                 <MenuItem
+                  key={appRoute.name}
                   selected={appRoute.name === page}
                   component={Link}
                   to={`${appRoute.layout}${appRoute.path}`}

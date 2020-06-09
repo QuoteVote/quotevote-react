@@ -42,13 +42,13 @@ const appStyle = (theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       marginLeft: drawerWidth,
-      marginRight: drawerWidth,
+      marginRight: drawerWidth + 30,
     },
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
-      marginRight: drawerWidth,
+      marginRight: 0,
     },
   },
   container: { ...containerFluid },
