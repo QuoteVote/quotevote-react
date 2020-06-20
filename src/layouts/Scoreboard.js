@@ -7,28 +7,55 @@ import {
 // creates a beautiful scrollbar
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 // Images
-import logoWhite from 'assets/img/logo-white.svg'
 // @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles'
+import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 // core components
-import MenuSidebar from 'components/MenuSidebar'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import Hidden from '@material-ui/core/Hidden'
+import Grid from '@material-ui/core/Grid'
+
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
 
 import appRoutes from 'routes'
-
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 import { tokenValidator } from 'store/actions/login'
+import { Typography } from '@material-ui/core'
+import SvgIcon from '@material-ui/core/SvgIcon'
+import IconButton from '@material-ui/core/IconButton'
 import PopoverMenu from '../components/PopoverMenu'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 
+import voxPopIcon from '../assets/img/voxPopIcon.jpg'
+import { ReactComponent as HomeSvg } from '../assets/svg/Home.svg'
+import { ReactComponent as TrendingSvg } from '../assets/svg/TrendingIcon.svg'
+import { ReactComponent as AddPostSvg } from '../assets/svg/AddPost.svg'
+import { ReactComponent as ChatSvg } from '../assets/svg/Chat.svg'
+import { ReactComponent as NotificationsSvg } from '../assets/svg/Notifications.svg'
+import { ReactComponent as SettingsSvg } from '../assets/svg/Settings.svg'
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#fff',
+    },
+    secondary: {
+      main: '#35a511',
+    },
+  },
+  typography: {
+    useNextVariants: true,
+  },
+})
 const useStyles = makeStyles(styles)
 
 export default function Scoreboard(props) {
-  const { ...rest } = props
   const history = useHistory()
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [color] = React.useState('blue')
-  const [bgColor] = React.useState('black')
-  const [logo] = React.useState(logoWhite)
   const [page, setPage] = React.useState('Home')
   // styles
   const classes = useStyles()
@@ -80,42 +107,140 @@ export default function Scoreboard(props) {
     setPage(currentPage[0].name)
   }, [props])
 
-  return (
-    <div className={classes.wrapper}>
-      {!tokenValidator() && history.push('/unauth')}
-      <MenuSidebar
-        routes={appRoutes}
-        logo={logo}
-        handleDrawerToggle={handleDrawerToggle}
-        open={mobileOpen} // true for development. mobileOpen for prod
-        color={color}
-        bgColor={bgColor}
-        currentRoute={currentRoute()}
-        {...rest}
-      />
+  const [selectedMenu, setSelectedMenu] = React.useState(0)
 
-      <main className={classes.content}>
-        <PopoverMenu
-          classes={classes}
-          anchorEl={anchorEl}
-          handleClick={handleClick}
-          handleClose={handleClose}
-          appRoutes={appRoutes}
-          page={page}
-        />
-        {getRoute() ? (
-          <Switch>
-            {routes}
-            <Redirect from="/admin" to="/admin/dashboard" />
-          </Switch>
-        ) : (
-          <Switch>
-            {routes}
-            <Redirect from="/admin" to="/admin/dashboard" />
-          </Switch>
-        )}
-        <ChatDrawer />
-      </main>
-    </div>
+  const handleMenu = (event, newAlignment) => {
+    setSelectedMenu(newAlignment)
+  }
+
+
+  const [chatOpen, setChatOpen] = React.useState(false)
+
+  return (
+    <MuiThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar className={classes.toolbar}>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+            >
+              <Grid>
+                <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
+              </Grid>
+              <Grid>
+                <Tabs
+                  value={selectedMenu}
+                  onChange={handleMenu}
+                  indicatorColor="secondary"
+                  textColor="secondary"
+                >
+                  <Tab
+                    icon={<SvgIcon component={HomeSvg} fontSize="large" viewBox="0 0 37 37" />}
+                    aria-label="Home"
+                  />
+                  <Tab
+                    icon={<SvgIcon component={TrendingSvg} fontSize="large" viewBox="0 0 50 50" />}
+                    aria-label="Trending"
+                  />
+                  <Tab
+                    icon={<SvgIcon component={AddPostSvg} fontSize="large" viewBox="0 0 32 32" />}
+                    aria-label="Post"
+                  />
+                </Tabs>
+              </Grid>
+              <Grid>
+                <Hidden only={['xs', 'sm', 'md']}>
+                  <div className={classes.profileRow}>
+                    <IconButton
+                      aria-label="Profile"
+                      color="inherit"
+                    >
+                      <AccountCircle fontSize="large" />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.profileBlockName}>
+                      John
+                      Doe
+                    </Typography>
+                  </div>
+                </Hidden>
+                <Hidden only={['lg', 'xl']}>
+                  <IconButton
+                    aria-label="Profile"
+                    color="inherit"
+                  >
+                    <AccountCircle fontSize="large" />
+                  </IconButton>
+                </Hidden>
+
+              </Grid>
+            </Grid>
+
+            <IconButton
+              aria-label="Chat"
+              color="inherit"
+              className={classes.rightMenuButton}
+            >
+              <SvgIcon
+                component={ChatSvg}
+                fontSize="large"
+                viewBox="0 0 37 37"
+              />
+            </IconButton>
+
+            <IconButton
+              aria-label="Notifications"
+              color="inherit"
+              className={classes.rightMenuButton}
+            >
+              <SvgIcon
+                component={NotificationsSvg}
+                fontSize="large"
+                viewBox="0 0 49 46"
+              />
+            </IconButton>
+
+            <IconButton
+              aria-label="Settings"
+              color="inherit"
+              className={classes.rightMenuButton}
+            >
+              <SvgIcon
+                component={SettingsSvg}
+                fontSize="large"
+                viewBox="0 0 49 46"
+                className={classes.rightMenuButton}
+              />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        {!tokenValidator() && history.push('/unauth')}
+        <main className={chatOpen ? classes.contentChat : classes.content}>
+          <PopoverMenu
+            classes={classes}
+            anchorEl={anchorEl}
+            handleClick={handleClick}
+            handleClose={handleClose}
+            appRoutes={appRoutes}
+            page={page}
+          />
+          {getRoute() ? (
+            <Switch>
+              {routes}
+              <Redirect from="/admin" to="/admin/dashboard" />
+            </Switch>
+          ) : (
+            <Switch>
+              {routes}
+              <Redirect from="/admin" to="/admin/dashboard" />
+            </Switch>
+          )}
+          {chatOpen && <ChatDrawer />}
+        </main>
+      </div>
+    </MuiThemeProvider>
   )
 }
