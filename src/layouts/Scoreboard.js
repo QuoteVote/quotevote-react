@@ -16,6 +16,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Hidden from '@material-ui/core/Hidden'
 import Grid from '@material-ui/core/Grid'
+import MenuIcon from '@material-ui/icons/Menu'
 
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -26,7 +27,6 @@ import { tokenValidator } from 'store/actions/login'
 import { Typography } from '@material-ui/core'
 import SvgIcon from '@material-ui/core/SvgIcon'
 import IconButton from '@material-ui/core/IconButton'
-import PopoverMenu from '../components/PopoverMenu'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 
 import voxPopIcon from '../assets/img/voxPopIcon.jpg'
@@ -131,26 +131,47 @@ export default function Scoreboard(props) {
               <Grid>
                 <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
               </Grid>
+
               <Grid>
-                <Tabs
-                  value={selectedMenu}
-                  onChange={handleMenu}
-                  indicatorColor="secondary"
-                  textColor="secondary"
-                >
-                  <Tab
-                    icon={<SvgIcon component={HomeSvg} fontSize="large" viewBox="0 0 37 37" />}
-                    aria-label="Home"
-                  />
-                  <Tab
-                    icon={<SvgIcon component={TrendingSvg} fontSize="large" viewBox="0 0 50 50" />}
-                    aria-label="Trending"
-                  />
-                  <Tab
-                    icon={<SvgIcon component={AddPostSvg} fontSize="large" viewBox="0 0 32 32" />}
-                    aria-label="Post"
-                  />
-                </Tabs>
+                <Hidden only={['xs', 'sm']}>
+                  <Tabs
+                    value={selectedMenu}
+                    onChange={handleMenu}
+                    indicatorColor="secondary"
+                    textColor="secondary"
+                  >
+                    <Tab
+                      icon={<SvgIcon component={HomeSvg} fontSize="large" viewBox="0 0 37 37" />}
+                      aria-label="Home"
+                    />
+                    <Tab
+                      icon={(
+                        <SvgIcon
+                          component={TrendingSvg}
+                          fontSize="large"
+                          viewBox="0 0 50 50"
+                        />
+                      )}
+                      aria-label="Trending"
+                    />
+                    <Tab
+                      icon={(
+                        <SvgIcon
+                          component={AddPostSvg}
+                          fontSize="large"
+                          viewBox="0 0 32 32"
+                        />
+                      )}
+                      aria-label="Post"
+                    />
+                  </Tabs>
+                </Hidden>
+
+                <Hidden only={['md', 'lg', 'xl']}>
+                  <IconButton edge="start" color="inherit" aria-label="menu">
+                    <MenuIcon />
+                  </IconButton>
+                </Hidden>
               </Grid>
               <Grid>
                 <Hidden only={['xs', 'sm', 'md']}>
@@ -167,7 +188,7 @@ export default function Scoreboard(props) {
                     </Typography>
                   </div>
                 </Hidden>
-                <Hidden only={['lg', 'xl']}>
+                <Hidden only={['xs', 'sm', 'lg', 'xl']}>
                   <IconButton
                     aria-label="Profile"
                     color="inherit"
@@ -175,7 +196,6 @@ export default function Scoreboard(props) {
                     <AccountCircle fontSize="large" />
                   </IconButton>
                 </Hidden>
-
               </Grid>
             </Grid>
 
@@ -219,14 +239,6 @@ export default function Scoreboard(props) {
         </AppBar>
         {!tokenValidator() && history.push('/unauth')}
         <main className={chatOpen ? classes.contentChat : classes.content}>
-          <PopoverMenu
-            classes={classes}
-            anchorEl={anchorEl}
-            handleClick={handleClick}
-            handleClose={handleClose}
-            appRoutes={appRoutes}
-            page={page}
-          />
           {getRoute() ? (
             <Switch>
               {routes}
