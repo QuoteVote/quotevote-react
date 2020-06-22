@@ -15,7 +15,6 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import appRoutes from 'routes'
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 import { tokenValidator } from 'store/actions/login'
-import Grid from '@material-ui/core/Grid'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 import MainNavBar from '../components/Navbars/MainNavBar'
 import MenuSidebar from '../components/MenuSidebar'
@@ -94,7 +93,12 @@ export default function Scoreboard(props) {
       <div className={classes.root}>
         <CssBaseline />
         <Hidden only={['xs', 'sm']}>
-          <MainNavBar classes={classes} />
+          <MainNavBar
+            classes={classes}
+            setChatOpen={setChatOpen}
+            page={page}
+            chatOpen={chatOpen}
+          />
         </Hidden>
         <Hidden only={['md', 'lg', 'xl']}>
           <MenuSidebar

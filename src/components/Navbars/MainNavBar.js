@@ -22,7 +22,7 @@ import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 import { SET_SELECTED_PAGE } from '../../store/actions/types'
 
 function MainNavBar(props) {
-  const { classes } = props
+  const { classes, setChatOpen, chatOpen } = props
   const { selectedPage } = useSelector((state) => state.appReducer)
   const { avatar, name, username } = useSelector((state) => state.loginReducer.user)
 
@@ -134,6 +134,7 @@ function MainNavBar(props) {
             aria-label="Chat"
             color="inherit"
             className={classes.rightMenuButton}
+            onClick={() => setChatOpen(!chatOpen)}
           >
             <SvgIcon
               component={ChatSvg}
@@ -174,6 +175,8 @@ function MainNavBar(props) {
 
 MainNavBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  setChatOpen: PropTypes.func.isRequired,
+  chatOpen: PropTypes.bool.isRequired,
 }
 
 export default MainNavBar
