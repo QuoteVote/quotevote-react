@@ -6,14 +6,19 @@ import {
 } from 'react-router-dom'
 // creates a beautiful scrollbar
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
+import logoWhite from 'assets/img/logo-white.svg'
+
+import Hidden from '@material-ui/core/Hidden'
 import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import appRoutes from 'routes'
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 import { tokenValidator } from 'store/actions/login'
+import Grid from '@material-ui/core/Grid'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 import MainNavBar from '../components/Navbars/MainNavBar'
+import MenuSidebar from '../components/MenuSidebar'
 
 
 const theme = createMuiTheme({
@@ -40,6 +45,10 @@ export default function Scoreboard(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
+
+  const [color] = React.useState('blue')
+  const [bgColor] = React.useState('black')
+  const [logo] = React.useState(logoWhite)
   const getRoute = () => window.location.pathname !== '/admin/full-screen-maps'
   const getRoutes = (routes) => routes.map((prop, key) => {
     if (prop.collapse) {
@@ -71,11 +80,35 @@ export default function Scoreboard(props) {
 
   const [chatOpen, setChatOpen] = React.useState(false)
 
+  const currentRoute = () => {
+    const {
+      location: { pathname },
+    } = props
+    const currLocation = pathname.split('/')
+    return currLocation[currLocation.length - 1]
+  }
+
+
   return (
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <MainNavBar classes={classes} />
+        <Hidden only={['xs', 'sm']}>
+          <MainNavBar classes={classes} />
+        </Hidden>
+        <Hidden only={['md', 'lg', 'xl']}>
+          <MenuSidebar
+            routes={appRoutes}
+            logo={logo}
+            handleDrawerToggle={handleDrawerToggle}
+            open={mobileOpen}
+            color={color}
+            bgColor={bgColor}
+            currentRoute={currentRoute()}
+            {...props}
+            miniActive
+          />
+        </Hidden>
         {!tokenValidator() && history.push('/unauth')}
         <main className={chatOpen ? classes.contentChat : classes.content}>
           {getRoute() ? (

@@ -20,7 +20,6 @@ const appStyle = (theme) => ({
     color: 'secondary',
   },
   profileRow: {
-    backgroundColor: 'rgba(205, 214, 224, 0.4)',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -30,7 +29,6 @@ const appStyle = (theme) => ({
     width: '100px',
   },
   profileBlockName: {
-    marginTop: '5px',
     marginLeft: '5px',
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
@@ -42,7 +40,6 @@ const appStyle = (theme) => ({
   },
   voxPop: {
     height: '80px',
-    paddingLeft: '15px',
   },
   rightMenuButton: {
     marginLeft: theme.spacing(1),
@@ -88,6 +85,10 @@ const appStyle = (theme) => ({
     flexGrow: 1,
     height: '100%',
     marginTop: theme.spacing(10),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(1),
+      marginLeft: drawerMiniWidth,
+    },
   },
   contentChat: {
     flexGrow: 1,
@@ -98,6 +99,8 @@ const appStyle = (theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       marginRight: drawerWidth,
+      marginTop: theme.spacing(1),
+      marginLeft: drawerMiniWidth,
     },
   },
   container: { ...containerFluid },
