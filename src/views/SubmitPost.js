@@ -24,8 +24,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
 
-
-// Materi Icons
+// Material Icons
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AssignmentIcon from '@material-ui/icons/Assignment'
@@ -161,7 +160,9 @@ function SubmitPost() {
         confirmBtnCssClass={`${classes.button} ${classes.success}`}
         confirmBtnText="Go to Post"
       >
-        <Typography variant="caption">Share your text to your friends and family.</Typography>
+        <Typography variant="caption">
+          Share your text to your friends and family.
+        </Typography>
         <Grid
           container
           justify="space-around"
@@ -169,11 +170,13 @@ function SubmitPost() {
           wrap="nowrap"
         >
           <GridItem style={{ overflow: 'auto' }}>
-            <pre>{ DOMAIN + shareableLink }</pre>
+            <pre>{DOMAIN + shareableLink}</pre>
           </GridItem>
           <GridItem style={{ flex: 1 }}>
             <IconButton onClick={handleCopy(DOMAIN + shareableLink)}>
-              <Tooltip title="Copy Link to Clip Board"><AssignmentIcon /></Tooltip>
+              <Tooltip title="Copy Link to Clip Board">
+                <AssignmentIcon />
+              </Tooltip>
             </IconButton>
           </GridItem>
         </Grid>
@@ -207,11 +210,8 @@ function SubmitPost() {
     copy(shareableLink)
   }
 
-
   if (loading) {
-    return (
-      <LoadingSpinner />
-    )
+    return <LoadingSpinner />
   }
 
   if (error) {
@@ -230,23 +230,25 @@ function SubmitPost() {
     )
   }
 
-  const userAllowedGroups = (data && data.groups.filter((group) => {
-    const isUserAllowed = group.allowedUserIds.find(
-      (id) => id === user._id
-    )
-    return (
-      group.privacy === 'public' ||
-        (group.privacy === 'private' &&
-          isUserAllowed)
-    )
-  })) || []
+  const userAllowedGroups =
+    (data &&
+      data.groups.filter((group) => {
+        const isUserAllowed = group.allowedUserIds.find(
+          (id) => id === user._id
+        )
+        return (
+          group.privacy === 'public' ||
+          (group.privacy === 'private' && isUserAllowed)
+        )
+      })) ||
+    []
 
   return (
     <>
       {alert}
-      <GridContainer spacing={1} direction="col">
-        <GridItem xs={6}>
-          <Card style={{ height: '800px' }}>
+      <GridContainer>
+        <GridItem xs={12} xl={6}>
+          <Card style={{ height: '600px' }}>
             <CardHeader style={{ zIndex: 0 }}>
               <div
                 style={{
@@ -287,9 +289,7 @@ function SubmitPost() {
               <Divider />
             </CardHeader>
             <CardBody>
-              <form
-                onSubmit={handleSubmit}
-              >
+              <form onSubmit={handleSubmit}>
                 <TextField
                   id="post"
                   label="Post"
@@ -307,38 +307,42 @@ function SubmitPost() {
                 />
                 <div
                   style={{
-                    marginTop: 24, display: 'flex', justifyContent: 'space-between', alixgnContent: 'center',
+                    marginTop: 24,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignContent: 'center',
+                    flexWrap: 'wrap',
                   }}
                 >
                   <div>
                     <FormControl required>
-                      {
-                        subScoreboardIsOpen && subScoreboardIsOpen ? (
-                          <TextField
+                      {subScoreboardIsOpen && subScoreboardIsOpen ? (
+                        <TextField
+                          id="group"
+                          label="Group"
+                          placeholder="Create a new group"
+                          name="group"
+                          required
+                          onChange={handleGroup}
+                          value={groupName}
+                          style={{ width: 280 }}
+                        />
+                      ) : (
+                        <>
+                          <InputLabel id="group-label" htmlFor="group">
+                            Group
+                          </InputLabel>
+                          <Select
                             id="group"
-                            label="Group"
-                            placeholder="Create a new group"
-                            name="group"
+                            value={groupId}
+                            placeholder={groupName}
                             required
-                            onChange={handleGroup}
-                            value={groupName}
+                            onChange={(e) => setGroupId(e.target.value)}
                             style={{ width: 280 }}
-                          />
-                        ) : (
-                          <>
-                            <InputLabel id="group-label" htmlFor="group">Group</InputLabel>
-                            <Select
-                              id="group"
-                              value={groupId}
-                              placeholder={groupName}
-                              required
-                              onChange={(e) => setGroupId(e.target.value)}
-                              style={{ width: 280 }}
-                            >
-                              <MenuItem value={groupName}>
-                                {groupName}
-                              </MenuItem>
-                              {!isEmpty(userAllowedGroups) && userAllowedGroups.map((publicGroup) => (
+                          >
+                            <MenuItem value={groupName}>{groupName}</MenuItem>
+                            {!isEmpty(userAllowedGroups) &&
+                              userAllowedGroups.map((publicGroup) => (
                                 <MenuItem
                                   value={publicGroup._id}
                                   key={publicGroup._id}
@@ -346,18 +350,26 @@ function SubmitPost() {
                                   {publicGroup.title}
                                 </MenuItem>
                               ))}
-                            </Select>
-                          </>
-                        )
-                      }
+                          </Select>
+                        </>
+                      )}
                     </FormControl>
                     <IconButton
                       style={{ marginTop: 8, marginLeft: 4 }}
                       onClick={handleCreateSubScoreboard}
                     >
-                      { subScoreboardIsOpen && subScoreboardIsOpen ?
-                        <Tooltip title="Choose an existing group" style={{ fontSize: 18 }}><RemoveIcon /></Tooltip> :
-                        <Tooltip title="Add a new group"><AddIcon /></Tooltip>}
+                      {subScoreboardIsOpen && subScoreboardIsOpen ? (
+                        <Tooltip
+                          title="Choose an existing group"
+                          style={{ fontSize: 18 }}
+                        >
+                          <RemoveIcon />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Add a new group">
+                          <AddIcon />
+                        </Tooltip>
+                      )}
                     </IconButton>
                   </div>
                   <Button
@@ -366,29 +378,43 @@ function SubmitPost() {
                     size="large"
                     style={{
                       backgroundColor: 'rgb(233, 30, 99)',
+                      marginTop: '8px',
                     }}
                   >
                     Submit
                   </Button>
                 </div>
-                {
-                  subScoreboardIsOpen && (
-                    <div style={{ paddingTop: 16 }}>
-                      <FormControl required component="fieldset">
-                        <FormLabel component="legend">Choose Visibility</FormLabel>
-                        <RadioGroup aria-label="privacy" name="privacy" value={privacy} onChange={handlePrivacy}>
-                          <FormControlLabel value="private" control={<Radio />} label="Private" />
-                          <FormControlLabel value="public" control={<Radio />} label="Pulbic" />
-                        </RadioGroup>
-                      </FormControl>
-                    </div>
-                  )
-                }
+                {subScoreboardIsOpen && (
+                  <div style={{ paddingTop: 16 }}>
+                    <FormControl required component="fieldset">
+                      <FormLabel component="legend">
+                        Choose Visibility
+                      </FormLabel>
+                      <RadioGroup
+                        aria-label="privacy"
+                        name="privacy"
+                        value={privacy}
+                        onChange={handlePrivacy}
+                      >
+                        <FormControlLabel
+                          value="private"
+                          control={<Radio />}
+                          label="Private"
+                        />
+                        <FormControlLabel
+                          value="public"
+                          control={<Radio />}
+                          label="Public"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </div>
+                )}
               </form>
             </CardBody>
           </Card>
         </GridItem>
-        <GridItem xs={6} style={{ paddingBottom: 0 }}>
+        <GridItem xs={12} xl={6} style={{ paddingBottom: 0 }}>
           <Card>
             <CardHeader>
               <div

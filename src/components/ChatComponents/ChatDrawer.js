@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Drawer from '@material-ui/core/Drawer'
+import { Hidden } from '@material-ui/core'
 import BuddyList from '../BuddyList'
 import MessageContainer from '../MessageContainer'
 
@@ -43,20 +44,22 @@ export default function ChatDrawer() {
   }
 
   return (
-    <Drawer
-      variant="permanent"
-      anchor="right"
-      open
-      ModalProps={{
-        keepMounted: true, // Better open performance on mobile.
-      }}
-      classes={{
-        paper: classes.drawer,
-      }}
-    >
-      <div className={classes.chatContainer}>
-        {getDisplay()}
-      </div>
-    </Drawer>
+    <Hidden smDown implementation="js">
+      <Drawer
+        variant="permanent"
+        anchor="right"
+        open
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        classes={{
+          paper: classes.drawer,
+        }}
+      >
+        <div className={classes.chatContainer}>
+          {getDisplay()}
+        </div>
+      </Drawer>
+    </Hidden>
   )
 }

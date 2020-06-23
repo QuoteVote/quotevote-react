@@ -73,9 +73,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function MessageContainer(props) {
+export default function MessageContainer({ selectedRoom, toggle, ...props }) {
   const classes = useStyles(props)
-  const { selectedRoom, toggle } = props
   const { messageType, title, _id: messageRoomId } = selectedRoom.room
   const {
     loading, error, data, refetch,
