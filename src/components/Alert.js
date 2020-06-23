@@ -7,6 +7,8 @@ import CloseIcon from '@material-ui/icons/Close'
 import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: (props) => props.color,
     minHeight: '75px',
     display: 'flex',
+    color: 'white',
+    borderRadius: 7,
+    padding: 10,
   },
   [theme.breakpoints.down('sm')]: {
     avatarStyle: {
@@ -33,6 +38,17 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(7),
     },
   },
+  titleWrapper: {
+    marginLeft: 10,
+  },
+  favoriteIcon: {
+    color: 'white',
+    height: '55px',
+  },
+  closeIcon: {
+    color: 'white',
+    height: '15px',
+  },
 }))
 
 export default function Alert(props) {
@@ -40,114 +56,49 @@ export default function Alert(props) {
 
   return (
     <Box boxShadow={3} className={classes.root}>
-      <Grid container direction="row" justify="space-between" alignContent="flex-end" spacing={1}>
-        <div
-          style={{
-            width: '10%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-            alignContent: 'center',
-            marginLeft: '15px',
-          }}
-        >
+      <Grid container direction="row">
+        <Grid className={classes.titleWrapper} item xs={10}>
+          <Typography variant="overline">
+            {`${props.AlertTitle} - ${props.AlertBody}`}
+          </Typography>
+        </Grid>
+        <Grid item xs={1}>
+          <CloseIcon className={classes.closeIcon} />
+        </Grid>
 
-          <p
-            style={{
-              color: 'white',
-              font: 'League Spartan',
-              fontWeight: 'bold',
-              paddingLeft: '15px',
-              paddingTop: '10px',
-              fontSize: '10px',
-            }}
-          >
-            {props.time}
-          </p>
-          <p
-            style={{
-              color: 'white',
-              font: 'League Spartan',
-              fontWeight: 'bold',
-              paddingLeft: '10px',
-              margin: '0px',
-              fontSize: '20px',
-            }}
-          >
-            {props.points}
-          </p>
-        </div>
-        <div
-          style={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-            alignContent: 'center',
-          }}
+        <Grid
+          item
+          alignItems="center"
+          container
+          direction="row"
+          xs={12}
         >
-          <Tooltip title={props.creator.name}>
+          <Grid item xs={3}>
             <Avatar alt={props.creator.name} src={props.creator.profileImageUrl} className={classes.avatarStyle} />
-          </Tooltip>
-        </div>
-        <div
-          style={{
-            width: '70%',
-            height: '100%',
-            alignItems: 'center',
-            display: 'flex',
-          }}
-        >
+          </Grid>
           <Grid
             container
-            direction="row"
-            justify="left"
-            alignContent="left"
+            direction="column"
+            alignItems="center"
+            item
+            xs={8}
           >
-            <p
-              style={{
-                color: 'white',
-                font: 'League Spartan',
-                fontWeight: 'bold',
-                paddingLeft: '10px',
-                paddingBottom: '5px',
-                paddingTop: '25px',
-              }}
-            >
-              {props.AlertTitle}
-            </p>
-            <p
-              style={{
-                color: 'white',
-                font: 'League Spartan',
-
-                paddingLeft: '10px',
-                paddingBottom: '5px',
-                paddingTop: '25px',
-              }}
-            >
-              {` - ${props.AlertBody}`}
-            </p>
-
-
+            <Grid item>
+              <Typography variant="subtitle2">
+                {props.creator.name}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="overline">
+                {props.time}
+              </Typography>
+            </Grid>
           </Grid>
+          <Grid item xs={1}>
+            <FavoriteBorderIcon className={classes.favoriteIcon} />
+          </Grid>
+        </Grid>
 
-        </div>
-
-        <div
-          style={{
-            width: '10%',
-            height: '100%',
-            display: 'flex',
-            paddingTop: '25px',
-            paddingRight: '5px',
-            justifyContent: 'center',
-            alignContent: 'center',
-          }}
-        >
-          <CloseIcon style={{ color: 'white', height: '15px' }} />
-        </div>
       </Grid>
     </Box>
   )
