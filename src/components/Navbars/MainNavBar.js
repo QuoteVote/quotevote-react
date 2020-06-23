@@ -64,7 +64,6 @@ function MainNavBar(props) {
                   )}
                   aria-label="Home"
                   onClick={() => {
-                    console.log('Home')
                     handleMenu(0)
                   }}
                   wrapped
@@ -82,7 +81,6 @@ function MainNavBar(props) {
                   )}
                   aria-label="Trending"
                   onClick={() => {
-                    console.log('TrendingContent')
                     handleMenu(1)
                   }}
                   value="trending"
@@ -99,7 +97,6 @@ function MainNavBar(props) {
                   )}
                   aria-label="Post"
                   onClick={() => {
-                    console.log('Post')
                     handleMenu(2)
                   }}
                   value="post"
@@ -180,6 +177,7 @@ MainNavBar.propTypes = {
   classes: PropTypes.object.isRequired,
   setChatOpen: PropTypes.func.isRequired,
   chatOpen: PropTypes.bool.isRequired,
+  width: PropTypes.string.isRequired,
 }
 
 export default withWidth()(MainNavBar)
