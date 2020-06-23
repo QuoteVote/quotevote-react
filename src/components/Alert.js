@@ -6,9 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import CloseIcon from '@material-ui/icons/Close'
 import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
-import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 
 const useStyles = makeStyles((theme) => ({
   root: {
