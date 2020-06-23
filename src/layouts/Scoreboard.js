@@ -17,7 +17,7 @@ import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 import { tokenValidator } from 'store/actions/login'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 import MainNavBar from '../components/Navbars/MainNavBar'
-import MenuSidebar from '../components/MenuSidebar'
+import Sidebar from '../mui-pro/Sidebar/Sidebar'
 
 
 const theme = createMuiTheme({
@@ -101,7 +101,7 @@ export default function Scoreboard(props) {
           />
         </Hidden>
         <Hidden only={['md', 'lg', 'xl']}>
-          <MenuSidebar
+          <Sidebar
             routes={appRoutes}
             logo={logo}
             handleDrawerToggle={handleDrawerToggle}

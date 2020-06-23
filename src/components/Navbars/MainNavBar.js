@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { Typography } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
+import withWidth from '@material-ui/core/withWidth'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
@@ -22,10 +23,12 @@ import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 import { SET_SELECTED_PAGE } from '../../store/actions/types'
 
 function MainNavBar(props) {
-  const { classes, setChatOpen, chatOpen } = props
+  const {
+    classes, setChatOpen, chatOpen, width,
+  } = props
   const { selectedPage } = useSelector((state) => state.appReducer)
   const { avatar, name, username } = useSelector((state) => state.loginReducer.user)
-
+  const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
   const handleMenu = (newSelectedMenu) => {
     dispatch({
@@ -57,7 +60,7 @@ function MainNavBar(props) {
               <NavLink to="/hhsb/Home">
                 <Tab
                   icon={(
-                    <SvgIcon component={HomeSvg} fontSize="large" viewBox="0 0 37 37" />
+                    <SvgIcon component={HomeSvg} fontSize={fontSize} viewBox="0 0 37 37" />
                   )}
                   aria-label="Home"
                   onClick={() => {
@@ -73,7 +76,7 @@ function MainNavBar(props) {
                   icon={(
                     <SvgIcon
                       component={TrendingSvg}
-                      fontSize="large"
+                      fontSize={fontSize}
                       viewBox="0 0 50 50"
                     />
                   )}
@@ -90,7 +93,7 @@ function MainNavBar(props) {
                   icon={(
                     <SvgIcon
                       component={AddPostSvg}
-                      fontSize="large"
+                      fontSize={fontSize}
                       viewBox="0 0 32 32"
                     />
                   )}
@@ -138,7 +141,7 @@ function MainNavBar(props) {
           >
             <SvgIcon
               component={ChatSvg}
-              fontSize="large"
+              fontSize={fontSize}
               viewBox="0 0 37 37"
             />
           </IconButton>
@@ -150,7 +153,7 @@ function MainNavBar(props) {
           >
             <SvgIcon
               component={NotificationsSvg}
-              fontSize="large"
+              fontSize={fontSize}
               viewBox="0 0 49 46"
             />
           </IconButton>
@@ -162,7 +165,7 @@ function MainNavBar(props) {
           >
             <SvgIcon
               component={SettingsSvg}
-              fontSize="large"
+              fontSize={fontSize}
               viewBox="0 0 49 46"
               className={classes.rightMenuButton}
             />
@@ -179,4 +182,4 @@ MainNavBar.propTypes = {
   chatOpen: PropTypes.bool.isRequired,
 }
 
-export default MainNavBar
+export default withWidth()(MainNavBar)
