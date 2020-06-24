@@ -38,25 +38,24 @@ function MainNavBar(props) {
   }
   return (
     <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid>
-            <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
-          </Grid>
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        wrap="nowrap"
+      >
+        <Grid item lg={2}>
+          <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
+        </Grid>
 
-          <Grid>
-            <Tabs
-              value={selectedPage}
-              onChange={handleMenu}
-              indicatorColor="secondary"
-              textColor="secondary"
-            >
-
+        <Grid container item lg={5}>
+          <Tabs
+            value={selectedPage}
+            onChange={handleMenu}
+            indicatorColor="secondary"
+            textColor="secondary"
+          >
+            <Grid item lg={4}>
               <NavLink to="/hhsb/Home">
                 <Tab
                   icon={(
@@ -70,6 +69,8 @@ function MainNavBar(props) {
                   value="home"
                 />
               </NavLink>
+            </Grid>
+            <Grid item lg={4}>
               <NavLink to="/hhsb/TrendingContent">
                 <Tab
                   icon={(
@@ -86,6 +87,8 @@ function MainNavBar(props) {
                   value="trending"
                 />
               </NavLink>
+            </Grid>
+            <Grid item lg={4}>
               <NavLink to="/hhsb/SubmitPost">
                 <Tab
                   icon={(
@@ -102,73 +105,84 @@ function MainNavBar(props) {
                   value="post"
                 />
               </NavLink>
-            </Tabs>
-          </Grid>
-          <Grid>
-            <Hidden only={['xs', 'sm', 'md']}>
-              <div className={classes.profileRow}>
-                <IconButton
-                  aria-label="Profile"
-                  color="inherit"
-                >
+            </Grid>
+          </Tabs>
+        </Grid>
+
+        <Grid container item lg={2}>
+          <Hidden only={['xs', 'sm', 'md']}>
+            <div className={classes.profileRow}>
+              <IconButton
+                aria-label="Profile"
+                color="inherit"
+              >
+                <Grid item lg={3}>
                   <Avatar alt={username} src={avatar} />
+                </Grid>
+                <Grid item lg={9}>
                   <Typography variant="h6" className={classes.profileBlockName}>
                     {name}
                   </Typography>
-                </IconButton>
-              </div>
-            </Hidden>
-            <Hidden only={['xs', 'sm', 'lg', 'xl']}>
+                </Grid>
+              </IconButton>
+            </div>
+          </Hidden>
+          <Hidden only={['xs', 'sm', 'lg', 'xl']}>
+            <Grid item lg={12}>
               <IconButton
                 aria-label="Profile"
                 color="inherit"
               >
                 <Avatar alt={username} src={avatar} />
               </IconButton>
-            </Hidden>
-          </Grid>
+            </Grid>
+          </Hidden>
         </Grid>
 
         <Hidden only={['xs', 'sm']}>
-          <IconButton
-            aria-label="Chat"
-            color="inherit"
-            className={classes.rightMenuButton}
-            onClick={() => setChatOpen(!chatOpen)}
-          >
-            <SvgIcon
-              component={ChatSvg}
-              fontSize={fontSize}
-              viewBox="0 0 37 37"
-            />
-          </IconButton>
-
-          <IconButton
-            aria-label="Notifications"
-            color="inherit"
-            className={classes.rightMenuButton}
-          >
-            <SvgIcon
-              component={NotificationsSvg}
-              fontSize={fontSize}
-              viewBox="0 0 49 46"
-            />
-          </IconButton>
-
-          <IconButton
-            aria-label="Settings"
-            color="inherit"
-            className={classes.rightMenuButton}
-          >
-            <SvgIcon
-              component={SettingsSvg}
-              fontSize={fontSize}
-              viewBox="0 0 49 46"
+          <Grid item lg={1}>
+            <IconButton
+              aria-label="Chat"
+              color="inherit"
               className={classes.rightMenuButton}
-            />
-          </IconButton>
+              onClick={() => setChatOpen(!chatOpen)}
+            >
+              <SvgIcon
+                component={ChatSvg}
+                fontSize={fontSize}
+                viewBox="0 0 37 37"
+              />
+            </IconButton>
+          </Grid>
+          <Grid item lg={1}>
+            <IconButton
+              aria-label="Notifications"
+              color="inherit"
+              className={classes.rightMenuButton}
+            >
+              <SvgIcon
+                component={NotificationsSvg}
+                fontSize={fontSize}
+                viewBox="0 0 49 46"
+              />
+            </IconButton>
+          </Grid>
+          <Grid item lg={1}>
+            <IconButton
+              aria-label="Settings"
+              color="inherit"
+              className={classes.rightMenuButton}
+            >
+              <SvgIcon
+                component={SettingsSvg}
+                fontSize={fontSize}
+                viewBox="0 0 49 46"
+                className={classes.rightMenuButton}
+              />
+            </IconButton>
+          </Grid>
         </Hidden>
-      </Toolbar>
+      </Grid>
     </AppBar>
   )
 }
