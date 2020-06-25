@@ -54,7 +54,7 @@ function LoadAlertList({ data, width }) {
   if (!data || data.length === 0) {
     return (
       <div style={{ width: '90%' }}>
-        <span>Hmmmm, we&aposre not getting any results. Our bad - try another search.</span>
+        <span>Hmmmm, we&apos;re not getting any results. Our bad - try another search.</span>
         <br></br>
       </div>
     )
