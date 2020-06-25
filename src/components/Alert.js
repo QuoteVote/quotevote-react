@@ -1,6 +1,5 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import CloseIcon from '@material-ui/icons/Close'
@@ -52,13 +51,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Alert(props) {
   const classes = useStyles(props)
+  const {
+    AlertTitle, AlertBody, creator, time,
+  } = props
 
   return (
     <Box boxShadow={3} className={classes.root}>
       <Grid container direction="row">
         <Grid className={classes.titleWrapper} item xs={10}>
           <Typography variant="overline">
-            {`${props.AlertTitle} - ${props.AlertBody}`}
+            {`${AlertTitle} - ${AlertBody}`}
           </Typography>
         </Grid>
         <Grid item xs={1}>
@@ -73,7 +75,7 @@ export default function Alert(props) {
           xs={12}
         >
           <Grid item xs={3}>
-            <Avatar alt={props.creator.name} src={props.creator.profileImageUrl} className={classes.avatarStyle} />
+            <Avatar alt={creator.name} src={creator.profileImageUrl} className={classes.avatarStyle} />
           </Grid>
           <Grid
             container
@@ -84,12 +86,12 @@ export default function Alert(props) {
           >
             <Grid item>
               <Typography variant="subtitle2">
-                {props.creator.name}
+                {creator.name}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="overline">
-                {props.time}
+                {time}
               </Typography>
             </Grid>
           </Grid>
@@ -101,4 +103,11 @@ export default function Alert(props) {
       </Grid>
     </Box>
   )
+}
+
+Alert.propTypes = {
+  AlertTitle: PropTypes.string.isRequired,
+  creator: PropTypes.object.isRequired,
+  time: PropTypes.string.isRequired,
+  AlertBody: PropTypes.string.isRequired,
 }

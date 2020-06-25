@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Skeleton from '@material-ui/lab/Skeleton'
@@ -36,6 +36,10 @@ function AlertSkeletonLoader({ limit }) {
       }
     </div>
   )
+}
+
+AlertSkeletonLoader.propTypes = {
+  limit: PropTypes.number.isRequired,
 }
 
 function useWidth() {
@@ -77,10 +81,20 @@ function LoadAlertList({ data, width }) {
     </GridList>
   )
 }
-
+LoadAlertList.propTypes = {
+  length: PropTypes.number.isRequired,
+  width: PropTypes.string.isRequired,
+  data: PropTypes.array.isRequired,
+}
 
 export default function AlertList({ Data, loading, limit }) {
   const width = useWidth()
   if (loading) return <AlertSkeletonLoader limit={limit} />
   return <LoadAlertList data={Data} width={width} />
+}
+
+AlertList.propTypes = {
+  Data: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  limit: PropTypes.number.isRequired,
 }
