@@ -41,13 +41,19 @@ function MainNavBar(props) {
         container
         direction="row"
         alignItems="center"
+        justify="space-between"
         wrap="nowrap"
       >
         <Grid item lg={2}>
           <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
         </Grid>
 
-        <Grid container item lg={5}>
+        <Grid
+          container
+          item
+          lg={5}
+          justify="flex-start"
+        >
           <Tabs
             value={selectedPage}
             onChange={handleMenu}
@@ -108,38 +114,29 @@ function MainNavBar(props) {
           </Tabs>
         </Grid>
 
-        <Grid container item lg={2}>
-          <Hidden only={['xs', 'sm', 'md']}>
-            <div className={classes.profileRow}>
-              <IconButton
-                aria-label="Profile"
-                color="inherit"
-              >
-                <Grid item lg={3}>
-                  <Avatar alt={username} src={avatar} />
-                </Grid>
-                <Grid item lg={9}>
-                  <Typography variant="h6" className={classes.profileBlockName}>
-                    {name}
-                  </Typography>
-                </Grid>
-              </IconButton>
-            </div>
-          </Hidden>
-          <Hidden only={['xs', 'sm', 'lg', 'xl']}>
-            <Grid item lg={12}>
-              <IconButton
-                aria-label="Profile"
-                color="inherit"
-              >
-                <Avatar alt={username} src={avatar} />
-              </IconButton>
+        <Grid
+          justify="flex-end"
+          container
+          item
+          alignItems="center"
+          lg={5}
+        >
+          <Grid item lg={2}>
+            <IconButton
+              aria-label="Profile"
+              color="inherit"
+            >
+              <Avatar alt={username} src={avatar} />
+            </IconButton>
+          </Grid>
+          <Hidden only={['md']}>
+            <Grid item lg={4}>
+              <Typography variant="h6" className={classes.profileBlockName}>
+                {name}
+              </Typography>
             </Grid>
           </Hidden>
-        </Grid>
-
-        <Hidden only={['xs', 'sm']}>
-          <Grid item lg={1}>
+          <Grid item lg={2}>
             <IconButton
               aria-label="Chat"
               color="inherit"
@@ -153,7 +150,7 @@ function MainNavBar(props) {
               />
             </IconButton>
           </Grid>
-          <Grid item lg={1}>
+          <Grid item lg={2}>
             <IconButton
               aria-label="Notifications"
               color="inherit"
@@ -166,7 +163,7 @@ function MainNavBar(props) {
               />
             </IconButton>
           </Grid>
-          <Grid item lg={1}>
+          <Grid item lg={2}>
             <IconButton
               aria-label="Settings"
               color="inherit"
@@ -180,7 +177,7 @@ function MainNavBar(props) {
               />
             </IconButton>
           </Grid>
-        </Hidden>
+        </Grid>
       </Grid>
     </AppBar>
   )
