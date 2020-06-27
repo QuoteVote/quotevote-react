@@ -1,0 +1,22 @@
+import { useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+
+export const getGridListCols = {
+  xl: 4,
+  lg: 4,
+  md: 3,
+  sm: 2,
+  xs: 1,
+}
+
+export function useWidth() {
+  const theme = useTheme()
+  const keys = [...theme.breakpoints.keys].reverse()
+  return (
+    keys.reduce((output, key) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const matches = useMediaQuery(theme.breakpoints.up(key))
+      return !output && matches ? key : output
+    }, null) || 'xs'
+  )
+}
