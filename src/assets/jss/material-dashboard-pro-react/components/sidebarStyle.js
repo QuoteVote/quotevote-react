@@ -28,6 +28,7 @@ const sidebarStyle = (theme) => ({
   },
   drawerPaper: {
     border: 'none',
+    overflow: 'unset',
     top: '0',
     bottom: '0',
     left: '0',
@@ -192,7 +193,7 @@ const sidebarStyle = (theme) => ({
     padding: '10px 15px',
     backgroundColor: 'transparent',
     ...defaultFont,
-    width: 'auto',
+    width: '50px',
     '&:hover': {
       outline: 'none',
       backgroundColor: `rgba(${hexToRgb(grayColor[17])}, 0.2)`,
@@ -444,10 +445,8 @@ const sidebarStyle = (theme) => ({
     flex: 1,
     position: 'relative',
     height: 'calc(100vh - 75px)',
-    overflow: 'auto',
     width: '260px',
     zIndex: '4',
-    overflowScrolling: 'touch',
     transitionProperty: 'top, bottom, width',
     transitionDuration: '.2s, .2s, .35s',
     transitionTimingFunction: 'linear, linear, ease',

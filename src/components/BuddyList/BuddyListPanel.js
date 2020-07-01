@@ -26,10 +26,12 @@ const useStyles = makeStyles((theme) => ({
   },
   dividerClass: {
     backgroundColor: '#6e6b6b',
+    marginTop: theme.spacing(2),
   },
   listSubHeader: {
     color: '#B0b3B8',
     margin: theme.spacing(1),
+    paddingTop: theme.spacing(2),
   },
 }))
 
