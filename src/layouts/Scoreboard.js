@@ -14,7 +14,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import appRoutes from 'routes'
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
-import { tokenValidator } from 'store/actions/login'
+import { tokenValidator } from 'store/user'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 import MainNavBar from '../components/Navbars/MainNavBar'
 import Sidebar from '../mui-pro/Sidebar/Sidebar'

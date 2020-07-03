@@ -50,7 +50,7 @@ const PostPage = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [snackBar, setSnackBar] = useState({ open: false, message: '', color: 'danger' })
   const [buttonType, setButtonType] = useState('approved')
-  const { user } = useSelector((state) => state.loginReducer)
+  const user = useSelector((state) => state.user.user)
   const { id: postId } = useSelector((state) => state.postReducer.selectedPost)
   const [addVote] = useMutation(VOTE, {
     update(

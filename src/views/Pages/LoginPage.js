@@ -35,7 +35,7 @@ import CardFooter from 'mui-pro/Card/CardFooter'
 import Carousel from 'react-material-ui-carousel'
 
 // login method
-import { userLogin, tokenValidator } from 'store/actions/login'
+import { userLogin, tokenValidator } from 'store/user'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -57,7 +57,8 @@ export default function LoginPage() {
   const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
   const dispatch = useDispatch()
   const history = useHistory()
-  const { loading, loginError } = useSelector((state) => state.loginReducer)
+  const loading = useSelector((state) => state.user.loading)
+  const loginError = useSelector((state) => state.user.loginError)
   const [input, setInput] = React.useState({ password: '', username: '' })
 
   // This needs to be fixed so that we are importing the images instead of using the public/assets folder

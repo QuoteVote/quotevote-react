@@ -1,4 +1,3 @@
-export { default as postReducer } from './postReducer'
-export { default as loginReducer } from './loginReducer'
-export { default as chatReducer } from './chatReducer'
-export { default as appReducer } from './appReducer'
+export { default as ui } from '../ui'
+export { default as user } from './loginReducer'
+export { default as chat } from '../chat'
