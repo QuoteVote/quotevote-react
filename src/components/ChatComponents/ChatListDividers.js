@@ -14,7 +14,7 @@ const useStyles = makeStyles(({
   },
 }))
 
-export default function ListDividers({ List }) {
+export default function ChatListDividers({ List }) {
   const classes = useStyles()
   return (
     <MaterialList component="nav" className={classes.root} aria-label="mailbox folders">

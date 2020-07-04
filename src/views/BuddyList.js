@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import ListDividers from 'components/ChatComponents/List'
+import ChatListDividers from 'components/ChatComponents/ChatListDividers'
 
 import GridContainer from 'mui-pro/Grid/GridContainer'
 
@@ -52,7 +52,7 @@ export default function BuddyList({ toggle }) {
 
       </GridContainer>
 
-      <ListDividers List={Data} />
+      <ChatListDividers List={Data} />
     </GridContainer>
 
   )
