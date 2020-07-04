@@ -2,22 +2,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
-import store from './store'
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     loading: false,
     loginError: null,
-    user: {},
+    data: {},
   },
   reducers: {
     USER_LOGIN_REQUEST: (state) => {
       state.loading = true
     },
     USER_LOGIN_SUCCESS: (state, action) => {
-      const { user, loading, loginError } = action.payload
-      state.user = user
+      const { data, loading, loginError } = action.payload
+      state.data = data
       state.loading = loading
       state.loginError = loginError
     },
@@ -28,7 +27,8 @@ const userSlice = createSlice({
     },
     USER_LOGOUT: (state) => {
       state.loading = false
-      state.user = {}
+      state.isLoggedIn = false
+      state.data = {}
     },
     USER_TOKEN_VALIDATION: (state) => {
       state.loading = true
@@ -87,39 +87,38 @@ export const userLogin = async (username, password, dispatch, history) => {
     localStorage.setItem('token', token)
     dispatch(
       actions.USER_LOGIN_SUCCESS({
-        user,
+        data: user,
         loading: false,
         loginError: null,
       })
     )
-    // await persistor.flush()
 
     history.push('/hhsb/Home')
   }
 }
 
-export function tokenValidator() {
-  store.dispatch(actions.USER_TOKEN_VALIDATION())
+export function tokenValidator(dispatch) {
+  dispatch(actions.USER_TOKEN_VALIDATION())
 
   const storedToken = localStorage.getItem('token')
 
   const result = jwt.verify(storedToken, 'HHSB', (err) => {
     if (err) {
       localStorage.removeItem('token')
-      store.dispatch(actions.USER_LOGOUT())
+      dispatch(actions.USER_LOGOUT())
       // console.log("Error", err);
       return false
     }
     // console.log(decoded);
-    store.dispatch(actions.USER_TOKEN_VALIDATED())
+    dispatch(actions.USER_TOKEN_VALIDATED())
     return true
   })
 
   return result
 }
 
-export function clearToken() {
-  store.dispatch(actions.USER_LOGOUT())
+export function clearToken(dispatch) {
+  dispatch(actions.USER_LOGOUT())
   localStorage.removeItem('token')
 }
 

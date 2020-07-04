@@ -53,7 +53,7 @@ function LoadPostsList({ data }) {
   const history = useHistory()
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.loginReducer)
+  const user = useSelector((state) => state.user.data)
   const [active, setActive] = React.useState(0)
   const [activeKey, setActiveKey] = React.useState(null)
   const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK, {

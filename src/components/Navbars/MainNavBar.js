@@ -26,7 +26,9 @@ function MainNavBar(props) {
     classes, setChatOpen, chatOpen, width,
   } = props
   const selectedPage = useSelector((state) => state.ui.selectedPage)
-  const { avatar, name, username } = useSelector((state) => state.user.user)
+  const username = useSelector((state) => state.user.data.username)
+  const avatar = useSelector((state) => state.user.data.avatar)
+  const name = useSelector((state) => state.user.data.name)
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
   const handleMenu = (newSelectedMenu) => {

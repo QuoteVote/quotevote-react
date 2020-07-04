@@ -39,19 +39,19 @@ const hist = createBrowserHistory()
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>
-      {/* <PersistGate loading={null} persistor={persistor}> */}
-      <Router history={hist}>
-        <Switch>
-          <Route path="/rtl" component={RtlLayout} />
-          <Route path="/auth" component={AuthLayout} />
-          <Route path="/admin" component={AdminLayout} />
-          <Route path="/hhsb" component={Scoreboard} />
-          <Route path="/unauth" component={TokenExpired} />
-          <Route path="/logout" component={LogoutPage} />
-          <Redirect from="/" to="/auth" />
-        </Switch>
-      </Router>
-      {/* </PersistGate> */}
+      <PersistGate loading={null} persistor={persistor}>
+        <Router history={hist}>
+          <Switch>
+            <Route path="/rtl" component={RtlLayout} />
+            <Route path="/auth" component={AuthLayout} />
+            <Route path="/admin" component={AdminLayout} />
+            <Route path="/hhsb" component={Scoreboard} />
+            <Route path="/unauth" component={TokenExpired} />
+            <Route path="/logout" component={LogoutPage} />
+            <Redirect from="/" to="/auth" />
+          </Switch>
+        </Router>
+      </PersistGate>
     </Provider>
   </ApolloProvider>,
   document.getElementById('root')

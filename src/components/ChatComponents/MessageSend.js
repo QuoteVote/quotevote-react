@@ -44,7 +44,7 @@ export default function MessageSend({ messageRoomId, type, title }) {
   const classes = useStyles()
   const [text, setText] = React.useState('')
   const submitting = useSelector((state) => state.chat.submitting)
-  const user = useSelector((state) => state.user.user)
+  const user = useSelector((state) => state.user.data)
   const { error, setError } = React.useState('')
 
   const [createMessage] = useMutation(SEND_MESSAGE, {

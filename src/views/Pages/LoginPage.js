@@ -61,6 +61,12 @@ export default function LoginPage() {
   const loginError = useSelector((state) => state.user.loginError)
   const [input, setInput] = React.useState({ password: '', username: '' })
 
+  // TODO: Abstract validation into custom hook
+  React.useEffect(() => {
+    if (tokenValidator(dispatch)) history.push('/hhsb/Home')
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // This needs to be fixed so that we are importing the images instead of using the public/assets folder
   const images = [activiesPageImg, postPageImg, profilePageImg, sideNavImg, trendingPageImg]
 
@@ -85,7 +91,6 @@ export default function LoginPage() {
   }
   return (
     <div className={classes.container}>
-      {tokenValidator() && history.push('/hhsb/Home')}
       <GridContainer justify="center" style={{ marginRight: 24 }}>
         <Hidden smDown>
           <GridItem lg={8}>

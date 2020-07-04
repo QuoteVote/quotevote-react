@@ -3,9 +3,15 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import localForage from 'localforage'
 
-import * as reducers from 'store/reducers'
+import userReducer from 'store/user'
+import uiReducer from 'store/ui'
+import chatReducer from 'store/chat'
 
-const rootReducer = combineReducers({ ...reducers })
+const rootReducer = combineReducers({
+  user: userReducer,
+  ui: uiReducer,
+  chat: chatReducer,
+})
 
 const persistConfig = {
   key: 'root',

@@ -72,7 +72,7 @@ function SubmitPost() {
 
   const history = useHistory()
 
-  const user = useSelector((state) => state.user.user)
+  const user = useSelector((state) => state.user.data)
   const { loading, error, data } = useQuery(GROUPS_QUERY, {
     variables: { limit: 0 },
   })
