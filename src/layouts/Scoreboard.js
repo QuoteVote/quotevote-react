@@ -14,7 +14,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import appRoutes from 'routes'
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
-import { tokenValidator } from 'store/actions/login'
+import { tokenValidator } from 'store/user'
+import { useDispatch } from 'react-redux'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 import MainNavBar from '../components/Navbars/MainNavBar'
 import Sidebar from '../mui-pro/Sidebar/Sidebar'
@@ -37,6 +38,7 @@ const useStyles = makeStyles(styles)
 
 export default function Scoreboard(props) {
   const history = useHistory()
+  const dispatch = useDispatch()
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [page, setPage] = React.useState('Home')
   // styles
@@ -66,6 +68,13 @@ export default function Scoreboard(props) {
   })
 
   const routes = getRoutes(appRoutes)
+
+  // TODO: Abstract validation into custom hook
+  useEffect(() => {
+    if (!tokenValidator(dispatch)) history.push('/unauth')
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useEffect(() => {
     const {
       location: { pathname },
@@ -113,7 +122,6 @@ export default function Scoreboard(props) {
             miniActive
           />
         </Hidden>
-        {!tokenValidator() && history.push('/unauth')}
         <main className={chatOpen ? classes.contentChat : classes.content}>
           {getRoute() ? (
             <Switch>

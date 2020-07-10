@@ -12,6 +12,7 @@ import { Typography } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
 import withWidth from '@material-ui/core/withWidth'
+import { SET_SELECTED_PAGE } from 'store/ui'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
@@ -19,21 +20,19 @@ import { ReactComponent as ChatSvg } from '../../assets/svg/Chat.svg'
 import { ReactComponent as NotificationsSvg } from '../../assets/svg/Notifications.svg'
 import { ReactComponent as SettingsSvg } from '../../assets/svg/Settings.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
-import { SET_SELECTED_PAGE } from '../../store/actions/types'
 
 function MainNavBar(props) {
   const {
     classes, setChatOpen, chatOpen, width,
   } = props
-  const { selectedPage } = useSelector((state) => state.appReducer)
-  const { avatar, name, username } = useSelector((state) => state.loginReducer.user)
+  const selectedPage = useSelector((state) => state.ui.selectedPage)
+  const username = useSelector((state) => state.user.data.username)
+  const avatar = useSelector((state) => state.user.data.avatar)
+  const name = useSelector((state) => state.user.data.name)
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
   const handleMenu = (newSelectedMenu) => {
-    dispatch({
-      type: SET_SELECTED_PAGE,
-      payload: newSelectedMenu,
-    })
+    dispatch(SET_SELECTED_PAGE(newSelectedMenu))
   }
   return (
     <AppBar position="fixed" className={classes.appBar}>

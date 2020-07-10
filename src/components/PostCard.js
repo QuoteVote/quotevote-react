@@ -16,7 +16,7 @@ import CardBody from 'mui-pro/Card/CardBody'
 import ClearIcon from '@material-ui/icons/Clear'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_SELECTED_POST } from 'store/actions/types'
+import { SET_SELECTED_POST } from 'store/ui'
 import { useHistory } from 'react-router-dom'
 import stringLimit from 'string-limit'
 import FavoriteIcon from '@material-ui/icons/Favorite'
@@ -140,7 +140,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PostCard(props) {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { user } = useSelector((state) => state.loginReducer)
+  const user = useSelector((state) => state.user.data)
   const classes = useStyles(props)
   const {
     _id, text, title, upvotes, downvotes, url, bookmarkedBy, rank, created, onHidePost, onBookmark,

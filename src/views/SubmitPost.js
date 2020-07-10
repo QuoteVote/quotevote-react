@@ -47,7 +47,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { CREATE_GROUP, SUBMIT_POST } from 'graphql/mutations'
 import { GROUPS_QUERY } from 'graphql/query'
 
-import { SET_SELECTED_POST } from 'store/actions/types'
+import { SET_SELECTED_POST } from 'store/ui'
 
 const useStyles = makeStyles(styles)
 
@@ -72,7 +72,7 @@ function SubmitPost() {
 
   const history = useHistory()
 
-  const { user } = useSelector((state) => state.loginReducer)
+  const user = useSelector((state) => state.user.data)
   const { loading, error, data } = useQuery(GROUPS_QUERY, {
     variables: { limit: 0 },
   })
@@ -110,10 +110,7 @@ function SubmitPost() {
         },
       })
       const { _id, url } = submitResult.data.addPost
-      dispatch({
-        type: SET_SELECTED_POST,
-        payload: _id,
-      })
+      dispatch(SET_SELECTED_POST(_id))
       successAlert(url, _id)
     } catch (err) {
       errorAlert(err)

@@ -5,6 +5,7 @@ import React from 'react'
 import Skeleton from '@material-ui/lab/Skeleton'
 // import copy from 'clipboard-copy'
 import { useDispatch, useSelector } from 'react-redux'
+import { SET_HIDDEN_POSTS } from 'store/ui'
 import { useMutation } from '@apollo/react-hooks'
 import { GET_TOP_POSTS } from 'graphql/query'
 import { UPDATE_POST_BOOKMARK } from 'graphql/mutations'
@@ -12,7 +13,6 @@ import { getGridListCols, useWidth } from 'utils/display'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import PostCard from './PostCard'
-import { SET_HIDDEN_POSTS } from '../store/actions/types'
 
 
 // eslint-disable-next-line
@@ -32,8 +32,8 @@ function AlertSkeletonLoader({ limit, width }) {
 function LoadPostsList({ data, width }) {
   // const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.loginReducer)
-  const { hiddenPosts } = useSelector((state) => state.appReducer)
+  const user = useSelector((state) => state.user.data)
+  const hiddenPosts = useSelector((state) => state.ui.hiddenPosts)
   const limit = 12 + hiddenPosts.length
   // const [active, setActive] = React.useState(0)
   // const [activeKey, setActiveKey] = React.useState(null)
