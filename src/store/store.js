@@ -1,16 +1,17 @@
-import {
-  createStore, combineReducers, compose, applyMiddleware,
-} from 'redux'
+import { combineReducers } from 'redux'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import localForage from 'localforage'
-import thunk from 'redux-thunk'
 
+import userReducer from 'store/user'
+import uiReducer from 'store/ui'
+import chatReducer from 'store/chat'
 
-import * as reducers from 'store/reducers'
-
-const rootReducer = combineReducers({ ...reducers })
-// eslint-disable-next-line no-underscore-dangle
-const composeEnhancer = (process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose
+const rootReducer = combineReducers({
+  user: userReducer,
+  ui: uiReducer,
+  chat: chatReducer,
+})
 
 const persistConfig = {
   key: 'root',
@@ -19,10 +20,16 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-const store = createStore(
-  persistedReducer,
-  composeEnhancer(applyMiddleware(thunk))
-)
+// To add middleware the end of the array
+const middleware = [
+  ...getDefaultMiddleware({ serializableCheck: false }),
+]
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware,
+  devTools: process.env.NODE_ENV === 'development',
+})
 
 export const persistor = persistStore(store)
 

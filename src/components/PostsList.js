@@ -22,7 +22,7 @@ import { useHistory } from 'react-router-dom'
 import stringLimit from 'string-limit'
 import copy from 'clipboard-copy'
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_SELECTED_POST } from 'store/actions/types'
+import { SET_SELECTED_POST } from 'store/ui'
 import { useMutation } from '@apollo/react-hooks'
 import { GET_TOP_POSTS } from 'graphql/query'
 import { UPDATE_POST_BOOKMARK } from 'graphql/mutations'
@@ -53,7 +53,7 @@ function LoadPostsList({ data }) {
   const history = useHistory()
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.loginReducer)
+  const user = useSelector((state) => state.user.data)
   const [active, setActive] = React.useState(0)
   const [activeKey, setActiveKey] = React.useState(null)
   const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK, {

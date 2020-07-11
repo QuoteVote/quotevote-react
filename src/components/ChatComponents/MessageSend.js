@@ -6,7 +6,7 @@ import FaceIcon from '@material-ui/icons/Face'
 import Button from '@material-ui/core/Button'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { CHAT_SUBMITTING } from 'store/actions/types'
+import { CHAT_SUBMITTING } from 'store/chat'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import { SEND_MESSAGE } from '../../graphql/mutations'
 import { GET_ROOM_MESSAGES } from '../../graphql/query'
@@ -43,18 +43,13 @@ export default function MessageSend({ messageRoomId, type, title }) {
   const dispatch = useDispatch()
   const classes = useStyles()
   const [text, setText] = React.useState('')
-  const { submitting } = useSelector((state) => state.chatReducer)
-  const { user } = useSelector((state) => state.loginReducer)
+  const submitting = useSelector((state) => state.chat.submitting)
+  const user = useSelector((state) => state.user.data)
   const { error, setError } = React.useState('')
 
   const [createMessage] = useMutation(SEND_MESSAGE, {
     onCompleted: () => {
-      dispatch({
-        type: CHAT_SUBMITTING,
-        payload: {
-          submitting: true,
-        },
-      })
+      dispatch(CHAT_SUBMITTING(true))
     },
     onError: (err) => {
       setError(err)
@@ -62,12 +57,8 @@ export default function MessageSend({ messageRoomId, type, title }) {
   })
 
   const handleSubmit = async () => {
-    dispatch({
-      type: CHAT_SUBMITTING,
-      payload: {
-        submitting: true,
-      },
-    })
+    dispatch(CHAT_SUBMITTING(true))
+
     const message = {
       title,
       type,
@@ -136,12 +127,7 @@ export default function MessageSend({ messageRoomId, type, title }) {
             onChange={(event) => {
               const { value } = event.target
               setText(value)
-              dispatch({
-                type: CHAT_SUBMITTING,
-                payload: {
-                  submitting: false,
-                },
-              })
+              dispatch(CHAT_SUBMITTING(false))
             }}
           />
         </Grid>
