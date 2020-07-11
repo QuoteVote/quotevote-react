@@ -54,9 +54,8 @@ const useStyles = makeStyles((theme) => ({
 export default function BuddyList(props) {
   const classes = useStyles()
   const { loading, error, data } = useQuery(GET_CHAT_ROOMS)
-
   const Data =
-    (!error && !loading && !isEmpty(data.messageRooms) &&
+    (!error && !loading && data && !isEmpty(data.messageRooms) &&
       data.messageRooms.map((item) => ({
         room: item,
         Text: item.title,
