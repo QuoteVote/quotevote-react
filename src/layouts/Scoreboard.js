@@ -15,11 +15,12 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import appRoutes from 'routes'
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
 import { tokenValidator } from 'store/user'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_SNACKBAR } from 'store/ui'
+import Snackbar from 'mui-pro/Snackbar/Snackbar'
 import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 import MainNavBar from '../components/Navbars/MainNavBar'
 import Sidebar from '../mui-pro/Sidebar/Sidebar'
-
 
 const theme = createMuiTheme({
   palette: {
@@ -39,6 +40,7 @@ const useStyles = makeStyles(styles)
 export default function Scoreboard(props) {
   const history = useHistory()
   const dispatch = useDispatch()
+  const snackbar = useSelector((state) => state.ui.snackbar)
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [page, setPage] = React.useState('Home')
   // styles
@@ -135,6 +137,14 @@ export default function Scoreboard(props) {
             </Switch>
           )}
           {chatOpen && <ChatDrawer />}
+          <Snackbar
+            place="bc"
+            color={snackbar.type}
+            message={snackbar.message}
+            open={snackbar.open}
+            closeNotification={() => dispatch(SET_SNACKBAR({ open: false, message: '', type: '' }))}
+            close
+          />
         </main>
       </div>
     </MuiThemeProvider>

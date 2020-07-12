@@ -9,7 +9,6 @@ import CardFooter from 'mui-pro/Card/CardFooter'
 import CardHeader from 'mui-pro/Card/CardHeader'
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
-import Snackbar from 'mui-pro/Snackbar/Snackbar'
 
 import Divider from '@material-ui/core/Divider'
 import CardActions from '@material-ui/core/CardActions'
@@ -29,7 +28,8 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import moment from 'moment'
 
 import PostPageSkeleton from 'views/Skeletons/PostPageSkeleton'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_SNACKBAR } from 'store/ui'
 import { cloneDeep, findIndex } from 'lodash'
 
 import { GET_POST, GET_TOP_POSTS } from 'graphql/query'
@@ -45,10 +45,9 @@ const PostPage = () => {
   // const urlSegment = url.split('/')
   // const domain = urlSegment[5]
   // const contentId = urlSegment[6]
-
+  const dispatch = useDispatch()
   const [selectedText, setSelectedText] = useState('')
   const [anchorEl, setAnchorEl] = useState(null)
-  const [snackBar, setSnackBar] = useState({ open: false, message: '', color: 'danger' })
   const [buttonType, setButtonType] = useState('approved')
   const user = useSelector((state) => state.user.data)
   const postId = useSelector((state) => state.ui.selectedPost.id)
@@ -153,17 +152,21 @@ const PostPage = () => {
     }
     try {
       await addVote({ variables: { vote } })
-      setSnackBar({
-        open: true,
-        message: 'Voted Successfully',
-        color: 'success',
-      })
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: 'Voted Successfully',
+          type: 'success',
+        })
+      )
     } catch (err) {
-      setSnackBar({
-        open: true,
-        message: `Vote Error: ${err.message}`,
-        color: 'danger',
-      })
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: `Vote Error: ${err.message}`,
+          type: 'danger',
+        })
+      )
     }
   }
 
@@ -200,17 +203,21 @@ const PostPage = () => {
 
     try {
       await addComment({ variables: { comment: newComment } })
-      setSnackBar({
-        open: true,
-        message: 'Commented Successfully',
-        color: 'success',
-      })
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: 'Commented Successfully',
+          type: 'success',
+        })
+      )
     } catch (err) {
-      setSnackBar({
-        open: true,
-        message: `Comment Error: ${err.message}`,
-        color: 'danger',
-      })
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: `Comment Error: ${err.message}`,
+          type: 'danger',
+        })
+      )
     }
   }
 
@@ -226,18 +233,22 @@ const PostPage = () => {
   const handleApprovePost = async () => {
     if (!disableApproveReject || !disablApprove) {
       try {
-        setSnackBar({
-          open: true,
-          message: 'Approved Post Successfully',
-          color: 'success',
-        })
+        dispatch(
+          SET_SNACKBAR({
+            open: true,
+            message: 'Approved Post Successfully',
+            type: 'success',
+          })
+        )
         approvePost({ variables: { userId: user._id, postId: post._id } })
       } catch (err) {
-        setSnackBar({
-          open: true,
-          message: `Approve Post Error: ${err.message}`,
-          color: 'danger',
-        })
+        dispatch(
+          SET_SNACKBAR({
+            open: true,
+            message: `Approve Post Error: ${err.message}`,
+            type: 'danger',
+          })
+        )
       }
     }
   }
@@ -246,17 +257,19 @@ const PostPage = () => {
     if (!disableApproveReject || !disableReject) {
       try {
         rejectPost({ variables: { userId: user._id, postId: post._id } })
-        setSnackBar({
+        dispatch(SET_SNACKBAR({
           open: true,
           message: 'Rejected Post Successfully',
-          color: 'success',
-        })
+          type: 'success',
+        }))
       } catch (err) {
-        setSnackBar({
-          open: true,
-          message: `Reject Post error: ${err.message}`,
-          color: 'danger',
-        })
+        dispatch(
+          SET_SNACKBAR({
+            open: true,
+            message: `Reject Post error: ${err.message}`,
+            type: 'danger',
+          })
+        )
       }
     }
   }
@@ -452,14 +465,6 @@ const PostPage = () => {
         type={buttonType}
         approvedBy={post.approvedBy}
         rejectedBy={post.rejectedBy}
-      />
-      <Snackbar
-        place="bc"
-        color={snackBar.color}
-        message={snackBar.message}
-        open={snackBar.open}
-        closeNotification={() => setSnackBar({ open: false, message: '' })}
-        close
       />
     </div>
   )

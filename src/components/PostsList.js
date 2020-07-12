@@ -1,11 +1,8 @@
-/* eslint-disable react/prop-types */
-// TODO fix Links
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import PropTypes from 'prop-types'
 import Skeleton from '@material-ui/lab/Skeleton'
-// import copy from 'clipboard-copy'
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_HIDDEN_POSTS } from 'store/ui'
+import { SET_HIDDEN_POSTS, SET_SNACKBAR } from 'store/ui'
 import { useMutation } from '@apollo/react-hooks'
 import { GET_TOP_POSTS } from 'graphql/query'
 import { UPDATE_POST_BOOKMARK } from 'graphql/mutations'
@@ -14,9 +11,7 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import PostCard from './PostCard'
 
-
-// eslint-disable-next-line
-function AlertSkeletonLoader({ limit, width }) {
+export function AlertSkeletonLoader({ width }) {
   const rows = Array.from(Array(12).keys())
   return (
     <GridList cols={getGridListCols[width]}>
@@ -29,15 +24,13 @@ function AlertSkeletonLoader({ limit, width }) {
   )
 }
 
-function LoadPostsList({ data, width }) {
-  // const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
+export function LoadPostsList({ data, width }) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.data)
   const hiddenPosts = useSelector((state) => state.ui.hiddenPosts)
+  const snackbar = useSelector((state) => state.ui.snackbar)
   const limit = 12 + hiddenPosts.length
-  // const [active, setActive] = React.useState(0)
-  // const [activeKey, setActiveKey] = React.useState(null)
-  const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK, {
+  const [updatePostBookmark, { error }] = useMutation(UPDATE_POST_BOOKMARK, {
     refetchQueries: [
       {
         query: GET_TOP_POSTS,
@@ -46,25 +39,35 @@ function LoadPostsList({ data, width }) {
     ],
   })
 
-  // const handleChange = (panel) => (event, expanded) => {
-  //   setActive(expanded ? panel : -1)
-  // }
-
-  // const handleCopy = (shareableLink, key) => {
-  //   copy(shareableLink)
-  //   setActiveKey(key)
-  // }
+  // !snackbar.open prevent dispatching action again once snackbar is already opened
+  if (error && !snackbar.open) {
+    dispatch(SET_SNACKBAR({
+      type: 'danger',
+      message: `Updating bookmark error: ${error}`,
+      open: true,
+    }))
+  }
 
   const handleBookmark = (postId) => {
     // eslint-disable-next-line no-underscore-dangle
-    updatePostBookmark({ variables: { postId, userId: user._id } })
+    updatePostBookmark({
+      variables: { postId, userId: user._id },
+      update: (cache, { data: updatedBookmark }) => {
+        if (updatedBookmark) {
+          dispatch(
+            SET_SNACKBAR({
+              type: 'success',
+              message: 'Updated Successfully',
+              open: true,
+            })
+          )
+        }
+      },
+    })
   }
 
   const handleHidePost = (post) => {
-    dispatch({
-      type: SET_HIDDEN_POSTS,
-      payload: [...hiddenPosts, post._id],
-    })
+    dispatch(SET_HIDDEN_POSTS(post._id))
   }
 
   if (!data || data.posts === 0) {
@@ -100,4 +103,19 @@ export default function PostList({ Data, loading, limit }) {
   const width = useWidth()
   if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
   return <LoadPostsList width={width} data={Data} />
+}
+
+PostList.propTypes = {
+  Data: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  limit: PropTypes.number.isRequired,
+}
+
+AlertSkeletonLoader.propTypes = {
+  width: PropTypes.object.isRequired,
+}
+
+LoadPostsList.propTypes = {
+  width: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 }

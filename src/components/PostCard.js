@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
@@ -6,7 +5,7 @@ import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import { Link, IconButton, CardHeader } from '@material-ui/core'
+import { IconButton, CardHeader } from '@material-ui/core'
 
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
@@ -90,6 +89,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '10px',
     color: '#ffffff',
     padding: 0,
+    zIndex: 1,
+    position: 'relative',
   },
   postTitle: {
     font: 'Roboto',
@@ -137,6 +138,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const getPostContentLimit = () => {
+  const windowWidth = window.innerWidth
+  let limit = 65
+
+  if (windowWidth > 781 && windowWidth < 960) {
+    limit = 100
+  }
+
+  if (windowWidth >= 600 && windowWidth <= 781) {
+    limit = 35
+  }
+
+  if (windowWidth >= 572 && windowWidth < 600) {
+    limit = 178
+  }
+
+  if (windowWidth <= 408) {
+    limit = 18
+  }
+
+  return limit
+}
+
 export default function PostCard(props) {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -146,6 +170,14 @@ export default function PostCard(props) {
     _id, text, title, upvotes, downvotes, url, bookmarkedBy, rank, created, onHidePost, onBookmark,
   } = props
   const isBookmarked = bookmarkedBy.includes(user._id)
+  const [postContentLimit, setPostContentLimit] = React.useState(65)
+
+  const onResize = () => {
+    const limit = getPostContentLimit()
+    setPostContentLimit(limit)
+  }
+
+  window.addEventListener('resize', onResize)
   return (
     <Box boxShadow={3} className={classes.root}>
       <Card className={classes.cardRootStyle}>
@@ -184,24 +216,21 @@ export default function PostCard(props) {
             </GridContainer>
           )}
           subheader={(
-            <Link
-              className={classes.title}
-              onClick={() => {
-                // add post id to redux state
-                dispatch({
-                  type: SET_SELECTED_POST,
-                  payload: _id,
-                })
-                history.push(url)
-              }}
-            >
-              <Typography className={classes.postTitle}>
+            <>
+              <Typography
+                className={classes.postTitle}
+                onClick={() => {
+                  // add post id to redux state
+                  dispatch(SET_SELECTED_POST(_id))
+                  history.push(url)
+                }}
+              >
                 {title}
               </Typography>
               <Typography className={classes.rankNumber}>
                 {`#${rank}`}
               </Typography>
-            </Link>
+            </>
           )}
           className={classes.cardHeaderStyle}
         />
@@ -209,7 +238,7 @@ export default function PostCard(props) {
           <GridContainer justify="flex-end">
             <GridItem xs={10}>
               <Typography className={classes.postContent}>
-                {stringLimit(text || '', 75)}
+                {stringLimit(text || '', postContentLimit)}
               </Typography>
             </GridItem>
           </GridContainer>

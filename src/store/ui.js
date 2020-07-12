@@ -9,6 +9,11 @@ const uiSlice = createSlice({
     },
     selectedPage: 'home',
     hiddenPosts: [],
+    snackbar: {
+      open: false,
+      type: '',
+      message: '',
+    },
   },
   reducers: {
     SET_SELECTED_POST: (state, action) => {
@@ -18,11 +23,19 @@ const uiSlice = createSlice({
       state.selectedPage = action.payload
     },
     SET_HIDDEN_POSTS: (state, action) => {
-      state.hiddenPosts = action.payload
+      state.hiddenPosts = [...state.hiddenPosts, action.payload]
+    },
+    SET_SNACKBAR: (state, action) => {
+      state.snackbar = action.payload
     },
   },
 })
 
-export const { SET_SELECTED_POST, SET_SELECTED_PAGE, SET_HIDDEN_POSTS } = uiSlice.actions
+export const {
+  SET_SELECTED_POST,
+  SET_SELECTED_PAGE,
+  SET_HIDDEN_POSTS,
+  SET_SNACKBAR,
+} = uiSlice.actions
 
 export default uiSlice.reducer
