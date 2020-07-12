@@ -17,6 +17,7 @@
 - [ ] Proper branch name
 - [ ] Perform a self-review of own code
 - [ ] Comments on code, particularly in hard-to-understand areas
+- [ ] Include Storybook component
 <!-- BLOCK: Automated tested required -->
 <!-- - [ ] Add tests that proves code is effective or that the feature works -->
 <!-- BLOCK: Automated tested required -->
