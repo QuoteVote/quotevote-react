@@ -19,6 +19,7 @@
     "apollo-link-http": "^1.5.16",
     "apollo-link-ws": "^1.0.19",
     "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
     "chartist": "0.10.1",
     "clipboard-copy": "^3.1.0",
     "eslint-import-resolver-webpack": "^0.12.1",
@@ -57,7 +58,9 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "superagent": "^5.3.1",
+    "superagent-bluebird-promise": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

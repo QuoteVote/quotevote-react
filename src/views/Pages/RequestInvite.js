@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import agent from 'superagent-bluebird-promise'
 
 // firebase
 
@@ -11,6 +12,8 @@ import Icon from '@material-ui/core/Icon'
 
 // @material-ui/icons
 import Timeline from '@material-ui/icons/Timeline'
+import Mood from '@material-ui/icons/Mood'
+import Money from '@material-ui/icons/Money'
 import Code from '@material-ui/icons/Code'
 import Group from '@material-ui/icons/Group'
 import Email from '@material-ui/icons/Email'
@@ -26,10 +29,6 @@ import CustomInput from 'mui-pro/CustomInput/CustomInput'
 import InfoArea from 'mui-pro/InfoArea/InfoArea'
 import Card from 'mui-pro/Card/Card'
 import CardBody from 'mui-pro/Card/CardBody'
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
-import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
-
 
 import styles from 'assets/jss/material-dashboard-pro-react/views/requestInvitePageStyle'
 
@@ -37,61 +36,105 @@ import 'assets/css/stripe-common.css'
 import { Radio } from '@material-ui/core'
 
 const useStyles = makeStyles(styles)
-const stripePromise = loadStripe('pk_test_qIQR5bxjcD4pkfx0Cwq0XVtJ001dsWFwah');
 
 const CheckoutForm = ({product}) => {
   
   const [email, setEmail] = useState('')
+  const [number, setCC] = useState('')
+  const [mmyy, setMMYY] = useState('')
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const [cvv, setCVV] = useState('')
   const classes = useStyles()
-  const stripe = useStripe()
-  const elements = useElements();
-  const [error, setError] = useState(null);
-  const [cardComplete, setCardComplete] = useState(false);
-  const [processing, setProcessing] = useState(false);
+
 
   const handleSubmit = async () => {
     console.log('submitting', product)
-    const billingDetails = {
-      email
-    }
-    const payload = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
-      billing_details: billingDetails,
-    });
-    if(payload.error) {
-      console.log('error', error)
-    }
-    else {
-      setPaymentMethod(payload.paymentMethod)
-    }
+    const user = {
+      email,
+      id:'_' + Math.random().toString(36).substr(2, 9)
 
-    
+    }
+    agent
+    .post('http://localhost:4000/stripe/create-customer')
+    .send({user})
+    .then(res => {
+      console.log('should create a customer', res)
+      agent
+      .post('http://localhost:4000/stripe/create-payment-method')
+      .send({number:number, exp_month:mmyy.split('/')[0], exp_year: mmyy.split('/')[1], cvc: cvv, user})
+      .then(res => console.log('should have added payment method', res))
+      .catch(console.log)
+    })
 
   }
   return (
     <form>
-      {paymentMethod ? <div style={{color: 'black'}}> No money was charged but stripe is working!</div>:null}
       <GridContainer>
-        <GridItem xs={12} md={12} sm={12}>
-        <CustomInput
-          inputProps={{
-              startAdornment: (
-              <InputAdornment
-                  position="start"
-                  className={classes.inputAdornment}
-              >
-                  <Email className={classes.inputAdornmentIcon} />
-              </InputAdornment>
-              ),
-              placeholder: 'Enter email',
-              onChange:(e) => setEmail(e.target.value)
-          }}
-      />
+        <GridItem xs={3} md={3} sm={3}>
+          <CustomInput
+            inputProps={{
+                startAdornment: (
+                <InputAdornment
+                    position="start"
+                    className={classes.inputAdornment}
+                >
+                    <Email className={classes.inputAdornmentIcon} />
+                </InputAdornment>
+                ),
+                placeholder: 'Enter email',
+                onChange:(e) => setEmail(e.target.value)
+            }}
+        />
+      </GridItem>
+      <GridItem xs={3} md={3} sm={3}>
+          <CustomInput
+            inputProps={{
+                startAdornment: (
+                <InputAdornment
+                    position="start"
+                    className={classes.inputAdornment}
+                >
+                    <CreditCard className={classes.inputAdornmentIcon} />
+                </InputAdornment>
+                ),
+                placeholder: 'Credit Card Number',
+                onChange:(e) => setCC(e.target.value)
+            }}
+        />
+      </GridItem>
+      <GridItem xs={3} md={3} sm={3}>
+          <CustomInput
+            inputProps={{
+                startAdornment: (
+                <InputAdornment
+                    position="start"
+                    className={classes.inputAdornment}
+                >
+                    <CreditCard className={classes.inputAdornmentIcon} />
+                </InputAdornment>
+                ),
+                placeholder: 'MM/YY',
+                onChange:(e) => setMMYY(e.target.value)
+            }}
+        />
+      </GridItem>
+      <GridItem xs={3} md={3} sm={3}>
+          <CustomInput
+            inputProps={{
+                startAdornment: (
+                <InputAdornment
+                    position="start"
+                    className={classes.inputAdornment}
+                >
+                    <CreditCard className={classes.inputAdornmentIcon} />
+                </InputAdornment>
+                ),
+                placeholder: 'CVV',
+                onChange:(e) => setCVV(e.target.value)
+            }}
+        />
       </GridItem>
     </GridContainer>
-      <CardElement />
       
       <Button
           color="rose"
@@ -112,7 +155,7 @@ export default function RequestInvite() {
       <GridContainer>
         <GridItem xs={6} sm={6} md={6}>
           <Card className={classes.cardSignup}>
-            <h2 className={classes.cardTitle}>Business</h2>
+            <h2 className={classes.cardTitle}><Money/> Business Plan</h2>
             <CardBody>
               <GridContainer justify="center">
                   <GridItem xs={12} md={12} sm={12}>
@@ -134,7 +177,7 @@ export default function RequestInvite() {
         </GridItem>
         <GridItem xs={6} sm={6} md={6}>
           <Card className={classes.cardSignup}>
-            <h2 className={classes.cardTitle}>Personal</h2>
+            <h2 className={classes.cardTitle}><Mood/>personal Plan</h2>
             <CardBody>
               <GridContainer justify="center">
               <GridItem xs={12} md={12} sm={12}>
@@ -156,12 +199,10 @@ export default function RequestInvite() {
       </GridContainer>
       <GridContainer style={{backgroundColor:'#fff'}}>
           <GridItem xs={12} md={12} sm={12}>
-          <Elements stripe={stripePromise}>
-                <GridContainer md={12} xs={12} sm={12}>
-                     <CheckoutForm product={productSelection} />
+            <GridContainer md={12} xs={12} sm={12}>
+                  <CheckoutForm product={productSelection} />
 
-                </GridContainer>
-            </Elements>
+            </GridContainer>
           </GridItem>
       </GridContainer>
     </div>
