@@ -1,30 +1,29 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
-  Grid,
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Divider,
-  InputBase,
-  Typography,
+  FormControl,
+  Grid,
   IconButton,
-  Tooltip,
+  InputBase,
+  InputLabel,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
   Switch,
+  TextField,
+  Tooltip,
+  Typography,
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
 
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
-
 // Material Icons
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -45,13 +44,11 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 import * as copy from 'clipboard-copy'
 import { isEmpty } from 'lodash'
 
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks'
 import { CREATE_GROUP, SUBMIT_POST } from 'graphql/mutations'
-import { GROUPS_QUERY, GET_PREDICTION } from 'graphql/query'
+import { GET_PREDICTION, GROUPS_QUERY } from 'graphql/query'
 
 import { SET_SELECTED_POST } from 'store/ui'
-
-import { ApolloClient } from '@apollo/client';
 
 const useStyles = makeStyles(styles)
 
@@ -74,9 +71,9 @@ function SubmitPost() {
 
   const dispatch = useDispatch()
   const [switchVal, setSwitch] = React.useState({
-      checkedA: true,
-      checkedB: true,
-    });
+    checkedA: true,
+    checkedB: true,
+  })
   const history = useHistory()
 
   const user = useSelector((state) => state.user.data)
@@ -88,8 +85,8 @@ function SubmitPost() {
 
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
   const handleSwitchChange = (event) => {
-      setSwitch({ ...switchVal, [event.target.name]: event.target.checked });
-    };
+    setSwitch({ ...switchVal, [event.target.name]: event.target.checked })
+  }
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -126,22 +123,21 @@ function SubmitPost() {
     }
   }
 
+  const client = useApolloClient()
 
-const client = ApolloClient();
-
-//() => handlePredict(client)
+  // () => handlePredict(client)
   const handlePredict = async (event) => {
     event.preventDefault()
     try {
-      const { loading, error, data } = await client.query({
-          query: GET_PREDICTION,
-          variables: { predictionString: event.target.value }
-        })
+      const { loading: predictionLoading, error: predictionError, data: predictionData } = await client.query({
+        query: GET_PREDICTION,
+        variables: { predictionString: event.target.value },
+      })
+      console.log({ predictionData, predictionLoading, predictionError })
     } catch (err) {
       errorAlert(err)
     }
   }
-() >= handlePredict(client)
   const handlePostText = (event) => {
     setPostText(event.target.value)
   }
@@ -459,27 +455,26 @@ const client = ApolloClient();
               </div>
             </CardHeader>
             <CardBody>
-              <FormControl requried> 
-                  <TextField
-                    style={{width: '500px'}}
-                    placeholder='input text to submit predict truth or sentiment'
-                  >
-                    
-                  </TextField>
-              </FormControl>
-              <div style={{top: 145, marginLeft: 300}}>
-                <h2 style={{color:'#4baf4f',}}> --%</h2>
-                <h2 style={{color:'#4baf4f', fontSize: 20}} > </h2>
-              </div>
-              <div style={{top: 150, marginLeft: 300}}>
-              <FormGroup row>
-                <FormControlLabel
-                  control={<Switch checked={switchVal.checkedA} onChange={handleSwitchChange} name="checkedA" />}
-                  label="Sentiment"
-                />
-                <Button style={{backgroundColor:'#ff9800'}} onClick={handlePredict}> Predict</Button>
-              </FormGroup>
+              <FormControl requried>
+                <TextField
+                  style={{ width: '500px' }}
+                  placeholder="input text to submit predict truth or sentiment"
+                >
 
+                </TextField>
+              </FormControl>
+              <div style={{ top: 145, marginLeft: 300 }}>
+                <h2 style={{ color: '#4baf4f' }}> --%</h2>
+                <h2 style={{ color: '#4baf4f', fontSize: 20 }}> </h2>
+              </div>
+              <div style={{ top: 150, marginLeft: 300 }}>
+                <FormGroup row>
+                  <FormControlLabel
+                    control={<Switch checked={switchVal.checkedA} onChange={handleSwitchChange} name="checkedA" />}
+                    label="Sentiment"
+                  />
+                  <Button style={{ backgroundColor: '#ff9800' }} onClick={handlePredict}> Predict</Button>
+                </FormGroup>
 
               </div>
             </CardBody>
