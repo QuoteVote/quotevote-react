@@ -51,6 +51,8 @@ import { GROUPS_QUERY, GET_PREDICTION } from 'graphql/query'
 
 import { SET_SELECTED_POST } from 'store/ui'
 
+import { ApolloClient } from '@apollo/client';
+
 const useStyles = makeStyles(styles)
 
 const inputStyles = {
@@ -123,19 +125,23 @@ function SubmitPost() {
       errorAlert(err)
     }
   }
-  /* WIP
+
+
+const client = ApolloClient();
+
+//() => handlePredict(client)
   const handlePredict = async (event) => {
     event.preventDefault()
-
     try {
-      const { loading, error, data } = useQuery(GET_PREDICTION, {
-        variables: { predictionString: event.target.value },
-      })
+      const { loading, error, data } = await client.query({
+          query: GET_PREDICTION,
+          variables: { predictionString: event.target.value }
+        })
     } catch (err) {
       errorAlert(err)
     }
   }
-  */
+() >= handlePredict(client)
   const handlePostText = (event) => {
     setPostText(event.target.value)
   }
@@ -471,7 +477,7 @@ function SubmitPost() {
                   control={<Switch checked={switchVal.checkedA} onChange={handleSwitchChange} name="checkedA" />}
                   label="Sentiment"
                 />
-                <Button style={{backgroundColor:'#ff9800'}}> Predict</Button>
+                <Button style={{backgroundColor:'#ff9800'}} onClick={handlePredict}> Predict</Button>
               </FormGroup>
 
 
