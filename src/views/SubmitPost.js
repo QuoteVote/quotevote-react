@@ -17,6 +17,7 @@ import {
   Tooltip,
   Radio,
   RadioGroup,
+  Switch,
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -36,6 +37,7 @@ import CardBody from 'mui-pro/Card/CardBody'
 import Button from 'mui-pro/CustomButtons/Button'
 import LoadingSpinner from 'components/LoadingSpinner'
 import styles from 'assets/jss/material-dashboard-pro-react/views/sweetAlertStyle'
+import FormGroup from '@material-ui/core/FormGroup'
 
 import GridContainer from 'mui-pro/Grid/GridContainer'
 
@@ -45,7 +47,7 @@ import { isEmpty } from 'lodash'
 
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { CREATE_GROUP, SUBMIT_POST } from 'graphql/mutations'
-import { GROUPS_QUERY } from 'graphql/query'
+import { GROUPS_QUERY, GET_PREDICTION } from 'graphql/query'
 
 import { SET_SELECTED_POST } from 'store/ui'
 
@@ -69,7 +71,10 @@ function SubmitPost() {
   const [privacy, setPrivacy] = useState('private')
 
   const dispatch = useDispatch()
-
+  const [switchVal, setSwitch] = React.useState({
+      checkedA: true,
+      checkedB: true,
+    });
   const history = useHistory()
 
   const user = useSelector((state) => state.user.data)
@@ -80,7 +85,9 @@ function SubmitPost() {
   const [createGroup] = useMutation(CREATE_GROUP)
 
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
-
+  const handleSwitchChange = (event) => {
+      setSwitch({ ...switchVal, [event.target.name]: event.target.checked });
+    };
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -116,7 +123,19 @@ function SubmitPost() {
       errorAlert(err)
     }
   }
+  /* WIP
+  const handlePredict = async (event) => {
+    event.preventDefault()
 
+    try {
+      const { loading, error, data } = useQuery(GET_PREDICTION, {
+        variables: { predictionString: event.target.value },
+      })
+    } catch (err) {
+      errorAlert(err)
+    }
+  }
+  */
   const handlePostText = (event) => {
     setPostText(event.target.value)
   }
@@ -433,6 +452,31 @@ function SubmitPost() {
                 </p>
               </div>
             </CardHeader>
+            <CardBody>
+              <FormControl requried> 
+                  <TextField
+                    style={{width: '500px'}}
+                    placeholder='input text to submit predict truth or sentiment'
+                  >
+                    
+                  </TextField>
+              </FormControl>
+              <div style={{top: 145, marginLeft: 300}}>
+                <h2 style={{color:'#4baf4f',}}> --%</h2>
+                <h2 style={{color:'#4baf4f', fontSize: 20}} > </h2>
+              </div>
+              <div style={{top: 150, marginLeft: 300}}>
+              <FormGroup row>
+                <FormControlLabel
+                  control={<Switch checked={switchVal.checkedA} onChange={handleSwitchChange} name="checkedA" />}
+                  label="Sentiment"
+                />
+                <Button style={{backgroundColor:'#ff9800'}}> Predict</Button>
+              </FormGroup>
+
+
+              </div>
+            </CardBody>
           </Card>
         </GridItem>
       </GridContainer>

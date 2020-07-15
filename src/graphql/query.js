@@ -96,3 +96,13 @@ export const GET_TOP_POSTS = gql`
     posts(limit: $limit, offset: $offset, searchKey: $searchKey)
   }
 `
+/* WIP
+export const GET_PREDICTION = gql`
+query score($predictionString: String){
+  score(redditComment:$predictionString: String){
+     comment
+     confidence
+     label
+  }
+}
+`*/
