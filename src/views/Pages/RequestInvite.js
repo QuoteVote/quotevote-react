@@ -55,12 +55,12 @@ const CheckoutForm = ({product}) => {
 
     }
     agent
-    .post('http://localhost:4000/stripe/create-customer')
+    .post('https://voxpop-payments-stripe-master.herokuapp.com/stripe/create-customer')
     .send({user})
     .then(res => {
       console.log('should create a customer', res)
       agent
-      .post('http://localhost:4000/stripe/create-payment-method')
+      .post('https://voxpop-payments-stripe-master.herokuapp.com/stripe/create-payment-method')
       .send({number:number, exp_month:mmyy.split('/')[0], exp_year: mmyy.split('/')[1], cvc: cvv, user})
       .then(res => console.log('should have added payment method', res))
       .catch(console.log)
