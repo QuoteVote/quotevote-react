@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unreachable */
 // The `break` in the switch are reachable. If not, please resolve
-import React, { Fragment } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
@@ -27,54 +27,54 @@ function Headers() {
     gridItem: {
       backgroundColor: 'white',
       marginLeft: 10,
-      width: '48%'
+      width: '48%',
 
     },
   })
   const classes = useStyles()
   return (
-    <Fragment>
-        <GridItem className={classes.gridItem} direction="row" justify="center" backgroundColor="white" elevation={3}>
+    <>
+      <GridItem className={classes.gridItem} direction="row" justify="center" backgroundColor="white" elevation={3}>
         <h2 className={classes.h2}>Title of the post</h2>
-        </GridItem>
-        <GridItem className={classes.gridItem} direction="row" justify="center" backgroundColor="white" elevation={3}>
+      </GridItem>
+      <GridItem className={classes.gridItem} direction="row" justify="center" backgroundColor="white" elevation={3}>
         <h2 className={classes.h2}>Comments</h2>
-        </GridItem>
-    </Fragment>
+      </GridItem>
+    </>
   )
 }
 
 function Comments() {
-    const useStyles = makeStyles({
-        comment: {
-            width: '48%',
-            marginLeft: 10
-        }
-    })
-    const classes = useStyles()
-    return (
-        <Card className={classes.comment}>
-            <CardBody>
-                <h2> an array of comments will go here</h2>
-            </CardBody>
+  const useStyles = makeStyles({
+    comment: {
+      width: '48%',
+      marginLeft: 10,
+    },
+  })
+  const classes = useStyles()
+  return (
+    <Card className={classes.comment}>
+      <CardBody>
+        <h2> an array of comments will go here</h2>
+      </CardBody>
 
-        </Card>
-    )
+    </Card>
+  )
 }
 function Post() {
-    const useStyles = makeStyles({
-        post: {
-            width: '50%'
-        },
-    })
-    const classes = useStyles()
-    return (
-        <Card className={classes.post}> 
-            <CardBody>
-                <h2> I'm a post</h2>
-            </CardBody>
-        </Card>
-    )
+  const useStyles = makeStyles({
+    post: {
+      width: '50%',
+    },
+  })
+  const classes = useStyles()
+  return (
+    <Card className={classes.post}>
+      <CardBody>
+        <h2> I'm a post</h2>
+      </CardBody>
+    </Card>
+  )
 }
 export default function Posts() {
   const data = []
