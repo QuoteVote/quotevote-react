@@ -64,6 +64,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 const cache = new InMemoryCache()
 const data = {
   searchKey: '',
+  startDateRange: '',
   networkStatus: {
     __typename: 'NetworkStatus',
     isConnected: false,
