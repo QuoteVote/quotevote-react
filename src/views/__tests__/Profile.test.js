@@ -1,9 +1,9 @@
 import React from 'react'
 import Card from 'mui-pro/Card/Card'
 import Pagination from 'material-ui-flat-pagination'
-import { ACTIVITIES_QUERY } from '../../Homepage/HomepageGQL'
-import Profile from '..'
-import { GET_SEARCH_KEY } from '../../../components/searchBar'
+import { ACTIVITIES_QUERY } from '../Homepage/HomepageGQL'
+import Profile from '../Profile'
+import { GET_SEARCH_KEY } from '../../components/searchBar'
 
 const searchKey = 'Test'
 const mocks = [
