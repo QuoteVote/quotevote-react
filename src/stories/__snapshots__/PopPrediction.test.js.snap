@@ -56,6 +56,7 @@ exports[`PopPrediction test renders correctly 1`] = `
           >
             <h3
               class="MuiTypography-root MuiTypography-h3 MuiTypography-colorPrimary"
+              title="prediction"
             >
                20%
             </h3>
@@ -69,14 +70,13 @@ exports[`PopPrediction test renders correctly 1`] = `
             class="makeStyles-buttonContainer-5"
           >
             <div
-              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-select-7"
+              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-select-7 Mui-disabled Mui-disabled"
             >
               <div
                 aria-haspopup="listbox"
                 aria-labelledby=" "
-                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
                 role="button"
-                tabindex="0"
               >
                 Sentiment
               </div>
@@ -97,8 +97,9 @@ exports[`PopPrediction test renders correctly 1`] = `
               </svg>
             </div>
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-6 MuiButton-containedPrimary"
-              tabindex="0"
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-6 MuiButton-containedPrimary Mui-disabled Mui-disabled"
+              disabled=""
+              tabindex="-1"
               type="button"
             >
               <span
@@ -106,13 +107,11 @@ exports[`PopPrediction test renders correctly 1`] = `
               >
                 <p
                   class="MuiTypography-root MuiTypography-body1 MuiTypography-colorSecondary"
+                  title="pop-button"
                 >
                   POP
                 </p>
               </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
             </button>
           </div>
         </div>

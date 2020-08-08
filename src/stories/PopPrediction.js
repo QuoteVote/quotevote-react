@@ -52,13 +52,18 @@ const PopPercent = ({ prediction }) => {
   return `${percent}`;
 };
 
-const CardBottomSheet = ({ handleTypeChange = () => {}, prediction }) => {
+const CardBottomSheet = ({
+  handleTypeChange = () => {},
+  prediction,
+  handlePredict,
+  disabled,
+}) => {
   const [type, setType] = useState("sentiment");
   const classes = useStyles();
   return (
     <div className={classes.cardBottomSheet}>
       <div className={classes.percent}>
-        <Typography variant="h3" color="primary">
+        <Typography variant="h3" color="primary" title="prediction">
           <PopPercent prediction={prediction} />
         </Typography>
         <Typography variant="body2" color="primary">
@@ -73,6 +78,7 @@ const CardBottomSheet = ({ handleTypeChange = () => {}, prediction }) => {
             setType(event.target.value);
             handleTypeChange(event.target.value);
           }}
+          disabled={disabled}
         >
           <MenuItem value="sentiment">Sentiment</MenuItem>
           <MenuItem value="truth">Truth</MenuItem>
@@ -83,8 +89,10 @@ const CardBottomSheet = ({ handleTypeChange = () => {}, prediction }) => {
           size="medium"
           color="primary"
           variant="contained"
+          disabled={disabled}
+          onClick={handlePredict}
         >
-          <Typography variant="body1" color="secondary">
+          <Typography variant="body1" color="secondary" title="pop-button">
             POP
           </Typography>
         </Button>
@@ -93,13 +101,7 @@ const CardBottomSheet = ({ handleTypeChange = () => {}, prediction }) => {
   );
 };
 
-const PopPrediction = ({
-  checked,
-  handleSwitchChange,
-  handlePredict,
-  prediction,
-  ...props
-}) => {
+const PopPrediction = ({ handlePredict, prediction, disabled, ...props }) => {
   const classes = useStyles();
   const [text, setText] = useState("");
 
@@ -121,11 +123,16 @@ const PopPrediction = ({
               fullWidth
               multiline
               rowsMax={4}
+              disabled={disabled}
               {...props}
             />
           </Grid>
           <Grid item>
-            <CardBottomSheet prediction={prediction} />
+            <CardBottomSheet
+              prediction={prediction}
+              disabled={disabled || !text}
+              handlePredict={handlePredict}
+            />
           </Grid>
         </Grid>
       </CardBody>
@@ -135,16 +142,12 @@ const PopPrediction = ({
 
 PopPrediction.propTypes = {
   prediction: PropTypes.oneOf([0, 1, 2, 3, 4, 5]),
-  handleSwitchChange: PropTypes.func,
   handlePredict: PropTypes.func,
-  checked: PropTypes.bool,
 };
 
 PopPrediction.defaultProps = {
   prediction: 1,
-  handleSwitchChange: () => {},
   handlePredict: () => {},
-  checked: false,
 };
 
 export default PopPrediction;
