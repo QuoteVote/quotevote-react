@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PopPrediction test renders correctly 1`] = `
+exports[`PopPrediction test - renders correctly 1`] = `
 <div
   class="makeStyles-card-8"
 >

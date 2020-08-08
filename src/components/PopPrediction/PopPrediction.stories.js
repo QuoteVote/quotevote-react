@@ -13,7 +13,7 @@ import { MuiThemeProvider as ThemeProvider } from "@material-ui/core/styles";
 // The component
 import PopPrediction from "./PopPrediction";
 
-import theme from "../themes/MainTheme";
+import theme from "../../themes/MainTheme";
 
 // Story config
 export default {

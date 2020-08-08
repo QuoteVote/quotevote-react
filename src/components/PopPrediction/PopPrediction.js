@@ -1,9 +1,9 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 
-import Card from "../mui-pro/Card/Card";
-import CardHeader from "../mui-pro/Card/CardHeader";
-import CardBody from "../mui-pro/Card/CardBody";
+import Card from "../../mui-pro/Card/Card";
+import CardHeader from "../../mui-pro/Card/CardHeader";
+import CardBody from "../../mui-pro/Card/CardBody";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
