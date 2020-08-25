@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import InputBase from '@material-ui/core/InputBase'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import SearchIcon from '@material-ui/icons/Search'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import TextField from '@material-ui/core/TextField'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates'
+import { DateRangePicker } from 'react-dates'
+// import Paper from '@material-ui/core/Paper'
+// import InputBase from '@material-ui/core/InputBase'
+// import Divider from '@material-ui/core/Divider'
+// import IconButton from '@material-ui/core/IconButton'
+// import SearchIcon from '@material-ui/icons/Search'
+// import TextField from '@material-ui/core/TextField'
 // import { DateRangePicker, DateRange, DateRangeDelimiter } from '@material-ui/pickers'
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +47,7 @@ DateSearchBar.propTypes = {
   setOffset: PropTypes.func.isRequired,
 }
 export default function Datepicker() {
-  const [dateRange, setdateRange] = useState({
+  const [dateRange, setDateRange] = useState({
     startDate: null,
     endDate: null,
   })
@@ -55,9 +55,9 @@ export default function Datepicker() {
 
   const { startDate, endDate } = dateRange
 
+  // eslint-disable-next-line no-shadow
   const handleOnDateChange = ({ startDate, endDate }) => {
-    console.log('handleOnDateChange' , startDate, endDate)
-    setdateRange({ startDate, endDate })
+    setDateRange({ startDate, endDate })
   }
 
   return (
@@ -69,9 +69,9 @@ export default function Datepicker() {
       endDate={endDate}
       numberOfMonths={1}
       displayFormat="MMM D"
-      showClearDates={true}
+      showClearDates
       focusedInput={focus}
-      onFocusChange={focus => setFocus(focus)}
+      onFocusChange={(focusArg) => setFocus(focusArg)}
       startDateId="startDateMookh"
       endDateId="endDateMookh"
       minimumNights={0}
@@ -81,15 +81,17 @@ export default function Datepicker() {
 
 
 function DateSearchBar({ setOffset }) {
+  // eslint-disable-next-line no-unused-vars
   const classes = useStyles()
-  const { data: { startDateRange }, client } = useQuery(GET_SEARCH_START_DATE)
+  const { client } = useQuery(GET_SEARCH_START_DATE)
   // const [selectedDate, handleDateChange] = React.useState<DateRange>([null, null])
+  // eslint-disable-next-line no-unused-vars
   const handleChangeStartDate = (event) => {
     client.writeData({ data: { startDateRange: event.target.value } })
     setOffset(0)
   }
 
-  console.log('Rendering DateSearchBar startDateRange', startDateRange)
+  // console.log('Rendering DateSearchBar startDateRange', startDateRange)
   /*
   In an ideal world we can use this
   <DateRangePicker
@@ -112,9 +114,9 @@ function DateSearchBar({ setOffset }) {
       startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
       endDate={null} // momentPropTypes.momentObj or null,
       endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-      onDatesChange={({ startDate, endDate }) => console.log('dates change', startDate, endDate)} // PropTypes.func.isRequired,
+      onDatesChange={() => {}} // PropTypes.func.isRequired,
       focusedInput={null} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-      onFocusChange={(focusedInput) => console.log(focusedInput)} // PropTypes.func.isRequired,
+      onFocusChange={() => {}} // PropTypes.func.isRequired,
     />
   )
 }

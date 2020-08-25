@@ -102,6 +102,10 @@ export default function Profile() {
     variables: { user_id: userId || loggedInUser._id },
   })
 
+  if (userError) {
+    // do something()
+  }
+
   useEffect(() => {
     if (userData) {
       setUserInfo(userData.user)

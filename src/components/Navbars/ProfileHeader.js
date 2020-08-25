@@ -22,7 +22,6 @@ import GridContainer from 'mui-pro/Grid/GridContainer'
 import CustomizedInputBase from 'components/searchBar'
 import DateSearchBar from 'components/DateSearchBar'
 
-// import FollowButton from 'components/FollowButton'
 import FollowButton from 'components/FollowButton'
 
 const useStyles = makeStyles((theme) => ({

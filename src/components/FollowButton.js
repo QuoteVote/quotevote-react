@@ -12,9 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+
 function FollowButton({ isFollowing, profileUserId }) {
   const classes = useStyles()
-  const [followMutation, { data: followData, loading: followLoading, error: followError }] = useMutation(FOLLOW_MUTATION)
+  // TODO handle data object
+  const [followMutation] = useMutation(FOLLOW_MUTATION)
   if (isFollowing) {
     return (
       <Button
@@ -39,6 +41,7 @@ function FollowButton({ isFollowing, profileUserId }) {
 }
 
 FollowButton.propTypes = {
+  isFollowing: PropTypes.bool.isRequired,
   profileUserId: PropTypes.string.isRequired,
 }
 
