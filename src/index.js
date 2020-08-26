@@ -14,27 +14,29 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { ApolloProvider } from "@apollo/react-hooks";
-import { createBrowserHistory } from "history";
-import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
-import { Redirect, Route, Router, Switch } from "react-router-dom";
-import AdminLayout from "layouts/Admin";
-import AuthLayout from "layouts/Auth";
-import client from "config/apollo";
-import React from "react";
-import ReactDOM from "react-dom";
-import RtlLayout from "layouts/RTL";
-import Scoreboard from "layouts/Scoreboard";
-import TokenExpired from "layouts/TokenExpired";
-import store, { persistor } from "store/store";
+import { ApolloProvider } from '@apollo/react-hooks'
+import { createBrowserHistory } from 'history'
+import { PersistGate } from 'redux-persist/integration/react'
+import { Provider } from 'react-redux'
+import {
+  Redirect, Route, Router, Switch,
+} from 'react-router-dom'
+import AdminLayout from 'layouts/Admin'
+import AuthLayout from 'layouts/Auth'
+import client from 'config/apollo'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import RtlLayout from 'layouts/RTL'
+import Scoreboard from 'layouts/Scoreboard'
+import TokenExpired from 'layouts/TokenExpired'
+import store, { persistor } from 'store/store'
 
-import "assets/scss/material-dashboard-pro-react.scss";
-import LogoutPage from "./components/LogoutPage";
+import 'assets/scss/material-dashboard-pro-react.scss'
+import LogoutPage from './components/LogoutPage'
 
-import "fontsource-montserrat";
+import 'fontsource-montserrat'
 
-const hist = createBrowserHistory();
+const hist = createBrowserHistory()
 
 ReactDOM.render(
   <ApolloProvider client={client}>
@@ -54,5 +56,5 @@ ReactDOM.render(
       </PersistGate>
     </Provider>
   </ApolloProvider>,
-  document.getElementById("root")
-);
+  document.getElementById('root')
+)

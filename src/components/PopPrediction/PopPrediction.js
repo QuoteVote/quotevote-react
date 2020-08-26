@@ -1,38 +1,37 @@
-import React, { useState, Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-import Card from "../../mui-pro/Card/Card";
-import CardHeader from "../../mui-pro/Card/CardHeader";
-import CardBody from "../../mui-pro/Card/CardBody";
+import { makeStyles } from '@material-ui/core/styles'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import CardHeader from '../../mui-pro/Card/CardHeader'
+import CardBody from '../../mui-pro/Card/CardBody'
+import Card from '../../mui-pro/Card/Card'
 
-import { makeStyles } from "@material-ui/core/styles";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import 'fontsource-montserrat'
 
-import "fontsource-montserrat";
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
-    fontFamily: "Montserrat",
+    fontFamily: 'Montserrat',
     fontWeight: 700,
   },
   cardBottomSheet: {
-    display: "flex",
+    display: 'flex',
   },
   percent: {
     flexGrow: 1,
   },
   subPercentText: {
-    fontFamily: "Montserrat",
+    fontFamily: 'Montserrat',
     fontWeight: 500,
   },
   buttonContainer: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
   },
   button: {
     minWidth: 100,
@@ -40,26 +39,22 @@ const useStyles = makeStyles((theme) => ({
   select: {
     marginRight: 20,
   },
-}));
+}))
 
 const PopPercent = ({ prediction }) => {
-  let percent = "";
+  let percent = ''
   if (prediction > 0 && prediction <= 5) {
-    percent = ` ${prediction * 20}%`;
+    percent = ` ${prediction * 20}%`
   } else if (prediction === 0) {
-    percent = ` --%`;
+    percent = ' --%'
   }
-  return `${percent}`;
-};
+  return `${percent}`
+}
 
-const CardBottomSheet = ({
-  handleTypeChange = () => {},
-  prediction,
-  handlePredict,
-  disabled,
-}) => {
-  const [type, setType] = useState("sentiment");
-  const classes = useStyles();
+// eslint-disable-next-line
+const CardBottomSheet = ({ handleTypeChange = () => {}, prediction, handlePredict, disabled }) => {
+  const [type, setType] = useState('sentiment')
+  const classes = useStyles()
   return (
     <div className={classes.cardBottomSheet}>
       <div className={classes.percent}>
@@ -75,8 +70,8 @@ const CardBottomSheet = ({
           className={classes.select}
           value={type}
           onChange={(event) => {
-            setType(event.target.value);
-            handleTypeChange(event.target.value);
+            setType(event.target.value)
+            handleTypeChange(event.target.value)
           }}
           disabled={disabled}
         >
@@ -98,14 +93,17 @@ const CardBottomSheet = ({
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const PopPrediction = ({ handlePredict, prediction, disabled, ...props }) => {
-  const classes = useStyles();
-  const [text, setText] = useState("");
 
-  const handleTextInputChange = (event) => setText(event.target.value);
+const PopPrediction = ({
+  handlePredict, prediction, disabled, ...props
+}) => {
+  const classes = useStyles()
+  const [text, setText] = useState('')
+
+  const handleTextInputChange = (event) => setText(event.target.value)
 
   return (
     <Card>
@@ -137,17 +135,18 @@ const PopPrediction = ({ handlePredict, prediction, disabled, ...props }) => {
         </Grid>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
 PopPrediction.propTypes = {
   prediction: PropTypes.oneOf([0, 1, 2, 3, 4, 5]),
   handlePredict: PropTypes.func,
-};
+  disabled: PropTypes.bool,
+}
 
 PopPrediction.defaultProps = {
   prediction: 1,
   handlePredict: () => {},
-};
+}
 
-export default PopPrediction;
+export default PopPrediction
