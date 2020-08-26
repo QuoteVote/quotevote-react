@@ -32,43 +32,29 @@ export default function Footer(props) {
   return (
     <footer className={classes.footer}>
       <div className={container}>
-        <div className={classes.left}>
+        <p className={classes.left}>
+          &copy;{" "}
+          VoxPopuli, PBC made with &hearts; on Earth
+        </p>
+        <div className={classes.right}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a href="#home" className={block}>
-                {rtlActive ? "الصفحة الرئيسية" : "Home"}
+              <a href="#invest" className={block}>
+                Invest
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#company" className={block}>
-                {rtlActive ? "شركة" : "Company"}
+              <a href="#careers" className={block}>
+                Careers
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#portfolio" className={block}>
-                {rtlActive ? "بعدسة" : "Portfolio"}
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="#blog" className={block}>
-                {rtlActive ? "مدونة" : "Blog"}
+              <a href="#about-us" className={block}>
+                About Us
               </a>
             </ListItem>
           </List>
         </div>
-        <p className={classes.right}>
-          &copy; {1900 + new Date().getYear()}{" "}
-          <a
-            href="https://www.creative-tim.com?ref=mdpr-footer"
-            className={anchor}
-            target="_blank"
-          >
-            {rtlActive ? "توقيت الإبداعية" : "Creative Tim"}
-          </a>
-          {rtlActive
-            ? ", مصنوعة مع الحب لشبكة الإنترنت أفضل"
-            : ", made with love for a better web"}
-        </p>
       </div>
     </footer>
   );

@@ -8,7 +8,9 @@ import {
 } from 'assets/jss/material-dashboard-pro-react'
 
 const footerStyle = {
-  block: {},
+  block: {
+    textTransform: 'none',
+  },
   left: {
     float: 'left!important',
     display: 'block',

@@ -10,6 +10,7 @@ import GridSystem from 'mui-pro/views/Components/GridSystem'
 import Icons from 'mui-pro/views/Components/Icons'
 import LockScreenPage from 'mui-pro/views/Pages/LockScreenPage'
 import LoginPage from 'views/Pages/LoginPage'
+import RequestAccessPage from 'views/Pages/RequestAccessPage'
 import Notifications from 'mui-pro/views/Components/Notifications'
 import Panels from 'mui-pro/views/Components/Panels'
 import PricingPage from 'mui-pro/views/Pages/PricingPage'
@@ -87,6 +88,12 @@ const dashRoutes = [
         mini: 'L',
         rtlMini: 'هعذا',
         component: LoginPage,
+        layout: '/auth',
+      },
+      {
+        path: '/request-access',
+        name: 'Request Access Page',
+        component: RequestAccessPage,
         layout: '/auth',
       },
       {

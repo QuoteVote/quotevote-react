@@ -19,6 +19,7 @@ import login from 'assets/img/login.jpeg'
 import lock from 'assets/img/lock.jpeg'
 import error from 'assets/img/clint-mckoy.jpg'
 import pricing from 'assets/img/bg-pricing.jpeg'
+import requestAccess from 'assets/img/RequestAccess/bg.png'
 
 const useStyles = makeStyles(styles)
 
@@ -59,6 +60,10 @@ export default function Pages(props) {
       window.location.pathname.indexOf('/auth/lock-screen-page') !== -1
     ) {
       return lock
+    } if (
+      window.location.pathname.indexOf('/auth/request-access') !== -1
+    ) {
+      return requestAccess
     } if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
       return error
     }

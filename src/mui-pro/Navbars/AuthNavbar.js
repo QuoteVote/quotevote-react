@@ -26,92 +26,76 @@ import Button from 'mui-pro/CustomButtons/Button'
 
 import styles from 'assets/jss/material-dashboard-pro-react/components/authNavbarStyle'
 
+import LoginDialog from 'components/Login'
+
 const useStyles = makeStyles(styles)
 
 export default function AuthNavbar(props) {
   const [open, setOpen] = React.useState(false)
+  const [openLogin, setOpenLogin] = React.useState(false)
   const handleDrawerToggle = () => {
     setOpen(!open)
   }
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => window.location.href.indexOf(routeName) > -1
+  console.log('activeRoute: ',  activeRoute('/auth/request-access'));
   const classes = useStyles()
   const { color, brandText } = props
+  console.log('AuthNavbarprops: ', props);
   const appBarClasses = cx({
     [` ${classes[color]}`]: color,
   })
+
   const list = (
     <List className={classes.list}>
-      <ListItem className={classes.listItem}>
-        <NavLink to="/admin/dashboard" className={classes.navLink}>
-          <Dashboard className={classes.listItemIcon} />
-          <ListItemText
-            primary="Dashboard"
-            disableTypography
-            className={classes.listItemText}
-          />
-        </NavLink>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <NavLink
-          to="/auth/pricing-page"
-          className={cx(classes.navLink, {
-            [classes.navLinkActive]: activeRoute('/auth/pricing-page'),
-          })}
-        >
-          <MonetizationOn className={classes.listItemIcon} />
-          <ListItemText
-            primary="Pricing"
-            disableTypography
-            className={classes.listItemText}
-          />
-        </NavLink>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <NavLink
-          to="/auth/register-page"
-          className={cx(classes.navLink, {
-            [classes.navLinkActive]: activeRoute('/auth/register-page'),
-          })}
-        >
-          <PersonAdd className={classes.listItemIcon} />
-          <ListItemText
-            primary="Register"
-            disableTypography
-            className={classes.listItemText}
-          />
-        </NavLink>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <NavLink
-          to="/auth/login-page"
-          className={cx(classes.navLink, {
-            [classes.navLinkActive]: activeRoute('/auth/login-page'),
-          })}
-        >
-          <Fingerprint className={classes.listItemIcon} />
-          <ListItemText
-            primary="Login"
-            disableTypography
-            className={classes.listItemText}
-          />
-        </NavLink>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <NavLink
-          to="/auth/lock-screen-page"
-          className={cx(classes.navLink, {
-            [classes.navLinkActive]: activeRoute('/auth/lock-screen-page'),
-          })}
-        >
-          <LockOpen className={classes.listItemIcon} />
-          <ListItemText
-            primary="Lock"
-            disableTypography
-            className={classes.listItemText}
-          />
-        </NavLink>
-      </ListItem>
+      {activeRoute('/auth/request-access') && (
+        <ListItem className={classes.listItem}>
+          <NavLink
+            to="/auth/login-page"
+            className={cx(classes.navLink, {
+              [classes.navLinkActive]: activeRoute('/auth/login-page'),
+            })}
+          >
+            <ListItemText
+              primary="Go Back"
+              disableTypography
+              className={classes.listItemText}
+            />
+          </NavLink>
+        </ListItem>
+      )}
+      {activeRoute('/auth/login-page') && (
+        <React.Fragment>
+          <ListItem className={classes.listItem}>
+            <NavLink
+              to="/auth/request-access"
+              className={cx(classes.navLinkAccess, {
+                [classes.navLinkActiveAccess]: activeRoute('/auth/login-page'),
+              })}
+            >
+              <ListItemText
+                primary="Get Access"
+                disableTypography
+                className={classes.listItemTextAccess}
+              />
+            </NavLink>
+          </ListItem>
+          <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
+            <NavLink
+              to="/auth/login-page"
+              className={cx(classes.navLink, {
+                [classes.navLinkActive]: activeRoute('/auth/login-page'),
+              })}
+            >
+              <ListItemText
+                primary="Login"
+                disableTypography
+                className={classes.listItemText}
+              />
+            </NavLink>
+          </ListItem>
+        </React.Fragment>
+      )}
     </List>
   )
   return (
@@ -120,7 +104,8 @@ export default function AuthNavbar(props) {
         <Hidden smDown>
           <div className={classes.flex}>
             <Button href="#" className={classes.title} color="transparent">
-              {brandText}
+              {/* brandText */}
+              voxPOP
             </Button>
           </div>
         </Hidden>
@@ -162,6 +147,7 @@ export default function AuthNavbar(props) {
           </Hidden>
         </Hidden>
       </Toolbar>
+      <LoginDialog open={openLogin} setOpen={setOpenLogin} />
     </AppBar>
   )
 }
