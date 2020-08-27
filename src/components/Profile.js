@@ -110,7 +110,7 @@ function ProfileController() {
       setOffset={setOffset}
       profileUser={userInfo}
       activitiesData={activitiesData}
-      loading={activitiesData.loading}
+      loading={loading}
       limit={limit}
       offset={offset}
       total={total}

@@ -37,8 +37,8 @@ function ProfileView(props) {
     setOffset,
     profileUser,
     activitiesData,
-    loading,
     limit,
+    loading,
     offset,
     total,
   } = props
