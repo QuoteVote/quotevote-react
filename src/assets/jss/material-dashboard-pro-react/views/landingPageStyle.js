@@ -77,9 +77,6 @@ const landingPageStyle = (theme) => ({
   },
   opinionsText: {
   },
-  getAccessButton: {
-    color: whiteColor,
-  },
   weHave: {
     color: '#00cf6e',
   },

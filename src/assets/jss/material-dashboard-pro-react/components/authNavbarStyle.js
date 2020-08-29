@@ -17,6 +17,9 @@ import {
 } from 'assets/jss/material-dashboard-pro-react'
 
 const pagesHeaderStyle = (theme) => ({
+  voxPop: {
+    height: '40px',
+  },
   appBar: {
     backgroundColor: 'transparent',
     boxShadow: 'none',

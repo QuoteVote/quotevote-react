@@ -7,7 +7,7 @@ import {
   grayColor,
 } from 'assets/jss/material-dashboard-pro-react'
 
-const footerStyle = {
+const footerStyle = (theme) => ({
   block: {
     textTransform: 'none',
   },
@@ -20,6 +20,9 @@ const footerStyle = {
     fontSize: '14px',
     float: 'right!important',
     padding: '15px',
+  },
+  grow: {
+    flexGrow: 1,
   },
   footer: {
     bottom: '0',
@@ -58,5 +61,10 @@ const footerStyle = {
       color: whiteColor,
     },
   },
-}
+  links: {
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+})
 export default footerStyle

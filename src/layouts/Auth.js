@@ -20,6 +20,7 @@ import lock from 'assets/img/lock.jpeg'
 import error from 'assets/img/clint-mckoy.jpg'
 import pricing from 'assets/img/bg-pricing.jpeg'
 import requestAccess from 'assets/img/RequestAccess/bg.png'
+import landingPageBG from 'assets/img/LandingPageBG.jpg'
 
 const useStyles = makeStyles(styles)
 
@@ -64,7 +65,11 @@ export default function Pages(props) {
       window.location.pathname.indexOf('/auth/request-access') !== -1
     ) {
       return requestAccess
-    } if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
+    } if (
+        window.location.pathname.indexOf('/auth/landing-page') !== -1
+    ) {
+      return landingPageBG
+    }  if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
       return error
     }
   }
@@ -94,7 +99,7 @@ export default function Pages(props) {
         >
           <Switch>
             {getRoutes(routes)}
-            <Redirect from="/auth" to="/auth/login-page" />
+            <Redirect from="/auth" to="/auth/landing-page" />
           </Switch>
           <Footer white />
         </div>

@@ -37,6 +37,7 @@ import Image from '@material-ui/icons/Image'
 import Place from '@material-ui/icons/Place'
 import Timeline from '@material-ui/icons/Timeline'
 import WidgetsIcon from '@material-ui/icons/Widgets'
+import LandingPage from "../views/LandingPage/LandingPage";
 
 const dashRoutes = [
   {
@@ -54,6 +55,15 @@ const dashRoutes = [
     icon: Image,
     state: 'pageCollapse',
     views: [
+      {
+        path: '/landing-page',
+        name: 'Landing Page',
+        rtlName: 'هعذاتسجيل الدخول',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: LandingPage,
+        layout: '/auth',
+      },
       {
         path: '/pricing-page',
         name: 'Pricing Page',
