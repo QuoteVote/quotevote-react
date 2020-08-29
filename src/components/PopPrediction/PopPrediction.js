@@ -52,7 +52,7 @@ const PopPercent = ({ prediction }) => {
 }
 
 // eslint-disable-next-line
-const CardBottomSheet = ({ handleTypeChange = () => {}, prediction, handlePredict, disabled }) => {
+const CardBottomSheet = ({ handleTypeChange = () => { }, prediction, handlePredict, disabled }) => {
   const [type, setType] = useState('sentiment')
   const classes = useStyles()
   return (
@@ -95,7 +95,6 @@ const CardBottomSheet = ({ handleTypeChange = () => {}, prediction, handlePredic
     </div>
   )
 }
-
 
 const PopPrediction = ({
   handlePredict, prediction, disabled, ...props
@@ -146,7 +145,7 @@ PopPrediction.propTypes = {
 
 PopPrediction.defaultProps = {
   prediction: 1,
-  handlePredict: () => {},
+  handlePredict: () => { },
 }
 
 export default PopPrediction
