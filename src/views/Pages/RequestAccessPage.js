@@ -42,6 +42,7 @@ export default function RequestAccessPage() {
   const dispatch = useDispatch()
   const history = useHistory()
   const [selectedPlan, setSelectedPlan] = React.useState(null)
+  const [request, setRequest] = React.useState(null)
 
   // TODO: Abstract validation into custom hook
   React.useEffect(() => {
@@ -51,8 +52,8 @@ export default function RequestAccessPage() {
 
   return (
     <div className={classes.container}>
-      {!selectedPlan ? (
-        <PlansPage onPlanSelect={setSelectedPlan} />
+      {!selectedPlan || !request ? (
+        <PlansPage selectedPlan={selectedPlan} onPlanSelect={setSelectedPlan} setRequest={setRequest} />
       ) : (
         <GridContainer justify="center" style={{ marginRight: 24 }}>
           <GridItem xs={12}>

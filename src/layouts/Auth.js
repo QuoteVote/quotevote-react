@@ -25,6 +25,7 @@ import landingPageBG from 'assets/img/LandingPageBG.jpg'
 const useStyles = makeStyles(styles)
 
 export default function Pages(props) {
+  const isRequestAccess = window.location.pathname.indexOf('/auth/request-access') !== -1
   const { ...rest } = props
   // ref for the wrapper div
   const wrapper = React.createRef()
@@ -61,9 +62,7 @@ export default function Pages(props) {
       window.location.pathname.indexOf('/auth/lock-screen-page') !== -1
     ) {
       return lock
-    } if (
-      window.location.pathname.indexOf('/auth/request-access') !== -1
-    ) {
+    } if (isRequestAccess) {
       return requestAccess
     } if (
         window.location.pathname.indexOf('/auth/landing-page') !== -1
@@ -94,7 +93,7 @@ export default function Pages(props) {
       <AuthNavbar brandText={getActiveRoute(routes)} {...rest} />
       <div className={classes.wrapper} ref={wrapper}>
         <div
-          className={classes.fullPage}
+          className={isRequestAccess ? classes.requestAccessFullPage : classes.fullPage}
           style={{ backgroundImage: `url(${getBgImage()})` }}
         >
           <Switch>
