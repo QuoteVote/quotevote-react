@@ -65,10 +65,10 @@ export default function Pages(props) {
     } if (isRequestAccess) {
       return requestAccess
     } if (
-        window.location.pathname.indexOf('/auth/landing-page') !== -1
+      window.location.pathname.indexOf('/auth/landing-page') !== -1
     ) {
       return landingPageBG
-    }  if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
+    } if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
       return error
     }
   }

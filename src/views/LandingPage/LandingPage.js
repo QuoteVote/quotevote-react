@@ -1,19 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
-import { grey, green } from '@material-ui/core/colors'
+import { green, grey } from '@material-ui/core/colors'
 import { Typography } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
-import personalPlanImg from '../../assets/img/RequestAccess/PersonalPlan.png'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import SelectPlansButton from '../../components/SelectPlansButton'
-import GetAccessButton from '../../components/GetAccessButton'
+import PersonalCarousel from './PersonalCarousel'
 
 const useStyles = makeStyles(styles)
 
@@ -24,16 +20,62 @@ const theme = createMuiTheme({
   },
 })
 
+// eslint-disable-next-line react/prop-types
+function PersonalHeaderText({ classes, index }) {
+// eslint-disable-next-line react/prop-types
+  const { yourVoice } = classes
+  return (
+    <>
+      {index === 0 && (
+        <>
+          Share
+          {' '}
+          <span className={yourVoice}>
+            your voice
+          </span>
+          , democratically
+        </>
+      )}
+      {index === 1 && (
+        <>
+          Share
+          {' '}
+          <span className={yourVoice}>
+            your thoughts
+          </span>
+          , ideas and plans
+        </>
+      )}
+
+      {index === 2 && (
+        <>
+          <span className={yourVoice}>
+            Trending
+          </span>
+          {' '}
+          with no bias
+        </>
+      )}
+
+    </>
+  )
+}
+
 export default function LandingPage() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
+  const [selectedPlan, setSelectedPlan] = useState('personal')
+  const [carouselCurrentIndex, setCarouselCurrentIndex] = useState(0)
 
   React.useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const isPersonal = selectedPlan === 'personal'
+  const isBusiness = selectedPlan === 'business'
+  const isInvestors = selectedPlan === 'investors'
   return (
     <div className={classes.container}>
       <ThemeProvider theme={theme}>
@@ -43,12 +85,7 @@ export default function LandingPage() {
               align="center"
               className={classes.share}
             >
-              Share
-              {' '}
-              <span className={classes.yourVoice}>
-                your voice
-              </span>
-              , democratically
+              {isPersonal && <PersonalHeaderText classes={classes} index={carouselCurrentIndex} />}
             </Typography>
           </GridItem>
 
@@ -62,61 +99,36 @@ export default function LandingPage() {
           <GridItem xs={12}>
             <GridContainer justify="center">
               <div className={classes.buttonSpacing}>
-                <SelectPlansButton variant="outlined" color="secondary">Personal</SelectPlansButton>
-                <SelectPlansButton variant="outlined" color="secondary">Business</SelectPlansButton>
-                <SelectPlansButton variant="outlined" color="secondary">Investors</SelectPlansButton>
+                <SelectPlansButton
+                  variant={isPersonal ? 'contained' : 'outlined'}
+                  color="secondary"
+                  onClick={() => setSelectedPlan('personal')}
+                  style={{ background: isPersonal ? '#1D6CE7' : '' }}
+                >
+                  Personal
+                </SelectPlansButton>
+                <SelectPlansButton
+                  variant={isBusiness ? 'contained' : 'outlined'}
+                  color="secondary"
+                  onClick={() => setSelectedPlan('business')}
+                  style={{ background: isBusiness ? '#791E89' : '' }}
+                >
+                  Business
+                </SelectPlansButton>
+                <SelectPlansButton
+                  variant={isInvestors ? 'contained' : 'outlined'}
+                  color="secondary"
+                  onClick={() => setSelectedPlan('investors')}
+                  style={{ background: isInvestors ? '#E91E63' : '' }}
+                >
+                  Investors
+                </SelectPlansButton>
               </div>
             </GridContainer>
           </GridItem>
-          <GridItem xs={12} sm={5}>
-            <GridContainer justify="center">
-              <img
-                alt={personalPlanImg}
-                height={500}
-                src={`${personalPlanImg}`}
-                style={{
-                  width: '435.43px',
-                  height: '300.51px',
-                  objectFit: 'contain',
-                }}
-              />
-            </GridContainer>
-          </GridItem>
-          <GridItem xs={12} sm={4}>
-            <GridContainer justify="center">
-              <Typography>
-                <div className={classes.opinionsText}>
-                  <b>Share your opinions</b>
-                  {' '}
-                  with friends and/or strangers,
-                  work in projects with your teams, vote transparently
-                  and more.
-                  <br />
-                  <br />
-                  <b>Join a growing community of more than 1047 people</b>
-                  in honest and informed conversations. VoxPop is yours
-                  to shape.
-                  <br />
-                  <br />
-                </div>
-              </Typography>
-              <Typography className={classes.whatElse}>
-                <GetAccessButton
-                  variant="contained"
-                  color="primary"
-                >
-                  Get Access
-                </GetAccessButton>
-                {' '}
-                What else do
-                <span className={classes.weHave}> we have </span>
-                for you?
-                <IconButton color="primary" aria-label="What's next">
-                  <DoubleArrowIcon />
-                </IconButton>
-              </Typography>
-            </GridContainer>
-          </GridItem>
+          { isPersonal && <PersonalCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
+          { isBusiness && 'Business'}
+          { isInvestors && 'Investors'}
         </GridContainer>
       </ThemeProvider>
     </div>

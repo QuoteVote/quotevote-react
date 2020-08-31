@@ -9,6 +9,8 @@ const GetAccessButton = withStyles((theme) => ({
     '&:hover': {
       backgroundColor: green[700],
     },
+    padding: '10px 15px 10px 15px',
+    borderRadius: '8px',
   },
 }))(Button)
 
