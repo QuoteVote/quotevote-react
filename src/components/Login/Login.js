@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -20,43 +20,43 @@ import 'fontsource-montserrat'
 const useStyles = makeStyles({
   header: {
     fontFamily: 'Montserrat',
-    fontWeight: 700
+    fontWeight: 700,
   },
   card: {
-    width: 350
+    width: 350,
     // height: 459
   },
   loginButton: {
-    textTransform: 'none'
+    textTransform: 'none',
   },
   forgotPassword: {
-    textTransform: 'none'
+    textTransform: 'none',
   },
   textfield: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   icon: {
-    color: '#495057'
+    color: '#495057',
   },
   link: {
-    color: '#00bcd4'
-  }
+    color: '#00bcd4',
+  },
 })
 
 function LoginForm({ onChange, onClick }) {
   const classes = useStyles()
 
-  const handleInputChange = e => onChange({ [e.target.name]: e.target.value })
+  const handleInputChange = (e) => onChange({ [e.target.name]: e.target.value })
 
   return (
-    <Fragment>
+    <>
       <TextField
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <FaceIcon className={classes.icon} />
             </InputAdornment>
-          )
+          ),
         }}
         className={classes.textfield}
         placeholder="Username"
@@ -71,7 +71,7 @@ function LoginForm({ onChange, onClick }) {
             <InputAdornment position="start">
               <LockIcon className={classes.icon} />
             </InputAdornment>
-          )
+          ),
         }}
         className={classes.textfield}
         placeholder="Password"
@@ -93,13 +93,13 @@ function LoginForm({ onChange, onClick }) {
           Log in
         </Typography>
       </Button>
-    </Fragment>
+    </>
   )
 }
 
 LoginForm.propTypes = {
   onChange: PropTypes.func,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 }
 
 function Login({ login = () => {} }) {
@@ -108,7 +108,7 @@ function Login({ login = () => {} }) {
 
   const classes = useStyles()
 
-  const handleInputChange = val => {
+  const handleInputChange = (val) => {
     setUsername(val.username)
     setPassword(val.password)
   }
@@ -138,19 +138,18 @@ function Login({ login = () => {} }) {
           </Grid>
           <Grid item>
             <Typography variant="body1">
-              <Link
-                className={classes.link}
-                href="#"
-                onClick={e => e.preventDefault}
-              >
+              <Link className={classes.link} href="/forgot">
                 Forgot password?
               </Link>
             </Typography>
           </Grid>
           <Grid item>
             <Typography variant="body1">
-              No account? <span />
-              <Link className={classes.link}>Request Access</Link>
+              No account?
+              <span />
+              <Link className={classes.link} href="/request-access">
+                Request Access
+              </Link>
             </Typography>
           </Grid>
         </Grid>
@@ -160,7 +159,7 @@ function Login({ login = () => {} }) {
 }
 
 Login.propTypes = {
-  login: PropTypes.func
+  login: PropTypes.func,
 }
 
 export default Login
