@@ -1,7 +1,7 @@
-import React from 'react'
 import {
   cardTitle, container, grayColor, whiteColor,
 } from 'assets/jss/material-dashboard-pro-react'
+import { green } from '@material-ui/core/colors'
 
 const landingPageStyle = (theme) => ({
   container: {
@@ -54,7 +54,7 @@ const landingPageStyle = (theme) => ({
       fontSize: '34px',
     },
   },
-  yourVoice: {
+  greenTitleText: {
     objectFit: 'contain',
     font: 'Montserrat',
     fontSize: '34px',
@@ -77,12 +77,26 @@ const landingPageStyle = (theme) => ({
   },
   opinionsText: {
   },
-  weHave: {
+  greenText: {
     color: '#00cf6e',
   },
-  whatElse: {
+  bottomText: {
     fontSize: '20px',
     fontWeight: 'bold',
+  },
+  sendEmail: {
+    background: 'white',
+    backgroundColor: 'white',
+    color: 'white',
+    borderRadius: '8px',
+  },
+  sendEmailButton: {
+    backgroundColor: green[500],
+    color: 'white',
+    '&:hover': {
+      backgroundColor: green[700],
+      color: 'white',
+    },
   },
 })
 

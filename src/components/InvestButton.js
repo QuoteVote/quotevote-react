@@ -4,33 +4,35 @@ import { green } from '@material-ui/core/colors'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-const GetAccessButtonStyle = withStyles(() => ({
+const InvestButtonStyle = withStyles(() => ({
   root: {
-    color: 'white',
-    backgroundColor: green[500],
+    color: 'green',
+    backgroundColor: 'white',
     '&:hover': {
-      backgroundColor: green[700],
+      color: 'white',
+      boxShadow: '1px 2px #FAFAFA',
     },
     padding: '10px 15px 10px 15px',
     borderRadius: '8px',
+    boxShadow: '1px 2px #00CF6E',
   },
 }))(Button)
 
-function GetAccessButton() {
+function InvestButton() {
   const history = useHistory()
   const handleClick = () => {
-    console.log('get access')
+    console.log('invest')
     history.push('/auth/request-access')
   }
 
   return (
-    <GetAccessButtonStyle
+    <InvestButtonStyle
       variant="contained"
       color="primary"
       onClick={handleClick}
     >
-      Get Access
-    </GetAccessButtonStyle>
+      Invest for change
+    </InvestButtonStyle>
   )
 }
-export default GetAccessButton
+export default InvestButton

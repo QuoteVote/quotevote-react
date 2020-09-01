@@ -1,32 +1,34 @@
 import React from 'react'
 import Carousel from 'react-material-ui-carousel'
-import { Typography } from '@material-ui/core'
+import { TextField, Typography } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
+import InputAdornment from '@material-ui/core/InputAdornment'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
-import personalPlanImg from '../../assets/img/RequestAccess/PersonalPlan.png'
-import personalPlanImg2 from '../../assets/img/PersonalCarousel2.png'
-import personalPlanImg3 from '../../assets/img/PersonalCarousel3.png'
-import GetAccessButton from '../../components/GetAccessButton'
+import investorPlanImg from '../../assets/img/UserSharing.png'
+import investorPlanImg2 from '../../assets/img/CommentBox2.png'
+import investorPlanImg3 from '../../assets/img/GroupChat.png'
+import InvestButton from '../../components/InvestButton'
 
-PersonalCarouselFirstContent.propTypes = {
+InvestorCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
   handleNext: PropTypes.func,
 }
-function PersonalCarouselFirstContent({ classes, handleNext }) {
+
+function InvestorCarouselFirstContent({ classes, handleNext }) {
   const { opinionsText, bottomText, greenText } = classes
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
       <GridItem xs={12} sm={5}>
         <GridContainer justify="center">
           <img
-            alt={personalPlanImg}
-            height={500}
-            src={`${personalPlanImg}`}
+            alt={investorPlanImg}
+            src={`${investorPlanImg}`}
             style={{
-              width: '435.43px',
+              width: '400.43px',
               height: '300.51px',
               objectFit: 'contain',
             }}
@@ -37,26 +39,22 @@ function PersonalCarouselFirstContent({ classes, handleNext }) {
         <GridContainer justify="left">
           <Typography>
             <div className={opinionsText}>
-              <b>Share your opinions</b>
+              We created VoxPop with promoting
               {' '}
-              with friends and/or strangers,
-              work in projects with your teams, vote transparently
-              and more.
+              <b>democracy and community as our pillar.</b>
               <br />
               <br />
-              <b>Join a growing community of more than 1047 people</b>
-              in honest and informed conversations. VoxPop is yours
-              to shape.
+              This is why we reject investment from VC firms, and encourage users to invest and become a part of the change.
+              <b>Invest up to $2000 to grow with us. </b>
               <br />
               <br />
             </div>
           </Typography>
           <Typography className={bottomText}>
-            <GetAccessButton />
+            <InvestButton />
             {' '}
-            What else do
-            <span className={greenText}> we have </span>
-            for you?
+            What is
+            <span className={greenText}> the deal </span>
             <IconButton color="primary" aria-label="What's next">
               <DoubleArrowIcon onClick={handleNext} />
             </IconButton>
@@ -66,22 +64,21 @@ function PersonalCarouselFirstContent({ classes, handleNext }) {
     </GridContainer>
   )
 }
-PersonalCarouselSecondContent.propTypes = {
+
+InvestorCarouselSecondContent.propTypes = {
   classes: PropTypes.object,
   handleNext: PropTypes.func,
 }
-
-function PersonalCarouselSecondContent({ classes, handleNext }) {
-  // eslint-disable-next-line react/prop-types
-  const { opinionsText, bottomText } = classes
+function InvestorCarouselSecondContent({ classes, handleNext }) {
+  const { opinionsText, bottomText, greenText } = classes
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
       <GridItem xs={12} sm={5}>
         <GridContainer justify="center">
           <img
-            alt={personalPlanImg2}
+            alt={investorPlanImg2}
             height={500}
-            src={`${personalPlanImg2}`}
+            src={`${investorPlanImg2}`}
             style={{
               width: '435.43px',
               height: '300.51px',
@@ -94,22 +91,24 @@ function PersonalCarouselSecondContent({ classes, handleNext }) {
         <GridContainer justify="left">
           <Typography>
             <div className={opinionsText}>
-              <b>Post to your social circle and beyond.</b>
+              By capping individual investments at $2000,
               {' '}
-              Engage in meaningful, respectful back-and-forts,
-              to challenge your perspectives.
+              <b>we ensure shareholders have an equal voice, and provide a more inclusive opportunity to invest. </b>
               <br />
               <br />
-              Highlight words, then vote or
-              <b> comment to provide feedback.</b>
+              We keep growth organized and open through voxPOP and
+              {' '}
+              <b>all shareholder opinions hold the same weight. </b>
               <br />
               <br />
             </div>
           </Typography>
           <Typography className={bottomText}>
-            <GetAccessButton />
+            <InvestButton />
             {'  '}
-            More info
+            I want to
+            {' '}
+            <span className={greenText}> to know details</span>
             <IconButton color="primary" aria-label="What's next">
               <DoubleArrowIcon onClick={handleNext} />
             </IconButton>
@@ -120,15 +119,18 @@ function PersonalCarouselSecondContent({ classes, handleNext }) {
   )
 }
 
-function PersonalCarouselThirdContent(classes) {
+InvestorCarouselThirdContent.propTypes = {
+  classes: PropTypes.object,
+}
+function InvestorCarouselThirdContent({ classes }) {
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
       <GridItem xs={12} sm={5}>
         <GridContainer justify="center">
           <img
-            alt={personalPlanImg3}
+            alt={investorPlanImg3}
             height={500}
-            src={`${personalPlanImg3}`}
+            src={`${investorPlanImg3}`}
             style={{
               width: '435.43px',
               height: '300.51px',
@@ -141,46 +143,63 @@ function PersonalCarouselThirdContent(classes) {
         <GridContainer justify="left">
           <Typography>
             <div className={classes.opinionsText}>
-              <b>See posts with the most activity.</b>
-              {' '}
-              Filter by keywords, date, range or follows.
-              See what people are talking about and sharing the most.
+              <b>There are 10,000,000 shares of stock</b>
               <br />
+              Join us in creating a truly open and equal community
+              where civil conversation is the main objective.
               <br />
-              <b>No content is boosted by paid promotion or advertising.</b>
               <br />
               <br />
             </div>
           </Typography>
-          <GetAccessButton />
+          <div className={classes.sendEmail}>
+            <TextField
+              variant="filled"
+              required
+              id="email"
+              label="Email"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Button
+                      aria-label="Send"
+                      className={classes.sendEmailButton}
+                    >
+                      Send
+                    </Button>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
         </GridContainer>
       </GridItem>
     </GridContainer>
   )
 }
 
-function PersonalCarousel(props) {
+function InvestorCarousel(props) {
   const { setCarouselCurrentIndex } = props
   const handleNext = (next, active) => {
-    // eslint-disable-next-line no-console
     console.log({ next, active })
   }
 
   return (
     <Carousel
-      startAt={0}
+      startAt={2}
       onChange={(index) => setCarouselCurrentIndex(index)}
+      autoPlay={false}
     >
-      <PersonalCarouselFirstContent {...props} handleNext={handleNext} />
-      <PersonalCarouselSecondContent {...props} handleNext={handleNext} />
-      <PersonalCarouselThirdContent {...props} handleNext={handleNext} />
+      <InvestorCarouselFirstContent {...props} handleNext={handleNext} />
+      <InvestorCarouselSecondContent {...props} handleNext={handleNext} />
+      <InvestorCarouselThirdContent {...props} handleNext={handleNext} />
     </Carousel>
   )
 }
 
-PersonalCarousel.propTypes = {
+InvestorCarousel.propTypes = {
   classes: PropTypes.object,
   setCarouselCurrentIndex: PropTypes.func,
 }
 
-export default PersonalCarousel
+export default InvestorCarousel

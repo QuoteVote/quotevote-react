@@ -6,25 +6,26 @@ import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
-import personalPlanImg from '../../assets/img/RequestAccess/PersonalPlan.png'
-import personalPlanImg2 from '../../assets/img/PersonalCarousel2.png'
-import personalPlanImg3 from '../../assets/img/PersonalCarousel3.png'
+import businessPlanImg from '../../assets/img/RequestAccess/Illustration.png'
+import businessPlanImg2 from '../../assets/img/Chatbox.png'
+import businessPlanImg3 from '../../assets/img/CommentBox.png'
 import GetAccessButton from '../../components/GetAccessButton'
 
-PersonalCarouselFirstContent.propTypes = {
+BusinessCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
   handleNext: PropTypes.func,
 }
-function PersonalCarouselFirstContent({ classes, handleNext }) {
+
+function BusinessCarouselFirstContent({ classes, handleNext }) {
   const { opinionsText, bottomText, greenText } = classes
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
       <GridItem xs={12} sm={5}>
         <GridContainer justify="center">
           <img
-            alt={personalPlanImg}
+            alt={businessPlanImg}
             height={500}
-            src={`${personalPlanImg}`}
+            src={`${businessPlanImg}`}
             style={{
               width: '435.43px',
               height: '300.51px',
@@ -37,16 +38,12 @@ function PersonalCarouselFirstContent({ classes, handleNext }) {
         <GridContainer justify="left">
           <Typography>
             <div className={opinionsText}>
-              <b>Share your opinions</b>
+              <b>Join 345 companies in creating a workspace in which everyone has an equal voice.</b>
               {' '}
-              with friends and/or strangers,
-              work in projects with your teams, vote transparently
-              and more.
+              Poll to see what your employees value the most, converse to make the next big decision, and more.
               <br />
               <br />
-              <b>Join a growing community of more than 1047 people</b>
-              in honest and informed conversations. VoxPop is yours
-              to shape.
+              voxPOP is yours to shape.
               <br />
               <br />
             </div>
@@ -66,22 +63,21 @@ function PersonalCarouselFirstContent({ classes, handleNext }) {
     </GridContainer>
   )
 }
-PersonalCarouselSecondContent.propTypes = {
+
+BusinessCarouselSecondContent.propTypes = {
   classes: PropTypes.object,
   handleNext: PropTypes.func,
 }
-
-function PersonalCarouselSecondContent({ classes, handleNext }) {
-  // eslint-disable-next-line react/prop-types
-  const { opinionsText, bottomText } = classes
+function BusinessCarouselSecondContent({ classes, handleNext }) {
+  const { opinionsText, bottomText, greenText } = classes
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
       <GridItem xs={12} sm={5}>
         <GridContainer justify="center">
           <img
-            alt={personalPlanImg2}
+            alt={businessPlanImg2}
             height={500}
-            src={`${personalPlanImg2}`}
+            src={`${businessPlanImg2}`}
             style={{
               width: '435.43px',
               height: '300.51px',
@@ -94,14 +90,9 @@ function PersonalCarouselSecondContent({ classes, handleNext }) {
         <GridContainer justify="left">
           <Typography>
             <div className={opinionsText}>
-              <b>Post to your social circle and beyond.</b>
+              <b>Talk to your team,</b>
               {' '}
-              Engage in meaningful, respectful back-and-forts,
-              to challenge your perspectives.
-              <br />
-              <br />
-              Highlight words, then vote or
-              <b> comment to provide feedback.</b>
+              poll the entire company, assess their feedback, plan the next big company initiative that will knock it out of the park.
               <br />
               <br />
             </div>
@@ -109,7 +100,9 @@ function PersonalCarouselSecondContent({ classes, handleNext }) {
           <Typography className={bottomText}>
             <GetAccessButton />
             {'  '}
-            More info
+            Stay
+            {' '}
+            <span className={greenText}> in Sync</span>
             <IconButton color="primary" aria-label="What's next">
               <DoubleArrowIcon onClick={handleNext} />
             </IconButton>
@@ -120,15 +113,15 @@ function PersonalCarouselSecondContent({ classes, handleNext }) {
   )
 }
 
-function PersonalCarouselThirdContent(classes) {
+function BusinessCarouselThirdContent(classes) {
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
       <GridItem xs={12} sm={5}>
         <GridContainer justify="center">
           <img
-            alt={personalPlanImg3}
+            alt={businessPlanImg3}
             height={500}
-            src={`${personalPlanImg3}`}
+            src={`${businessPlanImg3}`}
             style={{
               width: '435.43px',
               height: '300.51px',
@@ -141,13 +134,9 @@ function PersonalCarouselThirdContent(classes) {
         <GridContainer justify="left">
           <Typography>
             <div className={classes.opinionsText}>
-              <b>See posts with the most activity.</b>
+              <b>Promote democracy and transparency</b>
               {' '}
-              Filter by keywords, date, range or follows.
-              See what people are talking about and sharing the most.
-              <br />
-              <br />
-              <b>No content is boosted by paid promotion or advertising.</b>
+              within your team. VoxPop makes it so the whole team can see progress in real time.
               <br />
               <br />
             </div>
@@ -159,7 +148,7 @@ function PersonalCarouselThirdContent(classes) {
   )
 }
 
-function PersonalCarousel(props) {
+function BusinessCarousel(props) {
   const { setCarouselCurrentIndex } = props
   const handleNext = (next, active) => {
     // eslint-disable-next-line no-console
@@ -171,16 +160,16 @@ function PersonalCarousel(props) {
       startAt={0}
       onChange={(index) => setCarouselCurrentIndex(index)}
     >
-      <PersonalCarouselFirstContent {...props} handleNext={handleNext} />
-      <PersonalCarouselSecondContent {...props} handleNext={handleNext} />
-      <PersonalCarouselThirdContent {...props} handleNext={handleNext} />
+      <BusinessCarouselFirstContent {...props} handleNext={handleNext} />
+      <BusinessCarouselSecondContent {...props} handleNext={handleNext} />
+      <BusinessCarouselThirdContent {...props} handleNext={handleNext} />
     </Carousel>
   )
 }
 
-PersonalCarousel.propTypes = {
+BusinessCarousel.propTypes = {
   classes: PropTypes.object,
   setCarouselCurrentIndex: PropTypes.func,
 }
 
-export default PersonalCarousel
+export default BusinessCarousel
