@@ -9,4 +9,8 @@ describe('Login test -', () => {
     const { container } = render(<Login />)
     expect(container.firstChild).toMatchSnapshot()
   })
+
+  it.todo('validate email')
+  it.todo('validate password')
+  it.todo('submits upon button press')
 })

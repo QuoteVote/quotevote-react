@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { useForm } from 'react-hook-form'
 
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -15,8 +16,6 @@ import LockIcon from '@material-ui/icons/Lock'
 import CardBody from '../../mui-pro/Card/CardBody'
 import Card from '../../mui-pro/Card/Card'
 
-import 'fontsource-montserrat'
-
 const useStyles = makeStyles({
   header: {
     fontFamily: 'Montserrat',
@@ -24,7 +23,6 @@ const useStyles = makeStyles({
   },
   card: {
     width: 350,
-    // height: 459
   },
   loginButton: {
     textTransform: 'none',
@@ -43,13 +41,12 @@ const useStyles = makeStyles({
   },
 })
 
-function LoginForm({ onChange, onClick }) {
+function LoginForm({ onSubmit = () => {} }) {
   const classes = useStyles()
-
-  const handleInputChange = (e) => onChange({ [e.target.name]: e.target.value })
+  const { register, handleSubmit, errors } = useForm()
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         InputProps={{
           startAdornment: (
@@ -58,12 +55,24 @@ function LoginForm({ onChange, onClick }) {
             </InputAdornment>
           ),
         }}
+        inputRef={register({
+          required: 'Username is required',
+          minLength: {
+            value: 5,
+            message: 'Username should be more than six characters',
+          },
+          maxLength: {
+            value: 20,
+            message: 'Username should be less than twenty characters',
+          },
+        })}
         className={classes.textfield}
         placeholder="Username"
         fullWidth
         name="username"
         id="username"
-        onChange={handleInputChange}
+        error={errors.username}
+        helperText={errors.username && errors.username.message}
       />
       <TextField
         InputProps={{
@@ -73,13 +82,30 @@ function LoginForm({ onChange, onClick }) {
             </InputAdornment>
           ),
         }}
+        inputRef={register({
+          required: 'Password is required',
+          minLength: {
+            value: 6,
+            message: 'Password should be more than six characters',
+          },
+          maxLength: {
+            value: 20,
+            message: 'Password should be less than twenty characters',
+          },
+          pattern: {
+            value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+            message:
+              'Password should contain a number, an uppercase, and lowercase letter',
+          },
+        })}
         className={classes.textfield}
         placeholder="Password"
         fullWidth
         name="password"
         id="password"
         type="password"
-        onChange={handleInputChange}
+        error={errors.password}
+        helperText={errors.password && errors.password.message}
       />
       <Button
         className={classes.loginButton}
@@ -87,35 +113,22 @@ function LoginForm({ onChange, onClick }) {
         color="primary"
         variant="contained"
         fullWidth
-        onClick={onClick}
+        type="submit"
       >
         <Typography variant="body1" color="secondary">
           Log in
         </Typography>
       </Button>
-    </>
+    </form>
   )
 }
 
 LoginForm.propTypes = {
-  onChange: PropTypes.func,
-  onClick: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 function Login({ login = () => {} }) {
-  const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
-
   const classes = useStyles()
-
-  const handleInputChange = (val) => {
-    setUsername(val.username)
-    setPassword(val.password)
-  }
-
-  const handleLoginButtonClick = () => {
-    login(username, password)
-  }
 
   return (
     <Card className={classes.card}>
@@ -128,13 +141,12 @@ function Login({ login = () => {} }) {
           spacing={2}
         >
           <Grid item>
-            <Typography variant="h6">Login</Typography>
+            <Typography className={classes.header} variant="h6">
+              Login
+            </Typography>
           </Grid>
           <Grid item>
-            <LoginForm
-              onChange={handleInputChange}
-              onClick={handleLoginButtonClick}
-            />
+            <LoginForm onSubmit={login} />
           </Grid>
           <Grid item>
             <Typography variant="body1">
@@ -146,7 +158,7 @@ function Login({ login = () => {} }) {
           <Grid item>
             <Typography variant="body1">
               No account?
-              <span />
+              <span style={{ marginRight: 5 }} />
               <Link className={classes.link} href="/request-access">
                 Request Access
               </Link>
