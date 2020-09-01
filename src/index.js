@@ -34,6 +34,8 @@ import store, { persistor } from 'store/store'
 import 'assets/scss/material-dashboard-pro-react.scss'
 import LogoutPage from './components/LogoutPage'
 
+import 'fontsource-montserrat'
+
 const hist = createBrowserHistory()
 
 ReactDOM.render(
