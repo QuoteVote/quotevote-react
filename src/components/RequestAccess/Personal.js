@@ -10,8 +10,9 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 
 import reqAccessPersonal from 'assets/img/RequestAccess/PersonalPlan.png'
+import PropTypes from 'prop-types'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   greenBtn: {
     textTransform: 'none',
     backgroundColor: '#00cf6e',
@@ -189,4 +190,8 @@ const PersonalForm = (props) => {
   )
 }
 
+PersonalForm.propTypes = {
+  isContinued: PropTypes.any,
+  setContinued: PropTypes.func,
+}
 export default PersonalForm

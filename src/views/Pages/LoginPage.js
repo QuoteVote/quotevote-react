@@ -5,18 +5,8 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 // images
-import activiesPageImg from 'assets/img/carousel/Activities_Page.png'
-import postPageImg from 'assets/img/carousel/Post_Page.png'
-import profilePageImg from 'assets/img/carousel/Profile_Page.png'
-import sideNavImg from 'assets/img/carousel/Side_Navigation.png'
-import trendingPageImg from 'assets/img/carousel/Trending_Page.png'
 
-
-import {
-  InputAdornment,
-  CircularProgress,
-  Hidden,
-} from '@material-ui/core'
+import { CircularProgress, InputAdornment } from '@material-ui/core'
 
 import Icon from '@material-ui/core/Icon'
 
@@ -32,26 +22,15 @@ import Card from 'mui-pro/Card/Card'
 import CardBody from 'mui-pro/Card/CardBody'
 import CardHeader from 'mui-pro/Card/CardHeader'
 import CardFooter from 'mui-pro/Card/CardFooter'
-import Carousel from 'react-material-ui-carousel'
 
 // login method
-import { userLogin, tokenValidator } from 'store/user'
+import { tokenValidator, userLogin } from 'store/user'
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
-
 const useStyles = makeStyles(styles)
-
-// eslint-disable-next-line react/prop-types
-function CarouselImage({ imageUrl, alt }) {
-  return (
-    <Card square>
-      <img alt={alt} height={500} src={`${imageUrl}`} style={{ marginTop: '-15px' }} />
-    </Card>
-  )
-}
 
 export default function LoginPage() {
   const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
@@ -66,9 +45,6 @@ export default function LoginPage() {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // This needs to be fixed so that we are importing the images instead of using the public/assets folder
-  const images = [activiesPageImg, postPageImg, profilePageImg, sideNavImg, trendingPageImg]
 
   setTimeout(() => {
     setCardAnimation('')

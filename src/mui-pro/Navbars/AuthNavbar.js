@@ -21,8 +21,6 @@ import Menu from '@material-ui/icons/Menu'
 import Button from 'mui-pro/CustomButtons/Button'
 
 import styles from 'assets/jss/material-dashboard-pro-react/components/authNavbarStyle'
-
-import LoginDialog from 'components/Login'
 import voxPopIcon from "../../assets/img/VoxPopLogo.svg";
 
 const useStyles = makeStyles(styles)
@@ -38,7 +36,7 @@ export default function AuthNavbar(props) {
     console.log('activeRoute: ', activeRoute('/auth/request-access'));
     const classes = useStyles()
     const {color, brandText} = props
-    console.log('AuthNavbarprops: ', props);
+    console.log('AuthNavbarprops: ', props, openLogin, brandText);
     const appBarClasses = cx({
         [` ${classes[color]}`]: color,
     })

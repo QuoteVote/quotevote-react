@@ -19,7 +19,6 @@ const GetAccessButtonStyle = withStyles(() => ({
 function GetAccessButton() {
   const history = useHistory()
   const handleClick = () => {
-    console.log('get access')
     history.push('/auth/request-access')
   }
 

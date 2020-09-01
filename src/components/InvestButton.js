@@ -1,8 +1,7 @@
-import { withStyles } from '@material-ui/core/styles'
+import {withStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import { green } from '@material-ui/core/colors'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 const InvestButtonStyle = withStyles(() => ({
   root: {
@@ -21,7 +20,6 @@ const InvestButtonStyle = withStyles(() => ({
 function InvestButton() {
   const history = useHistory()
   const handleClick = () => {
-    console.log('invest')
     history.push('/auth/request-access')
   }
 

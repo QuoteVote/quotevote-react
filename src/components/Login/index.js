@@ -1,26 +1,20 @@
 import React from 'react'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles'
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/DialogContent'
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
 import Typography from '@material-ui/core/Typography'
 import CustomInput from 'mui-pro/CustomInput/CustomInput'
 import Face from '@material-ui/icons/Face'
 import { InputAdornment } from '@material-ui/core'
+import PropTypes from 'prop-types'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
-
 const useStyles = makeStyles(styles)
-
 const Login = (props) => {
   const { open, setOpen } = props
   const classes = useStyles()
-  console.log('open: ', open);
   return (
     <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title" maxWidth="xs">
       <DialogContent>
@@ -29,7 +23,7 @@ const Login = (props) => {
           <GridItem xs={12}>Log in with Facebook</GridItem>
           <GridItem xs={12}>Log in with Twitter</GridItem>
           <GridItem xs={12}>
-            <Typography align="center" variant="subtitle1" style={{ textTransform: "none" }}>or</Typography>
+            <Typography align="center" variant="subtitle1" style={{ textTransform: 'none' }}>or</Typography>
           </GridItem>
           <GridItem xs={12}>
             <CustomInput
@@ -59,4 +53,8 @@ const Login = (props) => {
   )
 }
 
+Login.propTypes = {
+  open: PropTypes.any,
+  setOpen: PropTypes.func,
+}
 export default Login

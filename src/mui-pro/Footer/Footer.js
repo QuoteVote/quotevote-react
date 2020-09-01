@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-import {makeStyles, ThemeProvider} from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
@@ -14,22 +14,12 @@ const useStyles = makeStyles(styles);
 
 export default function Footer(props) {
     const classes = useStyles();
-    const {fluid, white, rtlActive} = props;
+    const {fluid, white,} = props;
     const container = cx({
         [classes.container]: !fluid,
         [classes.containerFluid]: fluid,
         [classes.whiteColor]: white
     });
-    const anchor =
-        classes.a +
-        cx({
-            [" " + classes.whiteColor]: white
-        });
-    const block = cx({
-        [classes.block]: true,
-        [classes.whiteColor]: white
-    });
-    const preventDefault = (event) => event.preventDefault();
     return (
         <footer className={classes.footer}>
             <div className={container}>
@@ -57,37 +47,6 @@ export default function Footer(props) {
                     </GridItem>
                 </GridContainer>
             </div>
-
-
-            {/*<div className={container}>*/}
-            {/*    <div className={classes.left}>*/}
-            {/*        <List className={classes.list}>*/}
-            {/*            <ListItem className={classes.inlineBlock}>*/}
-            {/*            &copy;{" "}*/}
-            {/*            VoxPopuli, PBC made with &hearts; on Earth*/}
-            {/*            </ListItem>*/}
-            {/*        </List>*/}
-            {/*    </div>*/}
-            {/*    <div className={classes.right}>*/}
-            {/*        <List className={classes.list}>*/}
-            {/*            <ListItem className={classes.inlineBlock}>*/}
-            {/*                <a href="#invest" className={block}>*/}
-            {/*                    Invest*/}
-            {/*                </a>*/}
-            {/*            </ListItem>*/}
-            {/*            <ListItem className={classes.inlineBlock}>*/}
-            {/*                <a href="#careers" className={block}>*/}
-            {/*                    Careers*/}
-            {/*                </a>*/}
-            {/*            </ListItem>*/}
-            {/*            <ListItem className={classes.inlineBlock}>*/}
-            {/*                <a href="#about-us" className={block}>*/}
-            {/*                    About Us*/}
-            {/*                </a>*/}
-            {/*            </ListItem>*/}
-            {/*        </List>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </footer>
     );
 }
