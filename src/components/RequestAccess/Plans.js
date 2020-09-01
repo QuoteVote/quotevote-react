@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CheckIcon from '@material-ui/icons/Check'
 import Radio from '@material-ui/core/Radio'
 import Button from '@material-ui/core/Button'
-import {makeStyles, withStyles} from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 
 import reqAccessBusiness from 'assets/img/RequestAccess/Illustration.png'
 import reqAccessPersonal from 'assets/img/RequestAccess/PersonalPlan.png'
