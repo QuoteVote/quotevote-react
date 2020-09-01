@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import { useHistory } from 'react-router-dom'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import investorPlanImg from '../../assets/img/UserSharing.png'
@@ -123,6 +124,10 @@ InvestorCarouselThirdContent.propTypes = {
   classes: PropTypes.object,
 }
 function InvestorCarouselThirdContent({ classes }) {
+  const history = useHistory()
+  const handleClick = () => {
+    history.push('/auth/investor-thanks')
+  }
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
       <GridItem xs={12} sm={5}>
@@ -164,6 +169,7 @@ function InvestorCarouselThirdContent({ classes }) {
                     <Button
                       aria-label="Send"
                       className={classes.sendEmailButton}
+                      onClick={handleClick}
                     >
                       Send
                     </Button>
@@ -187,9 +193,8 @@ function InvestorCarousel(props) {
 
   return (
     <Carousel
-      startAt={2}
+      startAt={0}
       onChange={(index) => setCarouselCurrentIndex(index)}
-      autoPlay={false}
     >
       <InvestorCarouselFirstContent {...props} handleNext={handleNext} />
       <InvestorCarouselSecondContent {...props} handleNext={handleNext} />

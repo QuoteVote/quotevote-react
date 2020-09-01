@@ -20,7 +20,7 @@ const InvestButtonStyle = withStyles(() => ({
 function InvestButton() {
   const history = useHistory()
   const handleClick = () => {
-    history.push('/auth/request-access')
+    history.push('/auth/landing-page')
   }
 
   return (
