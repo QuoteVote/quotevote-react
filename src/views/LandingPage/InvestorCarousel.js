@@ -181,6 +181,7 @@ function InvestorCarouselThirdContent({ classes }) {
 function InvestorCarousel(props) {
   const { setCarouselCurrentIndex } = props
   const handleNext = (next, active) => {
+    // eslint-disable-next-line no-console
     console.log({ next, active })
   }
 

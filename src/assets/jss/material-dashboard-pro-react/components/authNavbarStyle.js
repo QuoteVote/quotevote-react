@@ -112,8 +112,6 @@ const pagesHeaderStyle = (theme) => ({
   navLink: {
     color: whiteColor,
     margin: '0 5px',
-    paddingTop: '15px',
-    paddingBottom: '15px',
     fontWeight: '500',
     fontSize: '12px',
     // textTransform: 'uppercase',
@@ -131,8 +129,21 @@ const pagesHeaderStyle = (theme) => ({
   navLinkAccess: {
     color: whiteColor,
     margin: '0 5px',
-    paddingTop: '15px',
-    paddingBottom: '15px',
+    fontWeight: '500',
+    fontSize: '12px',
+    borderRadius: '3px',
+    lineHeight: '20px',
+    position: 'relative',
+    display: 'block',
+    padding: '10px 15px',
+    textDecoration: 'none',
+    '&:hover,&:focus': {
+      color: whiteColor,
+    },
+  },
+  navLinkInvestNow: {
+    color: whiteColor,
+    margin: '0 5px',
     fontWeight: '500',
     fontSize: '12px',
     borderRadius: '3px',

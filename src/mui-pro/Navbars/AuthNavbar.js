@@ -112,6 +112,40 @@ export default function AuthNavbar(props) {
                     </ListItem>
                 </React.Fragment>
             )}
+
+            {activeRoute('/auth/investor-thanks') && (
+                <React.Fragment>
+                    <ListItem className={classes.listItem}>
+                        <NavLink
+                            to="/auth/landing-page"
+                            className={cx(classes.navLinkInvestNow, {
+                                [classes.navLinkActiveAccess]: activeRoute('/auth/investor-thanks'),
+                            })}
+                        >
+                            <ListItemText
+                                primary="Invest Now"
+                                disableTypography
+                                className={classes.listItemTextAccess}
+                            />
+                        </NavLink>
+                    </ListItem>
+
+                    <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
+                        <NavLink
+                            to="/auth/login-page"
+                            className={cx(classes.navLink, {
+                                [classes.navLinkActive]: activeRoute('/auth/investor-thanks'),
+                            })}
+                        >
+                            <ListItemText
+                                primary="Login"
+                                disableTypography
+                                className={classes.listItemText}
+                            />
+                        </NavLink>
+                    </ListItem>
+                </React.Fragment>
+            )}
         </List>
     )
     return (
@@ -162,7 +196,6 @@ export default function AuthNavbar(props) {
                     </Hidden>
                 </Hidden>
             </Toolbar>
-            <LoginDialog open={openLogin} setOpen={setOpenLogin}/>
         </AppBar>
     )
 }

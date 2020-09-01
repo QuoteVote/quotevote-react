@@ -38,6 +38,7 @@ import Place from '@material-ui/icons/Place'
 import Timeline from '@material-ui/icons/Timeline'
 import WidgetsIcon from '@material-ui/icons/Widgets'
 import LandingPage from "../views/LandingPage/LandingPage";
+import InvestorThanks from "../views/InvestorThanks";
 
 const dashRoutes = [
   {
@@ -62,6 +63,15 @@ const dashRoutes = [
         mini: 'L',
         rtlMini: 'هعذا',
         component: LandingPage,
+        layout: '/auth',
+      },
+      {
+        path: '/investor-thanks',
+        name: 'Investor Thanks',
+        rtlName: 'هعذاتسجيل الدخول',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: InvestorThanks,
         layout: '/auth',
       },
       {
