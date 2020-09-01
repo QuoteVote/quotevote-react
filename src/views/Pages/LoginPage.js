@@ -92,17 +92,6 @@ export default function LoginPage() {
   return (
     <div className={classes.container}>
       <GridContainer justify="center" style={{ marginRight: 24 }}>
-        <Hidden smDown>
-          <GridItem lg={8}>
-            <Carousel interval={3000}>
-              {
-                images.map((image) => (
-                  <CarouselImage imageUrl={image} alt={image} />
-                ))
-              }
-            </Carousel>
-          </GridItem>
-        </Hidden>
         <GridItem xs={12} sm={6} md={4}>
           <form onSubmit={(e) => handleFormSubmit(e)}>
             <Card login className={classes[cardAnimaton]}>
