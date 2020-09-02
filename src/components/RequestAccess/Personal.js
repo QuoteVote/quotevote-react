@@ -1,5 +1,7 @@
 import React from 'react'
 
+import CreditCardInput from 'react-credit-card-input'
+
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
@@ -10,6 +12,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 
 import reqAccessPersonal from 'assets/img/RequestAccess/PersonalPlan.png'
+import stripeImg from 'assets/img/RequestAccess/stripe.png'
 import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(() => ({
@@ -65,6 +68,16 @@ const useStyles = makeStyles(() => ({
 const PersonalForm = (props) => {
   const classes = useStyles()
   const { isContinued, setContinued } = props
+  const [creditCard, setCreditCard] = React.useState({
+    cardNumber: '',
+    expiry: '',
+    cvc: '',
+  })
+  const [cost, setCost] = React.useState(0)
+
+  const handleChange = (e, field) => {
+    setCreditCard({ ...creditCard, [`${field}`]: e.target.value })
+  }
   return (
     <Grid container justify="center" style={{ marginRight: 24 }} spacing={2}>
       <Grid item xs={12}>
@@ -160,18 +173,50 @@ const PersonalForm = (props) => {
                           Payment will not be charged until invite is sent
                         </Typography>
                       </Grid>
-                      <Grid item xs={12}>
-                        <TextField label="Credit Card Number" required fullWidth />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Typography className={classes.stepName}>
-                          Total:
-                          {' '}
-                          <b>$10</b>
-                        </Typography>
+                      <Grid container item xs={12}>
+                        <CreditCardInput
+                          cardNumberInputProps={{
+                            value: creditCard.cardNumber,
+                            onChange: (e) => handleChange(e, 'cardNumber'),
+                          }}
+                          cardExpiryInputProps={{
+                            value: creditCard.expiry,
+                            onChange: (e) => handleChange(e, 'expiry'),
+                          }}
+                          cardCVCInputProps={{
+                            value: creditCard.cvc,
+                            onChange: (e) => handleChange(e, 'cvc'),
+                          }}
+                          fieldClassName="input"
+                        />
                       </Grid>
                       <Grid item xs={6}>
-                        Stripe logo here...
+                        <TextField
+                          label="Cost"
+                          onChange={(e) => setCost(e.target.value)}
+                          type="number"
+                          required
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography className={classes.stepName} display="inline" align="center">
+                          <b>
+                            Total: $
+                            {cost}
+                          </b>
+                        </Typography>
+                      </Grid>
+                      <Grid container item xs={6} alignItems="center" justify="center">
+                        <img
+                          alt={stripeImg}
+                          src={`${stripeImg}`}
+                          style={{
+                            width: '90px',
+                            height: '19px',
+                            opacity: 0.4,
+                          }}
+                        />
                       </Grid>
                       <Grid item xs={6}>
                         <Button variant="contained" className={classes.greenBtn} onClick={() => setContinued(false)}>

@@ -42,6 +42,7 @@
     "react-big-calendar": "0.22.0",
     "react-bootstrap-sweetalert": "4.4.1",
     "react-chartist": "0.13.3",
+    "react-credit-card-input": "^1.1.5",
     "react-datetime": "2.16.3",
     "react-dom": "16.9.0",
     "react-google-maps": "9.4.5",
@@ -59,6 +60,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "string-limit": "^0.0.4",
+    "styled-components": "^5.1.1",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
