@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-
 // eslint-disable-next-line react/prop-types
 export default function BuddyListLoader() {
   const classes = useStyles()

@@ -100,7 +100,6 @@ export default function Scoreboard(props) {
     return currLocation[currLocation.length - 1]
   }
 
-
   return (
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>

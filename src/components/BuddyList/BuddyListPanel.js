@@ -55,7 +55,6 @@ function ListItemLink({ classes, listData, toggle }) {
   )
 }
 
-
 // eslint-disable-next-line react/prop-types
 export default function BuddyListPanel({ data, toggle }) {
   const classes = useStyles()

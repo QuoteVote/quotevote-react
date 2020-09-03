@@ -3,3 +3,5 @@ documentation/
 build/
 node_modules/
 src/mui-pro
+cypress/integration/examples
+cypress/plugins

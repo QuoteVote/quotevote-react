@@ -13,11 +13,9 @@ module.exports = {
     node: true,
     es6: true,
     serviceworker: true,
+    'cypress/globals': true,
   },
-  plugins: [
-    'react',
-    'jsx-a11y',
-  ],
+  plugins: ['react', 'jsx-a11y', 'cypress'],
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
@@ -52,32 +50,17 @@ module.exports = {
     'no-param-reassign': 1,
     'no-plusplus': 0,
     'operator-linebreak': ['error', 'after'],
-    semi: [
-      2,
-      'never',
-    ],
-    'arrow-parens': [
-      'error',
-      'always',
-    ],
-    'arrow-body-style': [
-      2,
-      'as-needed',
-    ],
+    semi: [2, 'never'],
+    'arrow-parens': ['error', 'always'],
+    'arrow-body-style': [2, 'as-needed'],
     'prefer-arrow-callback': 2,
-    'comma-dangle': [
-      2,
-      'always-multiline',
-    ],
+    'comma-dangle': [2, 'always-multiline'],
     'import/imports-first': 0,
     'import/newline-after-import': 0,
     'import/no-dynamic-require': 0,
     'import/no-extraneous-dependencies': 0,
     'import/no-named-as-default': 0,
-    'import/no-unresolved': [
-      2,
-      { caseSensitive: false },
-    ],
+    'import/no-unresolved': [2, { caseSensitive: false }],
     'import/prefer-default-export': 0,
     'import/no-cycle': 0,
     'import/no-named-as-default-member': 0,
@@ -104,10 +87,7 @@ module.exports = {
     'prefer-template': 2,
     'class-methods-use-this': 0,
     'react/forbid-prop-types': 0,
-    'react/jsx-first-prop-new-line': [
-      2,
-      'multiline',
-    ],
+    'react/jsx-first-prop-new-line': [2, 'multiline'],
     'react/jsx-filename-extension': 0,
     'react/jsx-no-target-blank': 0,
     'react/require-extension': 0,
@@ -119,6 +99,12 @@ module.exports = {
     'jsx-a11y/href-no-hash': 'off',
     'react/no-did-update-set-state': 0,
     'react/jsx-props-no-spreading': 0,
+    // cypress rules
+    'cypress/no-assigning-return-values': 'error',
+    'cypress/no-unnecessary-waiting': 'error',
+    'cypress/assertion-before-screenshot': 'warn',
+    'cypress/no-force': 'warn',
+    'cypress/no-async-tests': 'error',
   },
   settings: {
     'import/resolver': {

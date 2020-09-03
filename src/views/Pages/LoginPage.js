@@ -1,42 +1,42 @@
-import { omit } from "lodash";
-import React from "react";
+import { omit } from 'lodash'
+import React from 'react'
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
 // images
-import activiesPageImg from "assets/img/carousel/Activities_Page.png";
-import postPageImg from "assets/img/carousel/Post_Page.png";
-import profilePageImg from "assets/img/carousel/Profile_Page.png";
-import sideNavImg from "assets/img/carousel/Side_Navigation.png";
-import trendingPageImg from "assets/img/carousel/Trending_Page.png";
+import activiesPageImg from 'assets/img/carousel/Activities_Page.png'
+import postPageImg from 'assets/img/carousel/Post_Page.png'
+import profilePageImg from 'assets/img/carousel/Profile_Page.png'
+import sideNavImg from 'assets/img/carousel/Side_Navigation.png'
+import trendingPageImg from 'assets/img/carousel/Trending_Page.png'
 
-import { InputAdornment, CircularProgress, Hidden } from "@material-ui/core";
+import { InputAdornment, CircularProgress, Hidden } from '@material-ui/core'
 
-import Icon from "@material-ui/core/Icon";
+import Icon from '@material-ui/core/Icon'
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face";
+import Face from '@material-ui/icons/Face'
 
 // core mui-pro
-import GridContainer from "mui-pro/Grid/GridContainer";
-import GridItem from "mui-pro/Grid/GridItem";
-import CustomInput from "mui-pro/CustomInput/CustomInput";
-import Button from "mui-pro/CustomButtons/Button";
-import Card from "mui-pro/Card/Card";
-import CardBody from "mui-pro/Card/CardBody";
-import CardHeader from "mui-pro/Card/CardHeader";
-import CardFooter from "mui-pro/Card/CardFooter";
-import Carousel from "react-material-ui-carousel";
+import GridContainer from 'mui-pro/Grid/GridContainer'
+import GridItem from 'mui-pro/Grid/GridItem'
+import CustomInput from 'mui-pro/CustomInput/CustomInput'
+import Button from 'mui-pro/CustomButtons/Button'
+import Card from 'mui-pro/Card/Card'
+import CardBody from 'mui-pro/Card/CardBody'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardFooter from 'mui-pro/Card/CardFooter'
+import Carousel from 'react-material-ui-carousel'
 
 // login method
-import { userLogin, tokenValidator } from "store/user";
+import { userLogin, tokenValidator } from 'store/user'
 
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import styles from "assets/jss/material-dashboard-pro-react/views/loginPageStyle";
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 // eslint-disable-next-line react/prop-types
 function CarouselImage({ imageUrl, alt }) {
@@ -46,25 +46,25 @@ function CarouselImage({ imageUrl, alt }) {
         alt={alt}
         height={500}
         src={`${imageUrl}`}
-        style={{ marginTop: "-15px" }}
+        style={{ marginTop: '-15px' }}
       />
     </Card>
-  );
+  )
 }
 
 export default function LoginPage() {
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const loading = useSelector((state) => state.user.loading);
-  const loginError = useSelector((state) => state.user.loginError);
-  const [input, setInput] = React.useState({ password: "", username: "" });
+  const [cardAnimaton, setCardAnimation] = React.useState('cardHidden')
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const loading = useSelector((state) => state.user.loading)
+  const loginError = useSelector((state) => state.user.loginError)
+  const [input, setInput] = React.useState({ password: '', username: '' })
 
   // TODO: Abstract validation into custom hook
   React.useEffect(() => {
-    if (tokenValidator(dispatch)) history.push("/hhsb/Home");
+    if (tokenValidator(dispatch)) history.push('/hhsb/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   // This needs to be fixed so that we are importing the images instead of using the public/assets folder
   const images = [
@@ -73,27 +73,27 @@ export default function LoginPage() {
     profilePageImg,
     sideNavImg,
     trendingPageImg,
-  ];
+  ]
 
   setTimeout(() => {
-    setCardAnimation("");
-  }, 700);
+    setCardAnimation('')
+  }, 700)
 
-  const classes = useStyles();
+  const classes = useStyles()
   const handleInputs = (e) => {
-    const { id, value } = e.target;
-    setInput({ ...omit(input, [id]), [id]: value });
-  };
+    const { id, value } = e.target
+    setInput({ ...omit(input, [id]), [id]: value })
+  }
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const { username, password } = input;
-    userLogin(username, password, dispatch, history);
-  };
+    event.preventDefault()
+    const { username, password } = input
+    userLogin(username, password, dispatch, history)
+  }
   const handleFormSubmit = (e) => {
-    if (e.key === "Enter") {
-      handleSubmit(e);
+    if (e.key === 'Enter') {
+      handleSubmit(e)
     }
-  };
+  }
   return (
     <div className={classes.container}>
       <GridContainer justify="center" style={{ marginRight: 24 }}>
@@ -116,9 +116,9 @@ export default function LoginPage() {
                 <h4 className={classes.cardTitle}>Log in</h4>
                 <div className={classes.socialLine}>
                   {[
-                    "fab fa-facebook-square",
-                    "fab fa-twitter",
-                    "fab fa-google-plus",
+                    'fab fa-facebook-square',
+                    'fab fa-twitter',
+                    'fab fa-google-plus',
                   ].map((prop, key) => (
                     <Button
                       color="transparent"
@@ -163,8 +163,8 @@ export default function LoginPage() {
                       </InputAdornment>
                     ),
                     onChange: (e) => handleInputs(e),
-                    type: "password",
-                    autoComplete: "off",
+                    type: 'password',
+                    autoComplete: 'off',
                   }}
                   error={loginError}
                   helperText={loginError}
@@ -191,5 +191,5 @@ export default function LoginPage() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  )
 }

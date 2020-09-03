@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 import {
   Grid,
@@ -17,75 +17,75 @@ import {
   Tooltip,
   Radio,
   RadioGroup,
-} from "@material-ui/core";
+} from '@material-ui/core'
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles'
 
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormLabel from '@material-ui/core/FormLabel'
 
 // Material Icons
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
+import AssignmentIcon from '@material-ui/icons/Assignment'
 
-import GridItem from "mui-pro/Grid/GridItem";
-import Card from "mui-pro/Card/Card";
-import CardHeader from "mui-pro/Card/CardHeader";
-import CardBody from "mui-pro/Card/CardBody";
-import Button from "mui-pro/CustomButtons/Button";
-import LoadingSpinner from "components/LoadingSpinner";
-import styles from "assets/jss/material-dashboard-pro-react/views/sweetAlertStyle";
+import GridItem from 'mui-pro/Grid/GridItem'
+import Card from 'mui-pro/Card/Card'
+import CardHeader from 'mui-pro/Card/CardHeader'
+import CardBody from 'mui-pro/Card/CardBody'
+import Button from 'mui-pro/CustomButtons/Button'
+import LoadingSpinner from 'components/LoadingSpinner'
+import styles from 'assets/jss/material-dashboard-pro-react/views/sweetAlertStyle'
 
-import GridContainer from "mui-pro/Grid/GridContainer";
+import GridContainer from 'mui-pro/Grid/GridContainer'
 
-import SweetAlert from "react-bootstrap-sweetalert";
-import * as copy from "clipboard-copy";
-import { isEmpty } from "lodash";
+import SweetAlert from 'react-bootstrap-sweetalert'
+import * as copy from 'clipboard-copy'
+import { isEmpty } from 'lodash'
 
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { CREATE_GROUP, SUBMIT_POST } from "graphql/mutations";
-import { GROUPS_QUERY } from "graphql/query";
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { CREATE_GROUP, SUBMIT_POST } from 'graphql/mutations'
+import { GROUPS_QUERY } from 'graphql/query'
 
-import { SET_SELECTED_POST } from "store/ui";
+import { SET_SELECTED_POST } from 'store/ui'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
 const inputStyles = {
-  color: "#E91E63",
-  fontSize: "25px",
-  font: "League Spartan",
-  fontWeight: "bold",
-};
+  color: '#E91E63',
+  fontSize: '25px',
+  font: 'League Spartan',
+  fontWeight: 'bold',
+}
 
 function SubmitPost() {
-  const classes = useStyles();
-  const [alert, setAlert] = React.useState(null);
-  const [postTitle, setPostTitle] = useState("[Enter Title]");
-  const [postText, setPostText] = useState("");
-  const [groupName, setGroupName] = useState("");
-  const [groupId, setGroupId] = useState("");
-  const [subScoreboardIsOpen, setCreateSubScoreboard] = useState(false);
-  const [privacy, setPrivacy] = useState("private");
+  const classes = useStyles()
+  const [alert, setAlert] = React.useState(null)
+  const [postTitle, setPostTitle] = useState('[Enter Title]')
+  const [postText, setPostText] = useState('')
+  const [groupName, setGroupName] = useState('')
+  const [groupId, setGroupId] = useState('')
+  const [subScoreboardIsOpen, setCreateSubScoreboard] = useState(false)
+  const [privacy, setPrivacy] = useState('private')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const history = useHistory();
+  const history = useHistory()
 
-  const user = useSelector((state) => state.user.data);
+  const user = useSelector((state) => state.user.data)
   const { loading, error, data } = useQuery(GROUPS_QUERY, {
     variables: { limit: 0 },
-  });
-  const [submitPost] = useMutation(SUBMIT_POST);
-  const [createGroup] = useMutation(CREATE_GROUP);
+  })
+  const [submitPost] = useMutation(SUBMIT_POST)
+  const [createGroup] = useMutation(CREATE_GROUP)
 
-  const DOMAIN = process.env.REACT_APP_DOMAIN || "localhost:3000";
+  const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     try {
-      let newGroup;
+      let newGroup
       if (subScoreboardIsOpen) {
         newGroup = await createGroup({
           variables: {
@@ -96,9 +96,9 @@ function SubmitPost() {
               privacy,
             },
           },
-        });
+        })
       }
-      const postGroupId = newGroup ? newGroup.data.createGroup._id : groupId;
+      const postGroupId = newGroup ? newGroup.data.createGroup._id : groupId
       const submitResult = await submitPost({
         variables: {
           post: {
@@ -108,41 +108,41 @@ function SubmitPost() {
             groupId: postGroupId,
           },
         },
-      });
-      const { _id, url } = submitResult.data.addPost;
-      dispatch(SET_SELECTED_POST(_id));
-      successAlert(url, _id);
+      })
+      const { _id, url } = submitResult.data.addPost
+      dispatch(SET_SELECTED_POST(_id))
+      successAlert(url, _id)
     } catch (err) {
-      errorAlert(err);
+      errorAlert(err)
     }
-  };
+  }
 
   const handlePostText = (event) => {
-    setPostText(event.target.value);
-  };
+    setPostText(event.target.value)
+  }
 
   const handlePostTitle = (event) => {
-    setPostTitle(event.target.value);
-  };
+    setPostTitle(event.target.value)
+  }
 
   const clearPostTitle = () => {
-    if (postTitle === "[Enter Title]") {
-      setPostTitle("");
+    if (postTitle === '[Enter Title]') {
+      setPostTitle('')
     }
-  };
+  }
 
   const handleGroup = (event) => {
-    setGroupName(event.target.value);
-  };
+    setGroupName(event.target.value)
+  }
 
   const handleCreateSubScoreboard = () => {
-    setGroupName("");
-    setCreateSubScoreboard(!subScoreboardIsOpen);
-  };
+    setGroupName('')
+    setCreateSubScoreboard(!subScoreboardIsOpen)
+  }
 
   const handlePrivacy = (event) => {
-    setPrivacy(event.target.value);
-  };
+    setPrivacy(event.target.value)
+  }
 
   const successAlert = (shareableLink) => {
     // const shareableLink = `/hhsb/${domainKey}/content/${id}`
@@ -150,7 +150,7 @@ function SubmitPost() {
     setAlert(
       <SweetAlert
         success
-        style={{ display: "block", top: "50%" }}
+        style={{ display: 'block', top: '50%' }}
         title="You Created a Post!"
         onConfirm={() => history.push(shareableLink)}
         onCancel={() => hideAlert()}
@@ -166,7 +166,7 @@ function SubmitPost() {
           style={{ marginTop: 16 }}
           wrap="nowrap"
         >
-          <GridItem style={{ overflow: "auto" }}>
+          <GridItem style={{ overflow: 'auto' }}>
             <pre>{DOMAIN + shareableLink}</pre>
           </GridItem>
           <GridItem style={{ flex: 1 }}>
@@ -178,14 +178,14 @@ function SubmitPost() {
           </GridItem>
         </Grid>
       </SweetAlert>
-    );
-  };
+    )
+  }
 
   const errorAlert = (err) => {
     setAlert(
       <SweetAlert
         error
-        style={{ display: "block", top: "50%" }}
+        style={{ display: 'block', top: '50%' }}
         title="Something went wrong!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
@@ -193,27 +193,29 @@ function SubmitPost() {
         confirmBtnText="Ok"
       >
         {/* We don't know what, yet let us know and we can find out */}
-        Error: {err}
+        Error:
+        {' '}
+        {err}
       </SweetAlert>
-    );
-  };
+    )
+  }
   const hideAlert = () => {
-    setAlert(null);
-  };
+    setAlert(null)
+  }
 
   const handleCopy = (shareableLink) => {
-    copy(shareableLink);
-  };
+    copy(shareableLink)
+  }
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner />
   }
 
   if (error) {
     return (
       <SweetAlert
         error
-        style={{ display: "block", top: "50%" }}
+        style={{ display: 'block', top: '50%' }}
         title="Something went wrong!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
@@ -222,7 +224,7 @@ function SubmitPost() {
       >
         We don&apos;t know what, yet let us know and we can find out
       </SweetAlert>
-    );
+    )
   }
 
   const userAllowedGroups =
@@ -230,35 +232,35 @@ function SubmitPost() {
       data.groups.filter((group) => {
         const isUserAllowed = group.allowedUserIds.find(
           (id) => id === user._id
-        );
+        )
         return (
-          group.privacy === "public" ||
-          (group.privacy === "private" && isUserAllowed)
-        );
+          group.privacy === 'public' ||
+          (group.privacy === 'private' && isUserAllowed)
+        )
       })) ||
-    [];
+    []
 
   return (
     <>
       {alert}
       <GridContainer>
         <GridItem xs={12} xl={6}>
-          <Card style={{ height: "600px" }}>
+          <Card style={{ height: '600px' }}>
             <CardHeader style={{ zIndex: 0 }}>
               <div
                 style={{
-                  display: "flex",
-                  direction: "row",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'space-between',
                   zIndex: 0,
                 }}
               >
                 <div
                   style={{
-                    display: "flex",
-                    direction: "row",
-                    alignContent: "center",
-                    justifyContent: "space-between",
+                    display: 'flex',
+                    direction: 'row',
+                    alignContent: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <InputBase
@@ -274,12 +276,13 @@ function SubmitPost() {
                 </div>
                 <div
                   style={{
-                    display: "flex",
-                    direction: "row",
-                    justifyContent: "flex-end",
-                    flexBasis: "100px",
+                    display: 'flex',
+                    direction: 'row',
+                    justifyContent: 'flex-end',
+                    flexBasis: '100px',
                   }}
-                ></div>
+                >
+                </div>
               </div>
               <Divider />
             </CardHeader>
@@ -297,16 +300,16 @@ function SubmitPost() {
                   value={postText}
                   style={{
                     maxHeight: 600,
-                    overflow: "auto",
+                    overflow: 'auto',
                   }}
                 />
                 <div
                   style={{
                     marginTop: 24,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignContent: "center",
-                    flexWrap: "wrap",
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignContent: 'center',
+                    flexWrap: 'wrap',
                   }}
                 >
                   <div>
@@ -373,8 +376,8 @@ function SubmitPost() {
                     variant="contained"
                     size="large"
                     style={{
-                      backgroundColor: "rgb(233, 30, 99)",
-                      marginTop: "8px",
+                      backgroundColor: 'rgb(233, 30, 99)',
+                      marginTop: '8px',
                     }}
                   >
                     Submit
@@ -415,17 +418,17 @@ function SubmitPost() {
             <CardHeader>
               <div
                 style={{
-                  display: "flex",
-                  direction: "row",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'space-between',
                 }}
               >
                 <p
                   style={{
-                    color: "#E91E63",
-                    fontSize: "25px",
-                    font: "League Spartan",
-                    fontWeight: "bold",
+                    color: '#E91E63',
+                    fontSize: '25px',
+                    font: 'League Spartan',
+                    fontWeight: 'bold',
                   }}
                 >
                   Pop Prediction
@@ -436,7 +439,7 @@ function SubmitPost() {
         </GridItem>
       </GridContainer>
     </>
-  );
+  )
 }
 
-export default SubmitPost;
+export default SubmitPost

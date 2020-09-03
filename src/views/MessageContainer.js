@@ -60,10 +60,8 @@ export default function MessageContainer({ toggle }) {
 
       {messageData.map((message) => (<Message content={message.Content} color={message.Color} username={message.Username} />))}
 
-
       <div className={classes.margin}>
         <Card>
-
 
           <Grid container spacing={1} alignItems="flex-end" justifyContent="space-between" wrap="nowrap">
             <Grid style={{ paddingBottom: '20px' }}>
