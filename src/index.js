@@ -35,6 +35,8 @@ import customTheme from './theme'
 import 'assets/scss/material-dashboard-pro-react.scss'
 import LogoutPage from './components/LogoutPage'
 
+import 'fontsource-montserrat'
+
 const hist = createBrowserHistory()
 
 const theme = createMuiTheme(customTheme)

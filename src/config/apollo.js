@@ -46,7 +46,7 @@ const link = split(
     return kind === 'OperationDefinition' && operation === 'subscription'
   },
   wsLink,
-  httpLink,
+  httpLink
 )
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -80,6 +80,9 @@ const client = new ApolloClient({
   link: concat(authMiddleware, link),
   cache,
   resolvers: {},
+  fetchOptions: {
+    mode: 'no-cors',
+  },
 })
 client.onResetStore(() => cache.writeData({ data }))
 

@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopPrediction test - renders correctly 1`] = `
+<div
+  class="makeStyles-card-8"
+>
+  <div
+    class="makeStyles-cardHeader-25"
+  >
+    <h6
+      class="MuiTypography-root makeStyles-title-1 MuiTypography-h6 MuiTypography-colorPrimary"
+    >
+      Pop Prediction
+    </h6>
+  </div>
+  <div
+    class="makeStyles-cardBody-39"
+  >
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-5 MuiGrid-direction-xs-column"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item"
+      >
+        <div
+          class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+        >
+          <div
+            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+          >
+            <textarea
+              aria-invalid="false"
+              class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+              placeholder="input text to submit predict truth or sentiment"
+              rows="1"
+              style="height: 0px; overflow: hidden;"
+            />
+            <textarea
+              aria-hidden="true"
+              class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+              readonly=""
+              style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
+              tabindex="-1"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item"
+      >
+        <div
+          class="makeStyles-cardBottomSheet-2"
+        >
+          <div
+            class="makeStyles-percent-3"
+          >
+            <h3
+              class="MuiTypography-root MuiTypography-h3 MuiTypography-colorPrimary"
+              title="prediction"
+            >
+               20%
+            </h3>
+            <p
+              class="MuiTypography-root MuiTypography-body2 MuiTypography-colorPrimary"
+            >
+              Very Agreeable
+            </p>
+          </div>
+          <div
+            class="makeStyles-buttonContainer-5"
+          >
+            <div
+              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-select-7 Mui-disabled Mui-disabled"
+            >
+              <div
+                aria-haspopup="listbox"
+                aria-labelledby=" "
+                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
+                role="button"
+              >
+                Sentiment
+              </div>
+              <input
+                type="hidden"
+                value="sentiment"
+              />
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSelect-icon"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M7 10l5 5 5-5z"
+                />
+              </svg>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-6 MuiButton-containedPrimary Mui-disabled Mui-disabled"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1 MuiTypography-colorSecondary"
+                  title="pop-button"
+                >
+                  POP
+                </p>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
