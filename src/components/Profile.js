@@ -54,7 +54,6 @@ function ProfileController() {
   }
 
   const handleActivityEvent = (event, newActivityEvent) => {
-    console.log('handleActivityEvent', newActivityEvent) //  ["COMMENTED"]
     if (!newActivityEvent.length) {
       setSelectAll(['ALL'])
       setSelectedEvent(conditions)

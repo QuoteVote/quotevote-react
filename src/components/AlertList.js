@@ -27,7 +27,6 @@ AlertSkeletonLoader.propTypes = {
 }
 
 function LoadAlertList({ data, width, selectedEvent }) {
-  console.log('LoadAlertList rendering data', selectedEvent)
   if (!data || data.length === 0) {
     return (
       <div style={{ width: '90%' }}>

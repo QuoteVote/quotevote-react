@@ -24,25 +24,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function ProfileView(props) {
+function ProfileView({
+  handleActivityEvent,
+  handleSelectAll,
+  selectAll,
+  loggedInUser,
+  filterState,
+  dispatch,
+  selectedEvent,
+  setOffset,
+  profileUser,
+  activitiesData,
+  loading,
+  limit,
+  offset,
+  total,
+}) {
   const classes = useStyles()
-
-  const {
-    handleActivityEvent,
-    handleSelectAll,
-    selectAll,
-    loggedInUser,
-    filterState,
-    dispatch,
-    setOffset,
-    profileUser,
-    activitiesData,
-    limit,
-    loading,
-    offset,
-    total,
-    selectedEvent,
-  } = props
 
   if (loading) return <LoadingSpinner />
 
@@ -81,6 +79,7 @@ ProfileView.propTypes = {
   filterState: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   setOffset: PropTypes.number.isRequired,
+  selectedEvent: PropTypes.func.isRequired,
   profileUser: PropTypes.object.isRequired,
   activitiesData: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
