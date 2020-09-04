@@ -41,6 +41,7 @@ function ProfileView(props) {
     loading,
     offset,
     total,
+    selectedEvent,
   } = props
 
   if (loading) return <LoadingSpinner />
@@ -58,7 +59,7 @@ function ProfileView(props) {
         profileUser={profileUser}
       />
       <CardBody>
-        <AlertList Data={activitiesData} loading={loading} limit={limit} />
+        <AlertList selectedEvent={selectedEvent} Data={activitiesData} loading={loading} limit={limit} />
       </CardBody>
       <Pagination
         style={{ margin: 'auto' }}

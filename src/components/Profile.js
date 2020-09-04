@@ -54,6 +54,7 @@ function ProfileController() {
   }
 
   const handleActivityEvent = (event, newActivityEvent) => {
+    console.log('handleActivityEvent', newActivityEvent) //  ["COMMENTED"]
     if (!newActivityEvent.length) {
       setSelectAll(['ALL'])
       setSelectedEvent(conditions)
@@ -114,6 +115,7 @@ function ProfileController() {
       limit={limit}
       offset={offset}
       total={total}
+      selectedEvent={selectedEvent}
     />
   )
 }
