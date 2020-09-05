@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
+
+import { Formik } from 'formik'
 
 // login method
 import { tokenValidator } from 'store/user'
@@ -21,14 +23,27 @@ export default function RequestAccessPage() {
   const dispatch = useDispatch()
   const history = useHistory()
   const [selectedPlan, setSelectedPlan] = React.useState(null)
-  const [request, setRequest] = React.useState(null)
-  const [isContinued, setContinued] = React.useState(false)
+  const [request, setRequest] = useState(null)
+  const [isContinued, setContinued] = useState(false)
+  const [requestSubmitted, setRequestSubmitted] = useState({ personal: false, business: false })
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    company: '',
+    email: '',
+    creditCard: {
+      cardNumber: '',
+      expiry: '',
+      cvc: '',
+    },
+    cost: 0,
+  }
 
-  const renderForm = () => {
+  const renderForm = (formikProps) => {
     if (selectedPlan === 'personal') {
-      return <PersonalForm isContinued={isContinued} setContinued={setContinued} />
+      return <PersonalForm requestSubmitted={requestSubmitted} isContinued={isContinued} setContinued={setContinued} {...formikProps} />
     }
-    return <BusinessForm isContinued={isContinued} setContinued={setContinued} />
+    return <BusinessForm requestSubmitted={requestSubmitted} isContinued={isContinued} setContinued={setContinued} {...formikProps} />
   }
 
   // TODO: Abstract validation into custom hook
@@ -41,7 +56,17 @@ export default function RequestAccessPage() {
     <div className={classes.container}>
       {!selectedPlan || !request ? (
         <PlansPage selectedPlan={selectedPlan} onPlanSelect={setSelectedPlan} setRequest={setRequest} />
-      ) : renderForm()}
+      ) : (
+        <Formik
+          enableReinitialize
+          render={(props) => renderForm(props)}
+          initialValues={initialValues}
+          // validationSchema={}
+          onSubmit={() => {
+            setRequestSubmitted({ ...requestSubmitted, [`${selectedPlan}`]: true })
+          }}
+        />
+      )}
     </div>
   )
 }

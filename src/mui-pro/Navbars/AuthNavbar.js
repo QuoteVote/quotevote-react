@@ -46,7 +46,7 @@ export default function AuthNavbar(props) {
             {activeRoute('/auth/request-access') && (
                 <ListItem className={classes.listItem}>
                     <NavLink
-                        to="/auth/login-page"
+                        to="/auth/landing-page"
                         className={cx(classes.navLink, {
                             [classes.navLinkActive]: activeRoute('/auth/login-page'),
                         })}
