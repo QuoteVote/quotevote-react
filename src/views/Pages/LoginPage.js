@@ -11,7 +11,6 @@ import profilePageImg from 'assets/img/carousel/Profile_Page.png'
 import sideNavImg from 'assets/img/carousel/Side_Navigation.png'
 import trendingPageImg from 'assets/img/carousel/Trending_Page.png'
 
-
 import {
   InputAdornment,
   CircularProgress,
@@ -40,7 +39,6 @@ import { userLogin, tokenValidator } from 'store/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
-
 
 const useStyles = makeStyles(styles)
 

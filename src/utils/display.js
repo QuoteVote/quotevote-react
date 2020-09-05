@@ -22,7 +22,6 @@ export function useWidth() {
   )
 }
 
-
 export function composePost(activity, theme) {
   const time = activity && formatContentDate(activity.data.created)
 

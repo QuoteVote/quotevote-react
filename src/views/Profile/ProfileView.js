@@ -70,7 +70,6 @@ function ProfileView({
   )
 }
 
-
 ProfileView.propTypes = {
   handleActivityEvent: PropTypes.func.isRequired,
   handleSelectAll: PropTypes.func.isRequired,

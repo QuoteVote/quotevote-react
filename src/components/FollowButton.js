@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-
 function FollowButton({ isFollowing, profileUserId }) {
   const classes = useStyles()
   // TODO handle data object

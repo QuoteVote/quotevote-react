@@ -37,7 +37,6 @@ const ACTIVITY_COLORS = {
   POSTED: '#020202',
 }
 
-
 function formatContentDate(sDate) {
   const a = moment.utc()
   const b = moment.utc(sDate)
@@ -277,7 +276,6 @@ export default function Homepage() {
         onClick={(e, offsetVal) => setOffset(offsetVal)}
       />
     </Card>
-
 
   )
 }
