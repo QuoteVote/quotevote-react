@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InvestorPlanCarousel test - renders correctly 1`] = `
+<div
+  class="Carousel-root-20 "
+>
+  <div
+    class="CarouselItem"
+  >
+    <div
+      style="opacity: 1; webkit-transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    >
+      <div
+        class="MuiGrid-root makeStyles-grid-32 undefined MuiGrid-container MuiGrid-justify-xs-center"
+        style="margin-right: 24px;"
+      >
+        <div
+          class="MuiGrid-root makeStyles-grid-33  MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-5"
+        >
+          <div
+            class="MuiGrid-root makeStyles-grid-32 undefined MuiGrid-container MuiGrid-justify-xs-center"
+          >
+            <img
+              alt="UserSharing.png"
+              src="UserSharing.png"
+              style="width: 400.43px; height: 300.51px; object-fit: contain;"
+            />
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root makeStyles-grid-33  MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+        >
+          <div
+            class="MuiGrid-root makeStyles-grid-32 undefined MuiGrid-container"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1"
+            >
+              <div
+                class="makeStyles-opinionsText-15"
+              >
+                We created VoxPop with promoting
+                 
+                <b>
+                  democracy and community as our pillar.
+                </b>
+                <br />
+                <br />
+                This is why we reject investment from VC firms, and encourage users to invest and become a part of the change.
+                <b>
+                  Invest up to $2000 to grow with us. 
+                </b>
+                <br />
+                <br />
+              </div>
+            </p>
+            <p
+              class="MuiTypography-root makeStyles-bottomText-17 MuiTypography-body1"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-34 MuiButton-contained MuiButton-containedPrimary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  Invest for change
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+               
+              What is
+              <span
+                class="makeStyles-greenText-16"
+              >
+                 the deal 
+              </span>
+              <button
+                aria-label="What's next"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    role="presentation"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M15.5 5H11l5 7-5 7h4.5l5-7z"
+                    />
+                    <path
+                      d="M8.5 5H4l5 7-5 7h4.5l5-7z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="Carousel-buttonWrapper-24 Carousel-fullHeightHoverWrapper-25 Carousel-next-30"
+  >
+    <button
+      aria-label="Next"
+      class="MuiButtonBase-root MuiIconButton-root Carousel-button-26 Carousel-buttonHidden-29 Carousel-fullHeightHoverButton-27 Carousel-next-30"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiIconButton-label"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+  <div
+    class="Carousel-buttonWrapper-24 Carousel-fullHeightHoverWrapper-25 Carousel-prev-31"
+  >
+    <button
+      aria-label="Previous"
+      class="MuiButtonBase-root MuiIconButton-root Carousel-button-26 Carousel-buttonHidden-29 Carousel-fullHeightHoverButton-27  Carousel-prev-31"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiIconButton-label"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+  <div
+    class="Carousel-indicators-21"
+  >
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root Carousel-indicator-22 Carousel-active-23 undefined"
+      focusable="false"
+      role="presentation"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+      />
+    </svg>
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root Carousel-indicator-22 undefined"
+      focusable="false"
+      role="presentation"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+      />
+    </svg>
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root Carousel-indicator-22 undefined"
+      focusable="false"
+      role="presentation"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+      />
+    </svg>
+  </div>
+</div>
+`;
