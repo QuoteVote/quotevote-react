@@ -121,12 +121,14 @@ function MainNavBar(props) {
           lg={5}
         >
           <Grid item lg={2}>
-            <IconButton
-              aria-label="Profile"
-              color="inherit"
-            >
-              <Avatar alt={username} src={avatar} />
-            </IconButton>
+            <NavLink to="/hhsb/Profile">
+              <IconButton
+                aria-label="Profile"
+                color="inherit"
+              >
+                <Avatar alt={username} src={avatar} />
+              </IconButton>
+            </NavLink>
           </Grid>
           <Hidden only={['md']}>
             <Grid item lg={4}>

@@ -100,7 +100,6 @@ export default function Scoreboard(props) {
     return currLocation[currLocation.length - 1]
   }
 
-
   return (
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -139,14 +138,18 @@ export default function Scoreboard(props) {
             </Switch>
           )}
           {chatOpen && <ChatDrawer />}
-          <Snackbar
-            place="bc"
-            color={snackbar.type}
-            message={snackbar.message}
-            open={snackbar.open}
-            closeNotification={() => dispatch(SET_SNACKBAR({ open: false, message: '', type: '' }))}
-            close
-          />
+          {
+            snackbar ? (
+              <Snackbar
+                place="bc"
+                color={snackbar.type}
+                message={snackbar.message}
+                open={snackbar.open}
+                closeNotification={() => dispatch(SET_SNACKBAR({ open: false, message: '', type: '' }))}
+                close
+              />
+            ) : null
+          }
           <Hidden only={['md', 'lg', 'xl']}>
             <Fab className={classes.fab}>
               <MenuIcon />

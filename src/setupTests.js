@@ -15,7 +15,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import client from 'config/apollo'
 import fetch from 'jest-fetch-mock'
 
-
 const cache = new InMemoryCache()
 cache.writeData({
   data: {

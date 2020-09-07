@@ -132,7 +132,6 @@ function InviteTable({ data }) {
   })
   const classes = useStyles()
 
-
   return (
     <TableContainer className={classes.tableContainer} component={Paper}>
       <Table aria-label="Invite Table">

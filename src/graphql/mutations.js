@@ -81,3 +81,12 @@ export const SEND_MESSAGE = gql`
     }
   }
 `
+
+export const FOLLOW_MUTATION = gql`
+  mutation followUser($user_id: String!, $action: String!) {
+    followUser(user_id: $user_id, action: $action) {
+      _id
+      name
+    }
+  }
+`

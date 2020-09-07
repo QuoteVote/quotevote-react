@@ -41,14 +41,12 @@ export default function CompleteSearch() {
             Trending
           </h3>
 
-
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <CustomizedInputBase></CustomizedInputBase>
             <img alt="Calender Icon" src={Calendar} style={{ height: '40px', paddingLeft: '15px' }} />
             <img alt="Filter icon" src={Filter} style={{ height: '40px', paddingLeft: '15px' }} />
             <img alt="Emoji icon" src={Emoji} style={{ height: '40px', paddingLeft: '15px' }} />
           </div>
-
 
         </GridContainer>
       </Box>
