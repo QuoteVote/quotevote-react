@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function PersonalHeaderText({ classes, index }) {
+function PersonalPlanHeaderText({ classes, index }) {
   const { greenTitleText } = classes
   return (
     <>
@@ -39,9 +39,9 @@ function PersonalHeaderText({ classes, index }) {
     </>
   )
 }
-PersonalHeaderText.propTypes = {
+PersonalPlanHeaderText.propTypes = {
   classes: PropTypes.object,
   index: PropTypes.number,
 }
 
-export default PersonalHeaderText
+export default PersonalPlanHeaderText

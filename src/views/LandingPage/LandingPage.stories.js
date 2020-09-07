@@ -1,10 +1,14 @@
 import React from 'react'
-
-import LandingPageIndex from './LandingPage'
+import LandingPage from './LandingPage'
 
 export default {
   component: LandingPage,
-  title: 'LandingPage',
+  title: 'Landing Page',
 }
 
-export const LandingPage = () => <LandingPageIndex />
+export const Base = () => <LandingPage />
+Base.story = {
+  parameters: {
+    jest: ['LandingPage.test.js'],
+  },
+}

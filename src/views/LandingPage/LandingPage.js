@@ -8,12 +8,12 @@ import { Typography } from '@material-ui/core'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import SelectPlansButton from '../../components/SelectPlansButton'
-import PersonalCarousel from './PersonalCarousel'
-import BusinessCarousel from './BusinessCarousel'
-import PersonalHeaderText from './PersonalHeaderText'
-import BusinessHeaderText from './BusinessHeaderText'
-import InvestorCarousel from './InvestorCarousel'
-import InvestorHeaderText from './InvestorHeaderText'
+import PersonalPlanCarousel from '../../components/Carousel/PersonalPlan/PersonalPlanCarousel'
+import PersonalPlanHeaderText from '../../components/Carousel/PersonalPlan/PersonalPlanHeaderText'
+import BusinessPlanCarousel from '../../components/Carousel/BusinessPlan/BusinessPlanCarousel'
+import BusinessHeaderText from '../../components/Carousel/BusinessPlan/BusinessHeaderText'
+import InvestorPlanCarousel from '../../components/Carousel/InvestorsPlan/InvestorPlanCarousel'
+import InvestorHeaderText from '../../components/Carousel/InvestorsPlan/InvestorHeaderText'
 
 const useStyles = makeStyles(styles)
 
@@ -40,7 +40,7 @@ export default function LandingPage() {
             align="center"
             className={classes.share}
           >
-            {isPersonal && <PersonalHeaderText classes={classes} index={carouselCurrentIndex} />}
+            {isPersonal && <PersonalPlanHeaderText classes={classes} index={carouselCurrentIndex} />}
             {isBusiness && <BusinessHeaderText classes={classes} index={carouselCurrentIndex} />}
             {isInvestors && <InvestorHeaderText classes={classes} index={carouselCurrentIndex} />}
           </Typography>
@@ -83,9 +83,9 @@ export default function LandingPage() {
             </div>
           </GridContainer>
         </GridItem>
-        { isPersonal && <PersonalCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
-        { isBusiness && <BusinessCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
-        { isInvestors && <InvestorCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
+        { isPersonal && <PersonalPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
+        { isBusiness && <BusinessPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
+        { isInvestors && <InvestorPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
       </GridContainer>
     </div>
   )

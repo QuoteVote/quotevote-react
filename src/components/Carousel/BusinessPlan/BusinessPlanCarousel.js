@@ -4,12 +4,12 @@ import { Typography } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
-import GridItem from '../../mui-pro/Grid/GridItem'
-import GridContainer from '../../mui-pro/Grid/GridContainer'
-import businessPlanImg from '../../assets/img/RequestAccess/Illustration.png'
-import businessPlanImg2 from '../../assets/img/Chatbox.png'
-import businessPlanImg3 from '../../assets/img/CommentBox.png'
-import GetAccessButton from '../../components/GetAccessButton'
+import GridItem from '../../../mui-pro/Grid/GridItem'
+import GridContainer from '../../../mui-pro/Grid/GridContainer'
+import businessPlanImg from '../../../assets/img/RequestAccess/Illustration.png'
+import businessPlanImg2 from '../../../assets/img/Chatbox.png'
+import businessPlanImg3 from '../../../assets/img/CommentBox.png'
+import GetAccessButton from '../../GetAccessButton'
 
 BusinessCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
@@ -148,7 +148,7 @@ function BusinessCarouselThirdContent(classes) {
   )
 }
 
-function BusinessCarousel(props) {
+function BusinessPlanCarousel(props) {
   const { setCarouselCurrentIndex } = props
   const handleNext = (next, active) => {
     // eslint-disable-next-line no-console
@@ -167,9 +167,9 @@ function BusinessCarousel(props) {
   )
 }
 
-BusinessCarousel.propTypes = {
+BusinessPlanCarousel.propTypes = {
   classes: PropTypes.object,
   setCarouselCurrentIndex: PropTypes.func,
 }
 
-export default BusinessCarousel
+export default BusinessPlanCarousel
