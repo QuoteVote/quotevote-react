@@ -50,7 +50,7 @@ const requestAccessStyles = () => ({
     font: 'Roboto',
     fontSize: 24,
     lineHeight: 1.25,
-  }
+  },
 })
 
 export default requestAccessStyles

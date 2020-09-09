@@ -113,7 +113,9 @@ RequestButton.propTypes = {
 
 const Plans = (props) => {
   const classes = useStyles()
-  const { onPlanSelect, selectedPlan, setRequest } = props
+  const {
+    onPlanSelect, selectedPlan, setRequest, setCardDetails, cardDetails,
+  } = props
 
   // selectedPlan can be null
   const isBusiness = selectedPlan === 'business'
@@ -261,7 +263,10 @@ const Plans = (props) => {
                       <BusinessPlanRadio
                         checked={isBusiness}
                         value="business"
-                        onChange={(e) => onPlanSelect(e.target.value)}
+                        onChange={(e) => {
+                          onPlanSelect(e.target.value)
+                          setCardDetails({ ...cardDetails, cost: 10 })
+                        }}
                       />
                       This works for me
                     </Typography>
@@ -290,7 +295,8 @@ Plans.propTypes = {
   onPlanSelect: PropTypes.any,
   selectedPlan: PropTypes.any,
   setRequest: PropTypes.func,
+  setCardDetails: PropTypes.func,
+  cardDetails: PropTypes.func,
 }
-
 
 export default Plans

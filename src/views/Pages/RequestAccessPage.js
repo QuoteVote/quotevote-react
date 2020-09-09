@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
-
-// @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
-
-import { Formik } from 'formik'
-
-// login method
 import { tokenValidator } from 'store/user'
-
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
 import PlansPage from 'components/RequestAccess/Plans'
-import BusinessForm from 'components/RequestAccess/Business'
-import PersonalForm from 'components/RequestAccess/Personal'
+import PersonalForm from 'components/RequestAccess/PersonalForm'
+import BusinessForm from 'components/RequestAccess/BusinessForm'
 
 const useStyles = makeStyles(styles)
 
@@ -24,26 +18,74 @@ export default function RequestAccessPage() {
   const history = useHistory()
   const [selectedPlan, setSelectedPlan] = React.useState(null)
   const [request, setRequest] = useState(null)
-  const [isContinued, setContinued] = useState(false)
-  const [requestSubmitted, setRequestSubmitted] = useState({ personal: false, business: false })
-  const initialValues = {
+
+  const defaultValues = {
     firstName: '',
     lastName: '',
-    company: '',
+    companyName: '',
     email: '',
-    creditCard: {
-      cardNumber: '',
-      expiry: '',
-      cvc: '',
-    },
-    cost: 0,
+  }
+  const [userDetails, setUserDetails] = useState(defaultValues)
+  const {
+    register, errors, getValues, handleSubmit,
+  } = useForm({ defaultValues })
+  const [requestInviteSuccessful, setRequestInviteSuccessful] = useState(false)
+  const [isContinued, setContinued] = useState(false)
+
+  const cardDefaultValues = {
+    cardNumber: '',
+    expiry: '',
+    cvv: '',
+    cost: selectedPlan === 'business' ? 10 : 0,
+  }
+  const [cardDetails, setCardDetails] = useState(cardDefaultValues)
+
+  const onContinue = () => {
+    const newUserDetails = getValues()
+    if (!Object.keys(errors).length) { // if there are no errors proceed to card number form
+      setUserDetails(newUserDetails)
+      setContinued(true)
+    }
   }
 
-  const renderForm = (formikProps) => {
+  const onSubmit = () => {
+    setRequestInviteSuccessful(true)
+    // eslint-disable-next-line no-console
+    console.log({ userDetails, cardDetails })
+    // TODO add mutation
+  }
+
+  const renderForm = () => {
     if (selectedPlan === 'personal') {
-      return <PersonalForm requestSubmitted={requestSubmitted} isContinued={isContinued} setContinued={setContinued} {...formikProps} />
+      return (
+        <PersonalForm
+          setCardDetails={setCardDetails}
+          cardDetails={cardDetails}
+          isContinued={isContinued}
+          onSubmit={onSubmit}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          onContinue={onContinue}
+          setContinued={setContinued}
+          register={register}
+          requestInviteSuccessful={requestInviteSuccessful}
+        />
+      )
     }
-    return <BusinessForm requestSubmitted={requestSubmitted} isContinued={isContinued} setContinued={setContinued} {...formikProps} />
+    return (
+      <BusinessForm
+        setCardDetails={setCardDetails}
+        cardDetails={cardDetails}
+        isContinued={isContinued}
+        onSubmit={onSubmit}
+        errors={errors}
+        handleSubmit={handleSubmit}
+        onContinue={onContinue}
+        setContinued={setContinued}
+        register={register}
+        requestInviteSuccessful={requestInviteSuccessful}
+      />
+    )
   }
 
   // TODO: Abstract validation into custom hook
@@ -55,18 +97,14 @@ export default function RequestAccessPage() {
   return (
     <div className={classes.container}>
       {!selectedPlan || !request ? (
-        <PlansPage selectedPlan={selectedPlan} onPlanSelect={setSelectedPlan} setRequest={setRequest} />
-      ) : (
-        <Formik
-          enableReinitialize
-          render={(props) => renderForm(props)}
-          initialValues={initialValues}
-          // validationSchema={}
-          onSubmit={() => {
-            setRequestSubmitted({ ...requestSubmitted, [`${selectedPlan}`]: true })
-          }}
+        <PlansPage
+          selectedPlan={selectedPlan}
+          onPlanSelect={setSelectedPlan}
+          setRequest={setRequest}
+          setCardDetails={setCardDetails}
+          cardDetails={cardDetails}
         />
-      )}
+      ) : renderForm()}
     </div>
   )
 }

@@ -24,7 +24,6 @@
     "eslint-import-resolver-webpack": "^0.12.1",
     "firebase": "^7.10.0",
     "fontsource-montserrat": "^2.2.6",
-    "formik": "^2.1.5",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "history": "4.9.0",
