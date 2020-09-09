@@ -13,64 +13,9 @@ import { makeStyles, withStyles } from '@material-ui/core/styles'
 import reqAccessBusiness from 'assets/img/RequestAccess/Illustration.png'
 import reqAccessPersonal from 'assets/img/RequestAccess/PersonalPlan.png'
 import PropTypes from 'prop-types'
+import requestAccessStyles from './requestAccessStyles'
 
-const useStyles = makeStyles(() => ({
-  plansHeader: {
-    height: '41px',
-    objectFit: 'contain',
-    font: 'Montserrat',
-    fontSize: '34px',
-    fontWeight: 'bold',
-    letterspacing: '0.25px',
-  },
-  plansCardImage: {
-    width: '200.6px',
-    height: '140px',
-    marginLeft: '10%',
-  },
-  plansCardHeader: {
-    font: 'Montserrat',
-    fontsize: 37,
-    lineHeight: 1.56,
-    fontWeight: 600,
-    color: '#333333',
-    textAlign: 'center',
-  },
-  plansCardText: {
-    font: 'Roboto',
-    fontsize: 20,
-    lineHeight: 0.75,
-    fontWeight: 500,
-    color: '#333333',
-    textAlign: 'center',
-  },
-  checkIconPersonal: {
-    color: '#157ffb',
-    marginRight: 5,
-  },
-  checkIconBusiness: {
-    color: '#791e89',
-    marginRight: 5,
-  },
-  link: {
-    opacity: 0.8,
-    font: 'Roboto',
-    fontSize: 16,
-    letterSpacing: 0.25,
-    color: '#424556',
-  },
-  requestBtn: {
-    textTransform: 'none',
-    backgroundColor: '#00cf6e',
-    color: 'white',
-    position: 'absolute',
-    bottom: '1%',
-    left: '27%',
-    '&:hover': {
-      backgroundColor: '#00cf6e',
-    },
-  },
-}))
+const useStyles = makeStyles(requestAccessStyles)
 
 const PersonalPlanRadio = withStyles({
   root: {
