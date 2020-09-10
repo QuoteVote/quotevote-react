@@ -90,3 +90,14 @@ export const FOLLOW_MUTATION = gql`
     }
   }
 `
+
+export const REQUEST_USER_ACCESS_MUTATION = gql`
+mutation requestUserAccess($requestUserAccessInput: RequestUserAccessInput!) {
+  requestUserAccess(requestUserAccessInput: $requestUserAccessInput) {
+    _id
+    name
+    email
+  }
+}
+
+`

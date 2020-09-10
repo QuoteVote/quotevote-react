@@ -26,6 +26,8 @@ const BusinessForm = (props) => {
     setCardDetails,
     cardDetails,
     onSubmit,
+    errorMessage,
+    loading,
   } = props
 
   return (
@@ -180,7 +182,15 @@ const BusinessForm = (props) => {
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                <PaymentMethod cardDetails={cardDetails} onSubmit={onSubmit} isContinued={isContinued} setCardDetails={setCardDetails} isPersonal={false} />
+                <PaymentMethod
+                  cardDetails={cardDetails}
+                  onSubmit={onSubmit}
+                  isContinued={isContinued}
+                  setCardDetails={setCardDetails}
+                  isPersonal={false}
+                  errorMessage={errorMessage}
+                  loading={loading}
+                />
               </Grid>
             </Grid>
           )}
@@ -200,5 +210,7 @@ BusinessForm.propTypes = {
   setCardDetails: PropTypes.func.isRequired,
   cardDetails: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  errorMessage: PropTypes.any,
+  loading: PropTypes.bool,
 }
 export default BusinessForm

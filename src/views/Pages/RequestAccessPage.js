@@ -4,11 +4,14 @@ import { tokenValidator } from 'store/user'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
 import PlansPage from 'components/RequestAccess/Plans'
 import PersonalForm from 'components/RequestAccess/PersonalForm'
 import BusinessForm from 'components/RequestAccess/BusinessForm'
+import { REQUEST_USER_ACCESS_MUTATION } from 'graphql/mutations'
+import { GET_CHECK_DUPLICATE_EMAIL } from 'graphql/query'
 
 const useStyles = makeStyles(styles)
 
@@ -27,10 +30,11 @@ export default function RequestAccessPage() {
   }
   const [userDetails, setUserDetails] = useState(defaultValues)
   const {
-    register, errors, getValues, handleSubmit,
+    register, errors, getValues, handleSubmit, setError,
   } = useForm({ defaultValues })
   const [requestInviteSuccessful, setRequestInviteSuccessful] = useState(false)
   const [isContinued, setContinued] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   const cardDefaultValues = {
     cardNumber: '',
@@ -40,20 +44,66 @@ export default function RequestAccessPage() {
   }
   const [cardDetails, setCardDetails] = useState(cardDefaultValues)
 
-  const onContinue = () => {
+  const client = useApolloClient()
+  const onContinue = async () => {
     const newUserDetails = getValues()
-    if (!Object.keys(errors).length) { // if there are no errors proceed to card number form
+    const { data } = await client.query({
+      query: GET_CHECK_DUPLICATE_EMAIL,
+      variables: { email: newUserDetails.email },
+      fetchPolicy: 'network-only',
+    })
+    const hasDuplicateEmail = data && data.checkDuplicateEmail.length
+    if (hasDuplicateEmail) {
+      setError('email', {
+        type: 'manual',
+        message: 'Email already exist!',
+      })
+    }
+    if (!hasDuplicateEmail && !Object.keys(errors).length) { // if there are no errors proceed to card number form
       setUserDetails(newUserDetails)
       setContinued(true)
     }
   }
 
-  const onSubmit = () => {
-    setRequestInviteSuccessful(true)
-    // eslint-disable-next-line no-console
-    console.log({ userDetails, cardDetails })
-    // TODO add mutation
+  const [requestUserAccess, { data, error, loading }] = useMutation(REQUEST_USER_ACCESS_MUTATION)
+  const onSubmit = async () => {
+    try {
+      // eslint-disable-next-line no-console
+      console.log({ userDetails, cardDetails })
+      const { fullName, ...otherUserDetails } = userDetails
+      const requestUserAccessInput = {
+        ...otherUserDetails,
+        firstName: fullName || otherUserDetails.firstName,
+      }
+      const { cardNumber, expiry, cvv } = cardDetails
+      if (cardNumber && expiry && cvv) {
+        const expirySplit = expiry.split('/')
+        requestUserAccessInput.cardDetails = {
+          number: cardNumber.replace(/\s+/g, ''),
+          exp_month: expirySplit[0].replace(/\s+/g, ''),
+          exp_year: `20${expirySplit[1]}`.replace(/\s+/g, ''),
+          cvc: cvv.replace(/\s+/g, ''),
+        }
+      }
+      await requestUserAccess({ variables: { requestUserAccessInput } })
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('onSubmit', e)
+    }
   }
+
+  React.useEffect(() => {
+    if (error) {
+      setErrorMessage(error.toString())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
+
+  React.useEffect(() => {
+    if (data) {
+      setRequestInviteSuccessful(true)
+    }
+  }, [data])
 
   const renderForm = () => {
     if (selectedPlan === 'personal') {
@@ -69,6 +119,8 @@ export default function RequestAccessPage() {
           setContinued={setContinued}
           register={register}
           requestInviteSuccessful={requestInviteSuccessful}
+          errorMessage={errorMessage}
+          loading={loading}
         />
       )
     }
@@ -84,6 +136,8 @@ export default function RequestAccessPage() {
         setContinued={setContinued}
         register={register}
         requestInviteSuccessful={requestInviteSuccessful}
+        errorMessage={errorMessage}
+        loading={loading}
       />
     )
   }
@@ -91,7 +145,7 @@ export default function RequestAccessPage() {
   // TODO: Abstract validation into custom hook
   React.useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

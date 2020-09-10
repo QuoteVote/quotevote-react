@@ -106,6 +106,18 @@ const requestAccessStyles = () => ({
       backgroundColor: '#00cf6e',
     },
   },
+  error: {
+    marginTop: '10px',
+    font: 'Roboto',
+    color: 'red',
+  },
+  loadingProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
 })
 
 export default requestAccessStyles

@@ -26,6 +26,8 @@ const PersonalForm = (props) => {
     setCardDetails,
     cardDetails,
     onSubmit,
+    errorMessage,
+    loading,
   } = props
 
   return (
@@ -175,7 +177,14 @@ const PersonalForm = (props) => {
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                <PaymentMethod cardDetails={cardDetails} onSubmit={onSubmit} isContinued={isContinued} setCardDetails={setCardDetails} />
+                <PaymentMethod
+                  cardDetails={cardDetails}
+                  onSubmit={onSubmit}
+                  isContinued={isContinued}
+                  setCardDetails={setCardDetails}
+                  errorMessage={errorMessage}
+                  loading={loading}
+                />
               </Grid>
             </Grid>
           )}
@@ -195,5 +204,7 @@ PersonalForm.propTypes = {
   setCardDetails: PropTypes.func.isRequired,
   cardDetails: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  errorMessage: PropTypes.any,
+  loading: PropTypes.bool,
 }
 export default PersonalForm

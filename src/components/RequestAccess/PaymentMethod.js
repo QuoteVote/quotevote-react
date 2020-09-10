@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
-import { TextField } from '@material-ui/core'
+import { CircularProgress, TextField } from '@material-ui/core'
 import stripeImg from 'assets/img/RequestAccess/stripe.png'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
@@ -18,7 +18,8 @@ const useStyles = makeStyles(requestAccessStyles)
 const PaymentMethod = (props) => {
   const classes = useStyles()
   const {
-    isContinued, cardDetails, onSubmit, setCardDetails, isPersonal,
+    isContinued, cardDetails, onSubmit, setCardDetails, isPersonal, errorMessage,
+    loading,
   } = props
 
   const {
@@ -33,11 +34,6 @@ const PaymentMethod = (props) => {
       onSubmit()
     }
   }
-
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('Re-render on continue/errors')
-  }, [isContinued, errors])
 
   return (
     <form onSubmit={handleSubmit(handleRequestAccess)}>
@@ -148,11 +144,22 @@ const PaymentMethod = (props) => {
                   variant="contained"
                   className={classes.greenBtn}
                   type="submit"
+                  disabled={loading}
                 >
                   Request Invite
+                  {loading && (<CircularProgress size={20} className={classes.loadingProgress} />)}
                 </Button>
               </Grid>
             </Grid>
+            {errorMessage && (
+              <Grid item xs={6}>
+                <span className={classes.error}>
+                  Error:
+                  {' '}
+                  {errorMessage}
+                </span>
+              </Grid>
+            )}
           </CardContent>
         )}
       </Card>
@@ -169,6 +176,8 @@ PaymentMethod.propTypes = {
   isContinued: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isPersonal: PropTypes.bool,
+  errorMessage: PropTypes.any,
+  loading: PropTypes.bool,
 }
 
 export default PaymentMethod
