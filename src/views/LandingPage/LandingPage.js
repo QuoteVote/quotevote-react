@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 import { Typography } from '@material-ui/core'
+import { SET_SELECTED_PLAN } from 'store/ui'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import SelectPlansButton from '../../components/SelectPlansButton'
@@ -21,7 +22,7 @@ export default function LandingPage() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const [selectedPlan, setSelectedPlan] = useState('personal')
+  const selectedPlan = useSelector((state) => state.ui.selectedPlan)
   const [carouselCurrentIndex, setCarouselCurrentIndex] = useState(0)
 
   React.useEffect(() => {
@@ -32,6 +33,11 @@ export default function LandingPage() {
   const isPersonal = selectedPlan === 'personal'
   const isBusiness = selectedPlan === 'business'
   const isInvestors = selectedPlan === 'investors'
+
+  const setSelectedPlan = (type) => {
+    dispatch(SET_SELECTED_PLAN(type))
+  }
+
   return (
     <div className={classes.container}>
       <GridContainer justify="center" style={{ marginRight: 24 }}>

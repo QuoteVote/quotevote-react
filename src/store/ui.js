@@ -14,6 +14,7 @@ const uiSlice = createSlice({
       type: '',
       message: '',
     },
+    selectedPlan: 'personal',
   },
   reducers: {
     SET_SELECTED_POST: (state, action) => {
@@ -28,6 +29,9 @@ const uiSlice = createSlice({
     SET_SNACKBAR: (state, action) => {
       state.snackbar = action.payload
     },
+    SET_SELECTED_PLAN: (state, action) => {
+      state.selectedPlan = action.payload
+    },
   },
 })
 
@@ -36,6 +40,7 @@ export const {
   SET_SELECTED_PAGE,
   SET_HIDDEN_POSTS,
   SET_SNACKBAR,
+  SET_SELECTED_PLAN,
 } = uiSlice.actions
 
 export default uiSlice.reducer

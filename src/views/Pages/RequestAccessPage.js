@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
+import { SET_SELECTED_PLAN } from 'store/ui'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
 import PlansPage from 'components/RequestAccess/Plans'
@@ -19,7 +20,7 @@ export default function RequestAccessPage() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const [selectedPlan, setSelectedPlan] = React.useState(null)
+  const selectedPlan = useSelector((state) => state.ui.selectedPlan)
   const [request, setRequest] = useState(null)
 
   const defaultValues = {
@@ -45,6 +46,11 @@ export default function RequestAccessPage() {
   const [cardDetails, setCardDetails] = useState(cardDefaultValues)
 
   const client = useApolloClient()
+
+  const setSelectedPlan = (planType) => {
+    dispatch(SET_SELECTED_PLAN(planType))
+  }
+
   const onContinue = async () => {
     const newUserDetails = getValues()
     const { data } = await client.query({
