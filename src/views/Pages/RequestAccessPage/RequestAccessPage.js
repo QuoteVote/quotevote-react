@@ -8,9 +8,9 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { SET_SELECTED_PLAN } from 'store/ui'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 
-import PlansPage from 'components/RequestAccess/Plans'
-import PersonalForm from 'components/RequestAccess/PersonalForm'
-import BusinessForm from 'components/RequestAccess/BusinessForm'
+import PlansPage from 'components/RequestAccess/Plans/Plans'
+import PersonalForm from 'components/RequestAccess/PersonalForm/PersonalForm'
+import BusinessForm from 'components/RequestAccess/BusinessForm/BusinessForm'
 import { REQUEST_USER_ACCESS_MUTATION } from 'graphql/mutations'
 import { GET_CHECK_DUPLICATE_EMAIL } from 'graphql/query'
 

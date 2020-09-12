@@ -11,7 +11,7 @@ import { CircularProgress, TextField } from '@material-ui/core'
 import stripeImg from 'assets/img/RequestAccess/stripe.png'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import requestAccessStyles from './requestAccessStyles'
+import requestAccessStyles from '../requestAccessStyles'
 
 const useStyles = makeStyles(requestAccessStyles)
 
