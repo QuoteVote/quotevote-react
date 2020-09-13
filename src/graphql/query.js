@@ -32,12 +32,12 @@ export const GET_USERS = gql`
       name
       username
     }
-  } 
+  }
 `
 
 export const GET_POST = gql`
   query post($postId: String!) {
-    post(postId: $postId) 
+    post(postId: $postId)
   }
 `
 
@@ -94,5 +94,25 @@ export const GET_ROOM_MESSAGES = gql`
 export const GET_TOP_POSTS = gql`
   query topPosts($limit: Int!, $offset: Int!, $searchKey: String!) {
     posts(limit: $limit, offset: $offset, searchKey: $searchKey)
+  }
+`
+
+export const GET_USER = gql`
+  query user($user_id: String!) {
+    user(user_id: $user_id) {
+      _id
+      name
+      username
+      upvotes
+      downvotes
+      _followingId
+      _followersId
+    }
+  }
+`
+
+export const GET_USER_ACTIVITY = gql`
+  query activities($user_id: String!, $limit: Int!, $offset: Int!, $searchKey: String!, $startDateRange: String, $endDateRange: String, $activityEvent: JSON!) {
+    activities(user_id: $user_id, limit: $limit, offset: $offset, searchKey: $searchKey, startDateRange: $startDateRange, endDateRange: $endDateRange, activityEvent: $activityEvent)
   }
 `

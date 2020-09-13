@@ -26,11 +26,11 @@ AlertSkeletonLoader.propTypes = {
   limit: PropTypes.number.isRequired,
 }
 
-function LoadAlertList({ data, width }) {
+function LoadAlertList({ data, width, selectedEvent }) {
   if (!data || data.length === 0) {
     return (
       <div style={{ width: '90%' }}>
-        <span>Hmmmm, we&apos;re not getting any results. Our bad - try another search.</span>
+        <span>{`There are no results found for ${selectedEvent[0]}`}</span>
         <br></br>
       </div>
     )
@@ -57,16 +57,21 @@ LoadAlertList.propTypes = {
   length: PropTypes.number.isRequired,
   width: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
+  selectedEvent: PropTypes.array,
 }
 
-export default function AlertList({ Data, loading, limit }) {
+export default function AlertList({
+  Data, loading, limit, selectedEvent,
+}) {
   const width = useWidth()
+  // console.log('AlertList rendering selectedEvent', selectedEvent)
   if (loading) return <AlertSkeletonLoader limit={limit} />
-  return <LoadAlertList data={Data} width={width} />
+  return <LoadAlertList selectedEvent={selectedEvent} data={Data} width={width} />
 }
 
 AlertList.propTypes = {
   Data: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   limit: PropTypes.number.isRequired,
+  selectedEvent: PropTypes.array,
 }

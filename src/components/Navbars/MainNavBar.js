@@ -1,37 +1,37 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
-import Tabs from "@material-ui/core/Tabs";
-import { NavLink } from "react-router-dom";
-import Tab from "@material-ui/core/Tab";
-import SvgIcon from "@material-ui/core/SvgIcon";
-import IconButton from "@material-ui/core/IconButton";
-import { Typography } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import Avatar from "@material-ui/core/Avatar";
-import withWidth from "@material-ui/core/withWidth";
-import { SET_SELECTED_PAGE } from "store/ui";
-import { ReactComponent as HomeSvg } from "../../assets/svg/Home.svg";
-import { ReactComponent as TrendingSvg } from "../../assets/svg/TrendingIcon.svg";
-import { ReactComponent as AddPostSvg } from "../../assets/svg/AddPost.svg";
-import { ReactComponent as ChatSvg } from "../../assets/svg/Chat.svg";
-import { ReactComponent as NotificationsSvg } from "../../assets/svg/Notifications.svg";
-import { ReactComponent as SettingsSvg } from "../../assets/svg/Settings.svg";
-import voxPopIcon from "../../assets/img/voxPopIcon.jpg";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
+import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
+import Tabs from '@material-ui/core/Tabs'
+import { NavLink } from 'react-router-dom'
+import Tab from '@material-ui/core/Tab'
+import SvgIcon from '@material-ui/core/SvgIcon'
+import IconButton from '@material-ui/core/IconButton'
+import { Typography } from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar'
+import Avatar from '@material-ui/core/Avatar'
+import withWidth from '@material-ui/core/withWidth'
+import { SET_SELECTED_PAGE } from 'store/ui'
+import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
+import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
+import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
+import { ReactComponent as ChatSvg } from '../../assets/svg/Chat.svg'
+import { ReactComponent as NotificationsSvg } from '../../assets/svg/Notifications.svg'
+import { ReactComponent as SettingsSvg } from '../../assets/svg/Settings.svg'
+import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 
 function MainNavBar(props) {
-  const { classes, setChatOpen, chatOpen, width } = props;
-  const selectedPage = useSelector((state) => state.ui.selectedPage);
-  const username = useSelector((state) => state.user.data.username);
-  const avatar = useSelector((state) => state.user.data.avatar);
-  const name = useSelector((state) => state.user.data.name);
-  const fontSize = width === "md" ? "medium" : "large";
-  const dispatch = useDispatch();
+  const { classes, setChatOpen, chatOpen, width } = props
+  const selectedPage = useSelector((state) => state.ui.selectedPage)
+  const username = useSelector((state) => state.user.data.username)
+  const avatar = useSelector((state) => state.user.data.avatar)
+  const name = useSelector((state) => state.user.data.name)
+  const fontSize = width === 'md' ? 'medium' : 'large'
+  const dispatch = useDispatch()
   const handleMenu = (newSelectedMenu) => {
-    dispatch(SET_SELECTED_PAGE(newSelectedMenu));
-  };
+    dispatch(SET_SELECTED_PAGE(newSelectedMenu))
+  }
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Grid
@@ -64,7 +64,7 @@ function MainNavBar(props) {
                   }
                   aria-label="Home"
                   onClick={() => {
-                    handleMenu(0);
+                    handleMenu(0)
                   }}
                   wrapped
                   value="home"
@@ -83,7 +83,7 @@ function MainNavBar(props) {
                   }
                   aria-label="Trending"
                   onClick={() => {
-                    handleMenu(1);
+                    handleMenu(1)
                   }}
                   value="trending"
                 />
@@ -105,7 +105,7 @@ function MainNavBar(props) {
                   }
                   aria-label="Post"
                   onClick={() => {
-                    handleMenu(2);
+                    handleMenu(2)
                   }}
                   value="post"
                 />
@@ -116,11 +116,13 @@ function MainNavBar(props) {
 
         <Grid justify="flex-end" container item alignItems="center" lg={5}>
           <Grid item lg={2}>
-            <IconButton aria-label="Profile" color="inherit">
-              <Avatar alt={username} src={avatar} />
-            </IconButton>
+            <NavLink to="/hhsb/Profile">
+              <IconButton aria-label="Profile" color="inherit">
+                <Avatar alt={username} src={avatar} />
+              </IconButton>
+            </NavLink>
           </Grid>
-          <Hidden only={["md"]}>
+          <Hidden only={['md']}>
             <Grid item lg={4}>
               <Typography variant="h6" className={classes.profileBlockName}>
                 {name}
@@ -171,7 +173,7 @@ function MainNavBar(props) {
         </Grid>
       </Grid>
     </AppBar>
-  );
+  )
 }
 
 MainNavBar.propTypes = {
@@ -179,6 +181,6 @@ MainNavBar.propTypes = {
   setChatOpen: PropTypes.func.isRequired,
   chatOpen: PropTypes.bool.isRequired,
   width: PropTypes.string.isRequired,
-};
+}
 
-export default withWidth()(MainNavBar);
+export default withWidth()(MainNavBar)

@@ -9,6 +9,7 @@ import SubmitPost from 'views/SubmitPost'
 import SearchView from 'views/SearchView'
 import ManageInvites from 'views/ManageInvites'
 import HomePage from 'views/Homepage/Homepage'
+import Profile from 'views/Profile'
 import Chat from 'assets/img/Chat.svg'
 import Home from 'assets/img/Home.svg'
 import Search from 'assets/img/Search.png'
@@ -40,7 +41,7 @@ const routes = [
     name: 'My Profile',
     rtlName: 'الحاجيات',
     icon: Avatar,
-    component: HomePage,
+    component: Profile,
     layout: '/hhsb',
   },
   {
