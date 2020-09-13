@@ -22,7 +22,9 @@ import { ReactComponent as SettingsSvg } from '../../assets/svg/Settings.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 
 function MainNavBar(props) {
-  const { classes, setChatOpen, chatOpen, width } = props
+  const {
+    classes, setChatOpen, chatOpen, width,
+  } = props
   const selectedPage = useSelector((state) => state.ui.selectedPage)
   const username = useSelector((state) => state.user.data.username)
   const avatar = useSelector((state) => state.user.data.avatar)
@@ -55,13 +57,13 @@ function MainNavBar(props) {
             <Grid item lg={4}>
               <NavLink to="/hhsb/Home">
                 <Tab
-                  icon={
+                  icon={(
                     <SvgIcon
                       component={HomeSvg}
                       fontSize={fontSize}
                       viewBox="0 0 37 37"
                     />
-                  }
+                  )}
                   aria-label="Home"
                   onClick={() => {
                     handleMenu(0)
@@ -74,13 +76,13 @@ function MainNavBar(props) {
             <Grid item lg={4}>
               <NavLink to="/hhsb/TrendingContent">
                 <Tab
-                  icon={
+                  icon={(
                     <SvgIcon
                       component={TrendingSvg}
                       fontSize={fontSize}
                       viewBox="0 0 50 50"
                     />
-                  }
+                  )}
                   aria-label="Trending"
                   onClick={() => {
                     handleMenu(1)
@@ -96,13 +98,13 @@ function MainNavBar(props) {
                 to="/hhsb/SubmitPost"
               >
                 <Tab
-                  icon={
+                  icon={(
                     <SvgIcon
                       component={AddPostSvg}
                       fontSize={fontSize}
                       viewBox="0 0 32 32"
                     />
-                  }
+                  )}
                   aria-label="Post"
                   onClick={() => {
                     handleMenu(2)
