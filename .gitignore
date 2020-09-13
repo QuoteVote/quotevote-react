@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 cypress.json
-.jest-test-results.json
+.storybook/.jest-test-results.json

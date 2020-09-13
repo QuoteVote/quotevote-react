@@ -1,30 +1,35 @@
 /* eslint-disable react/prop-types */
-import React, { Fragment, useState } from 'react'
-import { Container } from '@material-ui/core'
+import React, { Fragment, useState } from "react";
+import { Container } from "@material-ui/core";
 
-import { parser } from 'utils/parser'
-import SelectionPopover from './SelectionPopover'
+import { parser } from "utils/parser";
+import SelectionPopover from "./SelectionPopover";
 
 const VotingBoard = ({
-  topOffset, onSelect, highlights, content, children, ...props
+  topOffset,
+  onSelect,
+  highlights,
+  content,
+  children,
+  ...props
 }) => {
-  const [open, setOpen] = useState(false)
-  const [selection, setSelection] = useState({})
+  const [open, setOpen] = useState(false);
+  const [selection, setSelection] = useState({});
 
   const handleSelect = (select) => {
-    const text = select.toString()
+    const text = select.toString();
 
-    if (!text) return
-    const selectionVal = parser(content, text)
+    if (!text) return;
+    const selectionVal = parser(content, text);
 
     if (text.length > 0 && onSelect) {
-      setOpen(true)
-      setSelection(selectionVal)
-      onSelect(selectionVal)
+      setOpen(true);
+      setSelection(selectionVal);
+      onSelect(selectionVal);
     } else {
-      setSelection({})
+      setSelection({});
     }
-  }
+  };
 
   const renderHighlights = () => {
     if (highlights) {
@@ -35,15 +40,20 @@ const VotingBoard = ({
           ))}
           <br />
         </Fragment>
-      ))
+      ));
     }
     // THIS IS UNSAFE WE MUST SANTIZE THIS
     // eslint-disable-next-line react/no-danger
-    return <div dangerouslySetInnerHTML={{ __html: content }} />
-  }
+    return (
+      <div
+        data-testid="post-content"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
+  };
 
   return (
-    <Container style={{ position: 'relative' }}>
+    <Container style={{ position: "relative" }}>
       <div data-selectable>
         <p className="voting_board-content">{renderHighlights()}</p>
       </div>
@@ -56,7 +66,7 @@ const VotingBoard = ({
         {props && children({ ...selection })}
       </SelectionPopover>
     </Container>
-  )
-}
+  );
+};
 
-export default VotingBoard
+export default VotingBoard;

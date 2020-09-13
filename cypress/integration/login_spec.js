@@ -1,27 +1,30 @@
-describe('Login', () => {
-  const username = Cypress.env('test_username')
-  const password = Cypress.env('test_password')
-  const baseUrl = Cypress.env('root_url')
+import "@testing-library/cypress/add-commands";
 
-  it('has username and password field', () => {
-    cy.visit(baseUrl)
-    cy.get('input[id=username]').should('exist')
-    cy.get('input[id=password]').should('exist')
-  })
+describe("Login", () => {
+  const username = Cypress.env("test_username");
+  const password = Cypress.env("test_password");
+  const rootUrl = `${Cypress.env("root_url")}/auth/login-page`;
 
-  it('can login with test account', () => {
-    cy.visit(baseUrl)
-    cy.get('#username').type(username)
-    cy.get('#password').type(password)
-    cy.get('button[id=login-button]').click()
-    cy.url().should('include', '/hhsb/Home')
-  })
+  beforeEach(() => {
+    cy.visit(rootUrl);
+  });
 
-  it('should display error message if wrong credentials', () => {
-    cy.visit(baseUrl)
-    cy.get('#username').type('test')
-    cy.get('#password').type('test')
-    cy.get('button[id=login-button]').click()
-    cy.get('#password-text').should('contain', 'Invalid username or password')
-  })
-})
+  it("has username and password field", () => {
+    cy.findByLabelText("Username").should("exist");
+    cy.findByLabelText("Password").should("exist");
+  });
+
+  it("can login with test account", () => {
+    cy.findByLabelText("Username").type(username);
+    cy.findByLabelText("Password").type(password);
+    cy.findByText("LOGIN").click();
+    cy.url().should("include", "/hhsb/Home");
+  });
+
+  it("should display error message if wrong credentials", () => {
+    cy.findByLabelText("Username").type("invalid");
+    cy.findByLabelText("Password").type("invalid");
+    cy.findByText("LOGIN").click();
+    cy.findByText("Invalid username or password.").should("exist");
+  });
+});
