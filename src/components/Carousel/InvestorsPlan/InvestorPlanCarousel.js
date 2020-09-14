@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { TextField, Typography } from '@material-ui/core'
+import { CircularProgress, TextField, Typography } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import { useHistory } from 'react-router-dom'
+import { useMutation } from '@apollo/react-hooks'
+import { useForm } from 'react-hook-form'
 import GridItem from '../../../mui-pro/Grid/GridItem'
 import GridContainer from '../../../mui-pro/Grid/GridContainer'
 import investorPlanImg from '../../../assets/img/UserSharing.png'
@@ -12,6 +15,7 @@ import investorPlanImg2 from '../../../assets/img/CommentBox2.png'
 import investorPlanImg3 from '../../../assets/img/GroupChat.png'
 import InvestButton from '../../InvestButton'
 import Carousel from '../Carousel'
+import { SEND_INVESTOR_EMAIL } from '../../../graphql/mutations'
 
 InvestorCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
@@ -133,66 +137,92 @@ function InvestorCarouselSecondContent({ classes, handleNext, setActiveStepProp 
 
 InvestorCarouselThirdContent.propTypes = {
   classes: PropTypes.object,
-  handleNext: PropTypes.func,
 }
 
-function InvestorCarouselThirdContent({ classes, handleNext }) {
-  const handleClick = () => {
-    handleNext(2)
+function InvestorCarouselThirdContent({ classes }) {
+  const history = useHistory()
+  const [sendInvestorMail, { data, error, loading }] = useMutation(SEND_INVESTOR_EMAIL)
+  const {
+    register, errors, handleSubmit, getValues,
+  } = useForm()
+
+  const handleSendEmail = async () => {
+    const { email } = getValues()
+    await sendInvestorMail({ variables: { email } })
   }
+
+  if (data) {
+    history.push('/auth/investor-thanks')
+  }
+  console.log(getValues(), data)
+
   return (
-    <GridContainer justify="center" style={{ marginRight: 24 }}>
-      <GridItem xs={12} sm={5}>
-        <GridContainer justify="center">
-          <img
-            alt={investorPlanImg3}
-            height={500}
-            src={`${investorPlanImg3}`}
-            style={{
-              width: '435.43px',
-              height: '300.51px',
-              objectFit: 'contain',
-            }}
-          />
-        </GridContainer>
-      </GridItem>
-      <GridItem xs={12} sm={4}>
-        <GridContainer justify="left">
-          <Typography>
-            <div className={classes.opinionsText}>
-              <b>There are 10,000,000 shares of stock</b>
-              <br />
-              Join us in creating a truly open and equal community
-              where civil conversation is the main objective.
-              <br />
-              <br />
-              <br />
-            </div>
-          </Typography>
-          <div className={classes.sendEmail}>
-            <TextField
-              variant="filled"
-              required
-              id="email"
-              label="Email"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Button
-                      aria-label="Send"
-                      className={classes.sendEmailButton}
-                      onClick={handleClick}
-                    >
-                      Send
-                    </Button>
-                  </InputAdornment>
-                ),
+    <form onSubmit={handleSubmit(handleSendEmail)}>
+      <GridContainer justify="center" style={{ marginRight: 24 }}>
+        <GridItem xs={12} sm={5}>
+          <GridContainer justify="center">
+            <img
+              alt={investorPlanImg3}
+              height={500}
+              src={`${investorPlanImg3}`}
+              style={{
+                width: '435.43px',
+                height: '300.51px',
+                objectFit: 'contain',
               }}
             />
-          </div>
-        </GridContainer>
-      </GridItem>
-    </GridContainer>
+          </GridContainer>
+        </GridItem>
+        <GridItem xs={12} sm={4}>
+          <GridContainer justify="left">
+            <Typography>
+              <div className={classes.opinionsText}>
+                <b>There are 10,000,000 shares of stock</b>
+                <br />
+                Join us in creating a truly open and equal community
+                where civil conversation is the main objective.
+                <br />
+                <br />
+                <br />
+              </div>
+            </Typography>
+            <div className={classes.sendEmail}>
+              <TextField
+                variant="filled"
+                required
+                label="Email"
+                name="email"
+                id="email"
+                error={errors.email}
+                helperText={errors.email && errors.email.message}
+                inputRef={register({
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'Invalid email address',
+                  },
+                })}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Button
+                        aria-label="Send"
+                        className={classes.sendEmailButton}
+                        onClick={handleSendEmail}
+                        disabled={loading || error || errors.email}
+                      >
+                        Send
+                        {loading && (<CircularProgress size={20} className={classes.loadingProgress} />)}
+                      </Button>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </div>
+          </GridContainer>
+        </GridItem>
+      </GridContainer>
+    </form>
   )
 }
 
@@ -211,7 +241,7 @@ function InvestorPlanCarousel(props) {
     >
       <InvestorCarouselFirstContent {...props} handleNext={handleNext} setActiveStepProp={setActiveStepProp} />
       <InvestorCarouselSecondContent {...props} handleNext={handleNext} setActiveStepProp={setActiveStepProp} />
-      <InvestorCarouselThirdContent {...props} handleNext={handleNext} setActiveStepProp={setActiveStepProp} />
+      <InvestorCarouselThirdContent {...props} />
     </Carousel>
   )
 }

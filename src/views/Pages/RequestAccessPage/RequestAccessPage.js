@@ -81,7 +81,9 @@ export default function RequestAccessPage() {
         ...otherUserDetails,
         firstName: fullName || otherUserDetails.firstName,
       }
-      const { cardNumber, expiry, cvv } = cardDetails
+      const {
+        cardNumber, expiry, cvv, cost,
+      } = cardDetails
       if (cardNumber && expiry && cvv) {
         const expirySplit = expiry.split('/')
         requestUserAccessInput.cardDetails = {
@@ -90,6 +92,7 @@ export default function RequestAccessPage() {
           exp_year: `20${expirySplit[1]}`.replace(/\s+/g, ''),
           cvc: cvv.replace(/\s+/g, ''),
         }
+        requestUserAccessInput.amount = cost
       }
       await requestUserAccess({ variables: { requestUserAccessInput } })
     } catch (e) {

@@ -99,5 +99,10 @@ mutation requestUserAccess($requestUserAccessInput: RequestUserAccessInput!) {
     email
   }
 }
+`
 
+export const SEND_INVESTOR_EMAIL = gql`
+  mutation sendInvestorMail($email: String!) {
+    sendInvestorMail(email: $email)
+  }
 `

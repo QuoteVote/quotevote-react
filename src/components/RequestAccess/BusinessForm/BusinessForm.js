@@ -187,7 +187,6 @@ const BusinessForm = (props) => {
                   onSubmit={onSubmit}
                   isContinued={isContinued}
                   setCardDetails={setCardDetails}
-                  isPersonal={false}
                   errorMessage={errorMessage}
                   loading={loading}
                 />
