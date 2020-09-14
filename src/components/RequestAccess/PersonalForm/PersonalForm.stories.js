@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { makeStyles } from '@material-ui/core/styles'
 import PersonalForm from './PersonalForm'
-import styles from './requestAccessStyles'
+import styles from '../requestAccessStyles'
 
 export default {
   component: PersonalForm,

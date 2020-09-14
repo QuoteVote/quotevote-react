@@ -9,8 +9,8 @@ import CardContent from '@material-ui/core/CardContent'
 import { TextField } from '@material-ui/core'
 import reqAccessPersonal from 'assets/img/RequestAccess/PersonalPlan.png'
 import PropTypes from 'prop-types'
-import requestAccessStyles from './requestAccessStyles'
-import PaymentMethod from './PaymentMethod'
+import requestAccessStyles from '../requestAccessStyles'
+import PaymentMethod from '../PaymentMethod/PaymentMethod'
 
 const useStyles = makeStyles(requestAccessStyles)
 

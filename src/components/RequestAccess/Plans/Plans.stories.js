@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import styles from './requestAccessStyles'
+import styles from '../requestAccessStyles'
 import PlansPage from './Plans'
 
 export default {
