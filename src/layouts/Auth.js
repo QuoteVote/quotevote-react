@@ -20,7 +20,6 @@ import lock from 'assets/img/lock.jpeg'
 import error from 'assets/img/clint-mckoy.jpg'
 import pricing from 'assets/img/bg-pricing.jpeg'
 import requestAccess from 'assets/img/RequestAccess/bg.png'
-import landingPageBG from 'assets/img/LandingPageBG.jpg'
 import buildingsBG from 'assets/img/BuildingsBG.png'
 
 const useStyles = makeStyles(styles)
@@ -68,7 +67,7 @@ export default function Pages(props) {
     } if (
       window.location.pathname.indexOf('/auth/landing-page') !== -1
     ) {
-      return landingPageBG
+      return buildingsBG
     } if (
       window.location.pathname.indexOf('/auth/investor-thanks') !== -1
     ) {

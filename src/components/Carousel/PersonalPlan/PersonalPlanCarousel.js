@@ -1,5 +1,4 @@
 import React from 'react'
-import Carousel from 'react-material-ui-carousel'
 import { Typography } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
@@ -10,6 +9,7 @@ import personalPlanImg from '../../../assets/img/RequestAccess/PersonalPlan.png'
 import personalPlanImg2 from '../../../assets/img/PersonalCarousel2.png'
 import personalPlanImg3 from '../../../assets/img/PersonalCarousel3.png'
 import GetAccessButton from '../../GetAccessButton'
+import Carousel from '../Carousel'
 
 PersonalCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
@@ -160,16 +160,17 @@ function PersonalCarouselThirdContent(classes) {
 }
 
 function PersonalPlanCarousel(props) {
-  const { setCarouselCurrentIndex } = props
-  const handleNext = (next, active) => {
-    // eslint-disable-next-line no-console
-    console.log({ next, active })
+  const [activeStepProp, setActiveStepProp] = React.useState(0)
+  const handleNext = () => {
+    setActiveStepProp((prevActiveStep) => prevActiveStep + 1)
   }
 
   return (
     <Carousel
-      startAt={0}
-      onChange={(index) => setCarouselCurrentIndex(index)}
+      autoplay={false}
+      navButtonsAlwaysVisible={false}
+      activeStepProp={activeStepProp}
+      setActiveStepProp={setActiveStepProp}
     >
       <PersonalCarouselFirstContent {...props} handleNext={handleNext} />
       <PersonalCarouselSecondContent {...props} handleNext={handleNext} />
@@ -180,7 +181,6 @@ function PersonalPlanCarousel(props) {
 
 PersonalPlanCarousel.propTypes = {
   classes: PropTypes.object,
-  setCarouselCurrentIndex: PropTypes.func,
 }
 
 export default PersonalPlanCarousel

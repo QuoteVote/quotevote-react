@@ -1,25 +1,25 @@
-import React from 'react'
-import Carousel from 'react-material-ui-carousel'
+import React, { useState } from 'react'
 import { TextField, Typography } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import { useHistory } from 'react-router-dom'
 import GridItem from '../../../mui-pro/Grid/GridItem'
 import GridContainer from '../../../mui-pro/Grid/GridContainer'
 import investorPlanImg from '../../../assets/img/UserSharing.png'
 import investorPlanImg2 from '../../../assets/img/CommentBox2.png'
 import investorPlanImg3 from '../../../assets/img/GroupChat.png'
 import InvestButton from '../../InvestButton'
+import Carousel from '../Carousel'
 
 InvestorCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
   handleNext: PropTypes.func,
+  setActiveStepProp: PropTypes.func,
 }
 
-function InvestorCarouselFirstContent({ classes, handleNext }) {
+function InvestorCarouselFirstContent({ classes, handleNext, setActiveStepProp }) {
   const { opinionsText, bottomText, greenText } = classes
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
@@ -45,19 +45,24 @@ function InvestorCarouselFirstContent({ classes, handleNext }) {
               <b>democracy and community as our pillar.</b>
               <br />
               <br />
-              This is why we reject investment from VC firms, and encourage users to invest and become a part of the change.
+              This is why we reject investment from VC firms, and encourage users to invest and become a part of the
+              change.
               <b>Invest up to $2000 to grow with us. </b>
               <br />
               <br />
             </div>
           </Typography>
           <Typography className={bottomText}>
-            <InvestButton />
+            <InvestButton
+              handleClick={() => {
+                setActiveStepProp(2)
+              }}
+            />
             {' '}
             What is
             <span className={greenText}> the deal </span>
             <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={handleNext} />
+              <DoubleArrowIcon onClick={() => handleNext(1)} />
             </IconButton>
           </Typography>
         </GridContainer>
@@ -69,8 +74,10 @@ function InvestorCarouselFirstContent({ classes, handleNext }) {
 InvestorCarouselSecondContent.propTypes = {
   classes: PropTypes.object,
   handleNext: PropTypes.func,
+  setActiveStepProp: PropTypes.func,
 }
-function InvestorCarouselSecondContent({ classes, handleNext }) {
+
+function InvestorCarouselSecondContent({ classes, handleNext, setActiveStepProp }) {
   const { opinionsText, bottomText, greenText } = classes
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
@@ -105,13 +112,17 @@ function InvestorCarouselSecondContent({ classes, handleNext }) {
             </div>
           </Typography>
           <Typography className={bottomText}>
-            <InvestButton />
+            <InvestButton
+              handleClick={() => {
+                setActiveStepProp(2)
+              }}
+            />
             {'  '}
             I want to
             {' '}
             <span className={greenText}> to know details</span>
             <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={handleNext} />
+              <DoubleArrowIcon onClick={() => handleNext(2)} />
             </IconButton>
           </Typography>
         </GridContainer>
@@ -122,11 +133,12 @@ function InvestorCarouselSecondContent({ classes, handleNext }) {
 
 InvestorCarouselThirdContent.propTypes = {
   classes: PropTypes.object,
+  handleNext: PropTypes.func,
 }
-function InvestorCarouselThirdContent({ classes }) {
-  const history = useHistory()
+
+function InvestorCarouselThirdContent({ classes, handleNext }) {
   const handleClick = () => {
-    history.push('/auth/investor-thanks')
+    handleNext(2)
   }
   return (
     <GridContainer justify="center" style={{ marginRight: 24 }}>
@@ -185,27 +197,27 @@ function InvestorCarouselThirdContent({ classes }) {
 }
 
 function InvestorPlanCarousel(props) {
-  const { setCarouselCurrentIndex } = props
-  const handleNext = (next, active) => {
-    // eslint-disable-next-line no-console
-    console.log({ next, active })
+  const [activeStepProp, setActiveStepProp] = useState(0)
+  const handleNext = () => {
+    setActiveStepProp((prevActiveStep) => prevActiveStep + 1)
   }
 
   return (
     <Carousel
-      startAt={0}
-      onChange={(index) => setCarouselCurrentIndex(index)}
+      autoplay={false}
+      navButtonsAlwaysVisible={false}
+      activeStepProp={activeStepProp}
+      setActiveStepProp={setActiveStepProp}
     >
-      <InvestorCarouselFirstContent {...props} handleNext={handleNext} />
-      <InvestorCarouselSecondContent {...props} handleNext={handleNext} />
-      <InvestorCarouselThirdContent {...props} handleNext={handleNext} />
+      <InvestorCarouselFirstContent {...props} handleNext={handleNext} setActiveStepProp={setActiveStepProp} />
+      <InvestorCarouselSecondContent {...props} handleNext={handleNext} setActiveStepProp={setActiveStepProp} />
+      <InvestorCarouselThirdContent {...props} handleNext={handleNext} setActiveStepProp={setActiveStepProp} />
     </Carousel>
   )
 }
 
 InvestorPlanCarousel.propTypes = {
   classes: PropTypes.object,
-  setCarouselCurrentIndex: PropTypes.func,
 }
 
 export default InvestorPlanCarousel

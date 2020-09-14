@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const InvestButtonStyle = withStyles(() => ({
   root: {
@@ -17,12 +17,7 @@ const InvestButtonStyle = withStyles(() => ({
   },
 }))(Button)
 
-function InvestButton() {
-  const history = useHistory()
-  const handleClick = () => {
-    history.push('/auth/landing-page')
-  }
-
+function InvestButton({ handleClick }) {
   return (
     <InvestButtonStyle
       variant="contained"
@@ -32,5 +27,9 @@ function InvestButton() {
       Invest for change
     </InvestButtonStyle>
   )
+}
+
+InvestButton.propTypes = {
+  handleClick: PropTypes.func,
 }
 export default InvestButton
