@@ -154,7 +154,6 @@ function InvestorCarouselThirdContent({ classes }) {
   if (data) {
     history.push('/auth/investor-thanks')
   }
-  console.log(getValues(), data)
 
   return (
     <form onSubmit={handleSubmit(handleSendEmail)}>

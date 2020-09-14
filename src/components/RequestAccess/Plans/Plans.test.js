@@ -4,14 +4,6 @@ import { Provider } from 'react-redux'
 import Plans from './Plans'
 import store from '../../../store/store'
 
-const props = {
-  handleSubmit: jest.fn(),
-  register: jest.fn(),
-  errors: {
-    fullName: '',
-  },
-}
-
 const PlansWrapper = () => (
   <Provider store={store}>
     <Plans />
