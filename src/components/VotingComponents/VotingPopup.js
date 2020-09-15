@@ -48,7 +48,7 @@ const VotingPopup = ({
   votedBy, onVote, onAddComment, selectedText,
 }) => {
   const classes = useStyles()
-  const { user } = useSelector((state) => state.loginReducer)
+  const { user } = useSelector((state) => state)
   const [expand, setExpand] = useState(false)
   const [comment, setComment] = useState('')
 
