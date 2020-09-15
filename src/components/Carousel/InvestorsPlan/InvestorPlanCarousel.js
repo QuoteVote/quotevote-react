@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { CircularProgress, TextField, Typography } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { useHistory } from 'react-router-dom'
@@ -16,6 +14,7 @@ import investorPlanImg3 from '../../../assets/img/GroupChat.png'
 import InvestButton from '../../InvestButton'
 import Carousel from '../Carousel'
 import { SEND_INVESTOR_EMAIL } from '../../../graphql/mutations'
+import DoubleArrowIconButton from '../../DoubleArrowIconButton'
 
 InvestorCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
@@ -65,9 +64,7 @@ function InvestorCarouselFirstContent({ classes, handleNext, setActiveStepProp }
             {' '}
             What is
             <span className={greenText}> the deal </span>
-            <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={() => handleNext(1)} />
-            </IconButton>
+            <DoubleArrowIconButton onClick={() => handleNext(1)} />
           </Typography>
         </GridContainer>
       </GridItem>
@@ -125,9 +122,7 @@ function InvestorCarouselSecondContent({ classes, handleNext, setActiveStepProp 
             I want to
             {' '}
             <span className={greenText}> to know details</span>
-            <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={() => handleNext(2)} />
-            </IconButton>
+            <DoubleArrowIconButton onClick={() => handleNext(2)} />
           </Typography>
         </GridContainer>
       </GridItem>

@@ -158,9 +158,9 @@ export default function AuthNavbar(props) {
                 </Hidden>
                 <Hidden mdUp>
                     <div className={classes.flex}>
-                        <Button href="#" className={classes.title} color="transparent">
-                            MD Pro React
-                        </Button>
+                        <IconButton color="primary" aria-label="upload picture" component="span" className={classes.title}>
+                        <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop}/>
+                    </IconButton>
                     </div>
                 </Hidden>
                 <Hidden smDown>{list}</Hidden>

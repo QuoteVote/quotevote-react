@@ -1,7 +1,5 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
 import GridItem from '../../../mui-pro/Grid/GridItem'
 import GridContainer from '../../../mui-pro/Grid/GridContainer'
@@ -10,6 +8,7 @@ import businessPlanImg2 from '../../../assets/img/Chatbox.png'
 import businessPlanImg3 from '../../../assets/img/CommentBox.png'
 import GetAccessButton from '../../GetAccessButton'
 import Carousel from '../Carousel'
+import DoubleArrowIconButton from '../../DoubleArrowIconButton'
 
 BusinessCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
@@ -54,9 +53,7 @@ function BusinessCarouselFirstContent({ classes, handleNext }) {
             What else do
             <span className={greenText}> we have </span>
             for you?
-            <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={handleNext} />
-            </IconButton>
+            <DoubleArrowIconButton onClick={handleNext} />
           </Typography>
         </GridContainer>
       </GridItem>
@@ -103,9 +100,7 @@ function BusinessCarouselSecondContent({ classes, handleNext }) {
             Stay
             {' '}
             <span className={greenText}> in Sync</span>
-            <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={handleNext} />
-            </IconButton>
+            <DoubleArrowIconButton onClick={handleNext} />
           </Typography>
         </GridContainer>
       </GridItem>
