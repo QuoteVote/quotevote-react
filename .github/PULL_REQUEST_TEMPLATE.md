@@ -2,70 +2,36 @@
 
 <!-- Describe to the user what this PR does for the codebase -->
 
-<!-- Insert the links of Pivotal Tracker and the Figma **of the task / design you are working on** in between the parenthesis -->
-<!-- Here are the links to our teams projects to find which task / design-->
-<!-- https://www.pivotaltracker.com/n/projects/1579587 -->
-<!-- https://www.figma.com/file/cquCXxs4RQx7wXH2xqdjt2/voxPOP-v2?node-id=127%3A41 -->
-- [Pivotal Tracker]()
-- [Figma Design]()
-
-## Checklist:
-<!-- Please check the boxes once you have completed them. You can check them after you make the pull request using Github. -->
-- [ ] Lint the project with `npm run lint:check`
-- [ ] Changes do not generate no new warnings (otherwise Netlify will fail)
-- [ ] Confirm `npm run build` works with .env files.
-- [ ] Proper branch name
-- [ ] Perform a self-review of own code
-- [ ] Comments on code, particularly in hard-to-understand areas
-- [ ] Include Storybook component
-<!-- BLOCK: Automated tested required -->
-<!-- - [ ] Add tests that proves code is effective or that the feature works -->
-<!-- BLOCK: Automated tested required -->
-<!-- - [ ] Run unit tests with `npm run test` -->
-<!-- BLOCK: Documentation process required -->
-<!-- - [ ] Made corresponding changes to the documentation -->
+<!-- Describe to the developer what this PR does for the codebase -->
 
 ## Type of Story:
 
-<!--
-Choose one of the following, and remove the rest: 
-- Chore
-- Feature
-- Bug
- -->
+<!-- Choose one of the following by removing the comments -->
+<!-- - Chore -->
+<!-- - Feature -->
+<!-- - Bug -->
 
-## Code
+<!-- Insert the links of Story and the Design of the task / design you have between the parenthesis -->
+<!-- Here are the links to our teams projects to find which task / design -->
+<!-- https://www.pivotaltracker.com/n/projects/1579587 -->
+<!-- v1 Desktop: https://app.zeplin.io/project/59bd197553787598a1892964/dashboard?seid=5f4baef0fc57ce83b5fdcd26 -->
+<!-- v1 Mobile: https://app.zeplin.io/project/59bd197553787598a1892964/dashboard?seid=5f4baf8df379028159bc8a83 -->
 
-### Add
-  <!-- What code did you add? -->
-  - N/A
+- [Pivotal Tracker]()
+- [Design]()
 
-### Change
-  <!-- What changes to the code did you make? -->
-  - N/A
+## Checklist:
 
-  <!--
-    ### Structure Change
-      When changing the file structure of the code, please project the old and new structure using `tree` or other tools. For example:
-        $ tree -L 1
-        .
-        ├── documentation
-        ├── gulpfile.js
-        ├── jsconfig.json
-        ├── node_modules
-        ├── package.json
-        ├── package-lock.json
-        ├── public
-        ├── README.md
-        └── src
-        4 directories, 5 files      
-  -->
-### Fix
-  <!-- - What bugs or issues did you fix? -->
-  - N/A
+<!-- Please check the boxes once you have completed them. You can check them after you make the pull request using Github. For anything that starts with ` -->
 
-### Remove
-  <!-- What functionality or code did you remove? -->
-  - N/A
+<!-- - [ ] Project was validated by `husky` pre-push  -->
+- [ ] Proper branch name. See guidelines [here](CONTRIBUTING.md)
+- [ ] Add tests or `test.todo` that proves code is effective or that the feature works. See how [here](https://app.tettra.co/teams/voxpop/pages/creating-test)
+- [ ] Made corresponding changes to the documentation. See how [here](https://app.tettra.co/teams/voxpop/pages/creating-documentation)
+- [ ] Include in Storybook
+- [ ] Perform a self-review of own code
+- [ ] Comments on code, especially in hard-to-understand areas
+
+<!-- If chore or bug, comment the checkboxes that do not apply.  -->
 
 <!-- Note this template is subjected to change depending on the teams needs. -->
