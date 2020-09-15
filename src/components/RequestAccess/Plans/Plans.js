@@ -81,8 +81,8 @@ const Plans = (props) => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Grid container justify="center" spacing={6}>
-          <Grid item xs={3} style={{ marginRight: '15%', position: 'relative' }}>
+        <Grid container justify="center">
+          <Grid item xs={7} md={3} className={classes.gridContent}>
             {isPersonal && <RequestButton classes={classes} onClickRequest={setRequest} />}
             <img
               alt={reqAccessPersonal}
@@ -153,7 +153,7 @@ const Plans = (props) => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={3} style={{ position: 'relative' }}>
+          <Grid item xs={7} md={3} className={classes.gridContent}>
             {isBusiness && <RequestButton classes={classes} onClickRequest={setRequest} />}
             <img
               alt={reqAccessBusiness}

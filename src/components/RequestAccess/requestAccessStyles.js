@@ -1,4 +1,4 @@
-const requestAccessStyles = () => ({
+const requestAccessStyles = (theme) => ({
   greenBtn: {
     textTransform: 'none',
     backgroundColor: '#00cf6e',
@@ -15,6 +15,10 @@ const requestAccessStyles = () => ({
     fontSize: '34px',
     fontWeight: 'bold',
     letterspacing: '0.25px',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 100,
+      fontSize: '20px',
+    },
   },
   subHeader: {
     height: '28px',
@@ -22,6 +26,9 @@ const requestAccessStyles = () => ({
     fontSize: '22px',
     letterspacing: '0.25px',
     lineHeight: 1.27,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '17px',
+    },
   },
   stepNumber: {
     width: '22px',
@@ -50,6 +57,9 @@ const requestAccessStyles = () => ({
     font: 'Roboto',
     fontSize: 24,
     lineHeight: 1.25,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 18,
+    },
   },
   plansHeader: {
     height: '41px',
@@ -58,6 +68,9 @@ const requestAccessStyles = () => ({
     fontSize: '34px',
     fontWeight: 'bold',
     letterspacing: '0.25px',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 100,
+    },
   },
   plansCardImage: {
     width: '200.6px',
@@ -83,6 +96,9 @@ const requestAccessStyles = () => ({
   checkIconPersonal: {
     color: '#157ffb',
     marginRight: 5,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '28px',
+    },
   },
   checkIconBusiness: {
     color: '#791e89',
@@ -100,7 +116,7 @@ const requestAccessStyles = () => ({
     backgroundColor: '#00cf6e',
     color: 'white',
     position: 'absolute',
-    bottom: '1%',
+    bottom: '-5%',
     left: '27%',
     '&:hover': {
       backgroundColor: '#00cf6e',
@@ -117,6 +133,13 @@ const requestAccessStyles = () => ({
     left: '50%',
     marginTop: -12,
     marginLeft: -12,
+  },
+  gridContent: {
+    marginRight: '15%',
+    position: 'relative',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 25,
+    },
   },
 })
 

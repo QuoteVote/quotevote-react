@@ -48,7 +48,7 @@ const PersonalForm = (props) => {
       </Grid>
       <Grid item xs={12} style={{ marginTop: requestInviteSuccessful ? '4%' : '2%' }}>
         <Grid container spacing={2}>
-          <Grid container item xs={6} justify="center" alignItems="center">
+          <Grid container item xs={12} md={6} justify="center" alignItems="center">
             <img
               alt={reqAccessPersonal}
               height={500}
@@ -61,7 +61,7 @@ const PersonalForm = (props) => {
             />
           </Grid>
           {requestInviteSuccessful ? (
-            <Grid container item xs={6} justify="center" alignItems="center">
+            <Grid container itemxs={12} md={6} justify="center" alignItems="center">
               <Typography className={classes.message}>
                 <b>You selected the Personal Plan</b>
                 , and we
@@ -77,7 +77,7 @@ const PersonalForm = (props) => {
               </Typography>
             </Grid>
           ) : (
-            <Grid item container xs={6} spacing={2}>
+            <Grid item container xs={11} md={6} spacing={2}>
               <Grid item xs={12}>
                 <Card>
                   <CardHeader
