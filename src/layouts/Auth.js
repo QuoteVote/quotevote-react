@@ -19,10 +19,13 @@ import login from 'assets/img/login.jpeg'
 import lock from 'assets/img/lock.jpeg'
 import error from 'assets/img/clint-mckoy.jpg'
 import pricing from 'assets/img/bg-pricing.jpeg'
+import requestAccess from 'assets/img/RequestAccess/bg.png'
+import buildingsBG from 'assets/img/BuildingsBG.png'
 
 const useStyles = makeStyles(styles)
 
 export default function Pages(props) {
+  const isRequestAccess = window.location.pathname.indexOf('/auth/request-access') !== -1
   const { ...rest } = props
   // ref for the wrapper div
   const wrapper = React.createRef()
@@ -59,6 +62,16 @@ export default function Pages(props) {
       window.location.pathname.indexOf('/auth/lock-screen-page') !== -1
     ) {
       return lock
+    } if (isRequestAccess) {
+      return requestAccess
+    } if (
+      window.location.pathname.indexOf('/auth/landing-page') !== -1
+    ) {
+      return buildingsBG
+    } if (
+      window.location.pathname.indexOf('/auth/investor-thanks') !== -1
+    ) {
+      return buildingsBG
     } if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
       return error
     }
@@ -84,12 +97,12 @@ export default function Pages(props) {
       <AuthNavbar brandText={getActiveRoute(routes)} {...rest} />
       <div className={classes.wrapper} ref={wrapper}>
         <div
-          className={classes.fullPage}
+          className={isRequestAccess ? classes.requestAccessFullPage : classes.fullPage}
           style={{ backgroundImage: `url(${getBgImage()})` }}
         >
           <Switch>
             {getRoutes(routes)}
-            <Redirect from="/auth" to="/auth/login-page" />
+            <Redirect from="/auth" to="/auth/landing-page" />
           </Switch>
           <Footer white />
         </div>

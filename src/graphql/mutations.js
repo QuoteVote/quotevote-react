@@ -90,3 +90,19 @@ export const FOLLOW_MUTATION = gql`
     }
   }
 `
+
+export const REQUEST_USER_ACCESS_MUTATION = gql`
+mutation requestUserAccess($requestUserAccessInput: RequestUserAccessInput!) {
+  requestUserAccess(requestUserAccessInput: $requestUserAccessInput) {
+    _id
+    name
+    email
+  }
+}
+`
+
+export const SEND_INVESTOR_EMAIL = gql`
+  mutation sendInvestorMail($email: String!) {
+    sendInvestorMail(email: $email)
+  }
+`

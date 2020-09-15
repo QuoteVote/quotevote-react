@@ -10,6 +10,7 @@ import GridSystem from 'mui-pro/views/Components/GridSystem'
 import Icons from 'mui-pro/views/Components/Icons'
 import LockScreenPage from 'mui-pro/views/Pages/LockScreenPage'
 import LoginPage from 'views/Pages/LoginPage'
+import RequestAccessPage from 'views/Pages/RequestAccessPage/RequestAccessPage'
 import Notifications from 'mui-pro/views/Components/Notifications'
 import Panels from 'mui-pro/views/Components/Panels'
 import PricingPage from 'mui-pro/views/Pages/PricingPage'
@@ -36,6 +37,8 @@ import Image from '@material-ui/icons/Image'
 import Place from '@material-ui/icons/Place'
 import Timeline from '@material-ui/icons/Timeline'
 import WidgetsIcon from '@material-ui/icons/Widgets'
+import LandingPage from "../views/LandingPage/LandingPage";
+import InvestorThanks from "../views/InvestorThanks";
 
 const dashRoutes = [
   {
@@ -53,6 +56,24 @@ const dashRoutes = [
     icon: Image,
     state: 'pageCollapse',
     views: [
+      {
+        path: '/landing-page',
+        name: 'Landing Page',
+        rtlName: 'هعذاتسجيل الدخول',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: LandingPage,
+        layout: '/auth',
+      },
+      {
+        path: '/investor-thanks',
+        name: 'Investor Thanks',
+        rtlName: 'هعذاتسجيل الدخول',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: InvestorThanks,
+        layout: '/auth',
+      },
       {
         path: '/pricing-page',
         name: 'Pricing Page',
@@ -87,6 +108,12 @@ const dashRoutes = [
         mini: 'L',
         rtlMini: 'هعذا',
         component: LoginPage,
+        layout: '/auth',
+      },
+      {
+        path: '/request-access',
+        name: 'Request Access Page',
+        component: RequestAccessPage,
         layout: '/auth',
       },
       {

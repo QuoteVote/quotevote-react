@@ -6,6 +6,9 @@ import client from "../src/config/apollo";
 import { withConsole } from "@storybook/addon-console";
 
 import "@storybook/addon-console";
+import StylesDecorator from './styles-decorator'
+import ReduxDecorator from './redux-decorator'
+import ReactRouterDomDecorator from './react-router-dom-decorator'
 
 // import results from ".storybook/.jest-test-results.json";
 const results = require("./.jest-test-results.json");
@@ -36,3 +39,12 @@ addDecorator(
     results,
   })
 );
+
+// For Material-UI style decorator
+addDecorator(StylesDecorator)
+
+// For RTK decorator
+addDecorator(ReduxDecorator)
+
+//For react-router-dom decorator
+addDecorator(ReactRouterDomDecorator)
