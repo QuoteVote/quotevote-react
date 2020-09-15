@@ -21,18 +21,26 @@ const customTheme = createMuiTheme({
 })
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '100%',
     overflowX: 'hidden',
     flexGrow: 1,
     alignContent: 'center',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 400,
+      paddingLeft: 20,
+    },
   },
   content: {
     alignContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 400,
+      paddingLeft: 20,
+    },
   },
 }))
 

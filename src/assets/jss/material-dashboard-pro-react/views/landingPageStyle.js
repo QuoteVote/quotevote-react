@@ -7,9 +7,6 @@ const landingPageStyle = (theme) => ({
   container: {
     ...container,
     zIndex: '4',
-    [theme.breakpoints.down('sm')]: {
-      paddingBottom: '100px',
-    },
   },
   cardTitle: {
     ...cardTitle,
@@ -76,12 +73,13 @@ const landingPageStyle = (theme) => ({
     },
   },
   opinionsText: {
+    maxWidth: '400px',
   },
   greenText: {
     color: '#00cf6e',
   },
   bottomText: {
-    fontSize: '20px',
+    fontSize: '18px',
     fontWeight: 'bold',
   },
   sendEmail: {

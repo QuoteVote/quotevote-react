@@ -15,7 +15,7 @@ const customTheme = createMuiTheme({
 function DoubleArrowIconButton({ onClick }) {
   return (
     <MuiThemeProvider theme={customTheme}>
-      <IconButton color="primary">
+      <IconButton color="primary" size="small">
         <DoubleArrowIcon onClick={onClick} />
       </IconButton>
     </MuiThemeProvider>
