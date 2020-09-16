@@ -165,18 +165,20 @@ function MainNavBar(props) {
             </IconButton>
           </Grid>
           <Grid item lg={2}>
-            <IconButton
-              aria-label="Settings"
-              color="inherit"
-              className={classes.rightMenuButton}
-            >
-              <SvgIcon
-                component={SettingsSvg}
-                fontSize={fontSize}
-                viewBox="0 0 49 46"
+            <NavLink to="/hhsb/ControlPanel">
+              <IconButton
+                aria-label="Settings"
+                color="inherit"
                 className={classes.rightMenuButton}
-              />
-            </IconButton>
+              >
+                <SvgIcon
+                  component={SettingsSvg}
+                  fontSize={fontSize}
+                  viewBox="0 0 49 46"
+                  className={classes.rightMenuButton}
+                />
+              </IconButton>
+            </NavLink>
           </Grid>
         </Grid>
       </Grid>

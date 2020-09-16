@@ -10,6 +10,7 @@ import SearchView from 'views/SearchView'
 import ManageInvites from 'views/ManageInvites'
 import HomePage from 'views/Homepage/Homepage'
 import Profile from 'views/Profile'
+import ControlPanel from 'views/ControlPanel'
 import Chat from 'assets/img/Chat.svg'
 import Home from 'assets/img/Home.svg'
 import Search from 'assets/img/Search.png'
@@ -96,6 +97,12 @@ const routes = [
     path: '/post',
     name: 'Posts',
     component: PostPage,
+    layout: '/hhsb',
+  },
+  {
+    path: '/ControlPanel',
+    name: 'ControlPanel',
+    component: ControlPanel,
     layout: '/hhsb',
   },
   {
