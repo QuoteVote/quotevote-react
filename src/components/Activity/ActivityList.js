@@ -5,11 +5,12 @@ import { getGridListCols, useWidth } from 'utils/display'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { useMutation } from '@apollo/react-hooks'
-import PostCard from './PostCard'
-import AlertSkeletonLoader from './AlertSkeletonLoader'
-import { UPDATE_POST_BOOKMARK } from '../graphql/mutations'
-import { GET_TOP_POSTS } from '../graphql/query'
-import { SET_HIDDEN_POSTS, SET_SNACKBAR } from '../store/ui'
+import PostCard from '../PostCard'
+import AlertSkeletonLoader from '../AlertSkeletonLoader'
+import { UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
+import { GET_TOP_POSTS } from '../../graphql/query'
+import { SET_HIDDEN_POSTS, SET_SNACKBAR } from '../../store/ui'
+import ActivityEmptyList from './ActivityEmptyList'
 
 export function LoadActivityList({ data, width }) {
   const dispatch = useDispatch()
@@ -57,12 +58,12 @@ export function LoadActivityList({ data, width }) {
     dispatch(SET_HIDDEN_POSTS(post._id))
   }
 
-  if (!data || data.activities === 0) {
+  const testData = null
+  // TODO uncomment below code
+  // if (!data || data.activities === 0) {
+  if (!testData) {
     return (
-      <div style={{ width: '90%', textAlign: 'center' }}>
-        <span>No posts fetched.</span>
-        <br />
-      </div>
+      <ActivityEmptyList />
     )
   }
 

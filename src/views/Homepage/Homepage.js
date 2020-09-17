@@ -1,15 +1,26 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react'
-import Card from 'mui-pro/Card/Card'
-import CardBody from 'mui-pro/Card/CardBody'
 import { GET_SEARCH_KEY } from 'components/searchBar'
 import Pagination from 'material-ui-flat-pagination'
 import { useQuery } from '@apollo/react-hooks'
+import { makeStyles } from '@material-ui/core/styles'
 import { ACTIVITIES_QUERY } from './HomepageGQL'
 import SubHeader from '../../components/SubHeader'
-import ActivityList from '../../components/ActivityList'
+import ActivityList from '../../components/Activity/ActivityList'
+import GridContainer from '../../mui-pro/Grid/GridContainer'
+import GridItem from '../../mui-pro/Grid/GridItem'
+
+const useStyles = makeStyles(({
+  root: {
+    display: 'flex',
+    flexBasis: '100%',
+    flexGrow: 1,
+    overflow: 'hidden',
+  },
+}))
 
 export default function Homepage() {
+  const classes = useStyles()
   const limit = 5
   const [offset, setOffset] = useState(1)
   const conditions = ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED']
@@ -51,9 +62,11 @@ export default function Homepage() {
   }, [data])
 
   return (
-    <Card style={{ display: 'flex', flexBasis: '800px' }}>
-      <CardBody>
+    <GridContainer className={classes.root}>
+      <GridItem xs={12}>
         <SubHeader headerName="Activity Page" />
+      </GridItem>
+      <GridItem xs={12}>
         <ActivityList
           Data={data}
           loading={loading}
@@ -63,17 +76,19 @@ export default function Homepage() {
           handleActivityEvent={handleActivityEvent}
           handleSlider={handleSlider}
         />
-      </CardBody>
-
-      <Pagination
-        style={{ margin: 'auto' }}
-        limit={limit}
-        offset={offset}
-        total={total}
-        // eslint-disable-next-line
-        onClick={(e, offset) => setOffset(offset)}
-      />
-    </Card>
-
+      </GridItem>
+      <GridItem xs={12}>
+        {!data && !loading && (
+          <Pagination
+            style={{ margin: 'auto' }}
+            limit={limit}
+            offset={offset}
+            total={total}
+            // eslint-disable-next-line
+            onClick={(e, offset) => setOffset(offset)}
+          />
+        )}
+      </GridItem>
+    </GridContainer>
   )
 }

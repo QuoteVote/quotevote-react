@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
-import SvgIcon from '@material-ui/core/SvgIcon'
 import Hidden from '@material-ui/core/Hidden'
 import Input from '@material-ui/core/Input'
 import Slider from '@material-ui/core/Slider'
@@ -14,12 +13,11 @@ import Tooltip from '@material-ui/core/Tooltip'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { IconButton, Typography } from '@material-ui/core'
 import {
-  Search as SearchIcon,
-  Filter as FilterIcon,
   Calendar as CalendarIcon,
+  Filter as FilterIcon,
   Group as GroupIcon,
+  Search as SearchIcon,
 } from 'components/Icons'
-import { ReactComponent as NotificationsSvg } from 'assets/svg/Notifications.svg'
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -48,11 +46,13 @@ const useStyles = makeStyles(() => ({
     border: 'solid 1px #d2d2d2',
     backgroundColor: '#ffffff',
     marginBottom: '2%',
+    marginLeft: '10px',
   },
   calendar: {
     borderRadius: '6px',
     border: 'solid 1px #d2d2d2',
     backgroundColor: '#ffffff',
+    marginLeft: '10px',
   },
 }))
 
@@ -209,17 +209,6 @@ export default function SubHeader(props) {
             <Typography display="inline" align="justify" className={classes.headerNameSm}>
               {headerName}
             </Typography>
-            <IconButton
-              aria-label="Notifications"
-              color="inherit"
-              style={{ float: 'right' }}
-            >
-              <SvgIcon
-                component={NotificationsSvg}
-                fontSize="large"
-                viewBox="0 0 49 46"
-              />
-            </IconButton>
           </GridItem>
           <GridItem xs={12} className={classes.search}>
             <Input
