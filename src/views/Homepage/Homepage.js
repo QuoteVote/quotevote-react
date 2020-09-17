@@ -64,7 +64,7 @@ export default function Homepage() {
   return (
     <GridContainer className={classes.root}>
       <GridItem xs={12}>
-        <SubHeader headerName="Activity Page" />
+        <SubHeader headerName="Activity Feed" />
       </GridItem>
       <GridItem xs={12}>
         <ActivityList
