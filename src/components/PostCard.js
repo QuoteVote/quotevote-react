@@ -167,9 +167,9 @@ export default function PostCard(props) {
   const user = useSelector((state) => state.user.data)
   const classes = useStyles(props)
   const {
-    _id, text, title, upvotes, downvotes, url, bookmarkedBy, rank, created, onHidePost, onBookmark,
+    _id, text, title, upvotes, downvotes, url, bookmarkedBy, rank, created, onHidePost, onBookmark, creator,
   } = props
-  const isBookmarked = bookmarkedBy.includes(user._id)
+  const isBookmarked = bookmarkedBy && bookmarkedBy.includes(user._id)
   const [postContentLimit, setPostContentLimit] = React.useState(65)
 
   const onResize = () => {
@@ -197,7 +197,7 @@ export default function PostCard(props) {
             <GridContainer>
               <GridItem xs={4}>
                 <span className={classes.username}>
-                  Username
+                  {creator ? creator.name : 'Anonymous' }
                 </span>
               </GridItem>
               <GridItem xs={8}>
@@ -284,4 +284,5 @@ PostCard.propTypes = {
   created: PropTypes.string.isRequired,
   onHidePost: PropTypes.func.isRequired,
   onBookmark: PropTypes.func.isRequired,
+  creator: PropTypes.any,
 }

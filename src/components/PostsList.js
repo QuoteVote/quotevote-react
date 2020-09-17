@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_HIDDEN_POSTS, SET_SNACKBAR } from 'store/ui'
 import { useMutation } from '@apollo/react-hooks'
@@ -10,19 +9,7 @@ import { getGridListCols, useWidth } from 'utils/display'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import PostCard from './PostCard'
-
-export function AlertSkeletonLoader({ width }) {
-  const rows = Array.from(Array(12).keys())
-  return (
-    <GridList cols={getGridListCols[width]}>
-      {rows.map((item) => (
-        <GridListTile key={item} cols={1}>
-          <Skeleton animation="wave" height={128} />
-        </GridListTile>
-      ))}
-    </GridList>
-  )
-}
+import AlertSkeletonLoader from './AlertSkeletonLoader'
 
 export function LoadPostsList({ data, width }) {
   const dispatch = useDispatch()
@@ -74,7 +61,7 @@ export function LoadPostsList({ data, width }) {
     return (
       <div style={{ width: '90%', textAlign: 'center' }}>
         <span>No posts fetched.</span>
-        <br></br>
+        <br />
       </div>
     )
   }
@@ -109,10 +96,6 @@ PostList.propTypes = {
   Data: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   limit: PropTypes.number.isRequired,
-}
-
-AlertSkeletonLoader.propTypes = {
-  width: PropTypes.object.isRequired,
 }
 
 LoadPostsList.propTypes = {
