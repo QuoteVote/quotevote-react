@@ -87,7 +87,8 @@
     "map-sass": "node-sass src/assets/scss/material-dashboard-pro-react.scss src/assets/css/material-dashboard-pro-react.css --source-map true",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "chromatic": "npx chromatic --project-token rh6bhnfp28a"
   },
   "optionalDependencies": {
     "@types/googlemaps": "3.37.3",
@@ -124,6 +125,7 @@
     "apollo-storybook-react": "^0.1.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "chromatic": "^5.2.0",
     "cypress": "^5.0.0",
     "env-cmd": "^10.1.0",
     "enzyme": "^3.11.0",
