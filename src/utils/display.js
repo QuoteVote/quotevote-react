@@ -3,8 +3,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import moment from 'moment'
 
 export const getGridListCols = {
-  xl: 5,
-  lg: 4,
+  xl: 3,
+  lg: 3,
   md: 3,
   sm: 2,
   xs: 1,

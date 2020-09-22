@@ -1,12 +1,8 @@
-import React, { useReducer, useState, useEffect } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { useQuery } from '@apollo/react-hooks'
-import { GET_USER_ACTIVITY, GET_USER } from 'graphql/query'
-import { GET_SEARCH_KEY } from 'components/searchBar'
-import { composePost } from 'utils/display'
-import { useTheme } from '@material-ui/core/styles'
-import { GET_SEARCH_START_DATE } from 'components/DateSearchBar'
+import { GET_USER } from 'graphql/query'
 import ProfileView from 'views/Profile/ProfileView'
 
 function ProfileController() {
@@ -18,9 +14,7 @@ function ProfileController() {
   const limit = 5
   const { userId } = useParams()
   const [userInfo, setUserInfo] = useState({})
-  const [total, setTotal] = useState(1)
   const loggedInUser = useSelector((state) => state.user.data)
-  const theme = useTheme()
 
   const [filterState, dispatch] = useReducer(filterReducer, {
     filter: {
@@ -37,7 +31,10 @@ function ProfileController() {
   function filterReducer(state, action) {
     switch (action.type) {
       case 'FILTER_VISIBILITY':
-        return { ...state, filter: { ...state.filter, visibility: action.payload } }
+        return {
+          ...state,
+          filter: { ...state.filter, visibility: action.payload },
+        }
       case 'FILTER_VALUE':
         return { ...state, filter: { ...state.filter, value: action.payload } }
       case 'DATE_VISIBILITY':
@@ -45,7 +42,10 @@ function ProfileController() {
       case 'DATE_VALUE':
         return { ...state, date: { ...state.date, value: action.payload } }
       case 'SEARCH_VISIBILITY':
-        return { ...state, search: { ...state.search, visibility: action.payload } }
+        return {
+          ...state,
+          search: { ...state.search, visibility: action.payload },
+        }
       case 'SEARCH_VALUE':
         return { ...state, date: { ...state.search, value: action.payload } }
       default:
@@ -81,24 +81,6 @@ function ProfileController() {
     }
   }, [userData])
 
-  const { data: { searchKey } } = useQuery(GET_SEARCH_KEY)
-  const { data: { startDateRange } } = useQuery(GET_SEARCH_START_DATE)
-
-  const { loading, data } = useQuery(GET_USER_ACTIVITY, {
-    variables: {
-      limit, offset, searchKey, startDateRange, activityEvent: selectedEvent, user_id: userId || loggedInUser._id,
-    },
-  })
-
-  //  Activity stuff
-  const { activities } = (!loading && data && data.activities) || { activities: { activities: [], total: 0 } }
-  useEffect(() => {
-    if (data) {
-      setTotal(data.activities.total)
-    }
-  }, [data])
-  const activitiesData = !loading && activities && activities.length && activities.map((activity) => composePost(activity, theme))
-
   return (
     <ProfileView
       handleActivityEvent={handleActivityEvent}
@@ -109,18 +91,15 @@ function ProfileController() {
       dispatch={dispatch}
       setOffset={setOffset}
       profileUser={userInfo}
-      activitiesData={activitiesData}
-      loading={loading}
       limit={limit}
       offset={offset}
-      total={total}
       selectedEvent={selectedEvent}
     />
   )
 }
 
 ProfileController.propTypes = {
-//   viewModel: PropTypes.object.isRequired,
+  //   viewModel: PropTypes.object.isRequired,
 }
 
 export default ProfileController

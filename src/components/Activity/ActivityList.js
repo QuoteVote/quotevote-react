@@ -2,17 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { getGridListCols, useWidth } from 'utils/display'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
 import { useMutation } from '@apollo/react-hooks'
+import InfiniteScroll from 'react-infinite-scroller'
+
+import { GridList, GridListTile } from '@material-ui/core'
 import PostCard from '../PostCard'
 import AlertSkeletonLoader from '../AlertSkeletonLoader'
 import { UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
-import { GET_TOP_POSTS } from '../../graphql/query'
+import { GET_USER_ACTIVITY } from '../../graphql/query'
 import { SET_HIDDEN_POSTS, SET_SNACKBAR } from '../../store/ui'
 import ActivityEmptyList from './ActivityEmptyList'
+import LoadingSpinner from '../LoadingSpinner'
 
-export function LoadActivityList({ data, width }) {
+export function LoadActivityList({
+  data, width, onLoadMore,
+}) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.data)
   const hiddenPosts = useSelector((state) => state.ui.hiddenPosts)
@@ -21,7 +25,7 @@ export function LoadActivityList({ data, width }) {
   const [updatePostBookmark, { error }] = useMutation(UPDATE_POST_BOOKMARK, {
     refetchQueries: [
       {
-        query: GET_TOP_POSTS,
+        query: GET_USER_ACTIVITY,
         variables: { limit, offset: 0, searchKey: '' },
       },
     ],
@@ -58,119 +62,79 @@ export function LoadActivityList({ data, width }) {
     dispatch(SET_HIDDEN_POSTS(post._id))
   }
 
-  const testData = null
-  // TODO uncomment below code
-  // if (!data || data.activities === 0) {
-  if (!testData) {
+  if (!data || !data.activities.pagination.total_count) {
     return (
       <ActivityEmptyList />
     )
   }
 
-  const activities = data.activities.activities
-    .map((activity, index) => ({ ...activity, rank: index + 1 }))
+  const activities = data.activities.entities
+    .map((activity, index) => ({ ...activity.post, rank: index + 1 }))
     .filter((activity) => !hiddenPosts.includes(activity._id))
-
-  const activitiesData = activities && activities.length && activities.map((activity, index) => {
-    switch (activity.event) {
-      case 'VOTED':
-        return {
-          _id: activity.data._id,
-          title: `${activity.data.type.toUpperCase()}VOTED`,
-          text: activity.data.content.title,
-          upvotes: activity.data.content.upvotes,
-          downvotes: activity.data.content.downvotes,
-          url: activity.data.content.url,
-          bookmarkedBy: activity.data.content.bookmarkedBy,
-          rank: index + 1,
-          created: activity.data.content.created,
-          creator: activity.data.creator,
-        }
-      case 'POSTED':
-        return {
-          _id: activity.data._id,
-          title: activity.data.title,
-          text: activity.data.text,
-          upvotes: activity.data.upvotes,
-          downvotes: activity.data.downvotes,
-          url: activity.data.url,
-          bookmarkedBy: activity.data.bookmarkedBy,
-          rank: index + 1,
-          created: activity.data.created,
-          creator: activity.data.creator,
-        }
-      case 'QUOTED':
-        return {
-          _id: activity.data._id,
-          title: 'QUOTED',
-          upvotes: activity.data.upvotes,
-          downvotes: activity.data.downvotes,
-          url: activity.data.url,
-          bookmarkedBy: activity.data.bookmarkedBy,
-          rank: index + 1,
-          created: activity.data.created,
-          creator: activity.data.creator,
-        }
-      case 'COMMENTED':
-        return {
-          _id: activity.data._id,
-          title: activity.data.title,
-          upvotes: 0,
-          downvotes: 0,
-          url: activity.data.url,
-          bookmarkedBy: '',
-          rank: index + 1,
-          created: activity.data.created,
-          creator: activity.data.creator,
-        }
-      case 'HEARTED':
-        return {
-          _id: activity.data._id,
-          title: activity.data.title,
-          text: activity.data.text,
-          upvotes: 0,
-          downvotes: 0,
-          url: activity.data.url,
-          bookmarkedBy: '',
-          rank: index + 1,
-          created: activity.data.created,
-          creator: activity.data.creator,
-        }
-      default:
-        break
-    }
-    return null
-  })
-
+  const hasMore = data.activities.pagination.total_count > activities.length
   return (
-    <GridList cols={getGridListCols[width]}>
-      {activitiesData.map((activity, key) => (
-        <GridListTile key={key} cols={1}>
-          <PostCard
-            {...activity}
-            onHidePost={handleHidePost}
-            user={user}
-            onBookmark={handleBookmark}
-          />
-        </GridListTile>
-      ))}
-    </GridList>
+    <InfiniteScroll
+      pageStart={0}
+      loadMore={onLoadMore}
+      hasMore={hasMore}
+      loader={<div className="loader" key={0}><LoadingSpinner size={50} /></div>}
+    >
+      <GridList cols={getGridListCols[width]}>
+        {activities.map((activity, key) => (
+          <GridListTile key={key} cols={1}>
+            <PostCard
+              {...activity}
+              onHidePost={handleHidePost}
+              user={user}
+              onBookmark={handleBookmark}
+            />
+          </GridListTile>
+        ))}
+      </GridList>
+    </InfiniteScroll>
   )
 }
 
-export default function ActivityList({ Data, loading, limit }) {
+export default function ActivityList({
+  data, loading, limit, fetchMore,
+}) {
   const width = useWidth()
   if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
-  return <LoadActivityList width={width} data={Data} />
+  return (
+    <LoadActivityList
+      width={width}
+      data={data}
+      onLoadMore={() => fetchMore({
+        variables: {
+          offset: data.activities.entities.length,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev
+          return {
+            ...prev,
+            activities: {
+              ...fetchMoreResult.activities,
+              entities: [
+                ...prev.activities.entities,
+                ...fetchMoreResult.activities.entities,
+              ],
+            },
+          }
+        },
+      })}
+    />
+  )
 }
 
 ActivityList.propTypes = {
-  Data: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   limit: PropTypes.number.isRequired,
+  fetchMore: PropTypes.func,
 }
 
 LoadActivityList.propTypes = {
   width: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  onLoadMore: PropTypes.func,
 }
