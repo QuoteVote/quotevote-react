@@ -11,11 +11,7 @@ import profilePageImg from 'assets/img/carousel/Profile_Page.png'
 import sideNavImg from 'assets/img/carousel/Side_Navigation.png'
 import trendingPageImg from 'assets/img/carousel/Trending_Page.png'
 
-import {
-  InputAdornment,
-  CircularProgress,
-  Hidden,
-} from '@material-ui/core'
+import { InputAdornment, CircularProgress, Hidden } from '@material-ui/core'
 
 import Icon from '@material-ui/core/Icon'
 
@@ -46,7 +42,12 @@ const useStyles = makeStyles(styles)
 function CarouselImage({ imageUrl, alt }) {
   return (
     <Card square>
-      <img alt={alt} height={500} src={`${imageUrl}`} style={{ marginTop: '-15px' }} />
+      <img
+        alt={alt}
+        height={500}
+        src={`${imageUrl}`}
+        style={{ marginTop: '-15px' }}
+      />
     </Card>
   )
 }
@@ -62,11 +63,17 @@ export default function LoginPage() {
   // TODO: Abstract validation into custom hook
   React.useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // This needs to be fixed so that we are importing the images instead of using the public/assets folder
-  const images = [activiesPageImg, postPageImg, profilePageImg, sideNavImg, trendingPageImg]
+  const images = [
+    activiesPageImg,
+    postPageImg,
+    profilePageImg,
+    sideNavImg,
+    trendingPageImg,
+  ]
 
   setTimeout(() => {
     setCardAnimation('')
@@ -93,11 +100,9 @@ export default function LoginPage() {
         <Hidden smDown>
           <GridItem lg={8}>
             <Carousel interval={3000}>
-              {
-                images.map((image) => (
-                  <CarouselImage imageUrl={image} alt={image} />
-                ))
-              }
+              {images.map((image) => (
+                <CarouselImage imageUrl={image} alt={image} />
+              ))}
             </Carousel>
           </GridItem>
         </Hidden>
@@ -170,6 +175,7 @@ export default function LoginPage() {
                   <CircularProgress color="secondary" />
                 ) : (
                   <Button
+                    id="login-button"
                     onClick={(e) => handleSubmit(e)}
                     color="rose"
                     simple

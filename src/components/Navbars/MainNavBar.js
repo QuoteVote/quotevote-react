@@ -47,12 +47,7 @@ function MainNavBar(props) {
           <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
         </Grid>
 
-        <Grid
-          container
-          item
-          lg={5}
-          justify="flex-start"
-        >
+        <Grid container item lg={5} justify="flex-start">
           <Tabs
             value={selectedPage}
             onChange={handleMenu}
@@ -63,7 +58,11 @@ function MainNavBar(props) {
               <NavLink to="/hhsb/Home">
                 <Tab
                   icon={(
-                    <SvgIcon component={HomeSvg} fontSize={fontSize} viewBox="0 0 37 37" />
+                    <SvgIcon
+                      component={HomeSvg}
+                      fontSize={fontSize}
+                      viewBox="0 0 37 37"
+                    />
                   )}
                   aria-label="Home"
                   onClick={() => {
@@ -93,7 +92,11 @@ function MainNavBar(props) {
               </NavLink>
             </Grid>
             <Grid item lg={4}>
-              <NavLink to="/hhsb/SubmitPost">
+              <NavLink
+                data-testid="submit-post-button"
+                id="submit-post-button"
+                to="/hhsb/SubmitPost"
+              >
                 <Tab
                   icon={(
                     <SvgIcon
@@ -113,19 +116,10 @@ function MainNavBar(props) {
           </Tabs>
         </Grid>
 
-        <Grid
-          justify="flex-end"
-          container
-          item
-          alignItems="center"
-          lg={5}
-        >
+        <Grid justify="flex-end" container item alignItems="center" lg={5}>
           <Grid item lg={2}>
             <NavLink to="/hhsb/Profile">
-              <IconButton
-                aria-label="Profile"
-                color="inherit"
-              >
+              <IconButton aria-label="Profile" color="inherit">
                 <Avatar alt={username} src={avatar} />
               </IconButton>
             </NavLink>

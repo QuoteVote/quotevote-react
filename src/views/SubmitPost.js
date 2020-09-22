@@ -177,7 +177,7 @@ function SubmitPost() {
             </IconButton>
           </GridItem>
         </Grid>
-      </SweetAlert>
+      </SweetAlert>,
     )
   }
 
@@ -196,7 +196,7 @@ function SubmitPost() {
         Error:
         {' '}
         {err}
-      </SweetAlert>
+      </SweetAlert>,
     )
   }
   const hideAlert = () => {
@@ -231,7 +231,7 @@ function SubmitPost() {
     (data &&
       data.groups.filter((group) => {
         const isUserAllowed = group.allowedUserIds.find(
-          (id) => id === user._id
+          (id) => id === user._id,
         )
         return (
           group.privacy === 'public' ||
@@ -264,6 +264,8 @@ function SubmitPost() {
                   }}
                 >
                   <InputBase
+                    data-testid="title-input"
+                    id="title-input"
                     style={inputStyles}
                     onClick={clearPostTitle}
                     onFocus={clearPostTitle}
@@ -330,6 +332,7 @@ function SubmitPost() {
                             Group
                           </InputLabel>
                           <Select
+                            data-testid="group"
                             id="group"
                             value={groupId}
                             placeholder={groupName}
@@ -370,6 +373,7 @@ function SubmitPost() {
                     </IconButton>
                   </div>
                   <Button
+                    id="submit-button"
                     type="submit"
                     variant="contained"
                     size="large"

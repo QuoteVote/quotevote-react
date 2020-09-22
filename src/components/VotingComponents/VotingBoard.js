@@ -6,7 +6,12 @@ import { parser } from 'utils/parser'
 import SelectionPopover from './SelectionPopover'
 
 const VotingBoard = ({
-  topOffset, onSelect, highlights, content, children, ...props
+  topOffset,
+  onSelect,
+  highlights,
+  content,
+  children,
+  ...props
 }) => {
   const [open, setOpen] = useState(false)
   const [selection, setSelection] = useState({})
@@ -39,7 +44,12 @@ const VotingBoard = ({
     }
     // THIS IS UNSAFE WE MUST SANTIZE THIS
     // eslint-disable-next-line react/no-danger
-    return <div dangerouslySetInnerHTML={{ __html: content }} />
+    return (
+      <div
+        data-testid="post-content"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    )
   }
 
   return (

@@ -23,5 +23,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 yarn.lock
-.jest-test-results.json
+.storybook/.jest-test-results.json
 .vscode/
