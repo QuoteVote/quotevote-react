@@ -51,14 +51,15 @@ export default function Activity({ showHeader = true }) {
 
   const user = useSelector((state) => state.user.data)
   const { data: { searchKey } } = useQuery(GET_SEARCH_KEY)
+  const variables = {
+    limit,
+    offset,
+    searchKey,
+    activityEvent: selectedEvent,
+    user_id: user._id,
+  }
   const { loading, data, fetchMore } = useQuery(GET_USER_ACTIVITY, {
-    variables: {
-      limit,
-      offset,
-      searchKey,
-      activityEvent: selectedEvent,
-      user_id: user._id,
-    },
+    variables,
   })
 
   React.useEffect(() => {
@@ -85,6 +86,7 @@ export default function Activity({ showHeader = true }) {
           handleActivityEvent={handleActivityEvent}
           handleSlider={handleSlider}
           fetchMore={fetchMore}
+          variables={variables}
         />
       </GridItem>
       <GridItem xs={12}>

@@ -69,7 +69,11 @@ export function LoadActivityList({
   }
 
   const activities = data.activities.entities
-    .map((activity, index) => ({ ...activity.post, rank: index + 1 }))
+    .map((activity, index) => ({
+      ...activity.post,
+      activityType: activity.activityType === 'VOTED' ? `${activity.vote.type}${activity.activityType}` : activity.activityType,
+      rank: index + 1,
+    }))
     .filter((activity) => !hiddenPosts.includes(activity._id))
   const hasMore = data.activities.pagination.total_count > activities.length
   return (
@@ -96,17 +100,19 @@ export function LoadActivityList({
 }
 
 export default function ActivityList({
-  data, loading, limit, fetchMore,
+  data, loading, limit, fetchMore, variables,
 }) {
   const width = useWidth()
   if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
+  const newOffset = data.activities.entities.length
   return (
     <LoadActivityList
       width={width}
       data={data}
       onLoadMore={() => fetchMore({
         variables: {
-          offset: data.activities.entities.length,
+          ...variables,
+          offset: newOffset,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev
@@ -131,6 +137,7 @@ ActivityList.propTypes = {
   loading: PropTypes.bool.isRequired,
   limit: PropTypes.number.isRequired,
   fetchMore: PropTypes.func,
+  variables: PropTypes.object,
 }
 
 LoadActivityList.propTypes = {

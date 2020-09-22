@@ -149,6 +149,10 @@ query activities(
           username
           avatar
         }
+      }      
+      voteId
+      vote {
+        type
       }
     }
     pagination {

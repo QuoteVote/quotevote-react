@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'orange',
   },
   commentedBg: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#eabe6d',
   },
   upVotedBg: {
     backgroundColor: 'green',
@@ -179,7 +179,7 @@ const getPostContentLimit = () => {
 }
 
 const getCardBg = (activityType) => {
-  switch (activityType) {
+  switch (activityType.toUpperCase()) {
     case 'POSTED':
       return 'postedBg'
     case 'COMMENTED':
