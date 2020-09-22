@@ -178,7 +178,7 @@ const getPostContentLimit = () => {
   return limit
 }
 
-const getCardBg = (activityType) => {
+const getCardBg = (activityType = 'POSTED') => {
   switch (activityType.toUpperCase()) {
     case 'POSTED':
       return 'postedBg'
