@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 import React from 'react'
-import PostsList, { AlertSkeletonLoader, LoadPostsList } from '../PostsList'
+import PostsList, { LoadPostsList } from '../PostsList'
+import AlertSkeletonLoader from '../AlertSkeletonLoader'
 
 describe('PostsList component unit test', () => {
   let component

@@ -1,15 +1,16 @@
 import React from 'react'
-import Card from 'mui-pro/Card/Card'
-import Pagination from 'material-ui-flat-pagination'
-import { ACTIVITIES_QUERY } from '../HomepageGQL'
+import { MockedProvider } from '@apollo/react-testing'
+import { Provider } from 'react-redux'
 import Homepage from '../Homepage'
 import { GET_SEARCH_KEY } from '../../../components/searchBar'
+import { GET_USER_ACTIVITY } from '../../../graphql/query'
+import store from '../../../store/store'
 
 const searchKey = 'Test'
 const mocks = [
   {
     request: {
-      query: ACTIVITIES_QUERY,
+      query: GET_USER_ACTIVITY,
       variables: {
         limit: 5,
         offset: 0,
@@ -41,22 +42,14 @@ describe('Homepage component unit tests', () => {
     component = mount(
       // eslint-disable-next-line react/jsx-no-undef
       <MockedProvider mocks={mocks} cache={cache} resolvers={{}} addTypename={false}>
-        <Homepage />
-      </MockedProvider>,
+        <Provider store={store}>
+          <Homepage />
+        </Provider>
+      </MockedProvider>
     )
   })
 
   it('renders Homepage without crashing', () => {
     expect(component).toMatchSnapshot()
-  })
-
-  it('should exist Card tag', async () => {
-    const fnd = component.find(Card)
-    expect(fnd.exists()).toBeTruthy()
-  })
-
-  it('should exist Pagination tag', async () => {
-    const fnd = component.find(Pagination)
-    expect(fnd.exists()).toBeTruthy()
   })
 })
