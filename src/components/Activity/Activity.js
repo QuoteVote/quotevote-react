@@ -64,6 +64,7 @@ export default function Activity({ showSubHeader = true }) {
   }
   const { loading, data, fetchMore } = useQuery(GET_USER_ACTIVITY, {
     variables,
+    fetchPolicy: 'network-only',
   })
 
   const filterState = useSelector((state) => state.filter)
