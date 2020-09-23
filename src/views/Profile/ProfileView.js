@@ -49,7 +49,7 @@ function ProfileView({
         setOffset={setOffset}
         profileUser={profileUser}
       />
-      <Activity showHeader={false} />
+      <Activity showSubHeader={false} />
 
     </Card>
   )

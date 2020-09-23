@@ -104,7 +104,7 @@ export default function ActivityList({
 }) {
   const width = useWidth()
   if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
-  const newOffset = data.activities.entities.length
+  const newOffset = data && data.activities.entities.length
   return (
     <LoadActivityList
       width={width}

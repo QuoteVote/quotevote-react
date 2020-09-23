@@ -6,11 +6,13 @@ import localForage from 'localforage'
 import userReducer from 'store/user'
 import uiReducer from 'store/ui'
 import chatReducer from 'store/chat'
+import filterReducer from 'store/filter'
 
 const rootReducer = combineReducers({
   user: userReducer,
   ui: uiReducer,
   chat: chatReducer,
+  filter: filterReducer,
 })
 
 const persistConfig = {
@@ -25,9 +27,27 @@ const middleware = [
   ...getDefaultMiddleware({ serializableCheck: false }),
 ]
 
+const preloadedState = {
+  ui: {
+    filter: {
+      visibility: false,
+      value: '',
+    },
+    date: {
+      visibility: false,
+      value: '',
+    },
+    search: {
+      visibility: false,
+      value: '',
+    },
+  },
+}
+
 const store = configureStore({
   reducer: persistedReducer,
   middleware,
+  preloadedState,
   devTools: process.env.NODE_ENV === 'development',
 })
 

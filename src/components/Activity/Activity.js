@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { GET_SEARCH_KEY } from 'components/searchBar'
-import Pagination from 'material-ui-flat-pagination'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { makeStyles } from '@material-ui/core/styles'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SubHeader from '../SubHeader'
 import ActivityList from './ActivityList'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import { GET_USER_ACTIVITY } from '../../graphql/query'
+import FilterInputs from '../Filter/FilterInputs'
+import { FILTER_VALUE } from '../../store/filter'
 
 const useStyles = makeStyles(({
   root: {
@@ -20,16 +21,18 @@ const useStyles = makeStyles(({
   },
 }))
 
-export default function Activity({ showHeader = true }) {
+export default function Activity({ showSubHeader = true }) {
+  const dispatch = useDispatch()
   const classes = useStyles()
   const limit = 15
   const [offset, setOffset] = useState(1)
-  const conditions = ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED']
+  const conditions = ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED', 'LIKED']
   const [selectedEvent, setSelectedEvent] = useState(conditions)
   const [selectAll, setSelectAll] = useState('ALL')
   const handleSelectAll = (event, newSelectAll) => {
     if (newSelectAll.length) {
       setSelectedEvent(conditions)
+      dispatch(FILTER_VALUE(conditions))
     }
     setSelectAll(newSelectAll)
   }
@@ -37,13 +40,14 @@ export default function Activity({ showHeader = true }) {
     if (!newActivityEvent.length) {
       setSelectAll(['ALL'])
       setSelectedEvent(conditions)
+      dispatch(FILTER_VALUE(conditions))
     } else {
       const isAllToggled = newActivityEvent.length === 4
       setSelectAll(isAllToggled ? ['ALL'] : [])
       setSelectedEvent(newActivityEvent)
+      dispatch(FILTER_VALUE(newActivityEvent))
     }
   }
-  const [total, setTotal] = useState(1)
 
   const handleSlider = (event, newValue) => {
     setOffset(newValue)
@@ -62,19 +66,34 @@ export default function Activity({ showHeader = true }) {
     variables,
   })
 
-  React.useEffect(() => {
-    if (data) {
-      setTotal(data.activities.total)
-    }
-  }, [data])
-
+  const filterState = useSelector((state) => state.filter)
   return (
     <GridContainer className={classes.root}>
-      {showHeader && (
+      {showSubHeader && (
         <GridItem xs={12}>
-          <SubHeader headerName="Activity Feed" />
+          <SubHeader
+            headerName="Activity Feed"
+            setOffset={setOffset}
+            showSubHeader={showSubHeader}
+          />
         </GridItem>
       )}
+
+      {
+        filterState.filter.visibility || filterState.date.visibility || filterState.search.visibility ? (
+          <GridItem xs={12}>
+            <FilterInputs
+              classes={classes}
+              filterState={filterState}
+              setOffset={setOffset}
+              selectAll={selectAll}
+              handleSelectAll={handleSelectAll}
+              handleActivityEvent={handleActivityEvent}
+              selectedEvent={selectedEvent}
+            />
+          </GridItem>
+        ) : null
+      }
 
       <GridItem xs={12}>
         <ActivityList
@@ -89,22 +108,10 @@ export default function Activity({ showHeader = true }) {
           variables={variables}
         />
       </GridItem>
-      <GridItem xs={12}>
-        {!data && !loading && (
-          <Pagination
-            style={{ margin: 'auto' }}
-            limit={limit}
-            offset={offset}
-            total={total}
-            // eslint-disable-next-line
-            onClick={(e, offset) => setOffset(offset)}
-          />
-        )}
-      </GridItem>
     </GridContainer>
   )
 }
 
 Activity.propTypes = {
-  showHeader: PropTypes.bool.isRequired,
+  showSubHeader: PropTypes.bool.isRequired,
 }
