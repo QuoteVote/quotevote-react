@@ -1,9 +1,12 @@
 import React from 'react'
 import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import ActivityFindSvg from '../../assets/svg/ActivityFind.svg'
+import { SET_SELECTED_PAGE } from '../../store/ui'
 const customTheme = createMuiTheme({
   palette: {
     primary: {
@@ -53,6 +56,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 function ActivityEmptyList() {
   const classes = useStyles()
+
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const handleGoToTrending = () => {
+    dispatch(SET_SELECTED_PAGE(1))
+    history.push('/hhsb/TrendingContent')
+  }
   return (
     <GridContainer className={classes.root}>
       <GridItem xs={12}>
@@ -72,7 +82,12 @@ function ActivityEmptyList() {
           <Button variant="contained" color="secondary" className={classes.buttons}>
             FIND FRIENDS
           </Button>
-          <Button variant="contained" color="primary" className={classes.buttons}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.buttons}
+            onClick={handleGoToTrending}
+          >
             GO TO TRENDING
           </Button>
         </MuiThemeProvider>

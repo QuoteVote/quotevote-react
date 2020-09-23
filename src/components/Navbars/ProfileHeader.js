@@ -10,11 +10,9 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 //  MUI-pro
-import GridContainer from 'mui-pro/Grid/GridContainer'
 
 import FollowButton from 'components/FollowButton'
 import FilterIconButtons from '../Filter/FilterIconButtons'
-import FilterInputs from '../Filter/FilterInputs'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -96,11 +94,6 @@ export default function ProfileHeader(props) {
   const history = useHistory()
   const {
     loggedInUser,
-    handleSelectAll,
-    handleActivityEvent,
-    selectAll,
-    filterState,
-    setOffset,
     profileUser,
   } = props
   const { _id: loggedInUserId } = loggedInUser
@@ -178,26 +171,6 @@ export default function ProfileHeader(props) {
             </div>
           </Grid>
         </Grid>
-        {
-          filterState.filter.visibility || filterState.date.visibility || filterState.search.visibility ? (
-            <Grid item container>
-              <GridContainer
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <FilterInputs
-                  classes={classes}
-                  filterState={filterState}
-                  setOffset={setOffset}
-                  selectAll={selectAll}
-                  handleSelectAll={handleSelectAll}
-                  handleActivityEvent={handleActivityEvent}
-                />
-              </GridContainer>
-            </Grid>
-          ) : null
-        }
       </Grid>
     </div>
   )
@@ -206,13 +179,4 @@ export default function ProfileHeader(props) {
 ProfileHeader.propTypes = {
   loggedInUser: PropTypes.object.isRequired,
   profileUser: PropTypes.object.isRequired,
-  handleSelectAll: PropTypes.func.isRequired,
-  handleActivityEvent: PropTypes.func.isRequired,
-  selectAll: PropTypes.string.isRequired,
-  filterState: {
-    filter: PropTypes.object.isRequired,
-    date: PropTypes.object.isRequired,
-    search: PropTypes.object.isRequired,
-  },
-  setOffset: PropTypes.number.isRequired,
 }

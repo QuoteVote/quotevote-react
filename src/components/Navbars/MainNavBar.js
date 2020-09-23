@@ -34,6 +34,9 @@ function MainNavBar(props) {
   const handleMenu = (newSelectedMenu) => {
     dispatch(SET_SELECTED_PAGE(newSelectedMenu))
   }
+  const handleProfileClick = () => {
+    dispatch(SET_SELECTED_PAGE(null))
+  }
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Grid
@@ -119,7 +122,7 @@ function MainNavBar(props) {
         <Grid justify="flex-end" container item alignItems="center" lg={5}>
           <Grid item lg={2}>
             <NavLink to="/hhsb/Profile">
-              <IconButton aria-label="Profile" color="inherit">
+              <IconButton aria-label="Profile" color="inherit" onClick={handleProfileClick}>
                 <Avatar alt={username} src={avatar} />
               </IconButton>
             </NavLink>

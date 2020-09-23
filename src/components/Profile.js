@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_USER } from 'graphql/query'
 import ProfileView from 'views/Profile/ProfileView'
+import { SET_SELECTED_PAGE } from '../store/ui'
 
 function ProfileController() {
   //  Set state for events and use viewModel props for redux/apollo?
@@ -16,43 +17,8 @@ function ProfileController() {
   const [userInfo, setUserInfo] = useState({})
   const loggedInUser = useSelector((state) => state.user.data)
 
-  const [filterState, dispatch] = useReducer(filterReducer, {
-    filter: {
-      visibility: false,
-    },
-    date: {
-      visibility: false,
-    },
-    search: {
-      visibility: false,
-    },
-  })
-
-  function filterReducer(state, action) {
-    switch (action.type) {
-      case 'FILTER_VISIBILITY':
-        return {
-          ...state,
-          filter: { ...state.filter, visibility: action.payload },
-        }
-      case 'FILTER_VALUE':
-        return { ...state, filter: { ...state.filter, value: action.payload } }
-      case 'DATE_VISIBILITY':
-        return { ...state, date: { ...state.date, visibility: action.payload } }
-      case 'DATE_VALUE':
-        return { ...state, date: { ...state.date, value: action.payload } }
-      case 'SEARCH_VISIBILITY':
-        return {
-          ...state,
-          search: { ...state.search, visibility: action.payload },
-        }
-      case 'SEARCH_VALUE':
-        return { ...state, date: { ...state.search, value: action.payload } }
-      default:
-        throw new Error()
-    }
-  }
-
+  const dispatch = useDispatch()
+  const filterState = useSelector((state) => state.filter)
   const handleActivityEvent = (event, newActivityEvent) => {
     if (!newActivityEvent.length) {
       setSelectAll(['ALL'])
@@ -74,6 +40,9 @@ function ProfileController() {
   const { data: userData } = useQuery(GET_USER, {
     variables: { user_id: userId || loggedInUser._id },
   })
+  useEffect(() => {
+    dispatch(SET_SELECTED_PAGE(null))
+  }, [dispatch])
 
   useEffect(() => {
     if (userData) {
@@ -96,10 +65,6 @@ function ProfileController() {
       selectedEvent={selectedEvent}
     />
   )
-}
-
-ProfileController.propTypes = {
-  //   viewModel: PropTypes.object.isRequired,
 }
 
 export default ProfileController
