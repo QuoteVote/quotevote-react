@@ -22,7 +22,7 @@ const useStyles = makeStyles(({
 }))
 export default function TrendingPosts() {
   const classes = useStyles()
-  const hiddenPosts = useSelector((state) => state.ui.hiddenPosts)
+  const hiddenPosts = useSelector((state) => state.ui.hiddenPosts) || []
   const limit = 12 + hiddenPosts.length
   const [offset, setOffset] = useState(0)
   const [total, setTotal] = useState(1)

@@ -14,7 +14,7 @@ import AlertSkeletonLoader from './AlertSkeletonLoader'
 export function LoadPostsList({ data, width }) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.data)
-  const hiddenPosts = useSelector((state) => state.ui.hiddenPosts)
+  const hiddenPosts = useSelector((state) => state.ui.hiddenPosts) || []
   const snackbar = useSelector((state) => state.ui.snackbar)
   const limit = 12 + hiddenPosts.length
   const [updatePostBookmark, { error }] = useMutation(UPDATE_POST_BOOKMARK, {
