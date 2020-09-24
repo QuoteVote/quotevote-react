@@ -92,8 +92,42 @@ export const GET_ROOM_MESSAGES = gql`
 `
 
 export const GET_TOP_POSTS = gql`
-  query topPosts($limit: Int!, $offset: Int!, $searchKey: String!) {
-    posts(limit: $limit, offset: $offset, searchKey: $searchKey)
+  query topPosts(
+    $limit: Int!
+    $offset: Int!
+    $searchKey: String!
+    $startDateRange: String
+    $endDateRange: String
+  ) {
+    posts(
+      limit: $limit
+      offset: $offset
+      searchKey: $searchKey
+      startDateRange: $startDateRange
+      endDateRange: $endDateRange
+    ) {
+      entities {
+        _id
+        userId
+        title
+        text
+        upvotes
+        downvotes
+        url
+        bookmarkedBy
+        created
+        creator {
+          name
+          username
+          avatar
+        }
+      }
+      pagination {
+        total_count
+        limit
+        offset
+      }
+    }
   }
 `
 

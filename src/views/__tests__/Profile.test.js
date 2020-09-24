@@ -2,7 +2,7 @@ import React from 'react'
 import { MockedProvider } from '@apollo/react-testing'
 import { Provider } from 'react-redux'
 import Profile from '../Profile'
-import { GET_SEARCH_KEY } from '../../components/searchBar'
+import { GET_SEARCH_KEY } from '../../components/SearchBar'
 import store from '../../store/store'
 import { GET_USER_ACTIVITY } from '../../graphql/query'
 

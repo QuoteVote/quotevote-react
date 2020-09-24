@@ -70,10 +70,7 @@ ValueLabelComponent.propTypes = {
   value: PropTypes.number.isRequired,
 }
 
-export default function SubHeader(props) {
-  const {
-    headerName,
-  } = props
+export default function SubHeader({ headerName, showFilterIconButton = true }) {
   const classes = useStyles()
 
   return (
@@ -90,7 +87,7 @@ export default function SubHeader(props) {
             {headerName}
           </Typography>
         </GridItem>
-        <FilterIconButtons />
+        <FilterIconButtons showFilterIconButton={showFilterIconButton} />
       </GridContainer>
     </>
   )
@@ -98,4 +95,5 @@ export default function SubHeader(props) {
 
 SubHeader.propTypes = {
   headerName: PropTypes.string.isRequired,
+  showFilterIconButton: PropTypes.bool,
 }

@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
-// import PropTypes from 'prop-types'
-// import { makeStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
 import gql from 'graphql-tag'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
 import { DateRangePicker } from 'react-dates'
-
-//  Todo - styling
-// const useStyles = makeStyles((theme) => ({
-// }))
 
 export const GET_SEARCH_START_DATE = gql`
   {
@@ -17,21 +12,19 @@ export const GET_SEARCH_START_DATE = gql`
 `
 
 Datepicker.propTypes = {
-  // setOffset: PropTypes.func.isRequired,
+  setOffset: PropTypes.func.isRequired,
+  setDateRangeFilter: PropTypes.func.isRequired,
+  dateRangeFilter: PropTypes.object.isRequired,
 }
 
-export default function Datepicker() {
-  const [dateRange, setDateRange] = useState({
-    startDate: null,
-    endDate: null,
-  })
+export default function Datepicker({ setOffset, dateRangeFilter, setDateRangeFilter }) {
   const [focus, setFocus] = useState(null)
-
-  const { startDate, endDate } = dateRange
+  const { startDate, endDate } = dateRangeFilter
 
   // eslint-disable-next-line no-shadow
   const handleOnDateChange = ({ startDate, endDate }) => {
-    setDateRange({ startDate, endDate })
+    setDateRangeFilter({ startDate, endDate })
+    setOffset(0)
   }
 
   return (
@@ -42,13 +35,14 @@ export default function Datepicker() {
       endDatePlaceholderText="End"
       endDate={endDate}
       numberOfMonths={1}
-      displayFormat="MMM D"
+      displayFormat="MMM D, YYYY"
       showClearDates
       focusedInput={focus}
       onFocusChange={(focusArg) => setFocus(focusArg)}
       startDateId="startDateMookh"
       endDateId="endDateMookh"
       minimumNights={0}
+      isOutsideRange={() => false}
     />
   )
 }

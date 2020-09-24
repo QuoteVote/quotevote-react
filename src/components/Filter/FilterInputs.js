@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import teal from '@material-ui/core/colors/teal'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import DateSearchBar from '../DateSearchBar'
-import CustomizedInputBase from '../searchBar'
+import CustomizedInputBase from '../SearchBar'
 const useStyles = makeStyles((theme) => ({
   iconActive: {
     color: teal.A400,
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 export default function FilterInputs({
   filterState, selectAll, setOffset, handleSelectAll, handleActivityEvent,
+  showFilterIconButton, setDateRangeFilter, dateRangeFilter,
 }) {
   const classes = useStyles()
   return (
@@ -47,7 +48,7 @@ export default function FilterInputs({
       >
         <GridContainer alignItems="center" direction="row">
           {
-            filterState.filter.visibility ? (
+            showFilterIconButton && filterState.filter.visibility ? (
               <Grid item container xs={12} sm={12} lg={4} className={classes.toggleButtonGroup} justify="flex-start" wrap="nowrap" direction="row">
                 <ToggleButtonGroup value={selectAll} onChange={handleSelectAll} aria-label="All Event">
                   <ToggleButton
@@ -94,8 +95,12 @@ export default function FilterInputs({
           }
           {
             filterState.date.visibility ? (
-              <Grid item container xs={12} sm={12} lg={4} className={classes.date} justify="flex-start" wrap="nowrap" direction="row">
-                <DateSearchBar setOffset={setOffset} />
+              <Grid item container xs={12} sm={12} lg={showFilterIconButton ? 6 : 6} className={classes.date} justify="flex-start" wrap="nowrap" direction="row">
+                <DateSearchBar
+                  setOffset={setOffset}
+                  setDateRangeFilter={setDateRangeFilter}
+                  dateRangeFilter={dateRangeFilter}
+                />
               </Grid>
             ) : null
           }
@@ -118,4 +123,7 @@ FilterInputs.propTypes = {
   setOffset: PropTypes.func,
   handleSelectAll: PropTypes.func,
   handleActivityEvent: PropTypes.func,
+  setDateRangeFilter: PropTypes.func,
+  showFilterIconButton: PropTypes.bool,
+  dateRangeFilter: PropTypes.object,
 }
