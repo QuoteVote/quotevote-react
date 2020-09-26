@@ -193,7 +193,9 @@ function SubmitPost() {
         confirmBtnText="Ok"
       >
         {/* We don't know what, yet let us know and we can find out */}
-        Error: {err}
+        Error:
+        {' '}
+        {err}
       </SweetAlert>,
     )
   }
@@ -278,7 +280,8 @@ function SubmitPost() {
                     justifyContent: 'flex-end',
                     flexBasis: '100px',
                   }}
-                ></div>
+                >
+                </div>
               </div>
               <Divider />
             </CardHeader>
