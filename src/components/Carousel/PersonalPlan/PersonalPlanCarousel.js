@@ -6,9 +6,9 @@ import GridContainer from '../../../mui-pro/Grid/GridContainer'
 import personalPlanImg from '../../../assets/img/RequestAccess/PersonalPlan.png'
 import personalPlanImg2 from '../../../assets/img/PersonalCarousel2.png'
 import personalPlanImg3 from '../../../assets/img/PersonalCarousel3.png'
-import GetAccessButton from '../../GetAccessButton'
+import GetAccessButton from '../../CustomButtons/GetAccessButton'
 import Carousel from '../Carousel'
-import DoubleArrowIconButton from '../../DoubleArrowIconButton'
+import DoubleArrowIconButton from '../../CustomButtons/DoubleArrowIconButton'
 
 PersonalCarouselFirstContent.propTypes = {
   classes: PropTypes.object,

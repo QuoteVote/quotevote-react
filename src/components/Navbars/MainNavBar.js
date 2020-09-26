@@ -18,8 +18,8 @@ import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
 import { ReactComponent as ChatSvg } from '../../assets/svg/Chat.svg'
 import { ReactComponent as NotificationsSvg } from '../../assets/svg/Notifications.svg'
-import { ReactComponent as SettingsSvg } from '../../assets/svg/Settings.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
+import SettingsIconButton from '../CustomButtons/SettingsIconButton'
 
 function MainNavBar(props) {
   const {
@@ -162,18 +162,7 @@ function MainNavBar(props) {
             </IconButton>
           </Grid>
           <Grid item lg={2}>
-            <IconButton
-              aria-label="Settings"
-              color="inherit"
-              className={classes.rightMenuButton}
-            >
-              <SvgIcon
-                component={SettingsSvg}
-                fontSize={fontSize}
-                viewBox="0 0 49 46"
-                className={classes.rightMenuButton}
-              />
-            </IconButton>
+            <SettingsIconButton fontSize={fontSize} />
           </Grid>
         </Grid>
       </Grid>

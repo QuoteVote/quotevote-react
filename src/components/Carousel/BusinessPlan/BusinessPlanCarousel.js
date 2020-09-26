@@ -6,9 +6,9 @@ import GridContainer from '../../../mui-pro/Grid/GridContainer'
 import businessPlanImg from '../../../assets/img/RequestAccess/Illustration.png'
 import businessPlanImg2 from '../../../assets/img/Chatbox.png'
 import businessPlanImg3 from '../../../assets/img/CommentBox.png'
-import GetAccessButton from '../../GetAccessButton'
+import GetAccessButton from '../../CustomButtons/GetAccessButton'
 import Carousel from '../Carousel'
-import DoubleArrowIconButton from '../../DoubleArrowIconButton'
+import DoubleArrowIconButton from '../../CustomButtons/DoubleArrowIconButton'
 
 BusinessCarouselFirstContent.propTypes = {
   classes: PropTypes.object,

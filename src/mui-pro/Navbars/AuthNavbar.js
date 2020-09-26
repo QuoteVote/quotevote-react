@@ -48,7 +48,7 @@ export default function AuthNavbar(props) {
                     <NavLink
                         to="/auth/landing-page"
                         className={cx(classes.navLink, {
-                            [classes.navLinkActive]: activeRoute('/auth/login-page'),
+                            [classes.navLinkActive]: activeRoute('/auth/login'),
                         })}
                     >
                         <ListItemText
@@ -59,13 +59,13 @@ export default function AuthNavbar(props) {
                     </NavLink>
                 </ListItem>
             )}
-            {activeRoute('/auth/login-page') && (
+            {activeRoute('/auth/login') && (
                 <React.Fragment>
                     <ListItem className={classes.listItem}>
                         <NavLink
                             to="/auth/request-access"
                             className={cx(classes.navLinkAccess, {
-                                [classes.navLinkActiveAccess]: activeRoute('/auth/login-page'),
+                                [classes.navLinkActiveAccess]: activeRoute('/auth/login'),
                             })}
                         >
                             <ListItemText
@@ -77,9 +77,9 @@ export default function AuthNavbar(props) {
                     </ListItem>
                     <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
                         <NavLink
-                            to="/auth/login-page"
+                            to="/auth/login"
                             className={cx(classes.navLink, {
-                                [classes.navLinkActive]: activeRoute('/auth/login-page'),
+                                [classes.navLinkActive]: activeRoute('/auth/login'),
                             })}
                         >
                             <ListItemText
@@ -96,9 +96,9 @@ export default function AuthNavbar(props) {
                 <React.Fragment>
                     <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
                         <NavLink
-                            to="/auth/login-page"
+                            to="/auth/login"
                             className={cx(classes.navLink, {
-                                [classes.navLinkActive]: activeRoute('/auth/login-page'),
+                                [classes.navLinkActive]: activeRoute('/auth/login'),
                             })}
                         >
                             <ListItemText
@@ -130,7 +130,7 @@ export default function AuthNavbar(props) {
 
                     <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
                         <NavLink
-                            to="/auth/login-page"
+                            to="/auth/login"
                             className={cx(classes.navLink, {
                                 [classes.navLinkActive]: activeRoute('/auth/investor-thanks'),
                             })}

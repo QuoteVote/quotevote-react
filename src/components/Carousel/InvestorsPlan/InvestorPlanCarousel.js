@@ -11,10 +11,10 @@ import GridContainer from '../../../mui-pro/Grid/GridContainer'
 import investorPlanImg from '../../../assets/img/UserSharing.png'
 import investorPlanImg2 from '../../../assets/img/CommentBox2.png'
 import investorPlanImg3 from '../../../assets/img/GroupChat.png'
-import InvestButton from '../../InvestButton'
+import InvestButton from '../../CustomButtons/InvestButton'
 import Carousel from '../Carousel'
 import { SEND_INVESTOR_EMAIL } from '../../../graphql/mutations'
-import DoubleArrowIconButton from '../../DoubleArrowIconButton'
+import DoubleArrowIconButton from '../../CustomButtons/DoubleArrowIconButton'
 
 InvestorCarouselFirstContent.propTypes = {
   classes: PropTypes.object,

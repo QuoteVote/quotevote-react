@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button'
 
 //  MUI-pro
 
-import FollowButton from 'components/FollowButton'
+import FollowButton from 'components/CustomButtons/FollowButton'
 import FilterIconButtons from '../Filter/FilterIconButtons'
 
 const useStyles = makeStyles((theme) => ({

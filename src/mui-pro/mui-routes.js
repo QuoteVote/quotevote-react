@@ -102,7 +102,7 @@ const dashRoutes = [
         layout: '/admin',
       },
       {
-        path: '/login-page',
+        path: '/login',
         name: 'Login Page',
         rtlName: 'هعذاتسجيل الدخول',
         mini: 'L',

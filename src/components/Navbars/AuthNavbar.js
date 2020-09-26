@@ -57,9 +57,9 @@ export default function AuthNavbar(props) {
       </ListItem>
       <ListItem className={classes.listItem}>
         <NavLink
-          to="/auth/login-page"
+          to="/auth/login"
           className={cx(classes.navLink, {
-            [classes.navLinkActive]: activeRoute('/auth/login-page'),
+            [classes.navLinkActive]: activeRoute('/auth/login'),
           })}
         >
           <Fingerprint className={classes.listItemIcon} />

@@ -69,6 +69,9 @@ const getToken = async (username, password) => {
 // Public functions that dispatch multiple actions
 export const userLogin = async (username, password, dispatch, history) => {
   dispatch(actions.USER_LOGIN_REQUEST())
+  dispatch(
+    actions.USER_LOGIN_FAILURE({ loginError: null, loading: true })
+  )
   const result = await getToken(username, password)
 
   if ('error' in result) {
@@ -99,10 +102,8 @@ export const userLogin = async (username, password, dispatch, history) => {
 
 export function tokenValidator(dispatch) {
   dispatch(actions.USER_TOKEN_VALIDATION())
-
   const storedToken = localStorage.getItem('token')
-
-  const result = jwt.verify(storedToken, 'HHSB', (err) => {
+  return jwt.verify(storedToken, 'HHSB', (err) => {
     if (err) {
       localStorage.removeItem('token')
       dispatch(actions.USER_LOGOUT())
@@ -113,8 +114,6 @@ export function tokenValidator(dispatch) {
     dispatch(actions.USER_TOKEN_VALIDATED())
     return true
   })
-
-  return result
 }
 
 export function clearToken(dispatch) {
