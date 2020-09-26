@@ -60,7 +60,7 @@ const inputStyles = {
 
 function SubmitPost() {
   const classes = useStyles()
-  const [alert, setAlert] = React.useState(null)
+  const [alert, setAlert] = useState(null)
   const [postTitle, setPostTitle] = useState('[Enter Title]')
   const [postText, setPostText] = useState('')
   const [groupName, setGroupName] = useState('')
@@ -193,9 +193,7 @@ function SubmitPost() {
         confirmBtnText="Ok"
       >
         {/* We don't know what, yet let us know and we can find out */}
-        Error:
-        {' '}
-        {err}
+        Error: {err}
       </SweetAlert>,
     )
   }
@@ -230,9 +228,7 @@ function SubmitPost() {
   const userAllowedGroups =
     (data &&
       data.groups.filter((group) => {
-        const isUserAllowed = group.allowedUserIds.find(
-          (id) => id === user._id,
-        )
+        const isUserAllowed = group.allowedUserIds.find((id) => id === user._id)
         return (
           group.privacy === 'public' ||
           (group.privacy === 'private' && isUserAllowed)
@@ -282,8 +278,7 @@ function SubmitPost() {
                     justifyContent: 'flex-end',
                     flexBasis: '100px',
                   }}
-                >
-                </div>
+                ></div>
               </div>
               <Divider />
             </CardHeader>
