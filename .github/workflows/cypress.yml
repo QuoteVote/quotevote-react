@@ -1,0 +1,13 @@
+name: Chrome headless
+on: [pull_request]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          headless: true
