@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-no-undef */
 import React from 'react'
-import Card from 'mui-pro/Card/Card'
+// import Card from 'mui-pro/Card/Card'
 import TrendingPosts from '../TrendingPosts'
 
 describe('TrendingPosts component unit test', () => {
