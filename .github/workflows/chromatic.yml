@@ -9,6 +9,8 @@ jobs:
       - run: |
           yarn && yarn run test:generate-output && yarn run build-storybook
       - uses: chromaui/action@v1
+        env:
+          SKIP_PREFLIGHT_CHECK: true
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
