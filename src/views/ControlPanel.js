@@ -11,7 +11,11 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Button from '@material-ui/core/Button'
+import Skeleton from '@material-ui/lab/Skeleton'
 import makeStyles from '@material-ui/core/styles/makeStyles'
+
+import { useQuery } from '@apollo/react-hooks'
+import { USER_INVITE_REQUESTS } from 'graphql/query'
 
 const useStyles = makeStyles((theme) => ({
   panelContainer: {
@@ -55,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '3px',
     textTransform: 'none',
     color: 'white',
+    margin: 5,
   },
   pendingStatus: {
     borderRadius: '10px',
@@ -75,71 +80,100 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ControlPanel = () => {
+const ActionButtons = ({ status }) => {
+  console.log('ActionButtonsstatus: ', status);
   const classes = useStyles()
-  function createData(email, status) {
-    return {
-      email, status,
-    }
-  }
-  const rows = [
-    createData('testamail1@mail.test', 'Pending'),
-    createData('testamail2@mail.test', 'Accepted'),
-    createData('testamail3@mail.test', 'Declined'),
-    createData('testamail4@mail.test', 'Pending'),
-    createData('testamail5@mail.test', 'Pending'),
-  ];
-  const header = ['ID', 'Email', 'Status', 'Action']
 
-  const renderActionButtons = (row) => {
-    if (row.status === 'Pending') {
-      return (
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              style={{
-                backgroundColor: '#f44336',
-              }}
-            >
-              Decline
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              style={{
-                backgroundColor: '#00cf6e',
-              }}
-            >
-              Accept
-            </Button>
-          </Grid>
-        </Grid>
-      )
-    }
-
+  // pending
+  if (status === '1') {
     return (
-      <Grid container spacing={2} alignItems="center" justify="center">
-        <Grid item xs={6}>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            style={{
-              backgroundColor: '#f44336',
-            }}
-          >
-            Decline
-          </Button>
-        </Grid>
-      </Grid>
+      <>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          style={{
+            backgroundColor: '#f44336',
+          }}
+        >
+          Decline
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          style={{
+            backgroundColor: '#00cf6e',
+          }}
+        >
+          Accept
+        </Button>
+      </>
+      // <Grid container spacing={2} alignItems="center">
+      //   <Grid item xs={6}>
+      //     <Button
+      //       variant="contained"
+      //       color="secondary"
+      //       className={classes.button}
+      //       style={{
+      //         backgroundColor: '#f44336',
+      //       }}
+      //     >
+      //       Decline
+      //     </Button>
+      //   </Grid>
+      //   <Grid item xs={6}>
+      //     <Button
+      //       variant="contained"
+      //       color="primary"
+      //       className={classes.button}
+      //       style={{
+      //         backgroundColor: '#00cf6e',
+      //       }}
+      //     >
+      //       Accept
+      //     </Button>
+      //   </Grid>
+      // </Grid>
     )
   }
+  return (
+    <Button
+      variant="contained"
+      color="secondary"
+      className={classes.button}
+      style={{
+        backgroundColor: '#f44336',
+      }}
+    >
+      Decline
+    </Button>
+  )
+}
+
+const ControlPanelContainer = ({ data }) => {
+  console.log('data: ', data);
+  const classes = useStyles()
+  const header = ['ID', 'Email', 'Status', 'Action']
+  // status
+  // 1 = new / pending
+  // 2 = decline
+  // 3 = resend
+  // 4 = active
+
+  const getStatusValue = (status) => {
+    switch (Number(status)) {
+      case 1:
+        return 'Pending'
+      case 2:
+        return 'Declined'
+      case 4:
+        return 'Accepted'
+      default:
+        return ''
+    }
+  }
+
   return (
     <Grid container spacing={2} className={classes.panelContainer}>
       <Grid item xs={12}>
@@ -156,30 +190,35 @@ const ControlPanel = () => {
                     <TableHead classes={{ head: classes.columnHeader }}>
                       <TableRow>
                         {header.map((name) => (
-                          <TableCell align="center" className={classes.columnHeader}>{name}</TableCell>
+                          <TableCell
+                            align="center"
+                            className={classes.columnHeader}
+                          >
+                            {name}
+                          </TableCell>
                         ))}
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rows.map((row, index) => (
+                      {data.userInviteRequests.map((row) => (
                         <TableRow key={row.name}>
                           <TableCell align="center">
-                            {index + 1}
+                            {row._id}
                           </TableCell>
                           <TableCell align="center">{row.email}</TableCell>
                           <TableCell align="center">
                             <Typography
                               className={cx({
-                                [classes.pendingStatus]: row.status === 'Pending',
-                                [classes.declinedStatus]: row.status === 'Declined',
-                                [classes.acceptedStatus]: row.status === 'Accepted',
+                                [classes.pendingStatus]: row.status === '1',
+                                [classes.declinedStatus]: row.status === '2',
+                                [classes.acceptedStatus]: row.status === '4',
                               })}
                             >
-                              {row.status}
+                              {getStatusValue(row.status)}
                             </Typography>
                           </TableCell>
                           <TableCell align="center">
-                            {renderActionButtons(row)}
+                            <ActionButtons status={row.status} />
                           </TableCell>
                         </TableRow>
                       ))}
@@ -198,6 +237,31 @@ const ControlPanel = () => {
               </CardContent>
             </Card>
           </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
+const ControlPanel = () => {
+  const { data } = useQuery(USER_INVITE_REQUESTS)
+  const classes = useStyles()
+  if (data) {
+    return (
+      <ControlPanelContainer data={data} />
+    )
+  }
+  return (
+    <Grid container spacing={2} className={classes.panelContainer}>
+      <Grid item xs={12}>
+        <Skeleton animation="wave" style={{ width: '25%' }} />
+      </Grid>
+      <Grid container item xs={12}>
+        <Grid container item xs={6} className={classes.sectionBorder}>
+          <Skeleton animation="wave" height={300} style={{ width: '80%' }} />
+        </Grid>
+        <Grid container item xs={6} justify="flex-end">
+          <Skeleton animation="wave" height={300} style={{ width: '80%' }} />
         </Grid>
       </Grid>
     </Grid>
