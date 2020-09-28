@@ -81,7 +81,7 @@ export function LoadActivityList({
       pageStart={0}
       loadMore={onLoadMore}
       hasMore={hasMore}
-      loader={<div className="loader" key={0}><LoadingSpinner size={50} /></div>}
+      loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
     >
       <GridList cols={getGridListCols[width]}>
         {activities.map((activity, key) => (
@@ -103,7 +103,7 @@ export default function ActivityList({
   data, loading, limit, fetchMore, variables,
 }) {
   const width = useWidth()
-  if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
+  if (!data && loading) return <AlertSkeletonLoader limit={limit} width={width} />
   const newOffset = data && data.activities.entities.length
   return (
     <LoadActivityList

@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
     color: 'black',
   },
 }))
-export default function FilterIconButtons({ showGroupIcon = false }) {
+export default function FilterIconButtons({ showGroupIcon = false, showFilterIconButton }) {
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -49,18 +49,21 @@ export default function FilterIconButtons({ showGroupIcon = false }) {
         </IconButton>
       )}
 
-      <IconButton
-        onClick={handleFilter}
-        aria-label="Filter list icons"
-        color="inherit"
-        className={filterState.filter.visibility ? classes.iconActive : classes.iconNonActive}
-      >
-        <FilterIcon
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-        />
-      </IconButton>
+      {showFilterIconButton && (
+        <IconButton
+          onClick={handleFilter}
+          aria-label="Filter list icons"
+          color="inherit"
+          className={filterState.filter.visibility ? classes.iconActive : classes.iconNonActive}
+        >
+          <FilterIcon
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          />
+        </IconButton>
+      )}
+
       <IconButton
         onClick={handleCalendar}
         aria-label="date range icons"
@@ -90,4 +93,5 @@ export default function FilterIconButtons({ showGroupIcon = false }) {
 
 FilterIconButtons.propTypes = {
   showGroupIcon: PropTypes.bool,
+  showFilterIconButton: PropTypes.bool,
 }
