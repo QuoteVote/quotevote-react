@@ -203,3 +203,8 @@ export const GET_CHECK_DUPLICATE_EMAIL = gql`
     checkDuplicateEmail(email: $email)
   }
 `
+export const VERIFY_PASSWORD_RESET_TOKEN = gql`
+  query verifyUserPasswordResetToken($token: String!) {
+    verifyUserPasswordResetToken(token: $token)
+  }
+`

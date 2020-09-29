@@ -75,6 +75,7 @@ export default function Pages(props) {
     } if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
       return error
     }
+    return buildingsBG
   }
   const getActiveRoute = (routesParameter) => {
     const activeRoute = 'Default Brand Text'

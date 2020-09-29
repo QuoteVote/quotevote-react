@@ -27,16 +27,13 @@ const useStyles = makeStyles(styles)
 
 export default function AuthNavbar(props) {
     const [open, setOpen] = React.useState(false)
-    const [openLogin, setOpenLogin] = React.useState(false)
     const handleDrawerToggle = () => {
         setOpen(!open)
     }
     // verifies if routeName is the one active (in browser input)
     const activeRoute = (routeName) => window.location.href.indexOf(routeName) > -1
-    console.log('activeRoute: ', activeRoute('/auth/request-access'));
     const classes = useStyles()
-    const {color, brandText} = props
-    console.log('AuthNavbarprops: ', props, openLogin, brandText);
+    const {color} = props
     const appBarClasses = cx({
         [` ${classes[color]}`]: color,
     })
@@ -75,26 +72,12 @@ export default function AuthNavbar(props) {
                             />
                         </NavLink>
                     </ListItem>
-                    <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
-                        <NavLink
-                            to="/auth/login"
-                            className={cx(classes.navLink, {
-                                [classes.navLinkActive]: activeRoute('/auth/login'),
-                            })}
-                        >
-                            <ListItemText
-                                primary="Login"
-                                disableTypography
-                                className={classes.listItemText}
-                            />
-                        </NavLink>
-                    </ListItem>
                 </React.Fragment>
             )}
 
             {activeRoute('/auth/landing-page') && (
                 <React.Fragment>
-                    <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
+                    <ListItem className={classes.listItem}>
                         <NavLink
                             to="/auth/login"
                             className={cx(classes.navLink, {
@@ -128,7 +111,7 @@ export default function AuthNavbar(props) {
                         </NavLink>
                     </ListItem>
 
-                    <ListItem className={classes.listItem} onClick={() => setOpenLogin(true)}>
+                    <ListItem className={classes.listItem} >
                         <NavLink
                             to="/auth/login"
                             className={cx(classes.navLink, {
@@ -200,5 +183,4 @@ export default function AuthNavbar(props) {
 
 AuthNavbar.propTypes = {
     color: PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger']),
-    brandText: PropTypes.string,
 }
