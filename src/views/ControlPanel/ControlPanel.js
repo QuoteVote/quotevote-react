@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import cx from 'classnames'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -16,151 +17,85 @@ import makeStyles from '@material-ui/core/styles/makeStyles'
 
 import { useQuery } from '@apollo/react-hooks'
 import { USER_INVITE_REQUESTS } from 'graphql/query'
+import { UPDATE_USER_INVITE_STATUS } from 'graphql/mutations'
+import { Mutation } from '@apollo/react-components'
 
-const useStyles = makeStyles((theme) => ({
-  panelContainer: {
-    [theme.breakpoints.up('lg')]: {
-      padding: 100,
-      paddingTop: 30,
-    },
-    [theme.breakpoints.down('md')]: {
-      padding: 10,
-    },
-    [theme.breakpoints.down('xs')]: {
-      padding: 0,
-    },
-    backgroundColor: '#fafafa',
-  },
-  panelHeader: {
-    font: 'Montserrat',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  cardHeader: {
-    font: 'Montserrat',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    letterSpacing: '0.2px',
-    color: '#00cf6e',
-  },
-  sectionBorder: {
-    height: '100%',
-    borderRight: 'solid 2px #d2d2d2',
-  },
-  columnHeader: {
-    font: 'Roboto',
-    fontSize: '17px',
-    color: '#00cf6e',
-  },
-  button: {
-    width: '83.1px',
-    height: '20.8px',
-    borderRadius: '3px',
-    textTransform: 'none',
-    color: 'white',
-    margin: 5,
-  },
-  pendingStatus: {
-    borderRadius: '10px',
-    padding: 2,
-    backgroundColor: '#d8d8d8',
-  },
-  acceptedStatus: {
-    borderRadius: '10px',
-    padding: 2,
-    backgroundColor: '#4caf50',
-    color: 'white',
-  },
-  declinedStatus: {
-    borderRadius: '10px',
-    padding: 2,
-    backgroundColor: '#da3849',
-    color: 'white',
-  },
-}))
+import controlPanelStylwa from './controlPanelStyles'
 
-const ActionButtons = ({ status }) => {
-  console.log('ActionButtonsstatus: ', status);
+const useStyles = makeStyles(controlPanelStylwa)
+
+const ActionButtons = ({ status, id }) => {
   const classes = useStyles()
-
-  // pending
-  if (status === '1') {
-    return (
-      <>
+  switch (Number(status)) {
+    case 1: // pending
+      return (
+        <div style={{ width: 200 }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            style={{
+              backgroundColor: '#f44336',
+            }}
+          >
+            Decline
+          </Button>
+          <Mutation mutation={UPDATE_USER_INVITE_STATUS}>
+            {(updateInviteStatus) => (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                style={{
+                  backgroundColor: '#00cf6e',
+                }}
+                onClick={() => updateInviteStatus({ variables: { action: 'ACCEPT', user_invite_id: id } })}
+              >
+                Accept
+              </Button>
+            )}
+          </Mutation>
+        </div>
+      )
+    case 2: // declined
+      return (
         <Button
           variant="contained"
-          color="secondary"
           className={classes.button}
           style={{
             backgroundColor: '#f44336',
           }}
         >
-          Decline
+          Reset
         </Button>
+      )
+    case 4: // active
+      return (
         <Button
           variant="contained"
-          color="primary"
           className={classes.button}
           style={{
             backgroundColor: '#00cf6e',
           }}
         >
-          Accept
+          Resend
         </Button>
-      </>
-      // <Grid container spacing={2} alignItems="center">
-      //   <Grid item xs={6}>
-      //     <Button
-      //       variant="contained"
-      //       color="secondary"
-      //       className={classes.button}
-      //       style={{
-      //         backgroundColor: '#f44336',
-      //       }}
-      //     >
-      //       Decline
-      //     </Button>
-      //   </Grid>
-      //   <Grid item xs={6}>
-      //     <Button
-      //       variant="contained"
-      //       color="primary"
-      //       className={classes.button}
-      //       style={{
-      //         backgroundColor: '#00cf6e',
-      //       }}
-      //     >
-      //       Accept
-      //     </Button>
-      //   </Grid>
-      // </Grid>
-    )
+      )
+    default:
+      return (
+        <div></div>
+      )
   }
-  return (
-    <Button
-      variant="contained"
-      color="secondary"
-      className={classes.button}
-      style={{
-        backgroundColor: '#f44336',
-      }}
-    >
-      Decline
-    </Button>
-  )
 }
 
 const ControlPanelContainer = ({ data }) => {
-  console.log('data: ', data);
   const classes = useStyles()
   const header = ['ID', 'Email', 'Status', 'Action']
-  // status
+  // statuses
   // 1 = new / pending
   // 2 = decline
   // 3 = resend
   // 4 = active
-
   const getStatusValue = (status) => {
     switch (Number(status)) {
       case 1:
@@ -173,7 +108,6 @@ const ControlPanelContainer = ({ data }) => {
         return ''
     }
   }
-
   return (
     <Grid container spacing={2} className={classes.panelContainer}>
       <Grid item xs={12}>
@@ -201,24 +135,28 @@ const ControlPanelContainer = ({ data }) => {
                     </TableHead>
                     <TableBody>
                       {data.userInviteRequests.map((row) => (
-                        <TableRow key={row.name}>
+                        <TableRow key={row._id}>
                           <TableCell align="center">
                             {row._id}
                           </TableCell>
                           <TableCell align="center">{row.email}</TableCell>
                           <TableCell align="center">
-                            <Typography
+                            <Button
+                              variant="contained"
+                              color="primary"
                               className={cx({
                                 [classes.pendingStatus]: row.status === '1',
                                 [classes.declinedStatus]: row.status === '2',
                                 [classes.acceptedStatus]: row.status === '4',
                               })}
+                              disableRipple
+                              disableElevation
                             >
                               {getStatusValue(row.status)}
-                            </Typography>
+                            </Button>
                           </TableCell>
                           <TableCell align="center">
-                            <ActionButtons status={row.status} />
+                            <ActionButtons status={row.status} id={row._id} />
                           </TableCell>
                         </TableRow>
                       ))}
@@ -266,6 +204,15 @@ const ControlPanel = () => {
       </Grid>
     </Grid>
   )
+}
+
+ControlPanelContainer.propTypes = {
+  data: PropTypes.object.isRequired,
+}
+
+ActionButtons.propTypes = {
+  status: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 }
 
 export default ControlPanel
