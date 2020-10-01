@@ -28,6 +28,18 @@ const QUERY = gql`
   }
 `
 
+const labels = [
+  'Downvoted',
+  'No Votes',
+  '2-10 Votes',
+  '11-50 Votes',
+  '50+ Votes',
+]
+
+function getPrediction(string) {
+  return labels.findIndex((val) => val === string)
+}
+
 // eslint-disable-next-line react/prop-types
 const Wrapper = ({ disabled = false, width }) => {
   const [text, setText] = useState('')
@@ -46,6 +58,8 @@ const Wrapper = ({ disabled = false, width }) => {
     return <div>{`${error}`}</div>
   }
 
+  console.log('data', data)
+
   return (
     <ThemeProvider theme={theme}>
       <div style={{ maxWidth: width }}>
@@ -59,7 +73,9 @@ const Wrapper = ({ disabled = false, width }) => {
             }
           }}
           prediction={
-            data && text.length > 0 ? data.popPrediction.score.confidence : 0
+            data && text.length > 0 ?
+              getPrediction(data.popPrediction.score.label) :
+              0
           }
           disabled={boolean('Is Disabled', disabled)}
         />

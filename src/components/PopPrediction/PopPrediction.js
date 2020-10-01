@@ -43,12 +43,10 @@ const useStyles = makeStyles(() => ({
 
 const PopPercent = ({ prediction }) => {
   let percent = ''
-  if (prediction < 1 && prediction > 0) {
-    percent = `${Math.floor(prediction * 100)}%`
+  if (prediction > 0 && prediction <= 5) {
+    percent = ` ${prediction * 20}%`
   } else if (prediction === 0) {
     percent = ' --%'
-  } else {
-    percent = ` ${prediction}%`
   }
   return `${percent}`
 }
@@ -152,7 +150,7 @@ const PopPrediction = ({
 }
 
 PopPrediction.propTypes = {
-  prediction: PropTypes.number,
+  prediction: PropTypes.oneOf([0, 1, 2, 3, 4, 5]),
   handlePredict: PropTypes.func,
   disabled: PropTypes.bool,
 }
