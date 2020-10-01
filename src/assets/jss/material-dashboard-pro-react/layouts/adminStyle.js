@@ -8,7 +8,9 @@ import {
 const appStyle = (theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'white',
+    height: '100%',
+    width: '100%',
+    minHeight: '100%',
   },
   toolbar: {
     marginRight: theme.spacing(1),
@@ -97,7 +99,12 @@ const appStyle = (theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(1),
       marginLeft: drawerMiniWidth,
+      paddingLeft: '10px',
+      marginRight: '10px',
     },
+    overflow: 'hidden',
+    marginLeft: '10%',
+    marginRight: '10%',
   },
   contentChat: {
     flexGrow: 1,
@@ -111,6 +118,7 @@ const appStyle = (theme) => ({
       marginTop: theme.spacing(1),
       marginLeft: drawerMiniWidth,
     },
+    overflow: 'hidden',
   },
   container: { ...containerFluid },
   map: {

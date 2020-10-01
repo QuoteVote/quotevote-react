@@ -38,7 +38,7 @@ exports[`PersonalForm test - renders correctly 1`] = `
       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
     >
       <div
-        class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-6"
+        class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-12 MuiGrid-grid-md-6"
       >
         <img
           alt="PersonalPlan.png"
@@ -48,7 +48,7 @@ exports[`PersonalForm test - renders correctly 1`] = `
         />
       </div>
       <div
-        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item MuiGrid-grid-xs-6"
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item MuiGrid-grid-xs-11 MuiGrid-grid-md-6"
       >
         <div
           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
@@ -228,7 +228,7 @@ exports[`PersonalForm test - renders correctly 1`] = `
                   class="MuiCardHeader-avatar"
                 >
                   <p
-                    class="MuiTypography-root makeStyles-stepNumber-21 MuiTypography-body1"
+                    class="MuiTypography-root makeStyles-stepNumber-22 MuiTypography-body1"
                   >
                     2
                   </p>
@@ -237,7 +237,7 @@ exports[`PersonalForm test - renders correctly 1`] = `
                   class="MuiCardHeader-content"
                 >
                   <p
-                    class="MuiTypography-root makeStyles-stepName-22 MuiTypography-body1"
+                    class="MuiTypography-root makeStyles-stepName-23 MuiTypography-body1"
                   >
                     Would you like to support this app?
                   </p>

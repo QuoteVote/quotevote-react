@@ -26,11 +26,10 @@ exports[`Plans test - renders correctly 1`] = `
     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
   >
     <div
-      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-6 MuiGrid-justify-xs-center"
+      class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
-        style="margin-right: 15%; position: relative;"
+        class="MuiGrid-root makeStyles-gridContent-18 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
       >
         <img
           alt="PersonalPlan.png"
@@ -122,18 +121,18 @@ exports[`Plans test - renders correctly 1`] = `
                 >
                   <span
                     aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-20 MuiRadio-root Component-root-18"
+                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root Component-root-19"
                   >
                     <span
                       class="MuiIconButton-label"
                     >
                       <input
-                        class="PrivateSwitchBase-input-23"
+                        class="PrivateSwitchBase-input-24"
                         type="radio"
                         value="personal"
                       />
                       <div
-                        class="PrivateRadioButtonIcon-root-24"
+                        class="PrivateRadioButtonIcon-root-25"
                       >
                         <svg
                           aria-hidden="true"
@@ -148,7 +147,7 @@ exports[`Plans test - renders correctly 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-25"
+                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
                           focusable="false"
                           role="presentation"
                           viewBox="0 0 24 24"
@@ -185,8 +184,7 @@ exports[`Plans test - renders correctly 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
-        style="position: relative;"
+        class="MuiGrid-root makeStyles-gridContent-18 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
       >
         <img
           alt="Illustration.png"
@@ -286,18 +284,18 @@ exports[`Plans test - renders correctly 1`] = `
                 >
                   <span
                     aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-20 MuiRadio-root Component-root-27"
+                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root Component-root-28"
                   >
                     <span
                       class="MuiIconButton-label"
                     >
                       <input
-                        class="PrivateSwitchBase-input-23"
+                        class="PrivateSwitchBase-input-24"
                         type="radio"
                         value="business"
                       />
                       <div
-                        class="PrivateRadioButtonIcon-root-24"
+                        class="PrivateRadioButtonIcon-root-25"
                       >
                         <svg
                           aria-hidden="true"
@@ -312,7 +310,7 @@ exports[`Plans test - renders correctly 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-25"
+                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
                           focusable="false"
                           role="presentation"
                           viewBox="0 0 24 24"

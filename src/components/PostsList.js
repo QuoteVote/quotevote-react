@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_HIDDEN_POSTS, SET_SNACKBAR } from 'store/ui'
 import { useMutation } from '@apollo/react-hooks'
@@ -9,25 +8,15 @@ import { UPDATE_POST_BOOKMARK } from 'graphql/mutations'
 import { getGridListCols, useWidth } from 'utils/display'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
+import InfiniteScroll from 'react-infinite-scroller'
 import PostCard from './PostCard'
+import AlertSkeletonLoader from './AlertSkeletonLoader'
+import LoadingSpinner from './LoadingSpinner'
 
-export function AlertSkeletonLoader({ width }) {
-  const rows = Array.from(Array(12).keys())
-  return (
-    <GridList cols={getGridListCols[width]}>
-      {rows.map((item) => (
-        <GridListTile key={item} cols={1}>
-          <Skeleton animation="wave" height={128} />
-        </GridListTile>
-      ))}
-    </GridList>
-  )
-}
-
-export function LoadPostsList({ data, width }) {
+export function LoadPostsList({ data, width, onLoadMore }) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.data)
-  const hiddenPosts = useSelector((state) => state.ui.hiddenPosts)
+  const hiddenPosts = useSelector((state) => state.ui.hiddenPosts) || []
   const snackbar = useSelector((state) => state.ui.snackbar)
   const limit = 12 + hiddenPosts.length
   const [updatePostBookmark, { error }] = useMutation(UPDATE_POST_BOOKMARK, {
@@ -74,48 +63,85 @@ export function LoadPostsList({ data, width }) {
     return (
       <div style={{ width: '90%', textAlign: 'center' }}>
         <span>No posts fetched.</span>
-        <br></br>
+        <br />
       </div>
     )
   }
 
-  const rankedPosts = data.posts
+  const rankedPosts = data.posts.entities
     .map((post, index) => ({ ...post, rank: index + 1 }))
     .filter((post) => !hiddenPosts.includes(post._id))
 
+  const hasMore = data.posts.pagination.total_count > rankedPosts.length
   return (
-    <GridList cols={getGridListCols[width]}>
-      {rankedPosts.map((prop, key) => (
-        <GridListTile key={key} cols={1}>
-          <PostCard
-            {...prop}
-            onHidePost={handleHidePost}
-            user={user}
-            onBookmark={handleBookmark}
-          />
-        </GridListTile>
-      ))}
-    </GridList>
+
+    <InfiniteScroll
+      pageStart={0}
+      loadMore={onLoadMore}
+      hasMore={hasMore}
+      loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
+    >
+      <GridList cols={getGridListCols[width]}>
+        {rankedPosts.map((prop, key) => (
+          <GridListTile key={key} cols={1}>
+            <PostCard
+              {...prop}
+              onHidePost={handleHidePost}
+              user={user}
+              onBookmark={handleBookmark}
+            />
+          </GridListTile>
+        ))}
+      </GridList>
+
+    </InfiniteScroll>
   )
-}
-
-export default function PostList({ Data, loading, limit }) {
-  const width = useWidth()
-  if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
-  return <LoadPostsList width={width} data={Data} />
-}
-
-PostList.propTypes = {
-  Data: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
-  limit: PropTypes.number.isRequired,
-}
-
-AlertSkeletonLoader.propTypes = {
-  width: PropTypes.object.isRequired,
 }
 
 LoadPostsList.propTypes = {
   width: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  onLoadMore: PropTypes.func.isRequired,
+}
+
+export default function PostList({
+  data, loading, limit, fetchMore, variables,
+}) {
+  const width = useWidth()
+  if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
+
+  const newOffset = data && data.posts.entities.length
+  return (
+    <LoadPostsList
+      width={width}
+      data={data}
+      onLoadMore={() => fetchMore({
+        variables: {
+          ...variables,
+          offset: newOffset,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev
+          return {
+            ...prev,
+            posts: {
+              ...fetchMoreResult.posts,
+              entities: [
+                ...prev.posts.entities,
+                ...fetchMoreResult.posts.entities,
+              ],
+            },
+          }
+        },
+      })}
+    />
+  )
+}
+
+PostList.propTypes = {
+  data: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  limit: PropTypes.number.isRequired,
+  fetchMore: PropTypes.func.isRequired,
+  variables: PropTypes.object.isRequired,
 }

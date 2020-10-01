@@ -5,24 +5,14 @@ import Avatar from 'avataaars'
 
 //  MUI
 import { fade, makeStyles } from '@material-ui/core/styles'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import ToggleButton from '@material-ui/lab/ToggleButton'
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
-import {
-  Search as SearchIcon,
-  Filter as FilterIcon,
-  Calendar as CalendarIcon,
-} from 'components/Icons'
 
 //  MUI-pro
-import GridContainer from 'mui-pro/Grid/GridContainer'
-import CustomizedInputBase from 'components/searchBar'
-import DateSearchBar from 'components/DateSearchBar'
 
-import FollowButton from 'components/FollowButton'
+import FollowButton from 'components/CustomButtons/FollowButton'
+import FilterIconButtons from '../Filter/FilterIconButtons'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -104,12 +94,6 @@ export default function ProfileHeader(props) {
   const history = useHistory()
   const {
     loggedInUser,
-    handleSelectAll,
-    handleActivityEvent,
-    selectAll,
-    filterState,
-    dispatch,
-    setOffset,
     profileUser,
   } = props
   const { _id: loggedInUserId } = loggedInUser
@@ -183,120 +167,10 @@ export default function ProfileHeader(props) {
             md={6}
           >
             <div className={classes.sectionDesktop}>
-              <IconButton
-                onClick={() => dispatch({ type: 'FILTER_VISIBILITY', payload: !filterState.filter.visibility })}
-                aria-label="Filter list icons"
-                color="inherit"
-                className={filterState.filter.visibility ? classes.iconActive : classes.iconNonActive}
-              >
-                <FilterIcon
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                />
-              </IconButton>
-              <IconButton
-                onClick={() => dispatch({ type: 'DATE_VISIBILITY', payload: !filterState.date.visibility })}
-                aria-label="date range icons"
-                color="inherit"
-                className={filterState.date.visibility ? classes.iconActive : classes.iconNonActive}
-              >
-                <CalendarIcon
-                  width="37"
-                  height="36"
-                  viewBox="0 0 37 36"
-                />
-              </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                onClick={() => dispatch({ type: 'SEARCH_VISIBILITY', payload: !filterState.search.visibility })}
-                className={filterState.search.visibility ? classes.iconActive : classes.iconNonActive}
-              >
-                <SearchIcon
-                  width="31"
-                  height="30"
-                  viewBox="0 0 31 30"
-                />
-              </IconButton>
+              <FilterIconButtons />
             </div>
           </Grid>
         </Grid>
-        {
-          filterState.filter.visibility || filterState.date.visibility || filterState.search.visibility ? (
-            <Grid item container>
-              <GridContainer
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <GridContainer alignItems="center" direction="row">
-                  <Grid item container md={5} justify="center" wrap="nowrap" direction="row">
-                    {
-                      filterState.filter.visibility ? (
-                        <>
-                          <ToggleButtonGroup value={selectAll} onChange={handleSelectAll} aria-label="All Event">
-                            <ToggleButton
-                              value="ALL"
-                              aria-label="All"
-                              className={classes.headerToggle}
-                            >
-                              All
-                            </ToggleButton>
-                          </ToggleButtonGroup>
-                          <ToggleButtonGroup value={filterState.filter.value} onChange={handleActivityEvent} aria-label="Event">
-                            <ToggleButton
-                              value="POSTED"
-                              aria-label="POSTED"
-                              className={classes.headerToggle}
-                            >
-                              Content
-                            </ToggleButton>
-                            <ToggleButton
-                              value="VOTED"
-                              aria-label="VOTED"
-                              className={classes.headerToggle}
-                            >
-                              Votes
-                            </ToggleButton>
-                            <ToggleButton
-                              value="COMMENTED"
-                              aria-label="COMMENTED"
-                              className={classes.headerToggle}
-                            >
-                              Comments
-                            </ToggleButton>
-                            <ToggleButton
-                              value="QUOTED"
-                              aria-label="QUOTED"
-                              className={classes.headerToggle}
-                            >
-                              Quotes
-                            </ToggleButton>
-                          </ToggleButtonGroup>
-                        </>
-                      ) : null
-                    }
-                  </Grid>
-                  <Grid item md={4}>
-                    {
-                      filterState.date.visibility ? (
-                        <DateSearchBar setOffset={setOffset} />
-                      ) : null
-                    }
-                  </Grid>
-                  <Grid item md={3}>
-                    {
-                      filterState.search.visibility ? (
-                        <CustomizedInputBase setOffset={setOffset} />
-                      ) : null
-                    }
-                  </Grid>
-                </GridContainer>
-              </GridContainer>
-            </Grid>
-          ) : null
-        }
       </Grid>
     </div>
   )
@@ -305,14 +179,4 @@ export default function ProfileHeader(props) {
 ProfileHeader.propTypes = {
   loggedInUser: PropTypes.object.isRequired,
   profileUser: PropTypes.object.isRequired,
-  handleSelectAll: PropTypes.func.isRequired,
-  handleActivityEvent: PropTypes.func.isRequired,
-  selectAll: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  filterState: {
-    filter: PropTypes.object.isRequired,
-    date: PropTypes.object.isRequired,
-    search: PropTypes.object.isRequired,
-  },
-  setOffset: PropTypes.number.isRequired,
 }

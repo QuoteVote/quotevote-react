@@ -9,7 +9,7 @@ function LogoutPage() {
     client.resetStore()
   }, [client])
 
-  return <Redirect to="/auth/logout" />
+  return <Redirect to="/auth/login" />
 }
 
 export default LogoutPage

@@ -92,8 +92,42 @@ export const GET_ROOM_MESSAGES = gql`
 `
 
 export const GET_TOP_POSTS = gql`
-  query topPosts($limit: Int!, $offset: Int!, $searchKey: String!) {
-    posts(limit: $limit, offset: $offset, searchKey: $searchKey)
+  query topPosts(
+    $limit: Int!
+    $offset: Int!
+    $searchKey: String!
+    $startDateRange: String
+    $endDateRange: String
+  ) {
+    posts(
+      limit: $limit
+      offset: $offset
+      searchKey: $searchKey
+      startDateRange: $startDateRange
+      endDateRange: $endDateRange
+    ) {
+      entities {
+        _id
+        userId
+        title
+        text
+        upvotes
+        downvotes
+        url
+        bookmarkedBy
+        created
+        creator {
+          name
+          username
+          avatar
+        }
+      }
+      pagination {
+        total_count
+        limit
+        offset
+      }
+    }
   }
 `
 
@@ -112,13 +146,65 @@ export const GET_USER = gql`
 `
 
 export const GET_USER_ACTIVITY = gql`
-  query activities($user_id: String!, $limit: Int!, $offset: Int!, $searchKey: String!, $startDateRange: String, $endDateRange: String, $activityEvent: JSON!) {
-    activities(user_id: $user_id, limit: $limit, offset: $offset, searchKey: $searchKey, startDateRange: $startDateRange, endDateRange: $endDateRange, activityEvent: $activityEvent)
+query activities(
+  $user_id: String!
+  $limit: Int!
+  $offset: Int!
+  $searchKey: String!
+  $startDateRange: String
+  $endDateRange: String
+  $activityEvent: JSON!
+) {
+  activities(
+    user_id: $user_id
+    limit: $limit
+    offset: $offset
+    searchKey: $searchKey
+    startDateRange: $startDateRange
+    endDateRange: $endDateRange
+    activityEvent: $activityEvent
+  ) {
+    entities {
+      created
+      postId
+      userId
+      activityType
+      post {
+        _id
+        title
+        text
+        upvotes
+        downvotes
+        url
+        bookmarkedBy
+        created
+        creator {
+          name
+          username
+          avatar
+        }
+      }      
+      voteId
+      vote {
+        type
+      }
+    }
+    pagination {
+      total_count
+      limit
+      offset
+    }
   }
+}
 `
 
 export const GET_CHECK_DUPLICATE_EMAIL = gql`
   query checkDuplicateEmail($email: String!) {
     checkDuplicateEmail(email: $email)
+  }
+`
+export const VERIFY_PASSWORD_RESET_TOKEN = gql`
+  query verifyUserPasswordResetToken($token: String!) {
+    verifyUserPasswordResetToken(token: $token)
   }
 `

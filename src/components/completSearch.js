@@ -7,7 +7,7 @@ import Calendar from 'assets/img/Calendar.svg'
 import Filter from 'assets/img/Filter.svg'
 import Emoji from 'assets/img/FollowingEmoji.svg'
 
-import CustomizedInputBase from './searchBar'
+import CustomizedInputBase from './SearchBar'
 
 export default function CompleteSearch() {
   return (
@@ -24,8 +24,7 @@ export default function CompleteSearch() {
         />
 
       </GridContainer>
-      <br></br>
-      <br></br>
+      <br />
       <Box boxShadow={3} style={{ display: 'flex', backgroundColor: '#2A6797', width: '75%' }}>
         <GridContainer
           alignItems="center"
@@ -42,7 +41,7 @@ export default function CompleteSearch() {
           </h3>
 
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-            <CustomizedInputBase></CustomizedInputBase>
+            <CustomizedInputBase />
             <img alt="Calender Icon" src={Calendar} style={{ height: '40px', paddingLeft: '15px' }} />
             <img alt="Filter icon" src={Filter} style={{ height: '40px', paddingLeft: '15px' }} />
             <img alt="Emoji icon" src={Emoji} style={{ height: '40px', paddingLeft: '15px' }} />

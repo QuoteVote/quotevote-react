@@ -54,7 +54,7 @@ export default function Pages(props) {
   const getBgImage = () => {
     if (window.location.pathname.indexOf('/auth/register-page') !== -1) {
       return register
-    } if (window.location.pathname.indexOf('/auth/login-page') !== -1) {
+    } if (window.location.pathname.indexOf('/auth/login') !== -1) {
       return login
     } if (window.location.pathname.indexOf('/auth/pricing-page') !== -1) {
       return pricing
@@ -75,6 +75,7 @@ export default function Pages(props) {
     } if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
       return error
     }
+    return buildingsBG
   }
   const getActiveRoute = (routesParameter) => {
     const activeRoute = 'Default Brand Text'

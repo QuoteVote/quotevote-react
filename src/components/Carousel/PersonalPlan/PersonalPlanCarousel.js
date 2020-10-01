@@ -1,15 +1,14 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
-import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import PropTypes from 'prop-types'
 import GridItem from '../../../mui-pro/Grid/GridItem'
 import GridContainer from '../../../mui-pro/Grid/GridContainer'
 import personalPlanImg from '../../../assets/img/RequestAccess/PersonalPlan.png'
 import personalPlanImg2 from '../../../assets/img/PersonalCarousel2.png'
 import personalPlanImg3 from '../../../assets/img/PersonalCarousel3.png'
-import GetAccessButton from '../../GetAccessButton'
+import GetAccessButton from '../../CustomButtons/GetAccessButton'
 import Carousel from '../Carousel'
+import DoubleArrowIconButton from '../../CustomButtons/DoubleArrowIconButton'
 
 PersonalCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
@@ -57,9 +56,7 @@ function PersonalCarouselFirstContent({ classes, handleNext }) {
             What else do
             <span className={greenText}> we have </span>
             for you?
-            <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={handleNext} />
-            </IconButton>
+            <DoubleArrowIconButton onClick={handleNext} />
           </Typography>
         </GridContainer>
       </GridItem>
@@ -110,9 +107,7 @@ function PersonalCarouselSecondContent({ classes, handleNext }) {
             <GetAccessButton />
             {'  '}
             More info
-            <IconButton color="primary" aria-label="What's next">
-              <DoubleArrowIcon onClick={handleNext} />
-            </IconButton>
+            <DoubleArrowIconButton onClick={handleNext} />
           </Typography>
         </GridContainer>
       </GridItem>

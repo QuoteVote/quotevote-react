@@ -1,5 +1,7 @@
 import React from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import {
+  createMuiTheme, makeStyles, MuiThemeProvider, useTheme,
+} from '@material-ui/core/styles'
 import MobileStepper from '@material-ui/core/MobileStepper'
 import Button from '@material-ui/core/Button'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
@@ -7,21 +9,38 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import PropTypes from 'prop-types'
-
+const customTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#00cf6e',
+    },
+  },
+  typography: {
+    useNextVariants: true,
+  },
+})
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '100%',
     overflowX: 'hidden',
     flexGrow: 1,
     alignContent: 'center',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 400,
+      paddingLeft: 20,
+    },
   },
   content: {
     alignContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 400,
+      paddingLeft: 20,
+    },
   },
 }))
 
@@ -84,28 +103,31 @@ function SwipeableTextMobileStepper({
           ))}
         </SwipeableViews>
       )}
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        variant="dots"
-        activeStep={activeStep}
-        style={{
-          backgroundColor: 'transparent',
-          boxShadow: 'none',
-        }}
-        nextButton={(
-          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1} style={{ visibility: navButtonsVisibility }}>
-            Next
-            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-          </Button>
-        )}
-        backButton={(
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0} style={{ visibility: navButtonsVisibility }}>
-            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            Back
-          </Button>
-        )}
-      />
+
+      <MuiThemeProvider theme={customTheme}>
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          variant="dots"
+          activeStep={activeStep}
+          style={{
+            backgroundColor: 'transparent',
+            boxShadow: 'none',
+          }}
+          nextButton={(
+            <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1} style={{ visibility: navButtonsVisibility }}>
+              Next
+              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            </Button>
+          )}
+          backButton={(
+            <Button size="small" onClick={handleBack} disabled={activeStep === 0} style={{ visibility: navButtonsVisibility }}>
+              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+              Back
+            </Button>
+          )}
+        />
+      </MuiThemeProvider>
     </div>
   )
 }

@@ -11,7 +11,7 @@ import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
 import Card from 'mui-pro/Card/Card'
 import CardBody from 'mui-pro/Card/CardBody'
-
+import classNames from 'classnames'
 import ClearIcon from '@material-ui/icons/Clear'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
@@ -54,7 +54,24 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 128,
     borderRadius: 3,
     boxShadow: '0 7px 10px 0 rgba(0, 188, 212, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.14)',
-    backgroundColor: '#00cae3',
+  },
+  postedBg: {
+    backgroundColor: 'orange',
+  },
+  commentedBg: {
+    backgroundColor: '#eabe6d',
+  },
+  upVotedBg: {
+    backgroundColor: 'green',
+  },
+  downVotedBg: {
+    backgroundColor: 'red',
+  },
+  likedPostBg: {
+    backgroundColor: 'pink',
+  },
+  quotedPostBg: {
+    backgroundColor: 'purple',
   },
   cardHeaderStyle: {
     paddingBottom: 0, paddingTop: 10,
@@ -109,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
     font: 'Roboto',
     fontSize: 96,
     fontWeight: 'bold',
-    color: '#00abc0',
+    color: 'grey',
     position: 'absolute',
     top: 0,
     right: 35,
@@ -161,26 +178,46 @@ const getPostContentLimit = () => {
   return limit
 }
 
+const getCardBg = (activityType = 'POSTED') => {
+  switch (activityType.toUpperCase()) {
+    case 'POSTED':
+      return 'postedBg'
+    case 'COMMENTED':
+      return 'commentedBg'
+    case 'UPVOTED':
+      return 'upVotedBg'
+    case 'DOWNVOTED':
+      return 'downVotedBg'
+    case 'LIKED':
+      return 'likedPostBg'
+    case 'QOUTED':
+      return 'quotedPostBg'
+    default:
+      return 'postedBg'
+  }
+}
+
 export default function PostCard(props) {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector((state) => state.user.data)
   const classes = useStyles(props)
   const {
-    _id, text, title, upvotes, downvotes, url, bookmarkedBy, rank, created, onHidePost, onBookmark,
+    _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, onBookmark, creator,
+    activityType,
   } = props
-  const isBookmarked = bookmarkedBy.includes(user._id)
+  const isBookmarked = bookmarkedBy && bookmarkedBy.includes(user._id)
   const [postContentLimit, setPostContentLimit] = React.useState(65)
 
   const onResize = () => {
     const limit = getPostContentLimit()
     setPostContentLimit(limit)
   }
-
+  const cardBg = getCardBg(activityType)
   window.addEventListener('resize', onResize)
   return (
     <Box boxShadow={3} className={classes.root}>
-      <Card className={classes.cardRootStyle}>
+      <Card className={classNames(classes.cardRootStyle, classes[cardBg])}>
         <CardHeader
           classes={{ content: classes.cardHeaderContent }}
           avatar={<Avatar alt="profile" src={ProfilePicture} className={classes.avatarStyle} />}
@@ -197,7 +234,7 @@ export default function PostCard(props) {
             <GridContainer>
               <GridItem xs={4}>
                 <span className={classes.username}>
-                  Username
+                  {creator ? creator.name : 'Anonymous'}
                 </span>
               </GridItem>
               <GridItem xs={8}>
@@ -226,9 +263,6 @@ export default function PostCard(props) {
                 }}
               >
                 {title}
-              </Typography>
-              <Typography className={classes.rankNumber}>
-                {`#${rank}`}
               </Typography>
             </>
           )}
@@ -271,6 +305,9 @@ export default function PostCard(props) {
     </Box>
   )
 }
+PostCard.defaults = {
+  activityType: 'POSTED',
+}
 
 PostCard.propTypes = {
   _id: PropTypes.string.isRequired,
@@ -280,8 +317,9 @@ PostCard.propTypes = {
   downvotes: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
   bookmarkedBy: PropTypes.array.isRequired,
-  rank: PropTypes.number.isRequired,
   created: PropTypes.string.isRequired,
   onHidePost: PropTypes.func.isRequired,
   onBookmark: PropTypes.func.isRequired,
+  creator: PropTypes.any,
+  activityType: PropTypes.string.isRequired,
 }

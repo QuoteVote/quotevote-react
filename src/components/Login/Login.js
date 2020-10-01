@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 
@@ -13,19 +13,26 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import FaceIcon from '@material-ui/icons/Face'
 import LockIcon from '@material-ui/icons/Lock'
 
+import { CircularProgress } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 import CardBody from '../../mui-pro/Card/CardBody'
 import Card from '../../mui-pro/Card/Card'
 
 const useStyles = makeStyles({
   header: {
     fontFamily: 'Montserrat',
-    fontWeight: 700,
+    fontWeight: 600,
+    fontStyle: 'normal',
+    fontSize: '20px',
+    lineHeight: '24px',
   },
   card: {
     width: 350,
   },
   loginButton: {
     textTransform: 'none',
+    color: 'white',
+    textColor: 'white',
   },
   forgotPassword: {
     textTransform: 'none',
@@ -41,9 +48,20 @@ const useStyles = makeStyles({
   },
 })
 
-function LoginForm({ onSubmit = () => {} }) {
+function LoginForm({ onSubmit = () => {}, loading, loginError }) {
   const classes = useStyles()
-  const { register, handleSubmit, errors } = useForm()
+  const {
+    register, handleSubmit, errors, setError,
+  } = useForm()
+
+  useEffect(() => {
+    if (loginError) {
+      setError('password', {
+        type: 'manual',
+        message: loginError,
+      })
+    }
+  }, [loginError, setError])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -58,8 +76,8 @@ function LoginForm({ onSubmit = () => {} }) {
         inputRef={register({
           required: 'Username is required',
           minLength: {
-            value: 5,
-            message: 'Username should be more than six characters',
+            value: 4,
+            message: 'Username should be more than 4 characters',
           },
           maxLength: {
             value: 20,
@@ -85,17 +103,12 @@ function LoginForm({ onSubmit = () => {} }) {
         inputRef={register({
           required: 'Password is required',
           minLength: {
-            value: 6,
-            message: 'Password should be more than six characters',
+            value: 2,
+            message: 'Password should be more than 2 characters',
           },
           maxLength: {
             value: 20,
             message: 'Password should be less than twenty characters',
-          },
-          pattern: {
-            value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-            message:
-              'Password should contain a number, an uppercase, and lowercase letter',
           },
         })}
         className={classes.textfield}
@@ -114,9 +127,11 @@ function LoginForm({ onSubmit = () => {} }) {
         variant="contained"
         fullWidth
         type="submit"
+        disabled={loading}
       >
-        <Typography variant="body1" color="secondary">
+        <Typography variant="body1">
           Log in
+          {loading && <CircularProgress size={20} style={{ marginLeft: 5 }} />}
         </Typography>
       </Button>
     </form>
@@ -125,10 +140,13 @@ function LoginForm({ onSubmit = () => {} }) {
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  loginError: PropTypes.any,
 }
 
-function Login({ login = () => {} }) {
+function Login({ onSubmit = () => {}, loading = false }) {
   const classes = useStyles()
+  const loginError = useSelector((state) => state.user.loginError)
 
   return (
     <Card className={classes.card}>
@@ -141,16 +159,16 @@ function Login({ login = () => {} }) {
           spacing={2}
         >
           <Grid item>
-            <Typography className={classes.header} variant="h6">
+            <Typography className={classes.header}>
               Login
             </Typography>
           </Grid>
           <Grid item>
-            <LoginForm onSubmit={login} />
+            <LoginForm onSubmit={onSubmit} loading={loading} loginError={loginError} />
           </Grid>
           <Grid item>
             <Typography variant="body1">
-              <Link className={classes.link} href="/forgot">
+              <Link className={classes.link} href="/auth/forgot">
                 Forgot password?
               </Link>
             </Typography>
@@ -159,7 +177,7 @@ function Login({ login = () => {} }) {
             <Typography variant="body1">
               No account?
               <span style={{ marginRight: 5 }} />
-              <Link className={classes.link} href="/request-access">
+              <Link className={classes.link} href="/auth/request-access">
                 Request Access
               </Link>
             </Typography>
@@ -171,7 +189,8 @@ function Login({ login = () => {} }) {
 }
 
 Login.propTypes = {
-  login: PropTypes.func,
+  onSubmit: PropTypes.func,
+  loading: PropTypes.bool,
 }
 
 export default Login

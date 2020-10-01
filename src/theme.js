@@ -1,14 +1,17 @@
 import orange from '@material-ui/core/colors/orange'
-// import blue from '@material-ui/core/colors/blue'
-// import grey from '@material-ui/core/colors/grey'
-import pink from '@material-ui/core/colors/pink'
-import red from '@material-ui/core/colors/red'
 import green from '@material-ui/core/colors/green'
-// import yellow from '@material-ui/core/colors/yellow'
+import purple from '@material-ui/core/colors/purple'
+import red from '@material-ui/core/colors/red'
 import cyan from '@material-ui/core/colors/cyan'
 import teal from '@material-ui/core/colors/teal'
+import pink from '@material-ui/core/colors/pink'
 
 const theme = {
+  palette: {
+    primary: green,
+    secondary: purple,
+    error: red,
+  },
   activityCards: {
     quoted: {
       color: cyan[500],

@@ -54,20 +54,20 @@ const BusinessForm = (props) => {
       </Grid>
       <Grid item xs={12} style={{ marginTop: requestInviteSuccessful ? '4%' : '2%' }}>
         <Grid container spacing={2}>
-          <Grid container item xs={6} justify="center" alignItems="center">
+          <Grid container item xs={12} md={6} justify="center" alignItems="center">
             <img
               alt={reqAccessBusiness}
               height={500}
               src={`${reqAccessBusiness}`}
               style={{
-                width: '489px',
+                width: '400px',
                 height: '265px',
                 objectFit: 'contain',
               }}
             />
           </Grid>
           {requestInviteSuccessful ? (
-            <Grid container item xs={6} justify="center" alignItems="center">
+            <Grid container item xs={12} md={6} justify="center" alignItems="center">
               <Typography className={classes.message}>
                 <b>You selected the Business Plan</b>
                 , and we
@@ -83,7 +83,7 @@ const BusinessForm = (props) => {
               </Typography>
             </Grid>
           ) : (
-            <Grid item container xs={6} spacing={2}>
+            <Grid item container xs={12} md={6} spacing={2}>
               <Grid item xs={12}>
                 <Card>
                   <CardHeader

@@ -2,12 +2,10 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import Card from 'mui-pro/Card/Card'
-import CardBody from 'mui-pro/Card/CardBody'
 
 import AppBar from 'components/Navbars/ProfileHeader'
-import AlertList from 'components/AlertList'
 import LoadingSpinner from 'components/LoadingSpinner'
-import Pagination from 'material-ui-flat-pagination'
+import Activity from '../../components/Activity/Activity'
 
 const useStyles = makeStyles((theme) => ({
   activityListCard: {
@@ -31,14 +29,9 @@ function ProfileView({
   loggedInUser,
   filterState,
   dispatch,
-  selectedEvent,
   setOffset,
   profileUser,
-  activitiesData,
   loading,
-  limit,
-  offset,
-  total,
 }) {
   const classes = useStyles()
 
@@ -56,16 +49,8 @@ function ProfileView({
         setOffset={setOffset}
         profileUser={profileUser}
       />
-      <CardBody>
-        <AlertList selectedEvent={selectedEvent} Data={activitiesData} loading={loading} limit={limit} />
-      </CardBody>
-      <Pagination
-        style={{ margin: 'auto' }}
-        limit={limit}
-        offset={offset}
-        total={total}
-        onClick={(e, offsetVal) => setOffset(offsetVal)}
-      />
+      <Activity showSubHeader={false} />
+
     </Card>
   )
 }
@@ -78,13 +63,8 @@ ProfileView.propTypes = {
   filterState: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   setOffset: PropTypes.number.isRequired,
-  selectedEvent: PropTypes.func.isRequired,
   profileUser: PropTypes.object.isRequired,
-  activitiesData: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
-  limit: PropTypes.number.isRequired,
-  offset: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  loading: PropTypes.bool,
 }
 
 export default ProfileView

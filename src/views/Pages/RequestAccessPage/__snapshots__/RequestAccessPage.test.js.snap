@@ -29,26 +29,11 @@ exports[`Request Access Page test - renders correctly 1`] = `
       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
     >
       <div
-        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-6 MuiGrid-justify-xs-center"
+        class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
       >
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
-          style="margin-right: 15%; position: relative;"
+          class="MuiGrid-root makeStyles-gridContent-28 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
         >
-          <button
-            class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-requestBtn-25"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="MuiButton-label"
-            >
-              Request Access
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
           <img
             alt="PersonalPlan.png"
             class="makeStyles-plansCardImage-19"
@@ -139,19 +124,18 @@ exports[`Request Access Page test - renders correctly 1`] = `
                   >
                     <span
                       aria-disabled="false"
-                      class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-30 MuiRadio-root Component-root-28 PrivateSwitchBase-checked-31 Mui-checked Component-checked-29"
+                      class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-31 MuiRadio-root Component-root-29"
                     >
                       <span
                         class="MuiIconButton-label"
                       >
                         <input
-                          checked=""
-                          class="PrivateSwitchBase-input-33"
+                          class="PrivateSwitchBase-input-34"
                           type="radio"
                           value="personal"
                         />
                         <div
-                          class="PrivateRadioButtonIcon-root-34 PrivateRadioButtonIcon-checked-36"
+                          class="PrivateRadioButtonIcon-root-35"
                         >
                           <svg
                             aria-hidden="true"
@@ -166,7 +150,7 @@ exports[`Request Access Page test - renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden="true"
-                            class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-35"
+                            class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-36"
                             focusable="false"
                             role="presentation"
                             viewBox="0 0 24 24"
@@ -203,8 +187,7 @@ exports[`Request Access Page test - renders correctly 1`] = `
           </div>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
-          style="position: relative;"
+          class="MuiGrid-root makeStyles-gridContent-28 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
         >
           <img
             alt="Illustration.png"
@@ -304,18 +287,18 @@ exports[`Request Access Page test - renders correctly 1`] = `
                   >
                     <span
                       aria-disabled="false"
-                      class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-30 MuiRadio-root Component-root-37"
+                      class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-31 MuiRadio-root Component-root-38"
                     >
                       <span
                         class="MuiIconButton-label"
                       >
                         <input
-                          class="PrivateSwitchBase-input-33"
+                          class="PrivateSwitchBase-input-34"
                           type="radio"
                           value="business"
                         />
                         <div
-                          class="PrivateRadioButtonIcon-root-34"
+                          class="PrivateRadioButtonIcon-root-35"
                         >
                           <svg
                             aria-hidden="true"
@@ -330,7 +313,7 @@ exports[`Request Access Page test - renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden="true"
-                            class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-35"
+                            class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-36"
                             focusable="false"
                             role="presentation"
                             viewBox="0 0 24 24"

@@ -60,7 +60,7 @@ const inputStyles = {
 
 function SubmitPost() {
   const classes = useStyles()
-  const [alert, setAlert] = React.useState(null)
+  const [alert, setAlert] = useState(null)
   const [postTitle, setPostTitle] = useState('[Enter Title]')
   const [postText, setPostText] = useState('')
   const [groupName, setGroupName] = useState('')
@@ -177,7 +177,7 @@ function SubmitPost() {
             </IconButton>
           </GridItem>
         </Grid>
-      </SweetAlert>
+      </SweetAlert>,
     )
   }
 
@@ -196,7 +196,7 @@ function SubmitPost() {
         Error:
         {' '}
         {err}
-      </SweetAlert>
+      </SweetAlert>,
     )
   }
   const hideAlert = () => {
@@ -230,9 +230,7 @@ function SubmitPost() {
   const userAllowedGroups =
     (data &&
       data.groups.filter((group) => {
-        const isUserAllowed = group.allowedUserIds.find(
-          (id) => id === user._id
-        )
+        const isUserAllowed = group.allowedUserIds.find((id) => id === user._id)
         return (
           group.privacy === 'public' ||
           (group.privacy === 'private' && isUserAllowed)
@@ -264,6 +262,8 @@ function SubmitPost() {
                   }}
                 >
                   <InputBase
+                    data-testid="title-input"
+                    id="title-input"
                     style={inputStyles}
                     onClick={clearPostTitle}
                     onFocus={clearPostTitle}
@@ -330,6 +330,7 @@ function SubmitPost() {
                             Group
                           </InputLabel>
                           <Select
+                            data-testid="group"
                             id="group"
                             value={groupId}
                             placeholder={groupName}
@@ -370,6 +371,7 @@ function SubmitPost() {
                     </IconButton>
                   </div>
                   <Button
+                    id="submit-button"
                     type="submit"
                     variant="contained"
                     size="large"

@@ -19,6 +19,9 @@ import {
 const pagesHeaderStyle = (theme) => ({
   voxPop: {
     height: '40px',
+    [theme.breakpoints.down('sm')]: {
+      height: '25px',
+    },
   },
   appBar: {
     backgroundColor: 'transparent',
