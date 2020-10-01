@@ -1,5 +1,5 @@
 // Important stuff, must always be imported on a storybook file
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import { withA11y } from '@storybook/addon-a11y'
 
@@ -45,10 +45,6 @@ const Wrapper = ({ disabled = false, width }) => {
   if (error) {
     return <div>{`${error}`}</div>
   }
-
-  useEffect(() => {
-    console.log('popPrediction', data.popPrediction.score)
-  })
 
   return (
     <ThemeProvider theme={theme}>
