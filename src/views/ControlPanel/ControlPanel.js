@@ -19,6 +19,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { USER_INVITE_REQUESTS } from 'graphql/query'
 import { UPDATE_USER_INVITE_STATUS } from 'graphql/mutations'
 import { Mutation } from '@apollo/react-components'
+import { Line } from 'react-chartjs-2'
 
 import controlPanelStylwa from './controlPanelStyles'
 
@@ -91,6 +92,7 @@ const ActionButtons = ({ status, id }) => {
 const ControlPanelContainer = ({ data }) => {
   const classes = useStyles()
   const header = ['ID', 'Email', 'Status', 'Action']
+  const activeUsersCount = 0
   // statuses
   // 1 = new / pending
   // 2 = decline
@@ -107,6 +109,32 @@ const ControlPanelContainer = ({ data }) => {
       default:
         return ''
     }
+  }
+  const linedata = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'My First dataset',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [65, 59, 80, 81, 56, 55, 40],
+      },
+    ],
   }
   return (
     <Grid container spacing={2} className={classes.panelContainer}>
@@ -171,7 +199,39 @@ const ControlPanelContainer = ({ data }) => {
           <Grid item xs={11}>
             <Card>
               <CardContent>
-                <Typography className={classes.cardHeader}>User Invitation Statistics</Typography>
+                <Typography
+                  className={classes.cardHeader}
+                  display="inline"
+                >
+                  User Invitation Statistics
+                </Typography>
+                <Typography
+                  className={classes.graphText}
+                  display="inline"
+                  style={{ float: 'right' }}
+                >
+                  Invite Requests:
+                  {' '}
+                  {(data.userInviteRequests && data.userInviteRequests.length) || 0}
+                </Typography>
+                <Line data={linedata} />
+                <Typography
+                  className={classes.graphText}
+                  display="inline"
+                >
+                  Total Users:
+                  {' '}
+                  {(data.userInviteRequests && data.userInviteRequests.length) || 0}
+                </Typography>
+                <Typography
+                  className={classes.graphText}
+                  display="inline"
+                  style={{ float: 'right' }}
+                >
+                  Active Users Today:
+                  {' '}
+                  {activeUsersCount}
+                </Typography>
               </CardContent>
             </Card>
           </Grid>

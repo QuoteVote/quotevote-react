@@ -81,6 +81,13 @@ const requestAccessStyles = (theme) => ({
     color: 'white',
     cursor: 'default',
   },
+  graphText: {
+    font: 'Roboto',
+    fontSize: '18px',
+    fontWeight: 300,
+    lineHeight: 1.39,
+    color: '#333333',
+  },
 })
 
 export default requestAccessStyles
