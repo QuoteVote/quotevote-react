@@ -51,8 +51,7 @@ const Wrapper = ({ disabled = false, width }) => {
       <div style={{ maxWidth: width }}>
         <PopPrediction
           handlePredict={() => {
-            console.log('handle predict clicked')
-            setPrediction(Math.floor(data.popPrediction.score.confidence / 0.2))
+            setPrediction(data.popPrediction.score.confidence)
           }}
           prediction={prediction}
           disabled={boolean('Is Disabled', disabled)}

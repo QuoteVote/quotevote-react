@@ -43,16 +43,23 @@ const useStyles = makeStyles(() => ({
 
 const PopPercent = ({ prediction }) => {
   let percent = ''
-  if (prediction > 0 && prediction <= 5) {
-    percent = ` ${prediction * 20}%`
+  if (prediction < 1 && prediction > 0) {
+    percent = `${Math.floor(prediction * 100)}%`
   } else if (prediction === 0) {
     percent = ' --%'
+  } else {
+    percent = ` ${prediction}%`
   }
   return `${percent}`
 }
 
 // eslint-disable-next-line
-const CardBottomSheet = ({ handleTypeChange = () => { }, prediction, handlePredict, disabled }) => {
+const CardBottomSheet = ({
+  handleTypeChange = () => {},
+  prediction,
+  handlePredict,
+  disabled,
+}) => {
   const [type, setType] = useState('sentiment')
   const classes = useStyles()
   return (
@@ -96,9 +103,7 @@ const CardBottomSheet = ({ handleTypeChange = () => { }, prediction, handlePredi
   )
 }
 
-const PopPrediction = ({
-  handlePredict, prediction, disabled, ...props
-}) => {
+const PopPrediction = ({ handlePredict, prediction, disabled, ...props }) => {
   const classes = useStyles()
   const [text, setText] = useState('')
 
@@ -138,14 +143,14 @@ const PopPrediction = ({
 }
 
 PopPrediction.propTypes = {
-  prediction: PropTypes.oneOf([0, 1, 2, 3, 4, 5]),
+  prediction: PropTypes.number,
   handlePredict: PropTypes.func,
   disabled: PropTypes.bool,
 }
 
 PopPrediction.defaultProps = {
   prediction: 1,
-  handlePredict: () => { },
+  handlePredict: () => {},
 }
 
 export default PopPrediction
