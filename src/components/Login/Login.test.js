@@ -1,12 +1,18 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import store from 'store/store'
 
 // Component being tested
 import Login from './Login'
 
 describe('Login test -', () => {
   it('renders correctly', () => {
-    const { container } = render(<Login />)
+    const { container } = render(
+      <Provider store={store}>
+        <Login />
+      </Provider>,
+    )
     expect(container.firstChild).toMatchSnapshot()
   })
 
