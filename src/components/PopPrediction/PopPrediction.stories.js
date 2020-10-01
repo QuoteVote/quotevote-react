@@ -1,11 +1,11 @@
 // Important stuff, must always be imported on a storybook file
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import { withA11y } from '@storybook/addon-a11y'
 
 // Apollo Imports not needed for story, just for calling data
-// import { useQuery } from "@apollo/react-hooks";
-// import gql from "graphql-tag";
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 
 // If you want to apply theme
 import { MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
@@ -22,42 +22,41 @@ export default {
   decorators: [withKnobs, withA11y],
 }
 
-// const QUERY = gql`
-//   query score($comment: String!) {
-//     score(redditComment: $comment) {
-//       comment
-//       confidence
-//       label
-//     }
-//   }
-// `;
+const QUERY = gql`
+  query popPrediction($comment: String!) {
+    popPrediction(comment: $comment)
+  }
+`
 
 // eslint-disable-next-line react/prop-types
 const Wrapper = ({ disabled = false, width }) => {
   const [prediction, setPrediction] = useState(0)
 
   // # GRAPHQL CALL - Should be uncommented once query is finished/fixed
-  // const { loading, error, data } = useQuery(QUERY, {
-  //   variables: {
-  //     comment: "test",
-  //   },
-  // });
+  const { loading, error, data } = useQuery(QUERY, {
+    variables: {
+      comment: 'test',
+    },
+  })
 
-  // if (loading) {
-  //   return <div>loading...</div>;
-  // }
-  // if (error) {
-  //   return <div>{`${error}`}</div>;
-  // }
-  // console.log("data", data);
+  if (loading) {
+    return <div>loading...</div>
+  }
+  if (error) {
+    return <div>{`${error}`}</div>
+  }
+
+  useEffect(() => {
+    console.log('popPrediction', data.popPrediction.score)
+  })
 
   return (
     <ThemeProvider theme={theme}>
       <div style={{ maxWidth: width }}>
         <PopPrediction
           handlePredict={() => {
-            // console.log('click pop button')
-            setPrediction(Math.floor(Math.random() * 5 + 1))
+            console.log('handle predict clicked')
+            setPrediction(Math.floor(data.popPrediction.score.confidence / 0.2))
           }}
           prediction={prediction}
           disabled={boolean('Is Disabled', disabled)}
