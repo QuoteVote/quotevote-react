@@ -42,10 +42,16 @@ export default function SettingsIconButton({ fontSize }) {
   }
 
   const handleLogout = () => {
+    setOpen(false)
     localStorage.removeItem('token')
     client.stop()
     client.resetStore()
     history.push('/auth/login')
+  }
+
+  const handleInviteControlPanel = () => {
+    history.push('/hhsb/ControlPanel')
+    setOpen(false)
   }
 
   function handleListKeyDown(event) {
@@ -92,6 +98,7 @@ export default function SettingsIconButton({ fontSize }) {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                  <MenuItem onClick={handleInviteControlPanel}>Invite Control Panel</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </ClickAwayListener>
