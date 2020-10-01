@@ -1,5 +1,5 @@
 // Important stuff, must always be imported on a storybook file
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import { withA11y } from '@storybook/addon-a11y'
 
@@ -30,18 +30,18 @@ const QUERY = gql`
 
 // eslint-disable-next-line react/prop-types
 const Wrapper = ({ disabled = false, width }) => {
-  const [prediction, setPrediction] = useState(0)
+  const [text, setText] = useState('')
 
   // # GRAPHQL CALL - Should be uncommented once query is finished/fixed
-  const { loading, error, data } = useQuery(QUERY, {
+  const { loading, error, data, refetch } = useQuery(QUERY, {
     variables: {
-      comment: 'test',
+      comment: '',
     },
   })
 
-  if (loading) {
-    return <div>loading...</div>
-  }
+  // if (loading) {
+  //   return <div>loading...</div>
+  // }
   if (error) {
     return <div>{`${error}`}</div>
   }
@@ -50,10 +50,17 @@ const Wrapper = ({ disabled = false, width }) => {
     <ThemeProvider theme={theme}>
       <div style={{ maxWidth: width }}>
         <PopPrediction
-          handlePredict={() => {
-            setPrediction(data.popPrediction.score.confidence)
+          handlePredict={async (values) => {
+            if (values.length > 0) {
+              await refetch({
+                comment: values,
+              })
+              setText(values)
+            }
           }}
-          prediction={prediction}
+          prediction={
+            data && text.length > 0 ? data.popPrediction.score.confidence : 0
+          }
           disabled={boolean('Is Disabled', disabled)}
         />
       </div>

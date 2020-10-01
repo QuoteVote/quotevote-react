@@ -124,7 +124,7 @@ const PopPrediction = ({ handlePredict, prediction, disabled, ...props }) => {
               onChange={handleTextInputChange}
               fullWidth
               multiline
-              rowsMax={4}
+              rows={4}
               disabled={disabled}
               {...props}
             />
@@ -133,7 +133,7 @@ const PopPrediction = ({ handlePredict, prediction, disabled, ...props }) => {
             <CardBottomSheet
               prediction={prediction}
               disabled={disabled || !text}
-              handlePredict={handlePredict}
+              handlePredict={() => handlePredict(text)}
             />
           </Grid>
         </Grid>
