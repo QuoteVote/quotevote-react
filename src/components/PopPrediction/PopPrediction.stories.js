@@ -1,5 +1,5 @@
 // Important stuff, must always be imported on a storybook file
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import { withA11y } from '@storybook/addon-a11y'
 
@@ -33,7 +33,7 @@ const Wrapper = ({ disabled = false, width }) => {
   const [text, setText] = useState('')
 
   // # GRAPHQL CALL - Should be uncommented once query is finished/fixed
-  const { loading, error, data, refetch } = useQuery(QUERY, {
+  const { error, data, refetch } = useQuery(QUERY, {
     variables: {
       comment: '',
     },

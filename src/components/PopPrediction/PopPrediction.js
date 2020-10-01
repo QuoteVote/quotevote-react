@@ -103,7 +103,16 @@ const CardBottomSheet = ({
   )
 }
 
-const PopPrediction = ({ handlePredict, prediction, disabled, ...props }) => {
+CardBottomSheet.propTypes = {
+  handleTypeChange: PropTypes.func,
+  prediction: PropTypes.number,
+  handlePredict: PropTypes.func,
+  disabled: PropTypes.bool,
+}
+
+const PopPrediction = ({
+  handlePredict, prediction, disabled, ...props
+}) => {
   const classes = useStyles()
   const [text, setText] = useState('')
 
