@@ -156,5 +156,10 @@
       "not op_mini all"
     ],
     "development": []
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:check"
+    }
   }
 }
