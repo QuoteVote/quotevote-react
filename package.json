@@ -77,7 +77,7 @@
     "start:local": "env-cmd -f .env.local react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test -u -w 1 --env=jsdom --silent ",
-    "test:coverage": "react-scripts test --updateSnapshot --watchAll=false --coverage",
+    "test:coverage": "react-scripts test --updateSnapshot --watchAll=false --coverage --silent",
     "test:generate-output": "react-scripts test --updateSnapshot --watchAll=false --json --outputFile=.storybook/.jest-test-results.json  --coverage",
     "eject": "react-scripts eject",
     "deploy": "npm run build",
