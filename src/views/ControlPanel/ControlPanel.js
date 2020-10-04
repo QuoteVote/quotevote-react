@@ -19,7 +19,12 @@ import { useQuery } from '@apollo/react-hooks'
 import { USER_INVITE_REQUESTS } from 'graphql/query'
 import { UPDATE_USER_INVITE_STATUS } from 'graphql/mutations'
 import { Mutation } from '@apollo/react-components'
-import { Line } from 'react-chartjs-2'
+
+// react plugin for creating charts
+import ChartistGraph from 'react-chartist'
+import {
+  dailySalesChart,
+} from 'variables/charts'
 
 import controlPanelStylwa from './controlPanelStyles'
 
@@ -110,31 +115,11 @@ const ControlPanelContainer = ({ data }) => {
         return ''
     }
   }
-  const linedata = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'My First dataset',
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: 'rgba(75,192,192,1)',
-        pointBackgroundColor: '#fff',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-        pointHoverBorderColor: 'rgba(220,220,220,1)',
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: [65, 59, 80, 81, 56, 55, 40],
-      },
-    ],
+
+  // TODO: make it dynamic based on the data provided
+  const chartData = {
+    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    series: [[12, 17, 7, 17, 23, 18, 38]],
   }
   return (
     <Grid container spacing={2} className={classes.panelContainer}>
@@ -214,7 +199,14 @@ const ControlPanelContainer = ({ data }) => {
                   {' '}
                   {(data.userInviteRequests && data.userInviteRequests.length) || 0}
                 </Typography>
-                <Line data={linedata} />
+                <ChartistGraph
+                  className="ct-chart-white-colors"
+                  style={{ backgroundColor: '#00bcd4' }}
+                  data={chartData}
+                  type="Line"
+                  options={dailySalesChart.options}
+                  listener={dailySalesChart.animation}
+                />
                 <Typography
                   className={classes.graphText}
                   display="inline"

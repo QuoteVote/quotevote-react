@@ -18,6 +18,7 @@ query groups($limit: Int!) {
 export const USER_INVITE_REQUESTS = gql`
   query userInviteRequests {
     userInviteRequests {
+      joined
       email
       status
       _id
