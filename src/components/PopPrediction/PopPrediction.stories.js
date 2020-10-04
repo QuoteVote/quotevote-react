@@ -58,8 +58,6 @@ const Wrapper = ({ disabled = false, width }) => {
     return <div>{`${error}`}</div>
   }
 
-  console.log('data', data)
-
   return (
     <ThemeProvider theme={theme}>
       <div style={{ maxWidth: width }}>
@@ -73,9 +71,9 @@ const Wrapper = ({ disabled = false, width }) => {
             }
           }}
           prediction={
-            data && text.length > 0 ?
-              getPrediction(data.popPrediction.score.label) :
-              0
+            data && text.length > 0
+              ? getPrediction(data.popPrediction.score.label)
+              : 0
           }
           disabled={boolean('Is Disabled', disabled)}
         />
