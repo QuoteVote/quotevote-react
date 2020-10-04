@@ -50,7 +50,7 @@ exports[`PopPrediction test - renders correctly 1`] = `
               class="MuiTypography-root MuiTypography-h3 MuiTypography-colorPrimary"
               title="prediction"
             >
-               1%
+               20%
             </h3>
             <p
               class="MuiTypography-root MuiTypography-body2 MuiTypography-colorPrimary"
