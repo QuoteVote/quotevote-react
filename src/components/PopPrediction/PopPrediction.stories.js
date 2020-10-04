@@ -71,9 +71,9 @@ const Wrapper = ({ disabled = false, width }) => {
             }
           }}
           prediction={
-            data && text.length > 0
-              ? getPrediction(data.popPrediction.score.label)
-              : 0
+            data && text.length > 0 ?
+              getPrediction(data.popPrediction.score.label) :
+              0
           }
           disabled={boolean('Is Disabled', disabled)}
         />
