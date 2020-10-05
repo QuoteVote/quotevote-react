@@ -63,7 +63,7 @@ const VotingBoard = ({
         onSelect={handleSelect}
         onDeselect={() => setOpen(false)}
       >
-        {props && children({ ...selection })}
+        
       </SelectionPopover>
     </Container>
   )
