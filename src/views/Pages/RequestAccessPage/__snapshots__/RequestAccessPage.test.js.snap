@@ -34,6 +34,20 @@ exports[`Request Access Page test - renders correctly 1`] = `
         <div
           class="MuiGrid-root makeStyles-gridContent-28 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
         >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-requestBtn-25"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              Request Access
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
           <img
             alt="PersonalPlan.png"
             class="makeStyles-plansCardImage-19"
@@ -124,18 +138,19 @@ exports[`Request Access Page test - renders correctly 1`] = `
                   >
                     <span
                       aria-disabled="false"
-                      class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-31 MuiRadio-root Component-root-29"
+                      class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-31 MuiRadio-root Component-root-29 PrivateSwitchBase-checked-32 Mui-checked Component-checked-30"
                     >
                       <span
                         class="MuiIconButton-label"
                       >
                         <input
+                          checked=""
                           class="PrivateSwitchBase-input-34"
                           type="radio"
                           value="personal"
                         />
                         <div
-                          class="PrivateRadioButtonIcon-root-35"
+                          class="PrivateRadioButtonIcon-root-35 PrivateRadioButtonIcon-checked-37"
                         >
                           <svg
                             aria-hidden="true"

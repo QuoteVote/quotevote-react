@@ -13,7 +13,16 @@ exports[`LandingPage test - renders correctly 1`] = `
     >
       <p
         class="MuiTypography-root makeStyles-share-11 MuiTypography-body1 MuiTypography-alignCenter"
-      />
+      >
+        Share
+         
+        <span
+          class="makeStyles-greenTitleText-12"
+        >
+          your voice
+        </span>
+        , democratically
+      </p>
     </div>
     <div
       class="MuiGrid-root makeStyles-grid-21  MuiGrid-item MuiGrid-grid-xs-12"
@@ -38,7 +47,8 @@ exports[`LandingPage test - renders correctly 1`] = `
           class="makeStyles-buttonSpacing-14"
         >
           <button
-            class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-22 MuiButton-outlined MuiButton-outlinedSecondary"
+            class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-22 MuiButton-contained MuiButton-containedSecondary"
+            style="background: rgb(29, 108, 231);"
             tabindex="0"
             type="button"
           >
@@ -80,6 +90,198 @@ exports[`LandingPage test - renders correctly 1`] = `
             />
           </button>
         </div>
+      </div>
+    </div>
+    <div
+      class="makeStyles-root-23"
+    >
+      <div
+        style="overflow-x: hidden;"
+      >
+        <div
+          class="react-swipeable-view-container"
+          style="flex-direction: row; transition: all 0s ease 0s; direction: ltr; display: flex; will-change: transform;"
+        >
+          <div
+            aria-hidden="false"
+            data-swipeable="true"
+            style="width: 100%; flex-shrink: 0; overflow: auto;"
+          >
+            <div
+              class="makeStyles-content-24"
+            >
+              <div
+                class="MuiGrid-root makeStyles-grid-20 undefined MuiGrid-container MuiGrid-justify-xs-center"
+                style="margin-right: 24px;"
+              >
+                <div
+                  class="MuiGrid-root makeStyles-grid-21  MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-5"
+                >
+                  <div
+                    class="MuiGrid-root makeStyles-grid-20 undefined MuiGrid-container MuiGrid-justify-xs-center"
+                  >
+                    <img
+                      alt="PersonalPlan.png"
+                      height="500"
+                      src="PersonalPlan.png"
+                      style="width: 435.43px; height: 300.51px; object-fit: contain;"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root makeStyles-grid-21  MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4"
+                >
+                  <div
+                    class="MuiGrid-root makeStyles-grid-20 undefined MuiGrid-container"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body1"
+                    >
+                      <div
+                        class="makeStyles-opinionsText-15"
+                      >
+                        <b>
+                          Share your opinions
+                        </b>
+                         
+                        with friends and/or strangers, work in projects with your teams, vote transparently and more.
+                        <br />
+                        <br />
+                        <b>
+                          Join a growing community of more than 1047 people
+                        </b>
+                        in honest and informed conversations. VoxPop is yours to shape.
+                        <br />
+                        <br />
+                      </div>
+                    </p>
+                    <p
+                      class="MuiTypography-root makeStyles-bottomText-17 MuiTypography-body1"
+                    >
+                      <button
+                        class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-25 MuiButton-contained MuiButton-containedPrimary"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span
+                          class="MuiButton-label"
+                        >
+                          Get Access
+                        </span>
+                        <span
+                          class="MuiTouchRipple-root"
+                        />
+                      </button>
+                       
+                      What else do
+                      <span
+                        class="makeStyles-greenText-16"
+                      >
+                         we have 
+                      </span>
+                      for you?
+                      <button
+                        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeSmall"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span
+                          class="MuiIconButton-label"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root"
+                            focusable="false"
+                            role="presentation"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M15.5 5H11l5 7-5 7h4.5l5-7z"
+                            />
+                            <path
+                              d="M8.5 5H4l5 7-5 7h4.5l5-7z"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          class="MuiTouchRipple-root"
+                        />
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiMobileStepper-root MuiMobileStepper-positionStatic MuiPaper-elevation0"
+        style="background-color: transparent; box-shadow: none;"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+          disabled=""
+          style="visibility: hidden;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"
+              />
+            </svg>
+            Back
+          </span>
+        </button>
+        <div
+          class="MuiMobileStepper-dots"
+        >
+          <div
+            class="MuiMobileStepper-dot MuiMobileStepper-dotActive"
+          />
+          <div
+            class="MuiMobileStepper-dot"
+          />
+          <div
+            class="MuiMobileStepper-dot"
+          />
+        </div>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+          style="visibility: hidden;"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            Next
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
       </div>
     </div>
   </div>
