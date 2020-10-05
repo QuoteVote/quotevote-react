@@ -22,6 +22,7 @@
     "chartist": "0.10.1",
     "classnames": "^2.2.6",
     "clipboard-copy": "^3.1.0",
+    "eslint": "^7.10.0",
     "eslint-import-resolver-webpack": "^0.12.1",
     "firebase": "^7.22.0",
     "fontsource-montserrat": "^2.2.6",
