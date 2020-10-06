@@ -8,5 +8,5 @@ export default {
 }
 
 export const VotingBoardComponent = () => (
-  <VotingBoard>{({ text }) => <div>Voting Board</div>}</VotingBoard>
+  <VotingBoard>{({ text }) => <div>{text}</div>}</VotingBoard>
 )
