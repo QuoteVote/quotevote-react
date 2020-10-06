@@ -7,4 +7,6 @@ export default {
   title: 'Voting Board',
 }
 
-export const VotingBoardComponent = () => <VotingBoard />
+export const VotingBoardComponent = () => (
+  <VotingBoard>{({ text }) => <div>Voting Board</div>}</VotingBoard>
+)
