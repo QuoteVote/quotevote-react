@@ -11,25 +11,27 @@ import {
   Zoom,
   Tooltip,
 } from '@material-ui/core'
-import {
-  Up, Down, Comment, Quote,
-} from 'components/Icons'
+
 import { isEmpty, findIndex } from 'lodash'
 import { useSelector } from 'react-redux'
+import ChatIcon from '../../assets/img/chat-1.png'
+import ThumbsUp from '../../assets/img/thumbsup.png'
+import ThumbsDown from '../../assets/img/thumbsdown.png'
+import Quote from '../../assets/img/quote.png'
 
 const useStyles = makeStyles((theme) => ({
   paperCollapsed: {
     margin: theme.spacing(1),
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 10,
     paddingTop: 33,
     height: 90,
-    width: 290,
+    width: 380,
     zIndex: 1,
   },
   paperExpaned: {
     margin: theme.spacing(1),
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 10,
     paddingTop: 33,
     height: 90,
@@ -92,8 +94,9 @@ const VotingPopup = ({
       </Zoom>
       <Paper
         style={{
-          backgroundColor: '#df2769',
-          width: 266,
+          backgroundImage: "linear-gradient(to top, #1bb5d8, #4066ec)",
+          borderRadius: 6,
+          width: 371,
           zIndex: 1,
           top: expand ? 31 : 20,
           left: 20,
@@ -103,61 +106,22 @@ const VotingPopup = ({
         {showUpvoteTooltip ? (
           <Tooltip title="Upvoted" placement="bottom" arrow>
             <IconButton>
-              <Up
-                width="419.000000pt"
-                height="419.000000pt"
-                viewBox="0 0 419.000000 419.000000"
-                className={classes.icon}
-              />
             </IconButton>
           </Tooltip>
         ) : (
           <IconButton onClick={() => handleVote('up')}>
-            <Up
-              width="419.000000pt"
-              height="419.000000pt"
-              viewBox="0 0 419.000000 419.000000"
-              className={classes.icon}
-            />
+            <img width={30} height={30} style={{paddingBottom:20, marginRight:10}}src={ThumbsUp} />
           </IconButton>
         )}
         {showDownvoteTooltip ? (
           <Tooltip title="Downvoted" placement="bottom" arrow>
-            <IconButton>
-              <Down
-                width="563.000000pt"
-                height="563.000000pt"
-                viewBox="0 0 563.000000 563.000000"
-                className={classes.icon}
-              />
-            </IconButton>
+              <img className={classes.icon} src={ThumbsDown} />
           </Tooltip>
         ) : (
-          <IconButton onClick={() => handleVote('down')}>
-            <Down
-              width="563.000000pt"
-              height="563.000000pt"
-              viewBox="0 0 563.000000 563.000000"
-              className={classes.icon}
-            />
-          </IconButton>
+          <img width={30} height={30} style={{paddingTop:10, marginLeft:20, marginRight: 20,}} src={ThumbsDown} />
         )}
-        <IconButton onClick={() => setExpand(!expand)}>
-          <Comment
-            width="598.000000pt"
-            height="598.000000pt"
-            viewBox="0 0 598.000000 598.000000"
-            className={classes.icon}
-          />
-        </IconButton>
-        <IconButton>
-          <Quote
-            width="607.000000pt"
-            height="605.000000pt"
-            viewBox="0 0 607.000000 605.000000"
-            className={classes.icon}
-          />
-        </IconButton>
+        <img style={{marginLeft:20, marginRight: 20}} src={ChatIcon} />
+        <img style={{marginLeft:20, marginRight: 20, paddingBottom:7}} src={Quote} />
       </Paper>
       <Zoom in={expand}>
         <Paper id="popButtons" elevation={4} className={classes.paperExpaned}>
