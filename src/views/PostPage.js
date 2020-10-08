@@ -15,7 +15,7 @@ import CardActions from '@material-ui/core/CardActions'
 
 import VotingBoard from 'components/VotingComponents/VotingBoard'
 import VotingPopup from 'components/VotingComponents/VotingPopup'
-import ApproveRejectPopover from 'hhsbComponents/ApproveRejectPopover'
+import ApproveRejectPopover from 'components/ApproveRejectPopver/ApproveRejectPopover'
 
 // import Content from '../components/ContentList';
 
@@ -57,7 +57,7 @@ const PostPage = () => {
       {
         // eslint-disable-next-line no-shadow
         data: { addVote },
-      }
+      },
     ) {
       const data = cache.readQuery({
         query: GET_POST,
@@ -65,14 +65,21 @@ const PostPage = () => {
       })
       const clonedPost = cloneDeep(data)
 
-      const index = findIndex(clonedPost.post.votedBy, (vote) => vote.userId === user._id)
+      const index = findIndex(
+        clonedPost.post.votedBy,
+        (vote) => vote.userId === user._id,
+      )
       if (index !== -1) {
         clonedPost.post.votedBy[index].type = addVote.type
-        clonedPost.post.upvotes = addVote.type === 'up' ?
-          clonedPost.post.upvotes + 1 : clonedPost.post.upvotes - 1
+        clonedPost.post.upvotes =
+          addVote.type === 'up' ?
+            clonedPost.post.upvotes + 1 :
+            clonedPost.post.upvotes - 1
 
-        clonedPost.post.downvotes = addVote.type === 'down' ?
-          clonedPost.post.downvotes + 1 : clonedPost.post.downvotes - 1
+        clonedPost.post.downvotes =
+          addVote.type === 'down' ?
+            clonedPost.post.downvotes + 1 :
+            clonedPost.post.downvotes - 1
       } else {
         clonedPost.post.votedBy.push({ type: addVote.type, userId: user._id })
         if (addVote.type === 'up') {
@@ -157,7 +164,7 @@ const PostPage = () => {
           open: true,
           message: 'Voted Successfully',
           type: 'success',
-        })
+        }),
       )
     } catch (err) {
       dispatch(
@@ -165,14 +172,15 @@ const PostPage = () => {
           open: true,
           message: `Vote Error: ${err.message}`,
           type: 'danger',
-        })
+        }),
       )
     }
   }
 
   const handleAddComment = async (comment, commentWithQuote = false) => {
-    let startIndex; let endIndex; let
-      quoteText
+    let startIndex
+    let endIndex
+    let quoteText
 
     // const HASHTAGS_REGEX = /#(\w|\d)+/g
     // const hashtags = comment.match(HASHTAGS_REGEX)
@@ -208,7 +216,7 @@ const PostPage = () => {
           open: true,
           message: 'Commented Successfully',
           type: 'success',
-        })
+        }),
       )
     } catch (err) {
       dispatch(
@@ -216,7 +224,7 @@ const PostPage = () => {
           open: true,
           message: `Comment Error: ${err.message}`,
           type: 'danger',
-        })
+        }),
       )
     }
   }
@@ -238,7 +246,7 @@ const PostPage = () => {
             open: true,
             message: 'Approved Post Successfully',
             type: 'success',
-          })
+          }),
         )
         approvePost({ variables: { userId: user._id, postId: post._id } })
       } catch (err) {
@@ -247,7 +255,7 @@ const PostPage = () => {
             open: true,
             message: `Approve Post Error: ${err.message}`,
             type: 'danger',
-          })
+          }),
         )
       }
     }
@@ -257,18 +265,20 @@ const PostPage = () => {
     if (!disableApproveReject || !disableReject) {
       try {
         rejectPost({ variables: { userId: user._id, postId: post._id } })
-        dispatch(SET_SNACKBAR({
-          open: true,
-          message: 'Rejected Post Successfully',
-          type: 'success',
-        }))
+        dispatch(
+          SET_SNACKBAR({
+            open: true,
+            message: 'Rejected Post Successfully',
+            type: 'success',
+          }),
+        )
       } catch (err) {
         dispatch(
           SET_SNACKBAR({
             open: true,
             message: `Reject Post error: ${err.message}`,
             type: 'danger',
-          })
+          }),
         )
       }
     }
@@ -381,7 +391,7 @@ const PostPage = () => {
                       opacity: disableApproveReject || disableReject ? 0.65 : 1,
                     }}
                   >
-                    { disableReject ? 'REJECTED' : 'REJECT' }
+                    {disableReject ? 'REJECTED' : 'REJECT'}
                   </Button>
                 </GridItem>
                 <GridItem>
@@ -396,7 +406,7 @@ const PostPage = () => {
                       opacity: disableApproveReject || disablApprove ? 0.65 : 1,
                     }}
                   >
-                    { disablApprove ? 'APPROVED' : 'APPROVE' }
+                    {disablApprove ? 'APPROVED' : 'APPROVE'}
                   </Button>
                 </GridItem>
               </GridContainer>
