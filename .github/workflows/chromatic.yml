@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          npm install && npm run test:generate-output && npm run build-storybook
+          yarn install && yarn run test:generate-output && yarn run build-storybook
       - uses: chromaui/action@v1
         env:
           SKIP_PREFLIGHT_CHECK: true
