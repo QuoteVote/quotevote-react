@@ -8,7 +8,7 @@ import PopPrediction from './PopPrediction'
 
 describe('PopPrediction test -', () => {
   const server = setupServer(
-    rest.get('/greeting', (req, res, ctx) => res(ctx.json({ greeting: 'hello there' })))
+    rest.get('/greeting', (req, res, ctx) => res(ctx.json({ greeting: 'hello there' })),),
   )
 
   beforeAll(() => server.listen())

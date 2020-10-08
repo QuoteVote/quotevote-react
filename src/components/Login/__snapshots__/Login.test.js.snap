@@ -13,11 +13,11 @@ exports[`Login test - renders correctly 1`] = `
       <div
         class="MuiGrid-root MuiGrid-item"
       >
-        <h6
-          class="MuiTypography-root makeStyles-header-1 MuiTypography-h6"
+        <p
+          class="MuiTypography-root makeStyles-header-1 MuiTypography-body1"
         >
           Login
-        </h6>
+        </p>
       </div>
       <div
         class="MuiGrid-root MuiGrid-item"
@@ -96,7 +96,7 @@ exports[`Login test - renders correctly 1`] = `
               class="MuiButton-label"
             >
               <p
-                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorSecondary"
+                class="MuiTypography-root MuiTypography-body1"
               >
                 Log in
               </p>
@@ -115,7 +115,7 @@ exports[`Login test - renders correctly 1`] = `
         >
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-7 MuiTypography-colorPrimary"
-            href="/forgot"
+            href="/auth/forgot"
           >
             Forgot password?
           </a>
@@ -133,7 +133,7 @@ exports[`Login test - renders correctly 1`] = `
           />
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-7 MuiTypography-colorPrimary"
-            href="/request-access"
+            href="/auth/request-access"
           >
             Request Access
           </a>

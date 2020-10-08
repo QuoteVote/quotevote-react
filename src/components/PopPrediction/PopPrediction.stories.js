@@ -4,8 +4,8 @@ import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import { withA11y } from '@storybook/addon-a11y'
 
 // Apollo Imports not needed for story, just for calling data
-// import { useQuery } from "@apollo/react-hooks";
-// import gql from "graphql-tag";
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 
 // If you want to apply theme
 import { MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
@@ -22,44 +22,59 @@ export default {
   decorators: [withKnobs, withA11y],
 }
 
-// const QUERY = gql`
-//   query score($comment: String!) {
-//     score(redditComment: $comment) {
-//       comment
-//       confidence
-//       label
-//     }
-//   }
-// `;
+const QUERY = gql`
+  query popPrediction($comment: String!) {
+    popPrediction(comment: $comment)
+  }
+`
+
+const labels = [
+  'Downvoted',
+  'No Votes',
+  '2-10 Votes',
+  '11-50 Votes',
+  '50+ Votes',
+]
+
+function getPrediction(string) {
+  return labels.findIndex((val) => val === string)
+}
 
 // eslint-disable-next-line react/prop-types
 const Wrapper = ({ disabled = false, width }) => {
-  const [prediction, setPrediction] = useState(0)
+  const [text, setText] = useState('')
 
   // # GRAPHQL CALL - Should be uncommented once query is finished/fixed
-  // const { loading, error, data } = useQuery(QUERY, {
-  //   variables: {
-  //     comment: "test",
-  //   },
-  // });
+  const { error, data, refetch } = useQuery(QUERY, {
+    variables: {
+      comment: '',
+    },
+  })
 
   // if (loading) {
-  //   return <div>loading...</div>;
+  //   return <div>loading...</div>
   // }
-  // if (error) {
-  //   return <div>{`${error}`}</div>;
-  // }
-  // console.log("data", data);
+  if (error) {
+    return <div>{`${error}`}</div>
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <div style={{ maxWidth: width }}>
         <PopPrediction
-          handlePredict={() => {
-            // console.log('click pop button')
-            setPrediction(Math.floor(Math.random() * 5 + 1))
+          handlePredict={async (values) => {
+            if (values.length > 0) {
+              await refetch({
+                comment: values,
+              })
+              setText(values)
+            }
           }}
-          prediction={prediction}
+          prediction={
+            data && text.length > 0 ?
+              getPrediction(data.popPrediction.score.label) :
+              0
+          }
           disabled={boolean('Is Disabled', disabled)}
         />
       </div>

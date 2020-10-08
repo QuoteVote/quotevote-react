@@ -354,6 +354,7 @@ const PostPage = () => {
                 content={post.text}
                 onSelect={setSelectedText}
                 selectedText={selectedText}
+                highlights
               >
                 {({ text }) => (
                   <VotingPopup

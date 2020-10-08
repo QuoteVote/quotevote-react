@@ -1,21 +1,35 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 
+export const uiInitialState = {
+  filter: {
+    visibility: false,
+    value: '',
+  },
+  date: {
+    visibility: false,
+    value: '',
+  },
+  search: {
+    visibility: false,
+    value: '',
+  },
+  selectedPost: {
+    id: null,
+  },
+  selectedPage: 'home',
+  hiddenPosts: [],
+  snackbar: {
+    open: false,
+    type: '',
+    message: '',
+  },
+  selectedPlan: 'personal',
+}
+
 const uiSlice = createSlice({
   name: 'ui',
-  initialState: {
-    selectedPost: {
-      id: null,
-    },
-    selectedPage: 'home',
-    hiddenPosts: [],
-    snackbar: {
-      open: false,
-      type: '',
-      message: '',
-    },
-    selectedPlan: 'personal',
-  },
+  initialState: uiInitialState,
   reducers: {
     SET_SELECTED_POST: (state, action) => {
       state.selectedPost.id = action.payload

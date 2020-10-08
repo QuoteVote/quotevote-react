@@ -4,7 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import localForage from 'localforage'
 
 import userReducer from 'store/user'
-import uiReducer from 'store/ui'
+import uiReducer, { uiInitialState } from 'store/ui'
 import chatReducer from 'store/chat'
 import filterReducer from 'store/filter'
 
@@ -28,20 +28,7 @@ const middleware = [
 ]
 
 const preloadedState = {
-  ui: {
-    filter: {
-      visibility: false,
-      value: '',
-    },
-    date: {
-      visibility: false,
-      value: '',
-    },
-    search: {
-      visibility: false,
-      value: '',
-    },
-  },
+  ui: uiInitialState,
 }
 
 const store = configureStore({
