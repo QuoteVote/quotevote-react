@@ -1,7 +1,4 @@
-import {
-  title,
-  whiteColor,
-} from 'assets/jss/material-dashboard-pro-react'
+import { title } from 'assets/jss/material-dashboard-pro-react'
 
 const errorPageStyles = () => ({
   contentCenter: {
@@ -11,7 +8,6 @@ const errorPageStyles = () => ({
     zIndex: '3',
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
-    color: whiteColor,
     padding: '0 15px',
     width: '100%',
     maxWidth: '880px',
@@ -19,7 +15,6 @@ const errorPageStyles = () => ({
   title: {
     ...title,
     fontSize: '13.7em',
-    color: whiteColor,
     letterSpacing: '14px',
     fontWeight: '700',
   },

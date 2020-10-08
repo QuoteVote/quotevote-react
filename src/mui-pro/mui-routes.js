@@ -7,6 +7,7 @@ import LandingPage from "../views/LandingPage/LandingPage";
 import InvestorThanks from "../views/InvestorThanks";
 import ForgotPasswordPage from "../views/Pages/ForgotPasswordPage";
 import PasswordResetPage from "../views/Pages/PasswordResetPage";
+import SignupPage from "../views/SignupPage/SignupPage";
 
 const dashRoutes = [
   {
@@ -74,6 +75,15 @@ const dashRoutes = [
         mini: 'L',
         rtlMini: 'هعذا',
         component: PasswordResetPage,
+        layout: '/auth',
+      },
+      {
+        path: '/signup',
+        name: 'Signup',
+        rtlName: 'هعذاتسجيل الدخول',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: SignupPage,
         layout: '/auth',
       },
     ],

@@ -26,7 +26,6 @@ import AuthLayout from 'layouts/Auth'
 import client from 'config/apollo'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import RtlLayout from 'layouts/RTL'
 import Scoreboard from 'layouts/Scoreboard'
 import TokenExpired from 'layouts/TokenExpired'
 import store, { persistor } from 'store/store'
@@ -36,6 +35,7 @@ import 'assets/scss/material-dashboard-pro-react.scss'
 import LogoutPage from './components/LogoutPage'
 
 import 'fontsource-montserrat'
+import ErrorPage from './mui-pro/views/Pages/ErrorPage'
 
 const hist = createBrowserHistory()
 
@@ -48,12 +48,12 @@ ReactDOM.render(
         <ThemeProvider theme={theme}>
           <Router history={hist}>
             <Switch>
-              <Route path="/rtl" component={RtlLayout} />
               <Route path="/auth" component={AuthLayout} />
               <Route path="/admin" component={AdminLayout} />
               <Route path="/hhsb" component={Scoreboard} />
               <Route path="/unauth" component={TokenExpired} />
               <Route path="/logout" component={LogoutPage} />
+              <Route path="/error" component={ErrorPage} />
               <Redirect from="/" to="/auth" />
             </Switch>
           </Router>

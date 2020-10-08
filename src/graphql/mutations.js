@@ -122,3 +122,13 @@ export const UPDATE_USER_PASSWORD = gql`
     updateUserPassword(username: $username, password: $password, token: $token)
   }
 `
+export const UPDATE_USER = gql`
+  mutation updateUser($user: UserInput!) {
+    updateUser(user: $user) {
+      _id
+      username
+      name
+      email
+    }
+  }
+`
