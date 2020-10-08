@@ -37,8 +37,8 @@ export const REJECT_POST = gql`
 `
 
 export const UPDATE_USER_INVITE_STATUS = gql`
-  mutation sendUserInviteApproval($user_invite_id: String!, $action: String!) {
-    sendUserInviteApproval(user_invite_id: $user_invite_id, action: $action)
+  mutation sendUserInviteApproval($userId: String!, $inviteStatus: String!) {
+    sendUserInviteApproval(userId: $userId, inviteStatus: $inviteStatus)
   }
 `
 

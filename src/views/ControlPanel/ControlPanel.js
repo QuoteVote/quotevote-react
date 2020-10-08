@@ -15,23 +15,44 @@ import Button from '@material-ui/core/Button'
 import Skeleton from '@material-ui/lab/Skeleton'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 
-import { useQuery } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import { USER_INVITE_REQUESTS } from 'graphql/query'
 import { UPDATE_USER_INVITE_STATUS } from 'graphql/mutations'
-import { Mutation } from '@apollo/react-components'
 
 // react plugin for creating charts
 import ChartistGraph from 'react-chartist'
-import {
-  dailySalesChart,
-} from 'variables/charts'
-
+import { dailySalesChart } from 'variables/charts'
 import controlPanelStylwa from './controlPanelStyles'
 
 const useStyles = makeStyles(controlPanelStylwa)
 
 const ActionButtons = ({ status, id }) => {
   const classes = useStyles()
+  const [sendUserInviteApproval, { loading }] = useMutation(UPDATE_USER_INVITE_STATUS)
+  const submitData = async (selectedStatus) => {
+    await sendUserInviteApproval({
+      variables: {
+        userId: id,
+        inviteStatus: `${selectedStatus}`,
+      },
+      refetchQueries: [{
+        query: USER_INVITE_REQUESTS,
+      }],
+    })
+  }
+
+  const handleDecline = async () => {
+    await submitData(2)
+  }
+
+  const handleAccept = async () => {
+    await submitData(4)
+  }
+
+  const handleReset = async () => {
+    await submitData(1)
+  }
+
   switch (Number(status)) {
     case 1: // pending
       return (
@@ -43,24 +64,23 @@ const ActionButtons = ({ status, id }) => {
             style={{
               backgroundColor: '#f44336',
             }}
+            onClick={handleDecline}
+            disabled={loading}
           >
             Decline
           </Button>
-          <Mutation mutation={UPDATE_USER_INVITE_STATUS}>
-            {(updateInviteStatus) => (
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                style={{
-                  backgroundColor: '#00cf6e',
-                }}
-                onClick={() => updateInviteStatus({ variables: { action: 'ACCEPT', user_invite_id: id } })}
-              >
-                Accept
-              </Button>
-            )}
-          </Mutation>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            style={{
+              backgroundColor: '#00cf6e',
+            }}
+            onClick={handleAccept}
+            disabled={loading}
+          >
+            Accept
+          </Button>
         </div>
       )
     case 2: // declined
@@ -71,6 +91,8 @@ const ActionButtons = ({ status, id }) => {
           style={{
             backgroundColor: '#f44336',
           }}
+          onClick={handleReset}
+          disabled={loading}
         >
           Reset
         </Button>
@@ -83,14 +105,14 @@ const ActionButtons = ({ status, id }) => {
           style={{
             backgroundColor: '#00cf6e',
           }}
+          onClick={handleAccept}
+          disabled={loading}
         >
           Resend
         </Button>
       )
     default:
-      return (
-        <div></div>
-      )
+      return null
   }
 }
 
