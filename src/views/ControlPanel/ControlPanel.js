@@ -21,7 +21,9 @@ import { UPDATE_USER_INVITE_STATUS } from 'graphql/mutations'
 
 // react plugin for creating charts
 import ChartistGraph from 'react-chartist'
+import Chartist from 'chartist'
 import { dailySalesChart } from 'variables/charts'
+import moment from 'moment'
 import controlPanelStylwa from './controlPanelStyles'
 
 const useStyles = makeStyles(controlPanelStylwa)
@@ -137,11 +139,38 @@ const ControlPanelContainer = ({ data }) => {
         return ''
     }
   }
-
-  // TODO: make it dynamic based on the data provided
+  // eslint-disable-next-line radix
+  const inviteRequestCount = data.userInviteRequests.filter((user) => parseInt(user.status) === 1).length
+  const totalUsers = data.userInviteRequests.length
+  const result = data.userInviteRequests.reduce((r, { joined }) => {
+    const dateObj = moment(joined).format('yyyy-MM-01')
+    const objectKey = dateObj.toLocaleString('en-us', { year: 'numeric', month: 'numeric', day: 'numeric' })
+    if (!r[objectKey]) r[objectKey] = { objectKey, entries: 1 }
+    else r[objectKey].entries++
+    return r
+  }, {})
+  const labels = Object.keys(result).sort((a, b) => new Date(a) - new Date(b))
+  const lineSeries = labels.map((label) => result[label].entries)
+  const formatLabels = labels.map((label) => {
+    const dateObj = new Date(label)
+    return dateObj.toLocaleString('en-us', { month: 'numeric', year: 'numeric' })
+  })
   const chartData = {
-    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-    series: [[12, 17, 7, 17, 23, 18, 38]],
+    labels: formatLabels,
+    series: [lineSeries],
+  }
+  const chartOptions = {
+    lineSmooth: Chartist.Interpolation.cardinal({
+      tension: 0,
+    }),
+    low: 0,
+    high: totalUsers + 5,
+    chartPadding: {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    },
   }
   return (
     <Grid container spacing={2} className={classes.panelContainer}>
@@ -219,14 +248,14 @@ const ControlPanelContainer = ({ data }) => {
                 >
                   Invite Requests:
                   {' '}
-                  {(data.userInviteRequests && data.userInviteRequests.length) || 0}
+                  {inviteRequestCount || 0}
                 </Typography>
                 <ChartistGraph
                   className="ct-chart-white-colors"
-                  style={{ backgroundColor: '#00bcd4' }}
+                  style={{ backgroundColor: '#00bcd4', marginTop: 10, marginBottom: 15 }}
                   data={chartData}
                   type="Line"
-                  options={dailySalesChart.options}
+                  options={chartOptions}
                   listener={dailySalesChart.animation}
                 />
                 <Typography
@@ -235,7 +264,7 @@ const ControlPanelContainer = ({ data }) => {
                 >
                   Total Users:
                   {' '}
-                  {(data.userInviteRequests && data.userInviteRequests.length) || 0}
+                  {totalUsers || 0}
                 </Typography>
                 <Typography
                   className={classes.graphText}

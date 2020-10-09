@@ -11,6 +11,7 @@ import SvgIcon from '@material-ui/core/SvgIcon'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { useApolloClient } from '@apollo/react-hooks'
+import { useSelector } from 'react-redux'
 import { ReactComponent as SettingsSvg } from '../../assets/svg/Settings.svg'
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +29,7 @@ export default function SettingsIconButton({ fontSize }) {
   const anchorRef = React.useRef(null)
   const history = useHistory()
   const client = useApolloClient()
+  const user = useSelector((state) => state.user.data)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -98,7 +100,7 @@ export default function SettingsIconButton({ fontSize }) {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem onClick={handleInviteControlPanel}>Invite Control Panel</MenuItem>
+                  {user.admin && <MenuItem onClick={handleInviteControlPanel}>Invite Control Panel</MenuItem>}
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </ClickAwayListener>
