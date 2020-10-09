@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Profile from 'components/Profile'
 import ChangePhoto from './ChangePhoto'
 import Followers from './Followers'
@@ -10,24 +10,22 @@ export default function ProfileRouter() {
   //  My Profile vs Different Profile?  / Change avatar / followers / following
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/hhsb/Profile">
-          <Profile />
-        </Route>
-        <Route exact path="/hhsb/Profile/:userId/">
-          <Profile />
-        </Route>
-        <Route exact path="/hhsb/Profile/:userId/avatar">
-          <ChangePhoto />
-        </Route>
-        <Route exact path="/hhsb/Profile/:userId/following">
-          <Followers />
-        </Route>
-        <Route exact path="/hhsb/Profile/:userId/followers">
-          <Following />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <>
+      <Route exact path="/hhsb/Profile">
+        <Profile />
+      </Route>
+      <Route exact path="/hhsb/Profile/:userId/">
+        <Profile />
+      </Route>
+      <Route exact path="/hhsb/Profile/:userId/avatar">
+        <ChangePhoto />
+      </Route>
+      <Route exact path="/hhsb/Profile/:userId/following">
+        <Followers />
+      </Route>
+      <Route exact path="/hhsb/Profile/:userId/followers">
+        <Following />
+      </Route>
+    </>
   )
 }

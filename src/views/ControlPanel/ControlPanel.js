@@ -120,7 +120,7 @@ const ActionButtons = ({ status, id }) => {
 
 const ControlPanelContainer = ({ data }) => {
   const classes = useStyles()
-  const header = ['ID', 'Email', 'Status', 'Action']
+  const header = ['Email', 'Status', 'Action']
   const activeUsersCount = 0
   // statuses
   // 1 = new / pending
@@ -174,110 +174,103 @@ const ControlPanelContainer = ({ data }) => {
   }
   return (
     <Grid container spacing={2} className={classes.panelContainer}>
-      <Grid item xs={12}>
+      <Grid container>
         <Typography className={classes.panelHeader}>Invite Control Panel</Typography>
       </Grid>
-      <Grid container item xs={12}>
-        <Grid container item xs={6} className={classes.sectionBorder}>
-          <Grid item xs={11}>
-            <Card>
-              <CardContent>
-                <Typography className={classes.cardHeader}>User Invitation Requests</Typography>
-                <TableContainer>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead classes={{ head: classes.columnHeader }}>
-                      <TableRow>
-                        {header.map((name) => (
-                          <TableCell
-                            align="center"
-                            className={classes.columnHeader}
-                          >
-                            {name}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {data.userInviteRequests.map((row) => (
-                        <TableRow key={row._id}>
-                          <TableCell align="center">
-                            {row._id}
-                          </TableCell>
-                          <TableCell align="center">{row.email}</TableCell>
-                          <TableCell align="center">
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className={cx({
-                                [classes.pendingStatus]: row.status === '1',
-                                [classes.declinedStatus]: row.status === '2',
-                                [classes.acceptedStatus]: row.status === '4',
-                              })}
-                              disableRipple
-                              disableElevation
-                            >
-                              {getStatusValue(row.status)}
-                            </Button>
-                          </TableCell>
-                          <TableCell align="center">
-                            <ActionButtons status={row.status} id={row._id} />
-                          </TableCell>
-                        </TableRow>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={7} lg={7} xl={6}>
+          <Card>
+            <CardContent>
+              <Typography className={classes.cardHeader}>User Invitation Requests</Typography>
+              <TableContainer className={classes.tableContainer}>
+                <Table className={classes.table} aria-label="simple table" stickyHeader>
+                  <TableHead classes={{ head: classes.columnHeader }}>
+                    <TableRow>
+                      {header.map((name) => (
+                        <TableCell
+                          align="center"
+                          className={classes.columnHeader}
+                        >
+                          {name}
+                        </TableCell>
                       ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </CardContent>
-            </Card>
-          </Grid>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.userInviteRequests.map((row) => (
+                      <TableRow key={row._id}>
+                        <TableCell align="left">{row.email}</TableCell>
+                        <TableCell align="center">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={cx({
+                              [classes.pendingStatus]: row.status === '1',
+                              [classes.declinedStatus]: row.status === '2',
+                              [classes.acceptedStatus]: row.status === '4',
+                            })}
+                            disableRipple
+                            disableElevation
+                          >
+                            {getStatusValue(row.status)}
+                          </Button>
+                        </TableCell>
+                        <TableCell align="center">
+                          <ActionButtons status={row.status} id={row._id} />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </CardContent>
+          </Card>
         </Grid>
-        <Grid container item xs={6} justify="flex-end">
-          <Grid item xs={11}>
-            <Card>
-              <CardContent>
-                <Typography
-                  className={classes.cardHeader}
-                  display="inline"
-                >
-                  User Invitation Statistics
-                </Typography>
-                <Typography
-                  className={classes.graphText}
-                  display="inline"
-                  style={{ float: 'right' }}
-                >
-                  Invite Requests:
-                  {' '}
-                  {inviteRequestCount || 0}
-                </Typography>
-                <ChartistGraph
-                  className="ct-chart-white-colors"
-                  style={{ backgroundColor: '#00bcd4', marginTop: 10, marginBottom: 15 }}
-                  data={chartData}
-                  type="Line"
-                  options={chartOptions}
-                  listener={dailySalesChart.animation}
-                />
-                <Typography
-                  className={classes.graphText}
-                  display="inline"
-                >
-                  Total Users:
-                  {' '}
-                  {totalUsers || 0}
-                </Typography>
-                <Typography
-                  className={classes.graphText}
-                  display="inline"
-                  style={{ float: 'right' }}
-                >
-                  Active Users Today:
-                  {' '}
-                  {activeUsersCount}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+        <Grid item xs={12} md={5} lg={5} xl={6} justify="center">
+          <Card>
+            <CardContent>
+              <Typography
+                className={classes.cardHeader}
+                display="inline"
+              >
+                User Invitation Statistics
+              </Typography>
+              <Typography
+                className={classes.graphText}
+                display="inline"
+                style={{ float: 'right' }}
+              >
+                Invite Requests:
+                {' '}
+                {inviteRequestCount || 0}
+              </Typography>
+              <ChartistGraph
+                className="ct-chart-white-colors"
+                style={{ backgroundColor: '#00bcd4', marginTop: 10, marginBottom: 15 }}
+                data={chartData}
+                type="Line"
+                options={chartOptions}
+                listener={dailySalesChart.animation}
+              />
+              <Typography
+                className={classes.graphText}
+                display="inline"
+              >
+                Total Users:
+                {' '}
+                {totalUsers || 0}
+              </Typography>
+              <Typography
+                className={classes.graphText}
+                display="inline"
+                style={{ float: 'right' }}
+              >
+                Active Users Today:
+                {' '}
+                {activeUsersCount}
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </Grid>

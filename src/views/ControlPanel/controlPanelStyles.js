@@ -1,7 +1,10 @@
 const requestAccessStyles = (theme) => ({
+  tableContainer: {
+    maxHeight: 500,
+  },
   panelContainer: {
     [theme.breakpoints.up('lg')]: {
-      padding: 100,
+      padding: 20,
       paddingTop: 30,
     },
     [theme.breakpoints.down('md')]: {
@@ -10,13 +13,13 @@ const requestAccessStyles = (theme) => ({
     [theme.breakpoints.down('xs')]: {
       padding: 0,
     },
-    backgroundColor: '#fafafa',
   },
   panelHeader: {
     font: 'Montserrat',
     fontSize: '24px',
     fontWeight: 'bold',
     color: 'black',
+    marginBottom: 25,
   },
   cardHeader: {
     font: 'Montserrat',
@@ -24,15 +27,11 @@ const requestAccessStyles = (theme) => ({
     fontWeight: 'bold',
     letterSpacing: '0.2px',
     color: '#00cf6e',
-  },
-  sectionBorder: {
-    height: '100%',
-    borderRight: 'solid 2px #d2d2d2',
+    marginBottom: 10,
   },
   columnHeader: {
     font: 'Roboto',
     fontSize: '17px',
-    color: '#00cf6e',
   },
   button: {
     width: '83.1px',
