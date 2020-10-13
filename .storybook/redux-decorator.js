@@ -1,9 +1,9 @@
 import React from 'react'
 import {Provider} from 'react-redux'
-import store from 'store/store'
+import { testStore } from 'store/store'
 
 const ReduxDecorator = (story) => (
-    <Provider store={store}>
+    <Provider store={testStore}>
         { story() }
     </Provider>
 )

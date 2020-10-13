@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import { persistStore, persistReducer } from 'redux-persist'
+import { persistReducer, persistStore } from 'redux-persist'
 import localForage from 'localforage'
 
 import userReducer from 'store/user'
@@ -35,6 +35,22 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware,
   preloadedState,
+  devTools: process.env.NODE_ENV === 'development',
+})
+
+const testPreloadState = {
+  ui: uiInitialState,
+  user: {
+    loading: false,
+    loginError: null,
+    data: { admin: true },
+  },
+}
+
+export const testStore = configureStore({
+  reducer: persistedReducer,
+  middleware,
+  preloadedState: testPreloadState,
   devTools: process.env.NODE_ENV === 'development',
 })
 

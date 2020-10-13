@@ -121,13 +121,13 @@ export function clearToken(dispatch) {
   localStorage.removeItem('token')
 }
 
-// export const userLogout = (history) => async (dispatch) => {
-//   console.log('userLogout', history)
-//   clearToken()
-
-//   if (history) {
-//     history.push('/logout')
-//   }
-// }
+export const {
+  USER_LOGIN_FAILURE,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
+  USER_TOKEN_VALIDATED,
+  USER_TOKEN_VALIDATION,
+} = userSlice.actions
 
 export default userSlice.reducer

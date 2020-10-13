@@ -282,8 +282,8 @@ const ControlPanelContainer = ({ data }) => {
 const ControlPanel = () => {
   const { data } = useQuery(USER_INVITE_REQUESTS)
   const classes = useStyles()
-  const user = useSelector((state) => state.user.data)
-  if (!user.admin) {
+  const { admin } = useSelector((state) => state.user.data)
+  if (!admin) {
     return (<Unauthorized />)
   }
   if (data) {
