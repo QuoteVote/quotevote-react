@@ -24,7 +24,9 @@ import ChartistGraph from 'react-chartist'
 import Chartist from 'chartist'
 import { dailySalesChart } from 'variables/charts'
 import moment from 'moment'
+import { useSelector } from 'react-redux'
 import controlPanelStylwa from './controlPanelStyles'
+import Unauthorized from '../../components/Unauthorized/Unauthorized'
 
 const useStyles = makeStyles(controlPanelStylwa)
 
@@ -280,6 +282,10 @@ const ControlPanelContainer = ({ data }) => {
 const ControlPanel = () => {
   const { data } = useQuery(USER_INVITE_REQUESTS)
   const classes = useStyles()
+  const user = useSelector((state) => state.user.data)
+  if (!user.admin) {
+    return (<Unauthorized />)
+  }
   if (data) {
     return (
       <ControlPanelContainer data={data} />
