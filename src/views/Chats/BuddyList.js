@@ -5,7 +5,7 @@ import ChatListDividers from 'components/ChatComponents/ChatListDividers'
 
 import GridContainer from 'mui-pro/Grid/GridContainer'
 
-import Alert from '../assets/img/Alerts.png'
+import Alert from '../../assets/img/Alerts.png'
 
 // eslint-disable-next-line react/prop-types
 export default function BuddyList({ toggle }) {

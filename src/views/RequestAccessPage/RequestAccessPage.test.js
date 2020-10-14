@@ -4,7 +4,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import RequestAccessPage from './RequestAccessPage'
-import store from '../../../store/store'
+import store from '../../store/store'
 
 const RequestAccessPageWrapper = () => (
   <ApolloProvider client={client}>

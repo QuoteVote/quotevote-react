@@ -27,7 +27,7 @@ import CheckIcon from '@material-ui/icons/Check'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import moment from 'moment'
 
-import PostPageSkeleton from 'views/Skeletons/PostPageSkeleton'
+import PostPageSkeleton from 'views/Posts/Skeletons/PostPageSkeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SNACKBAR } from 'store/ui'
 import { cloneDeep, findIndex } from 'lodash'

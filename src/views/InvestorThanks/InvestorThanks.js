@@ -2,9 +2,9 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 import { Typography } from '@material-ui/core'
-import GridContainer from '../mui-pro/Grid/GridContainer'
-import GridItem from '../mui-pro/Grid/GridItem'
-import PeopleWavingImg from '../assets/img/PeopleWaving.png'
+import GridContainer from '../../mui-pro/Grid/GridContainer'
+import GridItem from '../../mui-pro/Grid/GridItem'
+import PeopleWavingImg from '../../assets/img/PeopleWaving.png'
 
 const useStyles = makeStyles(styles)
 

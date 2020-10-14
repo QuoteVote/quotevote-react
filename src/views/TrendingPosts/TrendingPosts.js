@@ -8,10 +8,10 @@ import PostsList from 'components/PostsList'
 import { GET_TOP_POSTS } from 'graphql/query'
 import SubHeader from 'components/SubHeader'
 import { makeStyles } from '@material-ui/core/styles'
-import GridContainer from '../mui-pro/Grid/GridContainer'
-import GridItem from '../mui-pro/Grid/GridItem'
-import FilterInputs from '../components/Filter/FilterInputs'
-import ErrorBoundary from '../components/ErrorBoundary'
+import GridContainer from '../../mui-pro/Grid/GridContainer'
+import GridItem from '../../mui-pro/Grid/GridItem'
+import FilterInputs from '../../components/Filter/FilterInputs'
+import ErrorBoundary from '../../components/ErrorBoundary'
 
 const useStyles = makeStyles(({
   root: {

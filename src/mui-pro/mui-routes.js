@@ -1,12 +1,12 @@
 import ErrorPage from "mui-pro/views/Pages/ErrorPage";
-import LoginPage from "views/Pages/LoginPage";
-import RequestAccessPage from "views/Pages/RequestAccessPage/RequestAccessPage";
+import LoginPage from "views/LoginPage/LoginPage";
+import RequestAccessPage from "views/RequestAccessPage/RequestAccessPage";
 
 import Image from "@material-ui/icons/Image";
 import LandingPage from "../views/LandingPage/LandingPage";
-import InvestorThanks from "../views/InvestorThanks";
-import ForgotPasswordPage from "../views/Pages/ForgotPasswordPage";
-import PasswordResetPage from "../views/Pages/PasswordResetPage";
+import InvestorThanks from "../views/InvestorThanks/InvestorThanks";
+import ForgotPasswordPage from "../views/ForgotPassword/ForgotPasswordPage";
+import PasswordResetPage from "../views/PasswordResetPage/PasswordResetPage";
 import SignupPage from "../views/SignupPage/SignupPage";
 
 const dashRoutes = [

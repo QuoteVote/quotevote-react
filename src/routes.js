@@ -1,13 +1,13 @@
-import PostPage from 'views/PostPage'
+import PostPage from 'views/Posts/PostPage'
 
 import add from 'assets/img/add.png'
 import Alert from 'assets/img/Alerts.png'
 import Avatar from 'assets/img/Avatar.png'
 
-import TrendingPosts from 'views/TrendingPosts'
-import SubmitPost from 'views/SubmitPost'
-import SearchView from 'views/SearchView'
-import ManageInvites from 'views/ManageInvites'
+import TrendingPosts from 'views/TrendingPosts/TrendingPosts'
+import SubmitPost from 'views/Posts/SubmitPost'
+import SearchView from 'views/SearchView/SearchView'
+import ManageInvites from 'views/ManageInvites/ManageInvites'
 import HomePage from 'views/Homepage/Homepage'
 import Profile from 'views/Profile'
 import ControlPanel from 'views/ControlPanel/ControlPanel'
