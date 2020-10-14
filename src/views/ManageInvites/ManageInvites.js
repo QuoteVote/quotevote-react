@@ -55,14 +55,12 @@ function Status({ status }) {
           Accepted
         </Badge>
       )
-      break
     case 'DECLINED':
       return (
         <Badge color="rose">
           {status}
         </Badge>
       )
-      break
     case 'RESEND':
       return (
         <Badge color="gray">
@@ -84,7 +82,6 @@ function ActionButton({ status, id }) {
       return (
         <Button color="gray">Resend</Button>
       )
-      break
     case 'APPROVED':
       return (
         <div>
@@ -96,21 +93,16 @@ function ActionButton({ status, id }) {
           </Mutation>
         </div>
       )
-      break
     case 'DECLINED':
       return (
         <Button color="gray"> RESET</Button>
       )
-      break
-
     case 'RESEND':
       return (
         <Button color="gray"> Resend</Button>
       )
     default:
-      return (
-        <div></div>
-      )
+      return null
   }
 }
 function InviteTable({ data }) {

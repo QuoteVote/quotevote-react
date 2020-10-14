@@ -56,7 +56,7 @@ export default function MessageContainer({ toggle }) {
       <GridContainer className={classes.header}>
         <p className={classes.headerText} onClick={toggle}> Back</p>
       </GridContainer>
-      <br></br>
+      <br />
 
       {messageData.map((message) => (<Message content={message.Content} color={message.Color} username={message.Username} />))}
 
