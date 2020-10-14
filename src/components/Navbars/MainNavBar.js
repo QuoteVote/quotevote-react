@@ -37,6 +37,10 @@ function MainNavBar(props) {
   const handleProfileClick = () => {
     dispatch(SET_SELECTED_PAGE(null))
   }
+
+  const handleVoxPop = () => {
+    dispatch(SET_SELECTED_PAGE(0))
+  }
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Grid
@@ -47,7 +51,9 @@ function MainNavBar(props) {
         wrap="nowrap"
       >
         <Grid item lg={2}>
-          <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
+          <NavLink to="/hhsb/Home" onClick={handleVoxPop}>
+            <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
+          </NavLink>
         </Grid>
 
         <Grid container item lg={5} justify="flex-start">
