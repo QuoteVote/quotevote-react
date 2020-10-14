@@ -48,6 +48,7 @@ import { CREATE_GROUP, SUBMIT_POST } from 'graphql/mutations'
 import { GROUPS_QUERY } from 'graphql/query'
 
 import { SET_SELECTED_POST } from 'store/ui'
+import { useForm } from 'react-hook-form'
 
 const useStyles = makeStyles(styles)
 
@@ -56,17 +57,20 @@ const inputStyles = {
   fontSize: '25px',
   font: 'League Spartan',
   fontWeight: 'bold',
+  overflow: 'auto',
+  width: '100%',
 }
 
 function SubmitPost() {
   const classes = useStyles()
   const [alert, setAlert] = useState(null)
-  const [postTitle, setPostTitle] = useState('[Enter Title]')
-  const [postText, setPostText] = useState('')
   const [groupName, setGroupName] = useState('')
   const [groupId, setGroupId] = useState('')
   const [subScoreboardIsOpen, setCreateSubScoreboard] = useState(false)
   const [privacy, setPrivacy] = useState('private')
+  const {
+    register, handleSubmit, errors,
+  } = useForm()
 
   const dispatch = useDispatch()
 
@@ -81,9 +85,8 @@ function SubmitPost() {
 
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
+  const onSubmit = async (values) => {
+    const { title, text } = values
     try {
       let newGroup
       if (subScoreboardIsOpen) {
@@ -98,13 +101,13 @@ function SubmitPost() {
           },
         })
       }
-      const postGroupId = newGroup ? newGroup.data.createGroup._id : groupId
+      const postGroupId = newGroup ? newGroup.data.createGroup._id : groupId || userAllowedGroups[0]._id
       const submitResult = await submitPost({
         variables: {
           post: {
             userId: user._id,
-            text: postText,
-            title: postTitle,
+            text,
+            title,
             groupId: postGroupId,
           },
         },
@@ -115,24 +118,6 @@ function SubmitPost() {
     } catch (err) {
       errorAlert(err)
     }
-  }
-
-  const handlePostText = (event) => {
-    setPostText(event.target.value)
-  }
-
-  const handlePostTitle = (event) => {
-    setPostTitle(event.target.value)
-  }
-
-  const clearPostTitle = () => {
-    if (postTitle === '[Enter Title]') {
-      setPostTitle('')
-    }
-  }
-
-  const handleGroup = (event) => {
-    setGroupName(event.target.value)
   }
 
   const handleCreateSubScoreboard = () => {
@@ -177,7 +162,7 @@ function SubmitPost() {
             </IconButton>
           </GridItem>
         </Grid>
-      </SweetAlert>,
+      </SweetAlert>
     )
   }
 
@@ -196,7 +181,7 @@ function SubmitPost() {
         Error:
         {' '}
         {err}
-      </SweetAlert>,
+      </SweetAlert>
     )
   }
   const hideAlert = () => {
@@ -238,178 +223,162 @@ function SubmitPost() {
       })) ||
     []
 
+  const handleSetGroupId = (event) => {
+    if (event.target.value) {
+      setGroupId(event.target.value)
+    }
+  }
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {alert}
       <GridContainer>
         <GridItem xs={12} xl={6}>
           <Card style={{ height: '600px' }}>
-            <CardHeader style={{ zIndex: 0 }}>
+            <CardBody>
+              <InputBase
+                fullWidth
+                data-testid="title-input"
+                id="title"
+                style={inputStyles}
+                placeholder="[Enter Title]"
+                name="title"
+                inputRef={register({
+                  required: 'Title is required',
+                })}
+                required
+                error={errors.title}
+                helperText={errors.title && errors.title.message}
+              />
+              <Divider />
+              <TextField
+                id="text"
+                label="Post"
+                placeholder="Input text to submit post"
+                multiline
+                fullWidth
+                rows={3}
+                rowsMax={20}
+                name="text"
+                style={{
+                  maxHeight: 600,
+                  overflow: 'auto',
+                }}
+                inputRef={register({
+                  required: 'Post is required',
+                })}
+                required
+                error={errors.text}
+              />
               <div
                 style={{
+                  marginTop: 24,
                   display: 'flex',
-                  direction: 'row',
                   justifyContent: 'space-between',
-                  zIndex: 0,
+                  alignContent: 'center',
+                  flexWrap: 'wrap',
                 }}
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    direction: 'row',
-                    alignContent: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <InputBase
-                    data-testid="title-input"
-                    id="title-input"
-                    style={inputStyles}
-                    onClick={clearPostTitle}
-                    onFocus={clearPostTitle}
-                    onChange={handlePostTitle}
-                    value={postTitle}
-                    name="title"
-                    required
-                  />
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    direction: 'row',
-                    justifyContent: 'flex-end',
-                    flexBasis: '100px',
-                  }}
-                >
-                </div>
-              </div>
-              <Divider />
-            </CardHeader>
-            <CardBody>
-              <form onSubmit={handleSubmit}>
-                <TextField
-                  id="post"
-                  label="Post"
-                  placeholder="Input text to submit post"
-                  multiline
-                  fullWidth
-                  name="text"
-                  required
-                  onChange={handlePostText}
-                  value={postText}
-                  style={{
-                    maxHeight: 600,
-                    overflow: 'auto',
-                  }}
-                />
-                <div
-                  style={{
-                    marginTop: 24,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignContent: 'center',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  <div>
-                    <FormControl required>
-                      {subScoreboardIsOpen && subScoreboardIsOpen ? (
-                        <TextField
-                          id="group"
-                          label="Group"
-                          placeholder="Create a new group"
+                <div>
+                  <FormControl required>
+                    {subScoreboardIsOpen && subScoreboardIsOpen ? (
+                      <TextField
+                        id="group"
+                        name="group"
+                        label="Group"
+                        placeholder="Create a new group"
+                        value={groupName}
+                        style={{ width: 280 }}
+                        inputRef={register({
+                          required: 'Group is required',
+                        })}
+                        error={errors.group}
+                      />
+                    ) : (
+                      <>
+                        <InputLabel id="group-label" htmlFor="group">
+                          Group
+                        </InputLabel>
+                        <Select
+                          data-testid="group"
                           name="group"
+                          id="group"
+                          value={groupId || userAllowedGroups[0]._id}
+                          placeholder={groupName}
                           required
-                          onChange={handleGroup}
-                          value={groupName}
+                          onChange={handleSetGroupId}
                           style={{ width: 280 }}
-                        />
-                      ) : (
-                        <>
-                          <InputLabel id="group-label" htmlFor="group">
-                            Group
-                          </InputLabel>
-                          <Select
-                            data-testid="group"
-                            id="group"
-                            value={groupId}
-                            placeholder={groupName}
-                            required
-                            onChange={(e) => setGroupId(e.target.value)}
-                            style={{ width: 280 }}
-                          >
-                            <MenuItem value={groupName}>{groupName}</MenuItem>
-                            {!isEmpty(userAllowedGroups) &&
-                              userAllowedGroups.map((publicGroup) => (
-                                <MenuItem
-                                  value={publicGroup._id}
-                                  key={publicGroup._id}
-                                >
-                                  {publicGroup.title}
-                                </MenuItem>
-                              ))}
-                          </Select>
-                        </>
-                      )}
-                    </FormControl>
-                    <IconButton
-                      style={{ marginTop: 8, marginLeft: 4 }}
-                      onClick={handleCreateSubScoreboard}
-                    >
-                      {subScoreboardIsOpen && subScoreboardIsOpen ? (
-                        <Tooltip
-                          title="Choose an existing group"
-                          style={{ fontSize: 18 }}
                         >
-                          <RemoveIcon />
-                        </Tooltip>
-                      ) : (
-                        <Tooltip title="Add a new group">
-                          <AddIcon />
-                        </Tooltip>
-                      )}
-                    </IconButton>
-                  </div>
-                  <Button
-                    id="submit-button"
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    style={{
-                      backgroundColor: 'rgb(233, 30, 99)',
-                      marginTop: '8px',
-                    }}
+                          <MenuItem value={groupName}>{groupName}</MenuItem>
+                          {!isEmpty(userAllowedGroups) &&
+                          userAllowedGroups.map((publicGroup) => (
+                            <MenuItem
+                              value={publicGroup._id}
+                              key={publicGroup._id}
+                            >
+                              {publicGroup.title}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </>
+                    )}
+                  </FormControl>
+                  <IconButton
+                    style={{ marginTop: 8, marginLeft: 4 }}
+                    onClick={handleCreateSubScoreboard}
                   >
-                    Submit
-                  </Button>
-                </div>
-                {subScoreboardIsOpen && (
-                  <div style={{ paddingTop: 16 }}>
-                    <FormControl required component="fieldset">
-                      <FormLabel component="legend">
-                        Choose Visibility
-                      </FormLabel>
-                      <RadioGroup
-                        aria-label="privacy"
-                        name="privacy"
-                        value={privacy}
-                        onChange={handlePrivacy}
+                    {subScoreboardIsOpen && subScoreboardIsOpen ? (
+                      <Tooltip
+                        title="Choose an existing group"
+                        style={{ fontSize: 18 }}
                       >
-                        <FormControlLabel
-                          value="private"
-                          control={<Radio />}
-                          label="Private"
-                        />
-                        <FormControlLabel
-                          value="public"
-                          control={<Radio />}
-                          label="Public"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                  </div>
-                )}
-              </form>
+                        <RemoveIcon />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Add a new group">
+                        <AddIcon />
+                      </Tooltip>
+                    )}
+                  </IconButton>
+                </div>
+                <Button
+                  id="submit-button"
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  style={{
+                    backgroundColor: 'rgb(233, 30, 99)',
+                    marginTop: '8px',
+                  }}
+                >
+                  Submit
+                </Button>
+              </div>
+              {subScoreboardIsOpen && (
+                <div style={{ paddingTop: 16 }}>
+                  <FormControl required component="fieldset">
+                    <FormLabel component="legend">
+                      Choose Visibility
+                    </FormLabel>
+                    <RadioGroup
+                      aria-label="privacy"
+                      name="privacy"
+                      value={privacy}
+                      onChange={handlePrivacy}
+                    >
+                      <FormControlLabel
+                        value="private"
+                        control={<Radio />}
+                        label="Private"
+                      />
+                      <FormControlLabel
+                        value="public"
+                        control={<Radio />}
+                        label="Public"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+              )}
             </CardBody>
           </Card>
         </GridItem>
@@ -438,7 +407,7 @@ function SubmitPost() {
           </Card>
         </GridItem>
       </GridContainer>
-    </>
+    </form>
   )
 }
 
