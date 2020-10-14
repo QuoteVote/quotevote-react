@@ -129,6 +129,8 @@ export const UPDATE_USER = gql`
       username
       name
       email
+      avatar
+      admin
     }
   }
 `

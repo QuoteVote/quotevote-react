@@ -11,9 +11,11 @@ import Grid from '@material-ui/core/Grid'
 import { CircularProgress } from '@material-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import CardBody from '../../mui-pro/Card/CardBody'
 import Card from '../../mui-pro/Card/Card'
 import { UPDATE_USER } from '../../graphql/mutations'
+import { USER_LOGIN_SUCCESS } from '../../store/user'
 
 const useStyles = makeStyles({
   header: {
@@ -52,6 +54,7 @@ function SignupForm({
   localStorage.setItem('token', token)
   const classes = useStyles()
   const history = useHistory()
+  const dispatch = useDispatch()
   const {
     register, handleSubmit, errors, setError,
   } = useForm()
@@ -62,7 +65,7 @@ function SignupForm({
       username, password, email, name,
     } = values
 
-    await updateUser({
+    const result = await updateUser({
       variables: {
         user: {
           _id: user._id,
@@ -73,6 +76,14 @@ function SignupForm({
         },
       },
     })
+
+    if (result && result.data) {
+      dispatch(USER_LOGIN_SUCCESS({
+        data: result.data.updateUser,
+        loading: false,
+        loginError: null,
+      }))
+    }
   }
 
   useEffect(() => {
@@ -86,7 +97,7 @@ function SignupForm({
 
   useEffect(() => {
     if (!loading && data) {
-      history.push('/auth/login')
+      history.push('/hhsb/Home')
     }
   }, [data, loading, history])
 
