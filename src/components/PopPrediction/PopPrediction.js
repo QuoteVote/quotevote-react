@@ -18,12 +18,14 @@ const useStyles = makeStyles(() => ({
   title: {
     fontFamily: 'Montserrat',
     fontWeight: 700,
+    color: '#00CF6E',
   },
   cardBottomSheet: {
     display: 'flex',
   },
   percent: {
     flexGrow: 1,
+    color: '#00CF6E',
   },
   subPercentText: {
     fontFamily: 'Montserrat',
@@ -63,7 +65,7 @@ const CardBottomSheet = ({
   return (
     <div className={classes.cardBottomSheet}>
       <div className={classes.percent}>
-        <Typography variant="h3" color="primary" title="prediction">
+        <Typography variant="h3" className={classes.percent} color="primary" title="prediction">
           <PopPercent prediction={prediction} />
         </Typography>
         <Typography variant="body2" color="primary">
@@ -131,7 +133,8 @@ const PopPrediction = ({
               onChange={handleTextInputChange}
               fullWidth
               multiline
-              rows={4}
+              rows={2}
+              rowsMax={20}
               disabled={disabled}
               {...props}
             />

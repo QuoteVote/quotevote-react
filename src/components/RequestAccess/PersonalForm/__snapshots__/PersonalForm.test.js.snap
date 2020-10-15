@@ -100,6 +100,7 @@ exports[`PersonalForm test - renders correctly 1`] = `
                       >
                         First Name
                         <span
+                          aria-hidden="true"
                           class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
                         >
                            
@@ -135,6 +136,7 @@ exports[`PersonalForm test - renders correctly 1`] = `
                       >
                         Last Name
                         <span
+                          aria-hidden="true"
                           class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
                         >
                            
@@ -170,6 +172,7 @@ exports[`PersonalForm test - renders correctly 1`] = `
                       >
                         Email
                         <span
+                          aria-hidden="true"
                           class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
                         >
                            

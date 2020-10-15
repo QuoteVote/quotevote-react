@@ -5,7 +5,7 @@ import Alert from 'assets/img/Alerts.png'
 import Avatar from 'assets/img/Avatar.png'
 
 import TrendingPosts from 'views/TrendingPosts/TrendingPosts'
-import SubmitPost from 'views/Posts/SubmitPost'
+import SubmitPost from 'views/SubmitPostPage/SubmitPostPage'
 import SearchView from 'views/SearchView/SearchView'
 import ManageInvites from 'views/ManageInvites/ManageInvites'
 import HomePage from 'views/Homepage/Homepage'

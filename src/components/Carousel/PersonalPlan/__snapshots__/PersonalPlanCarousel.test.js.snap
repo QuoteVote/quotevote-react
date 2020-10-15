@@ -101,7 +101,6 @@ exports[`PersonalPlanCarousel test - renders correctly 1`] = `
                         aria-hidden="true"
                         class="MuiSvgIcon-root-34"
                         focusable="false"
-                        role="presentation"
                         viewBox="0 0 24 24"
                       >
                         <path
@@ -142,7 +141,6 @@ exports[`PersonalPlanCarousel test - renders correctly 1`] = `
           aria-hidden="true"
           class="MuiSvgIcon-root-107"
           focusable="false"
-          role="presentation"
           viewBox="0 0 24 24"
         >
           <path
@@ -179,7 +177,6 @@ exports[`PersonalPlanCarousel test - renders correctly 1`] = `
           aria-hidden="true"
           class="MuiSvgIcon-root-107"
           focusable="false"
-          role="presentation"
           viewBox="0 0 24 24"
         >
           <path

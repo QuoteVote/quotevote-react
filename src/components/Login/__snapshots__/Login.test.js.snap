@@ -36,7 +36,6 @@ exports[`Login test - renders correctly 1`] = `
                   aria-hidden="true"
                   class="MuiSvgIcon-root makeStyles-icon-6"
                   focusable="false"
-                  role="presentation"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -68,7 +67,6 @@ exports[`Login test - renders correctly 1`] = `
                   aria-hidden="true"
                   class="MuiSvgIcon-root makeStyles-icon-6"
                   focusable="false"
-                  role="presentation"
                   viewBox="0 0 24 24"
                 >
                   <path

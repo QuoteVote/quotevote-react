@@ -32,7 +32,15 @@ exports[`PopPrediction test - renders correctly 1`] = `
               aria-invalid="false"
               class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
               placeholder="input text to submit predict truth or sentiment"
-              rows="4"
+              rows="2"
+              style="height: 0px; overflow: hidden;"
+            />
+            <textarea
+              aria-hidden="true"
+              class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+              readonly=""
+              style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
+              tabindex="-1"
             />
           </div>
         </div>
@@ -47,7 +55,7 @@ exports[`PopPrediction test - renders correctly 1`] = `
             class="makeStyles-percent-3"
           >
             <h3
-              class="MuiTypography-root MuiTypography-h3 MuiTypography-colorPrimary"
+              class="MuiTypography-root makeStyles-percent-3 MuiTypography-h3 MuiTypography-colorPrimary"
               title="prediction"
             >
                20%
@@ -65,22 +73,23 @@ exports[`PopPrediction test - renders correctly 1`] = `
               class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-select-7 Mui-disabled Mui-disabled"
             >
               <div
+                aria-disabled="true"
                 aria-haspopup="listbox"
-                aria-labelledby=" "
                 class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
                 role="button"
               >
                 Sentiment
               </div>
               <input
-                type="hidden"
+                aria-hidden="true"
+                class="MuiSelect-nativeInput"
+                tabindex="-1"
                 value="sentiment"
               />
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root MuiSelect-icon"
+                class="MuiSvgIcon-root MuiSelect-icon Mui-disabled"
                 focusable="false"
-                role="presentation"
                 viewBox="0 0 24 24"
               >
                 <path

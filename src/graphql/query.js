@@ -238,3 +238,9 @@ export const VERIFY_PASSWORD_RESET_TOKEN = gql`
     verifyUserPasswordResetToken(token: $token)
   }
 `
+
+export const POP_PREDICTION = gql`
+  query popPrediction($comment: String!) {
+    popPrediction(comment: $comment)
+  }
+`

@@ -65,7 +65,6 @@ exports[`Plans test - renders correctly 1`] = `
                     aria-hidden="true"
                     class="MuiSvgIcon-root makeStyles-checkIconPersonal-12 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -86,7 +85,6 @@ exports[`Plans test - renders correctly 1`] = `
                     aria-hidden="true"
                     class="MuiSvgIcon-root makeStyles-checkIconPersonal-12 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -138,7 +136,6 @@ exports[`Plans test - renders correctly 1`] = `
                           aria-hidden="true"
                           class="MuiSvgIcon-root"
                           focusable="false"
-                          role="presentation"
                           viewBox="0 0 24 24"
                         >
                           <path
@@ -149,7 +146,6 @@ exports[`Plans test - renders correctly 1`] = `
                           aria-hidden="true"
                           class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
                           focusable="false"
-                          role="presentation"
                           viewBox="0 0 24 24"
                         >
                           <path
@@ -220,7 +216,6 @@ exports[`Plans test - renders correctly 1`] = `
                     aria-hidden="true"
                     class="MuiSvgIcon-root makeStyles-checkIconBusiness-13 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -241,7 +236,6 @@ exports[`Plans test - renders correctly 1`] = `
                     aria-hidden="true"
                     class="MuiSvgIcon-root makeStyles-checkIconBusiness-13 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -301,7 +295,6 @@ exports[`Plans test - renders correctly 1`] = `
                           aria-hidden="true"
                           class="MuiSvgIcon-root"
                           focusable="false"
-                          role="presentation"
                           viewBox="0 0 24 24"
                         >
                           <path
@@ -312,7 +305,6 @@ exports[`Plans test - renders correctly 1`] = `
                           aria-hidden="true"
                           class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
                           focusable="false"
-                          role="presentation"
                           viewBox="0 0 24 24"
                         >
                           <path

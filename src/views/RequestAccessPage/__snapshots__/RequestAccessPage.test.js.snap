@@ -82,7 +82,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                       aria-hidden="true"
                       class="MuiSvgIcon-root makeStyles-checkIconPersonal-22 MuiSvgIcon-fontSizeInherit"
                       focusable="false"
-                      role="presentation"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -103,7 +102,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                       aria-hidden="true"
                       class="MuiSvgIcon-root makeStyles-checkIconPersonal-22 MuiSvgIcon-fontSizeInherit"
                       focusable="false"
-                      role="presentation"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -156,7 +154,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                             aria-hidden="true"
                             class="MuiSvgIcon-root"
                             focusable="false"
-                            role="presentation"
                             viewBox="0 0 24 24"
                           >
                             <path
@@ -167,7 +164,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                             aria-hidden="true"
                             class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-36"
                             focusable="false"
-                            role="presentation"
                             viewBox="0 0 24 24"
                           >
                             <path
@@ -238,7 +234,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                       aria-hidden="true"
                       class="MuiSvgIcon-root makeStyles-checkIconBusiness-23 MuiSvgIcon-fontSizeInherit"
                       focusable="false"
-                      role="presentation"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -259,7 +254,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                       aria-hidden="true"
                       class="MuiSvgIcon-root makeStyles-checkIconBusiness-23 MuiSvgIcon-fontSizeInherit"
                       focusable="false"
-                      role="presentation"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -319,7 +313,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                             aria-hidden="true"
                             class="MuiSvgIcon-root"
                             focusable="false"
-                            role="presentation"
                             viewBox="0 0 24 24"
                           >
                             <path
@@ -330,7 +323,6 @@ exports[`Request Access Page test - renders correctly 1`] = `
                             aria-hidden="true"
                             class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-36"
                             focusable="false"
-                            role="presentation"
                             viewBox="0 0 24 24"
                           >
                             <path

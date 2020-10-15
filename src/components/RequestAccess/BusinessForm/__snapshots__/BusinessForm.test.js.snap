@@ -106,6 +106,7 @@ exports[`BusinessForm test - renders correctly 1`] = `
                       >
                         Full Name
                         <span
+                          aria-hidden="true"
                           class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
                         >
                            
@@ -142,6 +143,7 @@ exports[`BusinessForm test - renders correctly 1`] = `
                       >
                         Company Name
                         <span
+                          aria-hidden="true"
                           class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
                         >
                            
@@ -177,6 +179,7 @@ exports[`BusinessForm test - renders correctly 1`] = `
                       >
                         Email
                         <span
+                          aria-hidden="true"
                           class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
                         >
                            
