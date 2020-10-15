@@ -64,6 +64,7 @@ export const GET_POST = gql`
         reaction
         user {
           name
+          avatar
         }
       }
     }

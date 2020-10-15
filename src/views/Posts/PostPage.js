@@ -18,13 +18,10 @@ import VotingPopup from 'components/VotingComponents/VotingPopup'
 import ApproveRejectPopover from 'components/ApproveRejectPopver/ApproveRejectPopover'
 
 // import Content from '../components/ContentList';
-
 // import styles from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle';
-
-import FaceIcon from '@material-ui/icons/Face'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import moment from 'moment'
 
 import PostPageSkeleton from 'views/Posts/Skeletons/PostPageSkeleton'
@@ -34,11 +31,12 @@ import { cloneDeep, findIndex } from 'lodash'
 
 import { GET_POST, GET_TOP_POSTS } from 'graphql/query'
 import {
-  VOTE, ADD_COMMENT, APPROVE_POST, REJECT_POST,
+  ADD_COMMENT, APPROVE_POST, REJECT_POST, VOTE,
 } from 'graphql/mutations'
 import Chat from 'assets/img/Chat.svg'
 import Heart from 'assets/img/Heart.svg'
 import Send from 'assets/img/Send.svg'
+import { Avatar } from '@material-ui/core'
 
 const PostPage = () => {
   // const url = window.location.href
@@ -447,15 +445,13 @@ const PostPage = () => {
                       style={{
                         height: 60,
                         width: 60,
-                        backgroundColor: '#df2769',
                         float: 'left',
                         margin: '0px 10px 10px 0px',
                         textAlign: 'center',
                         borderRadius: 3,
-                        paddingTop: 17,
                       }}
                     >
-                      <FaceIcon />
+                      <Avatar alt={comment.user.name} src={comment.user.avatar} />
                     </span>
                     <h5 style={{ margin: 0 }}>{comment.user.name}</h5>
                     {comment.content}
