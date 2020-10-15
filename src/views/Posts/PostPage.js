@@ -457,7 +457,7 @@ const PostPage = () => {
                     >
                       <FaceIcon />
                     </span>
-                    <h5 style={{ margin: 0 }}>username</h5>
+                    <h5 style={{ margin: 0 }}>{comment.user.name}</h5>
                     {comment.content}
                   </p>
                 </CardBody>

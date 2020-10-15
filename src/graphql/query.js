@@ -38,7 +38,35 @@ export const GET_USERS = gql`
 
 export const GET_POST = gql`
   query post($postId: String!) {
-    post(postId: $postId)
+    post(postId: $postId) {
+      _id
+      userId
+      created
+      groupId
+      title
+      text
+      url
+      upvotes
+      downvotes
+      approvedBy
+      rejectedBy
+      reportedBy
+      bookmarkedBy
+      comments {
+        _id
+        created
+        userId
+        content
+        startWordIndex
+        endWordIndex
+        postId
+        url
+        reaction
+        user {
+          name
+        }
+      }
+    }
   }
 `
 
