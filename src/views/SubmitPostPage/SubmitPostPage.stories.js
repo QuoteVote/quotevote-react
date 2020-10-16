@@ -7,4 +7,4 @@ export default {
   title: 'Submit Post',
 }
 
-export const SubmitPostComponent = () => <SubmitPostPage />
+export const Base = () => <SubmitPostPage />

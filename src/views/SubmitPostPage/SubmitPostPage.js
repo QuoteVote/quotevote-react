@@ -4,7 +4,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 
 // Material Icons
-import SubmitPost from '../../components/Post/SubmitPost'
+import SubmitPost from '../../components/SubmitPost/SubmitPost'
 import PopPredictionDataWrapper from '../../components/PopPrediction/PopPredictionDataWrapper'
 
 function SubmitPostPage() {
