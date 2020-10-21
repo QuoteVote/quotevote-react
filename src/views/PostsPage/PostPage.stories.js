@@ -5,27 +5,20 @@ import { withA11y } from '@storybook/addon-a11y'
 
 // Apollo Imports not needed for story, just for calling data
 // If you want to apply theme
-
 // The component
-import SubmitPost from './SubmitPost'
-import withTestWrapper from '../../hoc/withTestWrapper'
+import PostPage from './PostPage'
 
 // Story config
 export default {
-  title: 'Post',
-  component: SubmitPost,
+  title: 'PostPage',
+  component: PostPage,
   decorators: [withKnobs, withA11y],
 }
 
-// eslint-disable-next-line react/prop-types
-const Wrapper = () => withTestWrapper(
-  <SubmitPost />
-)
+export const base = () => <PostPage />
 
-export const base = () => <Wrapper width={500} />
-
-base.story = {
+PostPage.story = {
   parameters: {
-    jest: ['SubmitPost.test.js'],
+    jest: ['PostPage.test.js'],
   },
 }

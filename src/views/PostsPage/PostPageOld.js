@@ -24,7 +24,7 @@ import CheckIcon from '@material-ui/icons/Check'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import moment from 'moment'
 
-import PostPageSkeleton from 'views/Posts/Skeletons/PostPageSkeleton'
+import PostPageSkeleton from 'views/PostsPage/Skeletons/PostPageSkeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SNACKBAR } from 'store/ui'
 import { cloneDeep, findIndex } from 'lodash'
@@ -38,7 +38,7 @@ import Heart from 'assets/img/Heart.svg'
 import Send from 'assets/img/Send.svg'
 import { Avatar } from '@material-ui/core'
 
-const PostPage = () => {
+const PostPageOld = () => {
   // const url = window.location.href
   // const urlSegment = url.split('/')
   // const domain = urlSegment[5]
@@ -477,4 +477,4 @@ const PostPage = () => {
   )
 }
 
-export default PostPage
+export default PostPageOld

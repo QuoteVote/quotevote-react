@@ -1,4 +1,4 @@
-import PostPage from 'views/Posts/PostPage'
+import PostPageOld from 'views/PostsPage/PostPage'
 
 import add from 'assets/img/add.png'
 import Alert from 'assets/img/Alerts.png'
@@ -96,7 +96,7 @@ const routes = [
   {
     path: '/post',
     name: 'Posts',
-    component: PostPage,
+    component: PostPageOld,
     layout: '/hhsb',
   },
   {

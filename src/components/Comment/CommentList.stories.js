@@ -6,33 +6,34 @@ import { withA11y } from '@storybook/addon-a11y'
 // Apollo Imports not needed for story, just for calling data
 // If you want to apply theme
 // The component
-import Post from './Post'
-import PostSkeleton from './PostSkeleton'
+import Comments from './CommentList'
 
 // Story config
 export default {
-  title: 'Post',
-  component: Post,
+  title: 'Comment',
+  component: Comments,
   decorators: [withKnobs, withA11y],
 }
 
-const post = {
+const comment = {
   user: {
     name: 'John Doe',
+    username: 'jdoe',
   },
-  created: '11/06/2018 11:00 AM',
-  title: 'Title of a post',
-  text: 'What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-  upvotes: 100,
-  downvotes: 200,
   avatar: 'J',
+  created: '11/06/2018 11:00 AM',
+  text: 'What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
 }
 
-export const Base = () => <Post post={post} />
-export const Loading = () => <PostSkeleton />
+// eslint-disable-next-line no-unused-vars
+const comments = Array.from({ length: 20 }).map((i) => comment)
 
-Base.story = {
+export const CommentList = () => <Comments comments={comments} />
+
+export const NoComments = () => <Comments />
+
+CommentList.story = {
   parameters: {
-    jest: ['Post.test.js'],
+    jest: ['CommentList.test.js'],
   },
 }

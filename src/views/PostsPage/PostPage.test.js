@@ -2,15 +2,15 @@ import React from 'react'
 import { render } from '@testing-library/react'
 
 // Component being tested
-import SubmitPost from './SubmitPost'
+import PostPage from './PostPage'
 import withTestWrapper from '../../hoc/withTestWrapper'
 
-const SubmitPostWrapper = withTestWrapper(SubmitPost)
+const PostPageWrapper = withTestWrapper(PostPage)
 
-describe('SubmitPost test -', () => {
+describe('Post Page test -', () => {
   it('renders correctly', () => {
     const { container } = render(
-      <SubmitPostWrapper />,
+      <PostPageWrapper />,
     )
     expect(container.firstChild).toMatchSnapshot()
   })

@@ -52,6 +52,10 @@ export const GET_POST = gql`
       rejectedBy
       reportedBy
       bookmarkedBy
+      creator {
+        name
+        avatar
+      }
       comments {
         _id
         created
