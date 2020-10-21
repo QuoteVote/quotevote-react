@@ -4,7 +4,7 @@ import { useParams } from 'react-router'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_USER } from 'graphql/query'
 import ProfileView from 'views/Profile/ProfileView'
-import { SET_SELECTED_PAGE } from '../store/ui'
+import { SET_SELECTED_PAGE } from 'store/ui'
 
 function ProfileController() {
   //  Set state for events and use viewModel props for redux/apollo?

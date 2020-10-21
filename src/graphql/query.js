@@ -213,7 +213,7 @@ query activities(
           username
           avatar
         }
-      }      
+      }
       voteId
       vote {
         type
@@ -242,5 +242,11 @@ export const VERIFY_PASSWORD_RESET_TOKEN = gql`
 export const POP_PREDICTION = gql`
   query popPrediction($comment: String!) {
     popPrediction(comment: $comment)
+  }
+`
+
+export const GET_FOLLOW_INFO = gql`
+  query getUserFollowInfo($user_id: String! $filter: String) {
+    getUserFollowInfo(user_id: $user_id, filter: $filter)
   }
 `

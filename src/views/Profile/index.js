@@ -1,14 +1,10 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Profile from 'components/Profile'
+import Profile from 'components/Profile/ProfileController'
 import ChangePhoto from './ChangePhoto'
-import Followers from './Followers'
-import Following from './Following'
+import FollowInfo from './FollowInfo'
 
 export default function ProfileRouter() {
-  //  Route to main Profile routes
-  //  My Profile vs Different Profile?  / Change avatar / followers / following
-
   return (
     <>
       <Route exact path="/hhsb/Profile">
@@ -21,10 +17,10 @@ export default function ProfileRouter() {
         <ChangePhoto />
       </Route>
       <Route exact path="/hhsb/Profile/:userId/following">
-        <Followers />
+        <FollowInfo filter="following" />
       </Route>
       <Route exact path="/hhsb/Profile/:userId/followers">
-        <Following />
+        <FollowInfo filter="followers" />
       </Route>
     </>
   )

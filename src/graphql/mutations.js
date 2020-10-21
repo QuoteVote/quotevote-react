@@ -134,3 +134,18 @@ export const UPDATE_USER = gql`
     }
   }
 `
+
+export const UPDATE_USER_AVATAR = gql`
+  mutation updateUserAvatar(
+    $user_id: String!
+    $avatarQualities: JSON
+  ) {
+    updateUserAvatar(user_id: $user_id, avatarQualities: $avatarQualities) {
+      _id
+      username
+      name
+      email
+      avatar
+    }
+  }
+`

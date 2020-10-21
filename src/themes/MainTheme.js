@@ -9,7 +9,7 @@ export default createMuiTheme({
       contrastText: '#fff',
     },
     secondary: {
-      main: '#fafafa',
+      main: '#E91E63',
     },
   },
 })
