@@ -15,9 +15,10 @@ import InputLabel from '@material-ui/core/InputLabel'
 // Local
 import { updateAvatar } from 'store/user'
 import { UPDATE_USER_AVATAR } from '../../graphql/mutations'
-import AvatarPreview from '../../components/Avatar'
+import AvatarPreview from '../Avatar'
 import { avatarOptions } from '../../utils/display'
 import theme from '../../themes/MainTheme'
+import { SET_SNACKBAR } from '../../store/ui'
 
 const useStyles = makeStyles({
   selectInput: {
@@ -46,6 +47,11 @@ function ChangePhoto() {
   const onSubmit = async (formData) => {
     const newAvatar = await updateUserAvatar({ variables: { user_id: user._id, avatarQualities: formData } })
     await updateAvatar(dispatch, newAvatar.data.updateUserAvatar.avatar)
+    dispatch(SET_SNACKBAR({
+      type: 'danger',
+      message: 'Avatar has been updated',
+      open: true,
+    }))
   }
 
   const watchAllFields = watch()
@@ -165,22 +171,27 @@ function ChangePhoto() {
                 control={control}
               />
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Facial Hair Color</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.facialHairColor.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="facialHairColor"
-                control={control}
-              />
-            </Grid>
+            {
+              watchAllFields.facialHairType !== 'Blank' ? (
+                <Grid item xs={12}>
+                  <InputLabel id="demo-simple-select-helper-label">Facial Hair Color</InputLabel>
+                  <Controller
+                    visible={watchAllFields.facialHairType !== 'Blank'}
+                    as={(
+                      <Select
+                        className={classes.selectInput}
+                      >
+                        {
+                          avatarOptions.facialHairColor.map((i) => <MenuItem value={i}>{i}</MenuItem>)
+                        }
+                      </Select>
+                    )}
+                    name="facialHairColor"
+                    control={control}
+                  />
+                </Grid>
+              ) : null
+            }
             <Grid item xs={12}>
               <InputLabel id="demo-simple-select-helper-label">Clothing Type</InputLabel>
               <Controller

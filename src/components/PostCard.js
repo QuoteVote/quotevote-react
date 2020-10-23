@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
-import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import { IconButton, CardHeader } from '@material-ui/core'
@@ -20,7 +19,7 @@ import { useHistory } from 'react-router-dom'
 import stringLimit from 'string-limit'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import CardFooter from 'mui-pro/Card/CardFooter'
-import ProfilePicture from '../assets/img/ProfilePicture.png'
+import Avatar from 'components/Avatar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -220,7 +219,14 @@ export default function PostCard(props) {
       <Card className={classNames(classes.cardRootStyle, classes[cardBg])}>
         <CardHeader
           classes={{ content: classes.cardHeaderContent }}
-          avatar={<Avatar alt="profile" src={ProfilePicture} className={classes.avatarStyle} />}
+          avatar={(
+            <Avatar
+              height="40"
+              width="40"
+              className={classes.avatarStyle}
+              {...creator.avatar}
+            />
+          )}
           action={(
             <IconButton
               onClick={() => onHidePost(props)}
@@ -322,4 +328,5 @@ PostCard.propTypes = {
   onBookmark: PropTypes.func.isRequired,
   creator: PropTypes.any,
   activityType: PropTypes.string.isRequired,
+  avatar: PropTypes.object,
 }

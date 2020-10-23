@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import Profile from 'components/Profile/ProfileController'
-import ChangePhoto from './ChangePhoto'
-import FollowInfo from './FollowInfo'
+import ChangePhoto from 'components/Profile/ChangePhoto'
+import FollowInfo from 'components/Profile/FollowInfo'
 
 export default function ProfileRouter() {
   return (
