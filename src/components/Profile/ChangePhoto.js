@@ -34,11 +34,16 @@ const useStyles = makeStyles({
 function ChangePhoto() {
   const user = useSelector((state) => state.user.data)
   const [updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
+  let defaultAvatar = {}
+  //  prevent legacy image file avatars from crapping out front end
+  if (typeof user.avatar === 'object') {
+    defaultAvatar = user.avatar
+  }
   const {
     handleSubmit, watch, control, setValue,
   } = useForm({
     defaultValues: {
-      ...user.avatar,
+      ...defaultAvatar,
     },
   })
   const dispatch = useDispatch()
