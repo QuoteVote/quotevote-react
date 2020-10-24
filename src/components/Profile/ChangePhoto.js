@@ -35,7 +35,7 @@ function ChangePhoto() {
   const user = useSelector((state) => state.user.data)
   const [updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
   const {
-    handleSubmit, watch, control,
+    handleSubmit, watch, control, setValue,
   } = useForm({
     defaultValues: {
       ...user.avatar,
@@ -56,6 +56,14 @@ function ChangePhoto() {
 
   const watchAllFields = watch()
 
+  const generateAvatar = () => avatarOptions.reduce((newAvatar, category) => [
+    ...newAvatar,
+    {
+      key: category.name,
+      option: category.options[Math.floor(Math.random() * Math.floor(category.options.length))],
+    },
+  ], [])
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container>
@@ -74,10 +82,18 @@ function ChangePhoto() {
             <AvatarPreview height="150" width="150" {...watchAllFields} />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" color="secondary">
+            <Button
+              onClick={() => generateAvatar('better').map((q) => setValue(q.key, q.option))}
+              variant="contained"
+              color="secondary"
+            >
               Better
             </Button>
-            <Button variant="outlined" color="secondary">
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => generateAvatar('worse').map((q) => setValue(q.key, q.option))}
+            >
               Worse
             </Button>
           </Grid>
@@ -89,225 +105,31 @@ function ChangePhoto() {
             </Typography>
           </Grid>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid container item xs={12}>
-              <Grid item xs={6}>
-                <InputLabel id="demo-simple-select-helper-label">Top Type</InputLabel>
-                <Controller
-                  as={(
-                    <Select
-                      className={classes.selectInput}
-                    >
-                      {
-                        avatarOptions.topType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                      }
-                    </Select>
-                  )}
-                  name="topType"
-                  control={control}
-                />
-              </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Accessories Type</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.accessoriesType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="accessoriesType"
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Hat Color</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.hatColor.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="hatColor"
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Hair Color</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.hairColor.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="hairColor"
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Facial Hair Type</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.facialHairType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="facialHairType"
-                control={control}
-              />
-            </Grid>
             {
-              watchAllFields.facialHairType !== 'Blank' ? (
-                <Grid item xs={12}>
-                  <InputLabel id="demo-simple-select-helper-label">Facial Hair Color</InputLabel>
-                  <Controller
-                    visible={watchAllFields.facialHairType !== 'Blank'}
-                    as={(
-                      <Select
-                        className={classes.selectInput}
-                      >
-                        {
-                          avatarOptions.facialHairColor.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                        }
-                      </Select>
-                    )}
-                    name="facialHairColor"
-                    control={control}
-                  />
-                </Grid>
-              ) : null
+              avatarOptions.map((category) => {
+                const { displayName, name, options } = category
+                return (
+                  <Grid container item xs={12}>
+                    <Grid item xs={6}>
+                      <InputLabel id="demo-simple-select-helper-label">{displayName}</InputLabel>
+                      <Controller
+                        as={(
+                          <Select
+                            className={classes.selectInput}
+                          >
+                            {
+                              options.map((i) => <MenuItem value={i}>{i}</MenuItem>)
+                            }
+                          </Select>
+                        )}
+                        name={name}
+                        control={control}
+                      />
+                    </Grid>
+                  </Grid>
+                )
+              })
             }
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Clothing Type</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.clotheType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="clotheType"
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Clothing Color</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.clotheColor.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="clotheColor"
-                control={control}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Graphic Image</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.graphicType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="graphicType"
-                control={control}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Eye Type</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.eyeType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="eyeType"
-                control={control}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Eyebrow Type</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.eyebrowType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="eyebrowType"
-                control={control}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Mouth Type</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.mouthType.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="mouthType"
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-helper-label">Skin Color</InputLabel>
-              <Controller
-                as={(
-                  <Select
-                    className={classes.selectInput}
-                  >
-                    {
-                      avatarOptions.skinColor.map((i) => <MenuItem value={i}>{i}</MenuItem>)
-                    }
-                  </Select>
-                )}
-                name="skinColor"
-                control={control}
-              />
-            </Grid>
             <Grid item xs={12}>
               <Button
                 type="submit"
