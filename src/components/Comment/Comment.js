@@ -1,14 +1,15 @@
 import React from 'react'
 import {
-  Avatar, Card, CardActions, CardContent, CardHeader, IconButton,
+  Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
 import { InsertEmoticon, InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
+import AvatarDisplay from '../Avatar'
+import { parseCommentDate } from '../../utils/momentUtils'
 
 const useStyles = makeStyles(() => ({
   content: {
-    padding: 0,
     marginLeft: 60,
     marginRight: 40,
     marginTop: -20,
@@ -26,26 +27,27 @@ const useStyles = makeStyles(() => ({
 
 function Comment({ comment }) {
   const {
-    avatar, user, text, created,
+    user, content, created,
   } = comment
-  const { username } = user
+  const { username, avatar } = user
   const classes = useStyles()
+  const parsedDate = parseCommentDate(created)
   return (
     <Card>
       <CardHeader
         avatar={(
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar}
-          </Avatar>
+          <IconButton>
+            <AvatarDisplay height={40} width={40} {...avatar} />
+          </IconButton>
         )}
         subheader={`@${username}`}
-        action={<div className={classes.created}><span>{created}</span></div>}
+        action={<div className={classes.created}><span>{parsedDate}</span></div>}
       />
       <CardContent
         className={classes.content}
       >
         <p>
-          {text}
+          {content}
         </p>
       </CardContent>
       <CardActions disableSpacing>

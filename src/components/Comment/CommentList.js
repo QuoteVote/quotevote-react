@@ -1,21 +1,14 @@
 import React from 'react'
 import {
-  Card,
-  CardContent,
-  Grid,
-  GridList,
-  GridListTile,
-  IconButton,
-  InputAdornment,
-  Typography,
+  Card, CardContent, Grid, GridList, GridListTile, IconButton, Typography,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import TextField from '@material-ui/core/TextField'
-import { Send } from '@material-ui/icons'
+import moment from 'moment'
+import { Skeleton } from '@material-ui/lab'
 import { Filter as FilterIcon } from '../Icons'
 import Comment from './Comment'
 
-function CommentList({ comments }) {
+function CommentList({ comments, loading }) {
   return (
     <>
       <Grid
@@ -40,26 +33,15 @@ function CommentList({ comments }) {
           </IconButton>
         </Grid>
       </Grid>
-      <TextField
-        style={{ color: 'black' }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton>
-                <Send />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-        id="comment"
-        label="What are your thoughts?"
-        placeholder=""
-        multiline
-        rows={2}
-        defaultValue=""
-        variant="filled"
-        fullWidth
-      />
+      {loading && (
+        <>
+          <Skeleton variant="rect" height={118} />
+          <br />
+          <Skeleton variant="rect" height={118} />
+          <br />
+          <Skeleton variant="rect" height={118} />
+        </>
+      )}
       {comments ? (
         <GridList
           spacing={15}
@@ -67,7 +49,7 @@ function CommentList({ comments }) {
           cellHeight={180}
           style={{ height: '80vh', marginTop: 5 }}
         >
-          {comments.map((comment) => (
+          {comments.sort((a, b) => moment(b.created).diff(moment(a.created))).map((comment) => (
             <GridListTile style={{ height: 'auto' }}>
               <Comment comment={comment} />
             </GridListTile>
@@ -81,6 +63,7 @@ function CommentList({ comments }) {
 
 CommentList.propTypes = {
   comments: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
 }
 
 export default CommentList

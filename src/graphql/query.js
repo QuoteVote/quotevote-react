@@ -67,6 +67,7 @@ export const GET_POST = gql`
         url
         reaction
         user {
+          username
           name
           avatar
         }

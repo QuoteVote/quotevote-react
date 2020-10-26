@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Avatar, Card, CardActions, CardContent, CardHeader, IconButton,
+  Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { cloneDeep, findIndex } from 'lodash'
+import moment from 'moment'
 import ApproveButton from '../CustomButtons/ApproveButton'
 import RejectButton from '../CustomButtons/RejectButton'
 import VotingBoard from '../VotingComponents/VotingBoard'
@@ -20,20 +21,16 @@ import {
 } from '../../graphql/mutations'
 import { GET_POST, GET_TOP_POSTS } from '../../graphql/query'
 import ApproveRejectPopover from '../ApproveRejectPopver/ApproveRejectPopover'
+import AvatarDisplay from '../Avatar'
 
 const useStyles = makeStyles(() => ({
-  root: {
-  },
-  header1: {
-    padding: 0,
-  },
   header2: {
     padding: 0,
+    marginLeft: 10,
   },
   title: {
     color: '#00cf6e',
     marginRight: 5,
-    marginLeft: 20,
     fontFamily: 'Montserrat',
   },
   blockIcon: {
@@ -49,14 +46,13 @@ const useStyles = makeStyles(() => ({
     color: 'red',
   },
   points: {
-    marginTop: 20,
+    marginTop: 15,
     marginRight: 20,
     fontSize: 22,
     fontWeight: 'bolder',
     fontFamily: 'Roboto-Bold',
   },
-  content: {
-  },
+  content: {},
   expand: {
     marginLeft: 'auto',
   },
@@ -68,11 +64,11 @@ const useStyles = makeStyles(() => ({
 function Post({ post, user }) {
   const classes = useStyles()
   const {
-    title, creator, upvotes, downvotes, created, avatar,
-    _id,
+    title, creator, upvotes, downvotes, created, _id,
   } = post
-  const { name } = creator
+  const { name, avatar } = creator
   const dispatch = useDispatch()
+  const parsedCreated = moment(created).format('LLL')
 
   const [anchorEl, setAnchorEl] = useState(null)
   const [buttonType, setButtonType] = useState('approved')
@@ -288,23 +284,17 @@ function Post({ post, user }) {
         +
         {upvotes}
       </span>
-      <span>
-        {' '}
-        /
-        {' '}
-      </span>
-      <span className={classes.downVote}>
-        {downvotes}
-      </span>
+      <span> / </span>
+      <span className={classes.downVote}>{downvotes}</span>
     </div>
   )
   const cardTitle = (
     <div>
       <span className={classes.title}>{title}</span>
-      <IconButton>
+      <IconButton size="small">
         <LinkIcon />
       </IconButton>
-      <IconButton>
+      <IconButton size="small">
         <BlockIcon className={classes.blockIcon} />
       </IconButton>
     </div>
@@ -319,12 +309,12 @@ function Post({ post, user }) {
       <CardHeader
         className={classes.header2}
         avatar={(
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar || name[0]}
-          </Avatar>
+          <IconButton>
+            <AvatarDisplay height={40} width={40} {...avatar} />
+          </IconButton>
         )}
         title={name}
-        subheader={created}
+        subheader={parsedCreated}
       />
       <CardContent>
         <VotingBoard
