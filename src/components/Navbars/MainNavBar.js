@@ -10,8 +10,8 @@ import SvgIcon from '@material-ui/core/SvgIcon'
 import IconButton from '@material-ui/core/IconButton'
 import { Typography } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
-import Avatar from '@material-ui/core/Avatar'
 import withWidth from '@material-ui/core/withWidth'
+
 import { SET_SELECTED_PAGE } from 'store/ui'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
@@ -20,13 +20,13 @@ import { ReactComponent as ChatSvg } from '../../assets/svg/Chat.svg'
 import { ReactComponent as NotificationsSvg } from '../../assets/svg/Notifications.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 import SettingsIconButton from '../CustomButtons/SettingsIconButton'
+import Avatar from '../Avatar'
 
 function MainNavBar(props) {
   const {
     classes, setChatOpen, chatOpen, width,
   } = props
   const selectedPage = useSelector((state) => state.ui.selectedPage)
-  const username = useSelector((state) => state.user.data.username)
   const avatar = useSelector((state) => state.user.data.avatar)
   const name = useSelector((state) => state.user.data.name)
   const fontSize = width === 'md' ? 'medium' : 'large'
@@ -129,7 +129,7 @@ function MainNavBar(props) {
           <Grid item lg={2}>
             <NavLink to="/hhsb/Profile">
               <IconButton aria-label="Profile" color="inherit" onClick={handleProfileClick}>
-                <Avatar alt={username} src={avatar} />
+                <Avatar height="50" width="50" {...avatar} />
               </IconButton>
             </NavLink>
           </Grid>

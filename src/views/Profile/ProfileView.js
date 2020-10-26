@@ -28,7 +28,6 @@ function ProfileView({
   selectAll,
   loggedInUser,
   filterState,
-  dispatch,
   setOffset,
   profileUser,
   loading,
@@ -45,12 +44,10 @@ function ProfileView({
         selectAll={selectAll}
         loggedInUser={loggedInUser}
         filterState={filterState}
-        dispatch={dispatch}
         setOffset={setOffset}
         profileUser={profileUser}
       />
       <Activity showSubHeader={false} />
-
     </Card>
   )
 }
@@ -61,7 +58,6 @@ ProfileView.propTypes = {
   selectAll: PropTypes.func.isRequired,
   loggedInUser: PropTypes.object.isRequired,
   filterState: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
   setOffset: PropTypes.number.isRequired,
   profileUser: PropTypes.object.isRequired,
   loading: PropTypes.bool,

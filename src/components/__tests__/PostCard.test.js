@@ -16,6 +16,13 @@ describe('PostCard component unit test', () => {
     bookmarkedBy: [],
     rank: 1,
     created: '',
+    creator: {
+      avatar: {
+        accessoriesType: 'Sunglasses',
+        eyebrowType: 'FlatNatural',
+        facialHairColor: 'Brown',
+      },
+    },
     onHidePost: jest.fn(),
     onBookmark: jest.fn(),
   }

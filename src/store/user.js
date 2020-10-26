@@ -36,6 +36,9 @@ const userSlice = createSlice({
     USER_TOKEN_VALIDATED: (state) => {
       state.loading = false
     },
+    USER_UPDATE_AVATAR: (state, action) => {
+      state.data.avatar = action.payload
+    },
     // USER_SIGNUP_REQUEST: (state, action) => {},
     // USER_SIGNUP_FAILURE: (state, action) => {},
     // USER_SIGNUP_SUCCESS: (state, action) => {},
@@ -121,6 +124,10 @@ export function clearToken(dispatch) {
   localStorage.removeItem('token')
 }
 
+export function updateAvatar(dispatch, avatar) {
+  dispatch(actions.USER_UPDATE_AVATAR(avatar))
+}
+
 export const {
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
@@ -128,6 +135,7 @@ export const {
   USER_LOGOUT,
   USER_TOKEN_VALIDATED,
   USER_TOKEN_VALIDATION,
+  USER_UPDATE_AVATAR,
 } = userSlice.actions
 
 export default userSlice.reducer
