@@ -50,7 +50,7 @@ const useStyles = makeStyles(() => ({
     marginRight: 20,
     fontSize: 22,
     fontWeight: 'bolder',
-    fontFamily: 'Roboto-Bold',
+    fontFamily: 'Montserrat',
   },
   content: {},
   expand: {
