@@ -3,8 +3,17 @@ import React, { Fragment, useState } from 'react'
 import { Container } from '@material-ui/core'
 
 import { parser } from 'utils/parser'
+import Highlighter from 'react-highlight-words'
+import { useSelector } from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles'
 import SelectionPopover from './SelectionPopover'
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: '#00CF6E',
+    color: 'white',
+  },
+})
 const VotingBoard = ({
   topOffset,
   onSelect,
@@ -13,14 +22,18 @@ const VotingBoard = ({
   children,
   ...props
 }) => {
+  const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [selection, setSelection] = useState({})
+  const focusedComment = useSelector((state) => state.ui.focusedComment)
+  const { startWordIndex, endWordIndex } = focusedComment || { startWordIndex: 0, endWordIndex: 0 }
+  const highlightedText = content.substring(startWordIndex, endWordIndex).replace(/(\r\n|\n|\r)/gm, '')
 
   const handleSelect = (select) => {
     const text = select.toString()
 
     if (!text) return
-    const selectionVal = parser(content, text)
+    const selectionVal = parser(content, text, select)
 
     if (text.length > 0 && onSelect) {
       setOpen(true)
@@ -31,25 +44,32 @@ const VotingBoard = ({
     }
   }
 
+  const findChunksAtBeginningOfWords = () => [{ start: startWordIndex > 0 ? startWordIndex : 0, end: endWordIndex }]
+
   const renderHighlights = () => {
     if (highlights) {
-      return content.split(/\n/g).map((line, contentIndex) => (
-        <Fragment key={`frag-${contentIndex}`}>
-          {line.split(/\s+/g).map((word, index) => (
-            <span key={index + word}>{`${word} `}</span>
-          ))}
-          <br />
-        </Fragment>
-      ))
+      return (
+        <Highlighter
+          style={{
+            whiteSpace: 'pre-line',
+          }}
+          highlightClassName={classes.root}
+          searchWords={[highlightedText]}
+          findChunks={findChunksAtBeginningOfWords}
+          textToHighlight={content}
+          autoEscape
+        />
+      )
     }
-    // THIS IS UNSAFE WE MUST SANTIZE THIS
-    // eslint-disable-next-line react/no-danger
-    return (
-      <div
-        data-testid="post-content"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
-    )
+
+    return content.split(/\n/g).map((line, contentIndex) => (
+      <Fragment key={`frag-${contentIndex}`}>
+        {line.split(/\s+/g).map((word, index) => (
+          <span key={index + word}>{`${word} `}</span>
+        ))}
+        <br />
+      </Fragment>
+    ))
   }
 
   return (

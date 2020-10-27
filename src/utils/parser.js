@@ -1,6 +1,9 @@
 export const CONTENT_REGEX = /(\w|\.)+/g
 
-export function parser(doc, selected) {
+export function parser(doc, selected, select) {
+  const charStartIndex = select.anchorOffset
+  const charEndIndex = select.focusOffset
+
   const selections = selected.match(CONTENT_REGEX)
   const words = doc.match(CONTENT_REGEX)
 
@@ -19,8 +22,8 @@ export function parser(doc, selected) {
 
   // eslint-disable-next-line consistent-return
   return {
-    startIndex,
-    endIndex,
+    startIndex: charStartIndex,
+    endIndex: charEndIndex,
     text: words.slice(startIndex, endIndex + 1).join(' '),
     points: endIndex - startIndex + 1,
   }

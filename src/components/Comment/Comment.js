@@ -5,8 +5,10 @@ import {
 import { InsertEmoticon, InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import AvatarDisplay from '../Avatar'
 import { parseCommentDate } from '../../utils/momentUtils'
+import { SET_FOCUSED_COMMENT } from '../../store/ui'
 
 const useStyles = makeStyles(() => ({
   content: {
@@ -32,8 +34,13 @@ function Comment({ comment }) {
   const { username, avatar } = user
   const classes = useStyles()
   const parsedDate = parseCommentDate(created)
+  const dispatch = useDispatch()
+
   return (
-    <Card>
+    <Card
+      onMouseEnter={() => dispatch(SET_FOCUSED_COMMENT(comment))}
+      onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(null))}
+    >
       <CardHeader
         avatar={(
           <IconButton>

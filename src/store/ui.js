@@ -25,6 +25,7 @@ export const uiInitialState = {
     message: '',
   },
   selectedPlan: 'personal',
+  focusedComment: null,
 }
 
 const uiSlice = createSlice({
@@ -46,6 +47,9 @@ const uiSlice = createSlice({
     SET_SELECTED_PLAN: (state, action) => {
       state.selectedPlan = action.payload
     },
+    SET_FOCUSED_COMMENT: (state, action) => {
+      state.focusedComment = action.payload
+    },
   },
 })
 
@@ -55,6 +59,7 @@ export const {
   SET_HIDDEN_POSTS,
   SET_SNACKBAR,
   SET_SELECTED_PLAN,
+  SET_FOCUSED_COMMENT,
 } = uiSlice.actions
 
 export default uiSlice.reducer
