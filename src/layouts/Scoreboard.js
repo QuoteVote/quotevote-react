@@ -20,7 +20,6 @@ import { tokenValidator } from 'store/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SNACKBAR } from 'store/ui'
 import Snackbar from 'mui-pro/Snackbar/Snackbar'
-import ChatDrawer from '../components/ChatComponents/ChatDrawer'
 import MainNavBar from '../components/Navbars/MainNavBar'
 import Sidebar from '../mui-pro/Sidebar/Sidebar'
 
@@ -93,8 +92,6 @@ export default function Scoreboard(props) {
     setPage(currentPage[0].name)
   }, [props])
 
-  const [chatOpen, setChatOpen] = React.useState(false)
-
   const currentRoute = () => {
     const {
       location: { pathname },
@@ -110,9 +107,7 @@ export default function Scoreboard(props) {
         <Hidden only={['xs', 'sm']}>
           <MainNavBar
             classes={classes}
-            setChatOpen={setChatOpen}
             page={page}
-            chatOpen={chatOpen}
           />
         </Hidden>
         <Hidden only={['md', 'lg', 'xl']}>
@@ -128,7 +123,7 @@ export default function Scoreboard(props) {
             miniActive
           />
         </Hidden>
-        <main className={chatOpen ? classes.contentChat : classes.content}>
+        <main className={classes.content}>
           {getRoute() ? (
             <Switch>
               {routes}
@@ -140,7 +135,6 @@ export default function Scoreboard(props) {
               <Redirect from="/admin" to="/admin/dashboard" />
             </Switch>
           )}
-          {chatOpen && <ChatDrawer />}
           {
             snackbar ? (
               <Snackbar

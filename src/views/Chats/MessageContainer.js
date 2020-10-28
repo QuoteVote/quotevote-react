@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import FaceIcon from '@material-ui/icons/Face'
 import Button from '@material-ui/core/Button'
 
-import Message from 'components/ChatComponents/Message'
+import Message from 'components/Chat/Message'
 
 // eslint-disable-next-line react/prop-types
 export default function MessageContainer({ toggle }) {

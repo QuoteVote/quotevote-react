@@ -5,8 +5,8 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import ScrollableFeed from 'react-scrollable-feed'
 
-import Message from 'components/ChatComponents/Message'
-import MessageSend from 'components/ChatComponents/MessageSend'
+import Message from 'components/Chat/Message'
+import MessageSend from 'components/Chat/MessageSend'
 
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import BuddyListLoader from './BuddyList/BuddyListLoader'

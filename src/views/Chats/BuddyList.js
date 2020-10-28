@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import ChatListDividers from 'components/ChatComponents/ChatListDividers'
+import ChatListDividers from 'components/Chat/ChatListDividers'
 
 import GridContainer from 'mui-pro/Grid/GridContainer'
 

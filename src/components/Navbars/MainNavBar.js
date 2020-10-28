@@ -16,15 +16,15 @@ import { SET_SELECTED_PAGE } from 'store/ui'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
-import { ReactComponent as ChatSvg } from '../../assets/svg/Chat.svg'
 import { ReactComponent as NotificationsSvg } from '../../assets/svg/Notifications.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 import SettingsIconButton from '../CustomButtons/SettingsIconButton'
 import Avatar from '../Avatar'
+import ChatMenu from '../Chat/ChatMenu'
 
 function MainNavBar(props) {
   const {
-    classes, setChatOpen, chatOpen, width,
+    classes, width,
   } = props
   const selectedPage = useSelector((state) => state.ui.selectedPage)
   const avatar = useSelector((state) => state.user.data.avatar)
@@ -141,18 +141,7 @@ function MainNavBar(props) {
             </Grid>
           </Hidden>
           <Grid item lg={2}>
-            <IconButton
-              aria-label="Chat"
-              color="inherit"
-              className={classes.rightMenuButton}
-              onClick={() => setChatOpen(!chatOpen)}
-            >
-              <SvgIcon
-                component={ChatSvg}
-                fontSize={fontSize}
-                viewBox="0 0 37 37"
-              />
-            </IconButton>
+            <ChatMenu fontSize={fontSize} />
           </Grid>
           <Grid item lg={2}>
             <IconButton
@@ -178,8 +167,6 @@ function MainNavBar(props) {
 
 MainNavBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  setChatOpen: PropTypes.func.isRequired,
-  chatOpen: PropTypes.bool.isRequired,
   width: PropTypes.string.isRequired,
 }
 
