@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
   bubble: {
     position: 'relative',
     background: '#ffffff',
-    minHeight: 100,
+    minHeight: 60,
     minWidth: 250,
     marginLeft: '10px',
     borderRadius: '2px',
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
   bubbleReverse: {
     position: 'relative',
     background: '#00cf6e',
-    minHeight: 100,
+    minHeight: 60,
     minWidth: 250,
     color: 'white',
     marginRight: '10px',
@@ -44,8 +44,8 @@ const useStyles = makeStyles(() => ({
 }))
 function MessageItem({ message }) {
   const classes = useStyles()
-  const userId = useSelector((state) => state.user._id)
-  const isDefaultDirection = message.userId === userId
+  const userId = useSelector((state) => state.user.data._id)
+  const isDefaultDirection = message.userId !== userId
   const direction = isDefaultDirection ? 'row' : 'row-reverse'
   return (
     <Grid

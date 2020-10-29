@@ -4,17 +4,18 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
+import ScrollableFeed from 'react-scrollable-feed'
 import MessageItem from './MessageItem'
 import { GET_ROOM_MESSAGES } from '../../graphql/query'
-import { NEW_MESSAGE_SUBSCRIPTION } from '../../graphql/subscription'
 import LoadingSpinner from '../LoadingSpinner'
+import { NEW_MESSAGE_SUBSCRIPTION } from '../../graphql/subscription'
 
 const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     backgroundColor: 'transparent',
     position: 'relative',
-    overflow: 'auto',
+    overflow: 'hidden',
     maxHeight: 470,
   },
   inline: {
@@ -48,12 +49,14 @@ export default function MessageItemList() {
 
   return (
     <List className={classes.root} dense>
-      {loading && <LoadingSpinner size={50} />}
-      {messageData.map((message) => (
-        <ListItem alignItems="flex-start">
-          <MessageItem message={message} />
-        </ListItem>
-      ))}
+      <ScrollableFeed>
+        {loading && <LoadingSpinner size={50} />}
+        {messageData.map((message) => (
+          <ListItem alignItems="flex-start">
+            <MessageItem message={message} />
+          </ListItem>
+        ))}
+      </ScrollableFeed>
     </List>
   )
 }

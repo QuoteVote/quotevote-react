@@ -181,6 +181,7 @@ export const GET_USER = gql`
       downvotes
       _followingId
       _followersId
+      avatar
     }
   }
 `

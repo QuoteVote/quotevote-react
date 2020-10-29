@@ -30,7 +30,14 @@ export default function MessageSend({ messageRoomId, type, title }) {
     onError: (err) => {
       setError(err)
     },
+    refetchQueries: [{
+      query: GET_ROOM_MESSAGES,
+      variables: {
+        messageRoomId,
+      },
+    }],
   })
+
   const handleSubmit = async () => {
     dispatch(CHAT_SUBMITTING(true))
 
@@ -56,6 +63,12 @@ export default function MessageSend({ messageRoomId, type, title }) {
           text,
           type,
           created: dateSubmitted,
+          user: {
+            __typename: 'User',
+            name: user.name,
+            username: user.username,
+            avatar: user.avatar,
+          },
         },
       },
       // eslint-disable-next-line no-shadow
