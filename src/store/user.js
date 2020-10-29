@@ -39,9 +39,9 @@ const userSlice = createSlice({
     USER_UPDATE_AVATAR: (state, action) => {
       state.data.avatar = action.payload
     },
-    // USER_SIGNUP_REQUEST: (state, action) => {},
-    // USER_SIGNUP_FAILURE: (state, action) => {},
-    // USER_SIGNUP_SUCCESS: (state, action) => {},
+    SET_USER_DATA: (state, action) => {
+      state.data = action.payload
+    },
   },
 })
 
@@ -132,7 +132,7 @@ export const {
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT,
+  SET_USER_DATA,
   USER_TOKEN_VALIDATED,
   USER_TOKEN_VALIDATION,
   USER_UPDATE_AVATAR,

@@ -4,17 +4,16 @@ import {
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles((theme) => {
-  const color = '#1BB5D8' // Feel free to customise this like they do in Tooltip
+const useStyles = (props) => makeStyles((theme) => {
+  const color = props.tipColor || theme.palette.background.paper // Feel free to customise this like they do in Tooltip
   return {
     popoverRoot: {
       backgroundColor: color,
       maxWidth: 1000,
     },
     content: {
-      padding: theme.spacing(2),
-      backgroundImage: 'linear-gradient(224.94deg, #1BB5D8 1.63%, #4066EC 97.6%)',
-      // backgroundColor: '#EEF4F9',
+      padding: theme.spacing(props.spacing),
+      backgroundImage: props.tipBackgroundImage || color,
       borderRadius: '5px',
     },
     // Stolen from https://github.com/mui-org/material-ui/blob/next/packages/material-ui/src/Tooltip/Tooltip.js and https://github.com/mui-org/material-ui/blob/4f2a07e140c954b478a6670c009c23a59ec3e2d4/docs/src/pages/components/popper/ScrollPlayground.js
@@ -92,8 +91,9 @@ const RichTooltip = ({
   onClose = () => {},
   content,
   children,
+  ...otherProps
 }) => {
-  const classes = useStyles()
+  const classes = useStyles(otherProps)()
   const [arrowRef, setArrowRef] = React.useState(null)
   const [childNode, setChildNode] = React.useState(null)
 

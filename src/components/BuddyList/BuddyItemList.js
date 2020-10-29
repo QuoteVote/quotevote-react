@@ -9,7 +9,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import PropTypes from 'prop-types'
 import { Avatar, Typography } from '@material-ui/core'
 import classNames from 'classnames'
+import { useDispatch } from 'react-redux'
 import AvatarDisplay from '../Avatar'
+import { SELECTED_CHAT_ROOM } from '../../store/chat'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -80,7 +82,13 @@ const emptyData = [
 
 function BuddyItemList({ buddyList }) {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const itemList = buddyList.length ? buddyList : emptyData
+  const handleClickItem = (room) => {
+    if (buddyList.length) {
+      dispatch(SELECTED_CHAT_ROOM(room))
+    }
+  }
   return (
     <>
       {!buddyList.length && (
@@ -93,7 +101,7 @@ function BuddyItemList({ buddyList }) {
       <List className={buddyList.length ? classes.root : classNames(classes.root, classes.blur)}>
         {itemList.map((item) => (
           <>
-            <ListItem>
+            <ListItem onClick={() => handleClickItem(item)}>
               <ListItemAvatar>
                 <Avatar>
                   {item.type === 'USER' && <AvatarDisplay height={40} width={40} {...item.avatar} />}

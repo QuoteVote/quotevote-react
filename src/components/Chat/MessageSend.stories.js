@@ -4,7 +4,7 @@ import MessageSend from './MessageSend'
 
 export default {
   component: MessageSend,
-  title: 'Message Send',
+  title: 'Chat',
 }
 
-export const MessageSendComponent = () => <MessageSend />
+export const MessageSendInput = () => <MessageSend />

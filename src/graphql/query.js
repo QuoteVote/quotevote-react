@@ -122,6 +122,11 @@ export const GET_ROOM_MESSAGES = gql`
       text
       type
       created
+      user {
+        name
+        username
+        avatar
+      }
     }
   }
 `
