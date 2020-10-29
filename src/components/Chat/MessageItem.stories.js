@@ -7,6 +7,12 @@ export default {
   title: 'Chat',
 }
 
-export const Message = () => <MessageItem />
+const message = {
+  userId: '123123',
+  text: 'Test',
+  user: {
+    avatar: 'J',
+  },
+}
 
-export const MessageReverse = () => <MessageItem direction="row-reverse" />
+export const Message = () => <MessageItem message={message} />
