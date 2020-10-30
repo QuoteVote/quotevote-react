@@ -5,15 +5,15 @@ import { SET_HIDDEN_POSTS, SET_SNACKBAR } from 'store/ui'
 import { useMutation } from '@apollo/react-hooks'
 import { GET_TOP_POSTS } from 'graphql/query'
 import { UPDATE_POST_BOOKMARK } from 'graphql/mutations'
-import { getGridListCols, useWidth } from 'utils/display'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
 import InfiniteScroll from 'react-infinite-scroller'
+import { Grid } from '@material-ui/core'
 import PostCard from './PostCard'
-import AlertSkeletonLoader from './AlertSkeletonLoader'
-import LoadingSpinner from './LoadingSpinner'
+import AlertSkeletonLoader from '../AlertSkeletonLoader'
+import LoadingSpinner from '../LoadingSpinner'
 
-export function LoadPostsList({ data, width, onLoadMore }) {
+export function LoadPostsList({
+  data, onLoadMore,
+}) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.data)
   const hiddenPosts = useSelector((state) => state.ui.hiddenPosts) || []
@@ -81,40 +81,43 @@ export function LoadPostsList({ data, width, onLoadMore }) {
       hasMore={hasMore}
       loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
     >
-      <GridList cols={getGridListCols[width]}>
-        {rankedPosts.map((prop, key) => (
-          <GridListTile key={key} cols={1}>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="stretch"
+      >
+        {rankedPosts.map((prop) => (
+          <Grid item>
             <PostCard
               {...prop}
               onHidePost={handleHidePost}
               user={user}
               onBookmark={handleBookmark}
             />
-          </GridListTile>
+          </Grid>
         ))}
-      </GridList>
-
+      </Grid>
     </InfiniteScroll>
   )
 }
 
 LoadPostsList.propTypes = {
-  width: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   onLoadMore: PropTypes.func.isRequired,
+  cols: PropTypes.number.isRequired,
 }
 
 export default function PostList({
-  data, loading, limit, fetchMore, variables,
+  data, loading, limit, fetchMore, variables, cols,
 }) {
-  const width = useWidth()
-  if (loading) return <AlertSkeletonLoader limit={limit} width={width} />
+  if (loading) return <AlertSkeletonLoader limit={limit} rows={cols} />
 
   const newOffset = data && data.posts.entities.length
   return (
     <LoadPostsList
-      width={width}
       data={data}
+      cols={cols}
       onLoadMore={() => fetchMore({
         variables: {
           ...variables,
@@ -144,4 +147,5 @@ PostList.propTypes = {
   limit: PropTypes.number.isRequired,
   fetchMore: PropTypes.func.isRequired,
   variables: PropTypes.object.isRequired,
+  cols: PropTypes.number.isRequired,
 }

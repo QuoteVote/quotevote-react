@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { getGridListCols, useWidth } from 'utils/display'
 import { useMutation } from '@apollo/react-hooks'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import { GridList, GridListTile } from '@material-ui/core'
-import PostCard from '../PostCard'
+import { Grid } from '@material-ui/core'
+import PostCard from '../Post/PostCard'
 import AlertSkeletonLoader from '../AlertSkeletonLoader'
 import { UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
 import { GET_USER_ACTIVITY } from '../../graphql/query'
@@ -15,7 +14,7 @@ import ActivityEmptyList from './ActivityEmptyList'
 import LoadingSpinner from '../LoadingSpinner'
 
 export function LoadActivityList({
-  data, width, onLoadMore,
+  data, onLoadMore,
 }) {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.data)
@@ -83,31 +82,34 @@ export function LoadActivityList({
       hasMore={hasMore}
       loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
     >
-      <GridList cols={getGridListCols[width]}>
-        {activities.map((activity, key) => (
-          <GridListTile key={key} cols={1}>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="stretch"
+      >
+        {activities.map((activity) => (
+          <Grid item>
             <PostCard
               {...activity}
               onHidePost={handleHidePost}
               user={user}
               onBookmark={handleBookmark}
             />
-          </GridListTile>
+          </Grid>
         ))}
-      </GridList>
+      </Grid>
     </InfiniteScroll>
   )
 }
 
 export default function ActivityList({
-  data, loading, limit, fetchMore, variables,
+  data, loading, fetchMore, variables,
 }) {
-  const width = useWidth()
-  if (!data && loading) return <AlertSkeletonLoader limit={limit} width={width} />
+  if (!data && loading) return <AlertSkeletonLoader cols={1} />
   const newOffset = data && data.activities.entities.length
   return (
     <LoadActivityList
-      width={width}
       data={data}
       onLoadMore={() => fetchMore({
         variables: {
@@ -135,13 +137,11 @@ export default function ActivityList({
 ActivityList.propTypes = {
   data: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  limit: PropTypes.number.isRequired,
   fetchMore: PropTypes.func,
   variables: PropTypes.object,
 }
 
 LoadActivityList.propTypes = {
-  width: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   onLoadMore: PropTypes.func,
 }

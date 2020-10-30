@@ -20,6 +20,9 @@ const useStyles = makeStyles(({
     flexGrow: 1,
     overflow: 'hidden',
   },
+  list: {
+    margin: 10,
+  },
 }))
 
 export default function Activity({ showSubHeader = true }) {
@@ -99,7 +102,7 @@ export default function Activity({ showSubHeader = true }) {
           ) : null
         }
 
-        <GridItem xs={12}>
+        <GridItem xs={12} className={classes.list}>
           <ActivityList
             data={data}
             loading={loading}

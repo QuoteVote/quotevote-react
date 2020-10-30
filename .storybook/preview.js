@@ -23,8 +23,8 @@ addDecorator((storyFn, context) => withConsole()(storyFn)(context));
 addParameters({
   backgrounds: [
     { name: "twitter", value: "#00aced" },
-    { name: "facebook", value: "#3b5998" },
-    { name: "voxpox primary", value: "#00cf6e", default: true },
+    { name: "facebook", value: "#3b5998", default: true },
+    { name: "voxpox primary", value: "#00cf6e", },
     { name: "voxpox secondary", value: "#fafafa" },
   ],
 });

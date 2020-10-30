@@ -1,14 +1,12 @@
 import React from 'react'
-import { IconButton } from '@material-ui/core'
+import { Grid, IconButton } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import teal from '@material-ui/core/colors/teal'
-import GridItem from '../../mui-pro/Grid/GridItem'
-import {
-  Calendar as CalendarIcon, Filter as FilterIcon, Group as GroupIcon, Search as SearchIcon,
-} from '../Icons'
-import { DATE_VISIBILITY, FILTER_VISIBILITY, SEARCH_VISIBILITY } from '../../store/filter'
+import withWidth from '@material-ui/core/withWidth'
+import { Calendar as CalendarIcon, Filter as FilterIcon, Group as GroupIcon } from '../Icons'
+import { DATE_VISIBILITY, FILTER_VISIBILITY } from '../../store/filter'
 
 const useStyles = makeStyles(() => ({
   iconActive: {
@@ -18,7 +16,7 @@ const useStyles = makeStyles(() => ({
     color: 'black',
   },
 }))
-export default function FilterIconButtons({ showGroupIcon = false, showFilterIconButton }) {
+function FilterIconButtons({ showGroupIcon = false, showFilterIconButton, width }) {
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -32,66 +30,65 @@ export default function FilterIconButtons({ showGroupIcon = false, showFilterIco
     dispatch(DATE_VISIBILITY(!filterState.date.visibility))
   }
 
-  const handleSearch = () => {
-    dispatch(SEARCH_VISIBILITY(!filterState.search.visibility))
-  }
-
   return (
-    <GridItem xs={3.5}>
+    <Grid
+      container
+      direction="row"
+      justify={width === 'xs' ? 'flex-start' : 'center'}
+      alignItems="center"
+    >
       {showGroupIcon && (
-        <IconButton>
-          <GroupIcon
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            style={{ color: '#424556' }}
-          />
-        </IconButton>
+        <Grid item>
+          <IconButton>
+            <GroupIcon
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              style={{ color: '#424556' }}
+            />
+          </IconButton>
+        </Grid>
       )}
 
       {showFilterIconButton && (
-        <IconButton
-          onClick={handleFilter}
-          aria-label="Filter list icons"
-          color="inherit"
-          className={filterState.filter.visibility ? classes.iconActive : classes.iconNonActive}
-        >
-          <FilterIcon
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-          />
-        </IconButton>
+        <Grid item>
+          <IconButton
+            onClick={handleFilter}
+            aria-label="Filter list icons"
+            color="inherit"
+            className={filterState.filter.visibility ? classes.iconActive : classes.iconNonActive}
+          >
+            <FilterIcon
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            />
+          </IconButton>
+        </Grid>
       )}
 
-      <IconButton
-        onClick={handleCalendar}
-        aria-label="date range icons"
-        color="inherit"
-        className={filterState.date.visibility ? classes.iconActive : classes.iconNonActive}
-      >
-        <CalendarIcon
-          width="37"
-          height="36"
-          viewBox="0 0 37 36"
-        />
-      </IconButton>
-      <IconButton
-        onClick={handleSearch}
-        aria-label="search"
-        className={filterState.search.visibility ? classes.iconActive : classes.iconNonActive}
-      >
-        <SearchIcon
-          width="31"
-          height="30"
-          viewBox="0 0 31 30"
-        />
-      </IconButton>
-    </GridItem>
+      <Grid>
+        <IconButton
+          onClick={handleCalendar}
+          aria-label="date range icons"
+          color="inherit"
+          className={filterState.date.visibility ? classes.iconActive : classes.iconNonActive}
+        >
+          <CalendarIcon
+            width="37"
+            height="36"
+            viewBox="0 0 37 36"
+          />
+        </IconButton>
+      </Grid>
+    </Grid>
   )
 }
 
 FilterIconButtons.propTypes = {
   showGroupIcon: PropTypes.bool,
   showFilterIconButton: PropTypes.bool,
+  width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
 }
+
+export default withWidth()(FilterIconButtons)

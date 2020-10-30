@@ -3,21 +3,39 @@ import GridListTile from '@material-ui/core/GridListTile'
 import Skeleton from '@material-ui/lab/Skeleton'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getGridListCols } from '../utils/display'
+import { Grid } from '@material-ui/core'
 
-export default function AlertSkeletonLoader({ width }) {
-  const rows = Array.from(Array(12).keys())
+export default function AlertSkeletonLoader({ cols }) {
+  const numberOfRows = Array.from(Array(12).keys())
+  if (cols > 1) {
+    return (
+      <GridList cols={cols}>
+        {numberOfRows.map((item) => (
+          <GridListTile key={item} cols={1}>
+            <Skeleton animation="wave" height={300} />
+          </GridListTile>
+        ))}
+      </GridList>
+    )
+  }
+
   return (
-    <GridList cols={getGridListCols[width]}>
-      {rows.map((item) => (
-        <GridListTile key={item} cols={1}>
-          <Skeleton animation="wave" height={200} />
-        </GridListTile>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="stretch"
+      spacing={1}
+    >
+      {numberOfRows.map((item) => (
+        <Grid item key={item}>
+          <Skeleton animation="wave" height={300} />
+        </Grid>
       ))}
-    </GridList>
+    </Grid>
   )
 }
 
 AlertSkeletonLoader.propTypes = {
-  width: PropTypes.object.isRequired,
+  cols: PropTypes.number,
 }

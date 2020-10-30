@@ -3,22 +3,22 @@ import React, { useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
 import { GET_SEARCH_KEY } from 'components/SearchBar'
-import PostsList from 'components/PostsList'
+import PostsList from 'components/Post/PostsList'
 
 import { GET_TOP_POSTS } from 'graphql/query'
 import SubHeader from 'components/SubHeader'
 import { makeStyles } from '@material-ui/core/styles'
-import GridContainer from '../../mui-pro/Grid/GridContainer'
-import GridItem from '../../mui-pro/Grid/GridItem'
+import { Grid } from '@material-ui/core'
 import FilterInputs from '../../components/Filter/FilterInputs'
 import ErrorBoundary from '../../components/ErrorBoundary'
 
 const useStyles = makeStyles(({
   root: {
     display: 'flex',
-    flexBasis: '100%',
     flexGrow: 1,
-    overflow: 'hidden',
+  },
+  test: {
+    marginRight: 10,
   },
 }))
 export default function TrendingPosts() {
@@ -46,20 +46,25 @@ export default function TrendingPosts() {
 
   return (
     <ErrorBoundary>
-      <GridContainer className={classes.root}>
-        <GridItem xs={12}>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="flex-start"
+        className={classes.root}
+      >
+        <Grid item xs={12}>
           <SubHeader
             headerName="Trending"
             setOffset={setOffset}
             showFilterIconButton={false}
           />
-        </GridItem>
+        </Grid>
 
         {
           filterState.filter.visibility || filterState.date.visibility || filterState.search.visibility ? (
-            <GridItem xs={12}>
+            <Grid item xs={12}>
               <FilterInputs
-                classes={classes}
                 filterState={filterState}
                 setOffset={setOffset}
                 selectAll={null}
@@ -70,11 +75,11 @@ export default function TrendingPosts() {
                 setDateRangeFilter={setDateRangeFilter}
                 dateRangeFilter={dateRangeFilter}
               />
-            </GridItem>
+            </Grid>
           ) : null
         }
 
-        <GridItem xs={12}>
+        <Grid item xs={12} className={classes.test}>
           <PostsList
             data={data}
             loading={loading}
@@ -82,8 +87,8 @@ export default function TrendingPosts() {
             fetchMore={fetchMore}
             variables={variables}
           />
-        </GridItem>
-      </GridContainer>
+        </Grid>
+      </Grid>
     </ErrorBoundary>
   )
 }

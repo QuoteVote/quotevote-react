@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import GridContainer from 'mui-pro/Grid/GridContainer'
-import GridItem from 'mui-pro/Grid/GridItem'
 import Tooltip from '@material-ui/core/Tooltip'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import FilterIconButtons from './Filter/FilterIconButtons'
+import CustomizedInputBase from './SearchBar'
 
 const useStyles = makeStyles((theme) => ({
   header: {
+    marginTop: 10,
     height: '85px',
     borderRadius: '6px',
   },
@@ -18,33 +18,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     height: '28px',
     fontSize: '24px',
-    paddingLeft: '20px',
-    paddingBottom: '5px',
+    textAlign: 'center',
     [theme.breakpoints.down('xs')]: {
       fontSize: '18px',
       paddingLeft: 5,
+      textAlign: 'left',
     },
-  },
-  headerNameSm: {
-    width: '160px',
-    height: '22px',
-    font: 'Roboto',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#3c4858',
-  },
-  search: {
-    borderRadius: '6px',
-    border: 'solid 1px #d2d2d2',
-    backgroundColor: '#ffffff',
-    marginBottom: '2%',
-    marginLeft: '10px',
-  },
-  calendar: {
-    borderRadius: '6px',
-    border: 'solid 1px #d2d2d2',
-    backgroundColor: '#ffffff',
-    marginLeft: '10px',
   },
 }))
 
@@ -70,30 +49,34 @@ ValueLabelComponent.propTypes = {
   value: PropTypes.number.isRequired,
 }
 
-export default function SubHeader({ headerName, showFilterIconButton = true }) {
+export default function SubHeader({ headerName, showFilterIconButton = true, setOffset }) {
   const classes = useStyles()
 
   return (
-    <>
-      <GridContainer
-        direction="row"
-        alignItems="center"
-        justify="space-between"
-        className={classes.header}
-        spacing={2}
-      >
-        <GridItem xs={6}>
-          <Typography className={classes.headerName}>
-            {headerName}
-          </Typography>
-        </GridItem>
+    <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="center"
+      className={classes.header}
+    >
+      <Grid item xs={12} sm={3} md={3}>
+        <Typography className={classes.headerName}>
+          {headerName}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} sm={5} md={6}>
+        <CustomizedInputBase setOffset={setOffset} />
+      </Grid>
+      <Grid item xs={12} sm={3} md={3}>
         <FilterIconButtons showFilterIconButton={showFilterIconButton} />
-      </GridContainer>
-    </>
+      </Grid>
+    </Grid>
   )
 }
 
 SubHeader.propTypes = {
   headerName: PropTypes.string.isRequired,
   showFilterIconButton: PropTypes.bool,
+  setOffset: PropTypes.any,
 }

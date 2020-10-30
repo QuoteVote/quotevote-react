@@ -13,8 +13,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    flexBasis: 300,
-    minWidth: 0,
     flexWrap: 'inherit',
     maxHeight: 50,
   },
@@ -60,6 +58,7 @@ export default function CustomizedInputBase({ setOffset }) {
         inputProps={{ 'aria-label': 'search' }}
         value={searchKey}
         onChange={handleChange}
+        fullWidth
       />
       <IconButton className={classes.iconButton} aria-label="search" />
     </Paper>
