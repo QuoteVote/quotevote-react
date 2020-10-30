@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 //  MUI
 import { fade, makeStyles, MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
@@ -75,15 +76,16 @@ export default function ProfileHeader(props) {
   const classes = useStyles()
   const history = useHistory()
   const {
-    loggedInUser,
     profileUser,
   } = props
-  const { _id: loggedInUserId } = loggedInUser
+  const loggedInUserId = useSelector((state) => state.user.data._id)
+
   const {
     username,
     _id,
     _followersId,
     _followingId,
+    avatar,
   } = profileUser
 
   return (
@@ -102,7 +104,7 @@ export default function ProfileHeader(props) {
               md={6}
             >
               <Grid item md={3}>
-                <AvatarDisplay height={75} width={75} {...loggedInUser.avatar} />
+                <AvatarDisplay height={75} width={75} {...avatar} />
               </Grid>
               <Grid
                 container
@@ -119,10 +121,10 @@ export default function ProfileHeader(props) {
                   item
                   container
                 >
-                  <Typography onClick={() => history.push(`/hhsb/Profile/${loggedInUserId}/followers`)} className={classes.title} variant="overline" noWrap>
+                  <Typography onClick={() => history.push(`/hhsb/Profile/${_id}/followers`)} className={classes.title} variant="overline" noWrap>
                     {`${_followersId ? _followersId.length : 0} Followers`}
                   </Typography>
-                  <Typography onClick={() => history.push(`/hhsb/Profile/${loggedInUserId}/following`)} className={classes.title} variant="overline" noWrap>
+                  <Typography onClick={() => history.push(`/hhsb/Profile/${_id}/following`)} className={classes.title} variant="overline" noWrap>
                     {`${_followingId ? _followingId.length : 0} Following`}
                   </Typography>
                 </Grid>
@@ -131,7 +133,7 @@ export default function ProfileHeader(props) {
                 {
                   //  Are we viewing our own profile?
                   //  If viewing another user, do we follow them already?
-                  profileUser._id === loggedInUser._id ? (
+                  profileUser._id === loggedInUserId ? (
                     <Button
                       variant="contained"
                       color="primary"

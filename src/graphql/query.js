@@ -53,6 +53,7 @@ export const GET_POST = gql`
       reportedBy
       bookmarkedBy
       creator {
+        _id
         name
         avatar
       }
@@ -160,6 +161,7 @@ export const GET_TOP_POSTS = gql`
           name
           username
           avatar
+          _id
         }
       }
       pagination {
@@ -220,6 +222,7 @@ query activities(
         bookmarkedBy
         created
         creator {
+          _id
           name
           username
           avatar
