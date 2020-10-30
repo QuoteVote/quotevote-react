@@ -17,10 +17,6 @@ const useStyles = makeStyles(({
     display: 'flex',
     flexGrow: 1,
   },
-  list: {
-    margin: 10,
-    maxWidth: '70%',
-  },
 }))
 
 export default function Activity({ showSubHeader = true }) {
@@ -74,7 +70,7 @@ export default function Activity({ showSubHeader = true }) {
         container
         direction="row"
         justify="center"
-        alignItems="center"
+        alignItems="stretch"
         className={classes.root}
       >
         {showSubHeader && (
@@ -106,7 +102,7 @@ export default function Activity({ showSubHeader = true }) {
           ) : null
         }
 
-        <Grid item xs={12} className={classes.list}>
+        <Grid item xs={12}>
           <ActivityList
             data={data}
             loading={loading}

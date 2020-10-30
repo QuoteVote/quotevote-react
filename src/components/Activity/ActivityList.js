@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import InfiniteScroll from 'react-infinite-scroller'
-
-import { Grid } from '@material-ui/core'
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import { Box } from '@material-ui/core'
 import PostCard from '../Post/PostCard'
 import AlertSkeletonLoader from '../AlertSkeletonLoader'
 import { UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
@@ -12,8 +13,9 @@ import { GET_USER_ACTIVITY } from '../../graphql/query'
 import { SET_HIDDEN_POSTS, SET_SNACKBAR } from '../../store/ui'
 import ActivityEmptyList from './ActivityEmptyList'
 import LoadingSpinner from '../LoadingSpinner'
+import { getGridListCols, useWidth } from '../../utils/display'
 
-export function LoadActivityList({
+function LoadActivityList({
   data, onLoadMore,
 }) {
   const dispatch = useDispatch()
@@ -29,6 +31,7 @@ export function LoadActivityList({
       },
     ],
   })
+  const width = useWidth()
 
   // !snackbar.open prevent dispatching action again once snackbar is already opened
   if (error && !snackbar.open) {
@@ -82,24 +85,24 @@ export function LoadActivityList({
       hasMore={hasMore}
       loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
     >
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="stretch"
-        spacing={0}
-      >
-        {activities.map((activity) => (
-          <Grid item style={{ marginBottom: -25 }}>
-            <PostCard
-              {...activity}
-              onHidePost={handleHidePost}
-              user={user}
-              onBookmark={handleBookmark}
-            />
-          </Grid>
+      <GridList cols={getGridListCols[width]}>
+        {activities.map((activity, key) => (
+          <GridListTile key={key} rows={1.3} cols={1}>
+            <Box
+              boxShadow={3}
+              style={{ marginRight: 20 }}
+            >
+              <PostCard
+                limitText
+                {...activity}
+                onHidePost={handleHidePost}
+                user={user}
+                onBookmark={handleBookmark}
+              />
+            </Box>
+          </GridListTile>
         ))}
-      </Grid>
+      </GridList>
     </InfiniteScroll>
   )
 }
@@ -107,7 +110,7 @@ export function LoadActivityList({
 export default function ActivityList({
   data, loading, fetchMore, variables,
 }) {
-  if (!data && loading) return <AlertSkeletonLoader cols={1} />
+  if (!data && loading) return <AlertSkeletonLoader cols={3} />
   const newOffset = data && data.activities.entities.length
   return (
     <LoadActivityList

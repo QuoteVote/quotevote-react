@@ -209,12 +209,12 @@ function PostCard(props) {
                 history.push(url)
               }}
             >
-              {stringLimit(title, postTitleStringLimit)}
+              {stringLimit(title, props.limitText ? 20 : postTitleStringLimit)}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography className={classes.postContent}>
-              {text}
+              {stringLimit(text, props.limitText ? 20 : 10000)}
             </Typography>
           </Grid>
         </Grid>
@@ -261,6 +261,7 @@ PostCard.propTypes = {
   activityType: PropTypes.string.isRequired,
   avatar: PropTypes.object,
   width: PropTypes.any,
+  limitText: PropTypes.bool,
 }
 
 export default withWidth()(PostCard)
