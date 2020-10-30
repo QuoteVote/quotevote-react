@@ -55,7 +55,6 @@ function ProfileController() {
       handleActivityEvent={handleActivityEvent}
       handleSelectAll={handleSelectAll}
       selectAll={selectAll}
-      loggedInUser={loggedInUser}
       filterState={filterState}
       dispatch={dispatch}
       setOffset={setOffset}

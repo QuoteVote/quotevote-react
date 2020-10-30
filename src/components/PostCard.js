@@ -214,18 +214,35 @@ export default function PostCard(props) {
   }
   const cardBg = getCardBg(activityType)
   window.addEventListener('resize', onResize)
+
+  const handleGoToPost = () => {
+    // add post id to redux state
+    dispatch(SET_SELECTED_POST(_id))
+    history.push(url)
+  }
+
+  const handleRedirectToProfile = (id) => {
+    history.push(`/hhsb/Profile/${id}`)
+  }
   return (
     <Box boxShadow={3} className={classes.root}>
       <Card className={classNames(classes.cardRootStyle, classes[cardBg])}>
         <CardHeader
           classes={{ content: classes.cardHeaderContent }}
           avatar={(
-            <Avatar
-              height="40"
-              width="40"
-              className={classes.avatarStyle}
-              {...creator.avatar}
-            />
+            <div
+              onClick={() => handleRedirectToProfile(creator._id)}
+              onKeyDown={() => handleRedirectToProfile(creator._id)}
+              role="link"
+              tabIndex={0}
+            >
+              <Avatar
+                height="40"
+                width="40"
+                className={classes.avatarStyle}
+                {...creator.avatar}
+              />
+            </div>
           )}
           action={(
             <IconButton
@@ -239,9 +256,11 @@ export default function PostCard(props) {
           title={(
             <GridContainer>
               <GridItem xs={4}>
-                <span className={classes.username}>
+                <Typography
+                  className={classes.username}
+                >
                   {creator ? creator.name : 'Anonymous'}
-                </span>
+                </Typography>
               </GridItem>
               <GridItem xs={8}>
                 <span className={classes.dateTime}>
@@ -262,11 +281,7 @@ export default function PostCard(props) {
             <>
               <Typography
                 className={classes.postTitle}
-                onClick={() => {
-                  // add post id to redux state
-                  dispatch(SET_SELECTED_POST(_id))
-                  history.push(url)
-                }}
+                onClick={() => handleGoToPost()}
               >
                 {title}
               </Typography>

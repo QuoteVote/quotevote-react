@@ -33,7 +33,8 @@ const uiSlice = createSlice({
   initialState: uiInitialState,
   reducers: {
     SET_SELECTED_POST: (state, action) => {
-      state.selectedPost.id = action.payload
+      // console.log('selectedpost called', state)
+      state.selectedPost = { id: action.payload }
     },
     SET_SELECTED_PAGE: (state, action) => {
       state.selectedPage = action.payload

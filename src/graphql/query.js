@@ -220,6 +220,7 @@ query activities(
         bookmarkedBy
         created
         creator {
+          _id
           name
           username
           avatar
