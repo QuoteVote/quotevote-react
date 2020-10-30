@@ -90,7 +90,10 @@ function LoadActivityList({
           <GridListTile key={key} rows={1.3} cols={1}>
             <Box
               boxShadow={3}
-              style={{ marginRight: 20 }}
+              style={{
+                marginRight: 20,
+                borderRadius: 7,
+              }}
             >
               <PostCard
                 limitText
