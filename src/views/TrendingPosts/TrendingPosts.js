@@ -17,8 +17,9 @@ const useStyles = makeStyles(({
     display: 'flex',
     flexGrow: 1,
   },
-  test: {
+  list: {
     marginRight: 10,
+    maxWidth: '70%',
   },
 }))
 export default function TrendingPosts() {
@@ -50,7 +51,7 @@ export default function TrendingPosts() {
         container
         direction="row"
         justify="center"
-        alignItems="flex-start"
+        alignItems="center"
         className={classes.root}
       >
         <Grid item xs={12}>
@@ -79,7 +80,7 @@ export default function TrendingPosts() {
           ) : null
         }
 
-        <Grid item xs={12} className={classes.test}>
+        <Grid item xs={12} className={classes.list}>
           <PostsList
             data={data}
             loading={loading}

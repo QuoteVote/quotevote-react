@@ -87,9 +87,10 @@ export function LoadActivityList({
         direction="column"
         justify="center"
         alignItems="stretch"
+        spacing={0}
       >
         {activities.map((activity) => (
-          <Grid item>
+          <Grid item style={{ marginBottom: -25 }}>
             <PostCard
               {...activity}
               onHidePost={handleHidePost}

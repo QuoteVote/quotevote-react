@@ -13,6 +13,7 @@ import AppBar from '@material-ui/core/AppBar'
 import withWidth from '@material-ui/core/withWidth'
 
 import { SET_SELECTED_PAGE } from 'store/ui'
+import { useApolloClient } from '@apollo/react-hooks'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
@@ -31,7 +32,9 @@ function MainNavBar(props) {
   const name = useSelector((state) => state.user.data.name)
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
+  const client = useApolloClient()
   const handleMenu = (newSelectedMenu) => {
+    client.stop()
     dispatch(SET_SELECTED_PAGE(newSelectedMenu))
   }
   const handleProfileClick = () => {

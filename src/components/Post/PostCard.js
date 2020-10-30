@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cardBodyStyle: {
-    marginLeft: 75,
+    marginLeft: 65,
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
