@@ -215,12 +215,6 @@ export default function PostCard(props) {
   const cardBg = getCardBg(activityType)
   window.addEventListener('resize', onResize)
 
-  const handleGoToPost = () => {
-    // add post id to redux state
-    dispatch(SET_SELECTED_POST(_id))
-    history.push(url)
-  }
-
   const handleRedirectToProfile = (id) => {
     history.push(`/hhsb/Profile/${id}`)
   }
@@ -281,7 +275,10 @@ export default function PostCard(props) {
             <>
               <Typography
                 className={classes.postTitle}
-                onClick={() => handleGoToPost()}
+                onClick={() => {
+                  dispatch(SET_SELECTED_POST(_id))
+                  history.push(url)
+                }}
               >
                 {title}
               </Typography>
