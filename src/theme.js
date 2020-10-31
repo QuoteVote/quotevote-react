@@ -2,7 +2,8 @@ import orange from '@material-ui/core/colors/orange'
 import green from '@material-ui/core/colors/green'
 import purple from '@material-ui/core/colors/purple'
 import red from '@material-ui/core/colors/red'
-import cyan from '@material-ui/core/colors/cyan'
+import blue from '@material-ui/core/colors/blue'
+import lightBlue from '@material-ui/core/colors/lightBlue'
 import teal from '@material-ui/core/colors/teal'
 import pink from '@material-ui/core/colors/pink'
 
@@ -14,22 +15,32 @@ const theme = {
   },
   activityCards: {
     quoted: {
-      color: cyan[500],
+      color: '#E36DFA',
+      fontColor: '#000000',
     },
     commented: {
-      color: orange[500],
+      color: '#FDD835',
+      fontColor: '#000000',
     },
     upvote: {
-      color: green[500],
+      color: '#00CF6E',
+      fontColor: '#000000',
     },
     downvote: {
-      color: red[500],
+      color: '#FF6060',
+      fontColor: '#000000',
     },
     submitted: {
       color: '#000000',
+      fontColor: '#000000',
     },
     hearted: {
-      color: pink,
+      color: '#F16C99',
+      fontColor: '#000000',
+    },
+    trending: {
+      color: lightBlue[500],
+      fontColor: '#000000',
     },
   },
   subHeader: {

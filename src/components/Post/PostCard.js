@@ -29,22 +29,28 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '10px 7px 10px 0 rgba(0, 188, 212, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.14)',
   },
   postedBg: {
-    backgroundColor: 'orange',
+    backgroundColor: theme.activityCards.trending.color,
+    color: theme.activityCards.trending.fontColor,
   },
   commentedBg: {
-    backgroundColor: '#eabe6d',
+    backgroundColor: theme.activityCards.commented.color,
+    color: theme.activityCards.commented.fontColor,
   },
   upVotedBg: {
-    backgroundColor: 'green',
+    backgroundColor: theme.activityCards.upvote.color,
+    color: theme.activityCards.upvote.fontColor,
   },
   downVotedBg: {
-    backgroundColor: 'red',
+    backgroundColor: theme.activityCards.downvote.color,
+    color: theme.activityCards.downvote.fontColor,
   },
   likedPostBg: {
-    backgroundColor: 'pink',
+    backgroundColor: theme.activityCards.hearted.color,
+    color: theme.activityCards.hearted.fontColor,
   },
   quotedPostBg: {
-    backgroundColor: 'purple',
+    backgroundColor: theme.activityCards.quoted.color,
+    color: theme.activityCards.quoted.fontColor,
   },
   cardHeaderStyle: {
     paddingBottom: 0,
@@ -58,15 +64,16 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
+    color: '#000000',
   },
   iconButton: {
-    color: '#ffffff',
+    color: '#000000',
   },
   username: {
     font: 'Roboto',
     fontSize: '10px',
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#000000',
     whiteSpace: 'nowrap',
     padding: 0,
     top: 16,
@@ -75,14 +82,14 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.8,
     font: 'Roboto',
     fontSize: '10px',
-    color: '#ffffff',
+    color: '#000000',
     padding: 0,
   },
   postTitle: {
     font: 'Roboto',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#000000',
     whiteSpace: 'nowrap',
     cursor: 'pointer',
     [theme.breakpoints.down('sm')]: {
@@ -101,18 +108,21 @@ const useStyles = makeStyles((theme) => ({
     font: 'Roboto',
     fontSize: 12,
     fontWeight: 300,
-    color: '#ffffff',
+    color: '#000000',
   },
   votes: {
     height: 12,
     font: 'Roboto',
     fontSize: 10,
     fontWeight: 500,
-    color: '#ffffff',
+    color: '#000000',
   },
   bookmark: {
     paddingTop: 0,
     paddingBottom: 0,
+  },
+  fontColor: {
+    color: '#000000',
   },
 }))
 
@@ -149,7 +159,7 @@ function PostCard(props) {
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
   return (
-    <Card className={classNames(classes.cardRootStyle, classes[cardBg])}>
+    <Card className={classNames(classes.cardRootStyle, classes[cardBg], classes.fontColor)}>
       <CardHeader
         avatar={(
           <IconButton size="small">
