@@ -1,11 +1,8 @@
-import orange from '@material-ui/core/colors/orange'
 import green from '@material-ui/core/colors/green'
 import purple from '@material-ui/core/colors/purple'
 import red from '@material-ui/core/colors/red'
-import blue from '@material-ui/core/colors/blue'
 import lightBlue from '@material-ui/core/colors/lightBlue'
 import teal from '@material-ui/core/colors/teal'
-import pink from '@material-ui/core/colors/pink'
 
 const theme = {
   palette: {
@@ -54,6 +51,34 @@ const theme = {
       backgroundColor: '#00CF6E',
       color: 'white',
     },
+  },
+  activityCardsComplete: {
+    peach: '#F44336',
+    greenSecondary: '#4CAF50',
+    // gray: rgba(25, 25, 25, 0.77),
+    lightblueCard: '#00BCD4',
+    orange: '#FF9801',
+    gray1: '#454545',
+    downvotedCardAndError: '#DA3849',
+    blackCard: '#2D2A2A',
+    greenPrimary: '#00CF6E',
+    heartedPinkCard: '#F16C99',
+    backgroundOffWhite: '#FAFAFA',
+    mintyGreen: '#00E676',
+    subsectionTitleMutedBlack: '#424556',
+    blue: '#56B3FF',
+    yellow: '#FEC02F',
+    red: '#FF6060',
+    violet: '#E36DFA',
+    purple: '#791E89',
+    gray2inactive: '#D8D8D8',
+  },
+  alerts: {
+    info: '#00CAE3',
+    success: '#55B559',
+    warning: '#FF9E0F',
+    danger: '#F55145',
+    primary: '#A72ABD',
   },
 }
 
