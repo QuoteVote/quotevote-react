@@ -35,6 +35,10 @@ const theme = {
       color: '#F16C99',
       fontColor: '#000000',
     },
+    posted: {
+      color: '#FFFFFF',
+      fontColor: '#000000',
+    },
     trending: {
       color: lightBlue[500],
       fontColor: '#000000',

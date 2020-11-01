@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '10px 7px 10px 0 rgba(0, 188, 212, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.14)',
   },
   postedBg: {
-    backgroundColor: theme.activityCards.trending.color,
-    color: theme.activityCards.trending.fontColor,
+    backgroundColor: theme.activityCards.posted.color,
+    color: theme.activityCards.posted.fontColor,
   },
   commentedBg: {
     backgroundColor: theme.activityCards.commented.color,
