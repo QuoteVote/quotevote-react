@@ -6,6 +6,7 @@ import { InsertEmoticon, InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import AvatarDisplay from '../Avatar'
 import { parseCommentDate } from '../../utils/momentUtils'
 import { SET_FOCUSED_COMMENT } from '../../store/ui'
@@ -33,6 +34,7 @@ function Comment({ comment }) {
   } = comment
   const { username, avatar } = user
   const classes = useStyles()
+  const history = useHistory()
   const parsedDate = parseCommentDate(created)
   const dispatch = useDispatch()
 
@@ -43,7 +45,10 @@ function Comment({ comment }) {
     >
       <CardHeader
         avatar={(
-          <IconButton>
+          <IconButton
+            size="small"
+            onClick={() => history.push(`/hhsb/Profile/${username}`)}
+          >
             <AvatarDisplay height={40} width={40} {...avatar} />
           </IconButton>
         )}

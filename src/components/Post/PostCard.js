@@ -148,8 +148,8 @@ function PostCard(props) {
   const isBookmarked = bookmarkedBy && bookmarkedBy.includes(user._id)
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
-  const handleRedirectToProfile = (id) => {
-    history.push(`/hhsb/Profile/${id}`)
+  const handleRedirectToProfile = (username) => {
+    history.push(`/hhsb/Profile/${username}`)
   }
   return (
     <Card className={classNames(classes.cardRootStyle, classes[cardBg])}>
@@ -157,7 +157,7 @@ function PostCard(props) {
         avatar={(
           <IconButton
             size="small"
-            onClick={() => handleRedirectToProfile(creator._id)}
+            onClick={() => handleRedirectToProfile(creator.username)}
           >
             <Avatar>
               <AvatarDisplay

@@ -56,6 +56,7 @@ export const GET_POST = gql`
         _id
         name
         avatar
+        username
       }
       comments {
         _id
@@ -174,8 +175,8 @@ export const GET_TOP_POSTS = gql`
 `
 
 export const GET_USER = gql`
-  query user($user_id: String!) {
-    user(user_id: $user_id) {
+  query user($username: String!) {
+    user(username: $username) {
       _id
       name
       username

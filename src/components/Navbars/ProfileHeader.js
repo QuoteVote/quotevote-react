@@ -121,10 +121,10 @@ export default function ProfileHeader(props) {
                   item
                   container
                 >
-                  <Typography onClick={() => history.push(`/hhsb/Profile/${_id}/followers`)} className={classes.title} variant="overline" noWrap>
+                  <Typography onClick={() => history.push(`/hhsb/Profile/${username}/followers`)} className={classes.title} variant="overline" noWrap>
                     {`${_followersId ? _followersId.length : 0} Followers`}
                   </Typography>
-                  <Typography onClick={() => history.push(`/hhsb/Profile/${_id}/following`)} className={classes.title} variant="overline" noWrap>
+                  <Typography onClick={() => history.push(`/hhsb/Profile/${username}/following`)} className={classes.title} variant="overline" noWrap>
                     {`${_followingId ? _followingId.length : 0} Following`}
                   </Typography>
                 </Grid>
@@ -137,7 +137,7 @@ export default function ProfileHeader(props) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => history.push(`/hhsb/Profile/${loggedInUserId}/avatar`)}
+                      onClick={() => history.push(`/hhsb/Profile/${username}/avatar`)}
                     >
                       Change Photo
                     </Button>

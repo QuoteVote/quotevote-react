@@ -10,16 +10,16 @@ export default function ProfileRouter() {
       <Route exact path="/hhsb/Profile">
         <Profile />
       </Route>
-      <Route exact path="/hhsb/Profile/:userId/">
+      <Route exact path="/hhsb/Profile/:username/">
         <Profile />
       </Route>
-      <Route exact path="/hhsb/Profile/:userId/avatar">
+      <Route exact path="/hhsb/Profile/:username/avatar">
         <ChangePhoto />
       </Route>
-      <Route exact path="/hhsb/Profile/:userId/following">
+      <Route exact path="/hhsb/Profile/:username/following">
         <FollowInfo filter="following" />
       </Route>
-      <Route exact path="/hhsb/Profile/:userId/followers">
+      <Route exact path="/hhsb/Profile/:username/followers">
         <FollowInfo filter="followers" />
       </Route>
     </>
