@@ -1,73 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 //  MUI
-import { fade, makeStyles, MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
+import { makeStyles, MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import ChatIcon from '@material-ui/icons/Chat'
 
 //  Local
 import FollowButton from 'components/CustomButtons/FollowButton'
+import { Avatar } from '@material-ui/core'
+import { useQuery } from '@apollo/react-hooks'
 import mainTheme from '../../themes/MainTheme'
 import FilterIconButtons from '../Filter/FilterIconButtons'
 import AvatarDisplay from '../Avatar'
+import { GET_CHAT_ROOM } from '../../graphql/query'
+import { SELECTED_CHAT_ROOM, SET_CHAT_OPEN } from '../../store/chat'
 
 const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
+  button: {
+    width: 130,
+    margin: 5,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 15,
     },
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
+  points: {
+    marginRight: 10,
+    fontSize: '14px',
+    fontWeight: 500,
   },
-  iconActive: {
-    color: theme.subHeader.activeIcon.color,
-  },
-  iconNonActive: {
-    color: theme.subHeader.default.color,
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
+  avatar: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 15,
     },
   },
 }))
@@ -79,6 +49,7 @@ export default function ProfileHeader(props) {
     profileUser,
   } = props
   const loggedInUserId = useSelector((state) => state.user.data._id)
+  const dispatch = useDispatch()
 
   const {
     username,
@@ -88,82 +59,117 @@ export default function ProfileHeader(props) {
     avatar,
   } = profileUser
 
+  const sameUser = profileUser._id === loggedInUserId
+
+  const { data, loading } = useQuery(GET_CHAT_ROOM, {
+    variables: {
+      otherUserId: profileUser._id,
+    },
+    fetchPolicy: 'network-only',
+  })
+
+  const room = !loading && data && data.messageRoom
+  const handleMessageUser = async () => {
+    dispatch(SELECTED_CHAT_ROOM({
+      room,
+      Text: room.title,
+      type: 'USER',
+      avatar: room.avatar,
+    }))
+    dispatch(SET_CHAT_OPEN(true))
+  }
   return (
     <ThemeProvider theme={mainTheme}>
-      <div className={classes.grow}>
-        <Grid
-          container
-          alignItems="center"
-          direction="row"
-        >
-          <Grid alignItems="center" container>
-            <Grid
-              alignItems="center"
-              item
-              container
-              md={6}
-            >
-              <Grid item md={3}>
-                <AvatarDisplay height={75} width={75} {...avatar} />
-              </Grid>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+            spacing={1}
+          >
+            <Grid item xs={12} md={sameUser ? 8 : 6}>
               <Grid
                 container
-                item
-                md={5}
-                direction="column"
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+                spacing={2}
               >
                 <Grid item>
-                  <Typography className={classes.title} variant="h6" noWrap>
-                    { username }
-                  </Typography>
+                  <Avatar className={classes.avatar}>
+                    <AvatarDisplay height={75} width={75} {...avatar} />
+                  </Avatar>
                 </Grid>
-                <Grid
-                  item
-                  container
-                >
-                  <Typography onClick={() => history.push(`/hhsb/Profile/${username}/followers`)} className={classes.title} variant="overline" noWrap>
-                    {`${_followersId ? _followersId.length : 0} Followers`}
+                <Grid item>
+                  <Typography variant="h6" noWrap>
+                    {username}
                   </Typography>
-                  <Typography onClick={() => history.push(`/hhsb/Profile/${username}/following`)} className={classes.title} variant="overline" noWrap>
-                    {`${_followingId ? _followingId.length : 0} Following`}
+                  <Typography
+                    onClick={() => history.push(`/hhsb/Profile/${username}/followers`)}
+                    variant="overline"
+                    noWrap
+                  >
+                    <span className={classes.points}>
+                      {`${_followersId ? _followersId.length : 0} Followers`}
+                    </span>
+                    <span className={classes.points}>
+                      {`${_followingId ? _followingId.length : 0} Following`}
+                    </span>
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid item md={4}>
-                {
-                  //  Are we viewing our own profile?
-                  //  If viewing another user, do we follow them already?
-                  profileUser._id === loggedInUserId ? (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => history.push(`/hhsb/Profile/${username}/avatar`)}
-                    >
-                      Change Photo
-                    </Button>
-                  ) : (
+            </Grid>
+            {
+              //  Are we viewing our own profile?
+              //  If viewing another user, do we follow them already?
+              sameUser ? (
+                <Grid item xs={12} md={3}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => history.push(`/hhsb/Profile/${username}/avatar`)}
+                    className={classes.button}
+                  >
+                    Change Photo
+                  </Button>
+                </Grid>
+              ) : (
+                <>
+                  <Grid item xs={12} sm={3} md={3}>
                     <FollowButton
                       isFollowing={_followersId ? _followersId.find((id) => loggedInUserId === id) : null}
                       profileUserId={_id}
+                      className={classes.button}
                     />
-                  )
-                }
-              </Grid>
-            </Grid>
-            <Grid
-              alignItems="center"
-              container
-              item
-              justify="flex-end"
-              md={6}
-            >
-              <div className={classes.sectionDesktop}>
-                <FilterIconButtons showFilterIconButton />
-              </div>
-            </Grid>
+                  </Grid>
+                  <Grid item xs={12} sm={3} md={3}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="medium"
+                      className={classes.button}
+                      startIcon={<ChatIcon />}
+                      onClick={handleMessageUser}
+                    >
+                      Message
+                    </Button>
+                  </Grid>
+                </>
+              )
+            }
           </Grid>
         </Grid>
-      </div>
+        <Grid item>
+          <FilterIconButtons showFilterIconButton />
+        </Grid>
+      </Grid>
     </ThemeProvider>
   )
 }

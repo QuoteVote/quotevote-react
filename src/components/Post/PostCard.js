@@ -26,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
     },
     borderRadius: 7,
-    boxShadow: '10px 7px 10px 0 rgba(0, 188, 212, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.14)',
+    '&:hover': {
+      animationName: 'post',
+      animationDuration: '0.25s',
+      boxShadow: '10px 7px 10px 0 rgba(0, 188, 212, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.14)',
+    },
   },
   postedBg: {
     backgroundColor: theme.activityCards.posted.color,

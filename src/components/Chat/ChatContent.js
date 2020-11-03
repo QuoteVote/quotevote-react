@@ -19,7 +19,7 @@ function ChatContent() {
   const classes = useStyles()
   const selectedRoom = useSelector((state) => state.chat.selectedRoom)
 
-  if (!selectedRoom) {
+  if (!selectedRoom || !selectedRoom.room) {
     return (
       <div className={classes.root}>
         <Typography className={classes.title} variant="h6">Chat</Typography>

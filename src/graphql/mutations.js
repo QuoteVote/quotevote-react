@@ -149,3 +149,18 @@ export const UPDATE_USER_AVATAR = gql`
     }
   }
 `
+
+export const CREATE_POST_MESSAGE_ROOM = gql`
+  mutation createPostMessageRoom(
+    $postId: String!
+  ) {
+    createPostMessageRoom(postId: $postId) {
+      _id
+      users
+      messageType
+      created
+      title
+      avatar
+    }
+  }
+`

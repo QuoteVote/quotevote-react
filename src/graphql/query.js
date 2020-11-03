@@ -100,6 +100,18 @@ export const SEARCH = gql`
   }
 `
 
+export const GET_CHAT_ROOM = gql`
+  query messageRoom($otherUserId: String!) {
+    messageRoom(otherUserId: $otherUserId) {
+      _id
+      users
+      messageType
+      created
+      title
+      avatar
+    }
+  }
+`
 export const GET_CHAT_ROOMS = gql`
   query chatRooms {
     messageRooms {
