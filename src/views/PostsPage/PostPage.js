@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery } from '@apollo/react-hooks'
@@ -16,6 +16,11 @@ const useStyles = makeStyles(() => ({
 
 function PostPage() {
   const classes = useStyles()
+
+  // To reset the scroll when the selected post changes
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const postId = useSelector((state) => state.ui.selectedPost.id)
   const { loading, error, data } = useQuery(GET_POST, {

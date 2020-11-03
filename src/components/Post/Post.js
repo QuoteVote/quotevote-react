@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
@@ -72,9 +72,6 @@ function Post({ post, user }) {
   const dispatch = useDispatch()
   const history = useHistory()
   const parsedCreated = moment(created).format('LLL')
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   const [anchorEl, setAnchorEl] = useState(null)
   const [buttonType, setButtonType] = useState('approved')
