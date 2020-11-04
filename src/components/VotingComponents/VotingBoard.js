@@ -28,7 +28,6 @@ const VotingBoard = ({
   const focusedComment = useSelector((state) => state.ui.focusedComment)
   const { startWordIndex, endWordIndex } = focusedComment || { startWordIndex: 0, endWordIndex: 0 }
   const highlightedText = content.substring(startWordIndex, endWordIndex).replace(/(\r\n|\n|\r)/gm, '')
-  console.log({ highlightedText })
   const handleSelect = (select) => {
     const text = select.toString()
 
@@ -43,9 +42,24 @@ const VotingBoard = ({
       setSelection({})
     }
   }
+  const findChunksAtBeginningOfWords = () => ([{ start: startWordIndex > 0 ? startWordIndex : 0, end: endWordIndex }])
 
   const renderHighlights = () => {
     if (highlights) {
+      if (endWordIndex > startWordIndex) {
+        return (
+          <Highlighter
+            style={{
+              whiteSpace: 'pre-line',
+            }}
+            highlightClassName={classes.root}
+            textToHighlight={content}
+            findChunks={findChunksAtBeginningOfWords}
+            autoEscape
+          />
+        )
+      }
+
       return (
         <Highlighter
           style={{
@@ -55,6 +69,7 @@ const VotingBoard = ({
           searchWords={[highlightedText]}
           textToHighlight={content}
           autoEscape
+          caseSensitive
         />
       )
     }

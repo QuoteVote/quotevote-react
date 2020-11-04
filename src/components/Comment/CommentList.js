@@ -47,7 +47,7 @@ function CommentList({ comments, loading }) {
           spacing={15}
           cols={1}
           cellHeight={180}
-          style={{ height: '80vh', marginTop: 5 }}
+          style={{ height: comments.length > 2 ? '80vh' : 'auto', marginTop: 5 }}
         >
           {comments.sort((a, b) => moment(b.created).diff(moment(a.created))).map((comment) => (
             <GridListTile style={{ height: 'auto' }}>
