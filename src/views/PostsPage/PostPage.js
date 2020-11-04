@@ -25,6 +25,7 @@ function PostPage() {
   const postId = useSelector((state) => state.ui.selectedPost.id)
   const { loading, error, data } = useQuery(GET_POST, {
     variables: { postId },
+    fetchPolicy: 'cache-and-network',
   })
   const user = useSelector((state) => state.user.data)
 

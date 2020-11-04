@@ -5,7 +5,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
-import { Favorite, PersonAdd } from '@material-ui/icons'
+import { PersonAdd } from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
@@ -23,7 +23,8 @@ import {
 import { GET_POST, GET_TOP_POSTS } from '../../graphql/query'
 import ApproveRejectPopover from '../ApproveRejectPopver/ApproveRejectPopover'
 import AvatarDisplay from '../Avatar'
-import PostMessageButton from './PostMessageButton'
+import PostMessageButton from '../CustomButtons/PostMessageButton'
+import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 
 const useStyles = makeStyles(() => ({
   header2: {
@@ -364,9 +365,7 @@ function Post({ post, user }) {
         <IconButton>
           <PersonAdd />
         </IconButton>
-        <IconButton>
-          <Favorite />
-        </IconButton>
+        <BookmarkIconButton post={post} user={user} />
       </CardActions>
 
       <ApproveRejectPopover

@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import { CardHeader, IconButton } from '@material-ui/core'
 import Card from 'mui-pro/Card/Card'
 import classNames from 'classnames'
@@ -11,7 +10,6 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SELECTED_POST } from 'store/ui'
 import { useHistory } from 'react-router-dom'
-import FavoriteIcon from '@material-ui/icons/Favorite'
 import AvatarDisplay from 'components/Avatar'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
@@ -19,6 +17,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import stringLimit from 'string-limit'
 import withWidth from '@material-ui/core/withWidth'
+import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 
 const useStyles = makeStyles((theme) => ({
   cardRootStyle: {
@@ -156,10 +155,9 @@ function PostCard(props) {
   const classes = useStyles(props)
   const { width } = props
   const {
-    _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, onBookmark, creator,
+    _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, creator,
     activityType,
   } = props
-  const isBookmarked = bookmarkedBy && bookmarkedBy.includes(user._id)
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
   const handleRedirectToProfile = (username) => {
@@ -249,13 +247,7 @@ function PostCard(props) {
             </Typography>
           </Grid>
           <Grid item>
-            <IconButton
-              classes={{ root: classes.iconButton }}
-              className={classes.bookmark}
-              onClick={() => onBookmark(_id)}
-            >
-              {isBookmarked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-            </IconButton>
+            <BookmarkIconButton size="small" post={{ _id, bookmarkedBy }} user={user} />
           </Grid>
         </Grid>
       </CardActions>
