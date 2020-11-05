@@ -72,6 +72,28 @@ export const GET_POST = gql`
           avatar
         }
       }
+      votes {
+        startWordIndex
+        endWordIndex
+        created
+        type
+        user {
+          username
+          name
+          avatar
+        }
+      }
+      quotes {
+        startWordIndex
+        endWordIndex
+        created
+        quote
+        user {
+          username
+          name
+          avatar
+        }
+      }
     }
   }
 `
