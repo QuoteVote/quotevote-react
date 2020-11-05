@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/react-hooks'
 import { FOLLOW_MUTATION } from 'graphql/mutations'
 import Button from '@material-ui/core/Button'
+import classNames from 'classnames'
 
 const useStyles = makeStyles((theme) => ({
   followButton: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function FollowButton({ isFollowing, profileUserId }) {
+function FollowButton({ isFollowing, profileUserId, ...otherProps }) {
   const classes = useStyles()
   // TODO handle data object
   const [followMutation] = useMutation(FOLLOW_MUTATION)
@@ -20,7 +21,7 @@ function FollowButton({ isFollowing, profileUserId }) {
     return (
       <Button
         variant="contained"
-        className={classes.followButton}
+        className={classNames(classes.followButton, otherProps.className)}
         onClick={() => followMutation({ variables: { user_id: profileUserId, action: 'un-follow' } })}
       >
         Un-Follow

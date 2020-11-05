@@ -13,7 +13,7 @@ function ProfileController() {
   const [selectAll, setSelectAll] = useState('ALL')
   const [offset, setOffset] = useState(1)
   const limit = 5
-  const { userId } = useParams()
+  const { username } = useParams()
   const [userInfo, setUserInfo] = useState({})
   const loggedInUser = useSelector((state) => state.user.data)
 
@@ -38,7 +38,7 @@ function ProfileController() {
   }
 
   const { data: userData } = useQuery(GET_USER, {
-    variables: { user_id: userId || loggedInUser._id },
+    variables: { username: username || loggedInUser.username },
   })
   useEffect(() => {
     dispatch(SET_SELECTED_PAGE(null))
@@ -55,7 +55,6 @@ function ProfileController() {
       handleActivityEvent={handleActivityEvent}
       handleSelectAll={handleSelectAll}
       selectAll={selectAll}
-      loggedInUser={loggedInUser}
       filterState={filterState}
       dispatch={dispatch}
       setOffset={setOffset}

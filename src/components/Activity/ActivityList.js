@@ -1,16 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { useMutation } from '@apollo/react-hooks'
 import InfiniteScroll from 'react-infinite-scroller'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { Box } from '@material-ui/core'
 import PostCard from '../Post/PostCard'
 import AlertSkeletonLoader from '../AlertSkeletonLoader'
-import { UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
-import { GET_USER_ACTIVITY } from '../../graphql/query'
-import { SET_HIDDEN_POSTS, SET_SNACKBAR } from '../../store/ui'
+import { SET_HIDDEN_POSTS } from '../../store/ui'
 import ActivityEmptyList from './ActivityEmptyList'
 import LoadingSpinner from '../LoadingSpinner'
 import { getGridListCols, useWidth } from '../../utils/display'
@@ -21,45 +18,7 @@ function LoadActivityList({
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.data)
   const hiddenPosts = useSelector((state) => state.ui.hiddenPosts) || []
-  const snackbar = useSelector((state) => state.ui.snackbar)
-  const limit = 12 + hiddenPosts.length
-  const [updatePostBookmark, { error }] = useMutation(UPDATE_POST_BOOKMARK, {
-    refetchQueries: [
-      {
-        query: GET_USER_ACTIVITY,
-        variables: { limit, offset: 0, searchKey: '' },
-      },
-    ],
-  })
   const width = useWidth()
-
-  // !snackbar.open prevent dispatching action again once snackbar is already opened
-  if (error && !snackbar.open) {
-    dispatch(SET_SNACKBAR({
-      type: 'danger',
-      message: `Updating bookmark error: ${error}`,
-      open: true,
-    }))
-  }
-
-  const handleBookmark = (postId) => {
-    // eslint-disable-next-line no-underscore-dangle
-    updatePostBookmark({
-      variables: { postId, userId: user._id },
-      update: (cache, { data: updatedBookmark }) => {
-        if (updatedBookmark) {
-          dispatch(
-            SET_SNACKBAR({
-              type: 'success',
-              message: 'Updated Successfully',
-              open: true,
-            })
-          )
-        }
-      },
-    })
-  }
-
   const handleHidePost = (post) => {
     dispatch(SET_HIDDEN_POSTS(post._id))
   }
@@ -100,7 +59,6 @@ function LoadActivityList({
                 {...activity}
                 onHidePost={handleHidePost}
                 user={user}
-                onBookmark={handleBookmark}
               />
             </Box>
           </GridListTile>

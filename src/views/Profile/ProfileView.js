@@ -26,7 +26,6 @@ function ProfileView({
   handleActivityEvent,
   handleSelectAll,
   selectAll,
-  loggedInUser,
   filterState,
   setOffset,
   profileUser,
@@ -42,7 +41,6 @@ function ProfileView({
         handleActivityEvent={handleActivityEvent}
         handleSelectAll={handleSelectAll}
         selectAll={selectAll}
-        loggedInUser={loggedInUser}
         filterState={filterState}
         setOffset={setOffset}
         profileUser={profileUser}
@@ -56,7 +54,6 @@ ProfileView.propTypes = {
   handleActivityEvent: PropTypes.func.isRequired,
   handleSelectAll: PropTypes.func.isRequired,
   selectAll: PropTypes.func.isRequired,
-  loggedInUser: PropTypes.object.isRequired,
   filterState: PropTypes.string.isRequired,
   setOffset: PropTypes.number.isRequired,
   profileUser: PropTypes.object.isRequired,

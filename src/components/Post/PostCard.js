@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import { CardHeader, IconButton } from '@material-ui/core'
 import Card from 'mui-pro/Card/Card'
 import classNames from 'classnames'
@@ -11,7 +10,6 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SELECTED_POST } from 'store/ui'
 import { useHistory } from 'react-router-dom'
-import FavoriteIcon from '@material-ui/icons/Favorite'
 import AvatarDisplay from 'components/Avatar'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
@@ -19,6 +17,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import stringLimit from 'string-limit'
 import withWidth from '@material-ui/core/withWidth'
+import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 
 const useStyles = makeStyles((theme) => ({
   cardRootStyle: {
@@ -26,25 +25,35 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
     },
     borderRadius: 7,
-    boxShadow: '10px 7px 10px 0 rgba(0, 188, 212, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.14)',
+    '&:hover': {
+      animationName: 'post',
+      animationDuration: '0.25s',
+      boxShadow: '10px 7px 10px 0 rgba(0, 188, 212, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.14)',
+    },
   },
   postedBg: {
-    backgroundColor: 'orange',
+    backgroundColor: theme.activityCards.posted.color,
+    color: theme.activityCards.posted.fontColor,
   },
   commentedBg: {
-    backgroundColor: '#eabe6d',
+    backgroundColor: theme.activityCards.commented.color,
+    color: theme.activityCards.commented.fontColor,
   },
   upVotedBg: {
-    backgroundColor: 'green',
+    backgroundColor: theme.activityCards.upvote.color,
+    color: theme.activityCards.upvote.fontColor,
   },
   downVotedBg: {
-    backgroundColor: 'red',
+    backgroundColor: theme.activityCards.downvote.color,
+    color: theme.activityCards.downvote.fontColor,
   },
   likedPostBg: {
-    backgroundColor: 'pink',
+    backgroundColor: theme.activityCards.hearted.color,
+    color: theme.activityCards.hearted.fontColor,
   },
   quotedPostBg: {
-    backgroundColor: 'purple',
+    backgroundColor: theme.activityCards.quoted.color,
+    color: theme.activityCards.quoted.fontColor,
   },
   cardHeaderStyle: {
     paddingBottom: 0,
@@ -58,15 +67,16 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
+    color: '#000000',
   },
   iconButton: {
-    color: '#ffffff',
+    color: '#000000',
   },
   username: {
     font: 'Roboto',
     fontSize: '10px',
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#000000',
     whiteSpace: 'nowrap',
     padding: 0,
     top: 16,
@@ -75,14 +85,14 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.8,
     font: 'Roboto',
     fontSize: '10px',
-    color: '#ffffff',
+    color: '#000000',
     padding: 0,
   },
   postTitle: {
     font: 'Roboto',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#000000',
     whiteSpace: 'nowrap',
     cursor: 'pointer',
     [theme.breakpoints.down('sm')]: {
@@ -101,18 +111,21 @@ const useStyles = makeStyles((theme) => ({
     font: 'Roboto',
     fontSize: 12,
     fontWeight: 300,
-    color: '#ffffff',
+    color: '#000000',
   },
   votes: {
     height: 12,
     font: 'Roboto',
     fontSize: 10,
     fontWeight: 500,
-    color: '#ffffff',
+    color: '#000000',
   },
   bookmark: {
     paddingTop: 0,
     paddingBottom: 0,
+  },
+  fontColor: {
+    color: '#000000',
   },
 }))
 
@@ -142,17 +155,22 @@ function PostCard(props) {
   const classes = useStyles(props)
   const { width } = props
   const {
-    _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, onBookmark, creator,
+    _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, creator,
     activityType,
   } = props
-  const isBookmarked = bookmarkedBy && bookmarkedBy.includes(user._id)
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
+  const handleRedirectToProfile = (username) => {
+    history.push(`/hhsb/Profile/${username}`)
+  }
   return (
-    <Card className={classNames(classes.cardRootStyle, classes[cardBg])}>
+    <Card className={classNames(classes.cardRootStyle, classes[cardBg], classes.fontColor)}>
       <CardHeader
         avatar={(
-          <IconButton size="small">
+          <IconButton
+            size="small"
+            onClick={() => handleRedirectToProfile(creator.username)}
+          >
             <Avatar>
               <AvatarDisplay
                 height="40"
@@ -229,13 +247,7 @@ function PostCard(props) {
             </Typography>
           </Grid>
           <Grid item>
-            <IconButton
-              classes={{ root: classes.iconButton }}
-              className={classes.bookmark}
-              onClick={() => onBookmark(_id)}
-            >
-              {isBookmarked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-            </IconButton>
+            <BookmarkIconButton size="small" post={{ _id, bookmarkedBy }} user={user} />
           </Grid>
         </Grid>
       </CardActions>

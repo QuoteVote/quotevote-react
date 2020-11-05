@@ -18,6 +18,9 @@ const useStyles = makeStyles(() => ({
     width: 380,
     backgroundColor: 'transparent',
     color: 'white',
+    height: '60vh',
+    position: 'relative',
+    overflow: 'auto',
   },
   blur: {
     opacity: 0.5,

@@ -73,6 +73,7 @@ function Header() {
   const handleBack = () => {
     dispatch(SELECTED_CHAT_ROOM(null))
   }
+
   const { title, avatar, messageType } = useSelector((state) => state.chat.selectedRoom.room)
 
   return (
@@ -127,6 +128,7 @@ function MessageBox() {
   const classes = useStyles()
   const size = useWindowSize()
   const maxHeight = size.height - 100
+
   return (
     <Grid
       container

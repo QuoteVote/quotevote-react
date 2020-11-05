@@ -2,10 +2,11 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { IconButton, SvgIcon } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as ChatSvg } from '../../assets/svg/Chat.svg'
 import RichTooltip from './RichToolTip'
 import ChatContent from './ChatContent'
+import { SET_CHAT_OPEN } from '../../store/chat'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +18,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 function ChatMenu({ fontSize }) {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
+  const dispatch = useDispatch()
+  const setOpen = (open) => {
+    dispatch(SET_CHAT_OPEN(open))
+  }
+  const open = useSelector((state) => state.chat.open)
   const selectedRoom = useSelector((state) => state.chat.selectedRoom)
   const tipColor = !selectedRoom ? '#1BB5D8' : '#EEF4F9'
   const tipBackgroundImage = !selectedRoom ?

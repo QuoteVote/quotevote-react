@@ -5,10 +5,11 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
-import { Comment, Favorite, PersonAdd } from '@material-ui/icons'
+import { PersonAdd } from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
+import { useHistory } from 'react-router-dom'
 import { cloneDeep, findIndex } from 'lodash'
 import moment from 'moment'
 import ApproveButton from '../CustomButtons/ApproveButton'
@@ -22,6 +23,8 @@ import {
 import { GET_POST, GET_TOP_POSTS } from '../../graphql/query'
 import ApproveRejectPopover from '../ApproveRejectPopver/ApproveRejectPopover'
 import AvatarDisplay from '../Avatar'
+import PostMessageButton from '../CustomButtons/PostMessageButton'
+import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 
 const useStyles = makeStyles(() => ({
   header2: {
@@ -68,6 +71,7 @@ function Post({ post, user }) {
   } = post
   const { name, avatar } = creator
   const dispatch = useDispatch()
+  const history = useHistory()
   const parsedCreated = moment(created).format('LLL')
 
   const [anchorEl, setAnchorEl] = useState(null)
@@ -322,6 +326,9 @@ function Post({ post, user }) {
   const handlePopoverClose = () => {
     setAnchorEl(null)
   }
+  const handleRedirectToProfile = (username) => {
+    history.push(`/hhsb/Profile/${username}`)
+  }
   const pointsHeader = (
     <div className={classes.points}>
       <span className={classes.upVote}>
@@ -353,7 +360,10 @@ function Post({ post, user }) {
       <CardHeader
         className={classes.header2}
         avatar={(
-          <IconButton>
+          <IconButton
+            size="small"
+            onClick={() => handleRedirectToProfile(creator.username)}
+          >
             <AvatarDisplay height={40} width={40} {...avatar} />
           </IconButton>
         )}
@@ -396,15 +406,11 @@ function Post({ post, user }) {
           }}
           onMouseEnter={(e) => handlePopoverOpen(e, 'approved')}
         />
-        <IconButton className={classes.expand}>
-          <Comment />
-        </IconButton>
+        <PostMessageButton className={classes.expand} post={post} />
         <IconButton>
           <PersonAdd />
         </IconButton>
-        <IconButton>
-          <Favorite />
-        </IconButton>
+        <BookmarkIconButton post={post} user={user} />
       </CardActions>
 
       <ApproveRejectPopover
