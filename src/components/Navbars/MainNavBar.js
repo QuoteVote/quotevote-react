@@ -136,19 +136,24 @@ function MainNavBar(props) {
           >
             <Grid item>
               <NavLink to="/hhsb/Profile">
-                <Button
-                  aria-label="Profile"
-                  color="inherit"
-                  onClick={handleProfileClick}
-                  className={classes.avatarRoundedButton}
-                >
-                  <Avatar height="50" width="50" {...avatar} />
-                  <Hidden mdDown>
+                <Hidden mdDown>
+                  <Button
+                    aria-label="Profile"
+                    color="inherit"
+                    onClick={handleProfileClick}
+                    className={classes.avatarRoundedButton}
+                  >
+                    <Avatar height="50" width="50" {...avatar} />
                     <Typography variant="h6" className={classes.profileBlockName}>
                       {name}
                     </Typography>
-                  </Hidden>
-                </Button>
+                  </Button>
+                </Hidden>
+                <Hidden lgUp>
+                  <IconButton size="medium">
+                    <Avatar height="35" width="35" {...avatar} />
+                  </IconButton>
+                </Hidden>
               </NavLink>
             </Grid>
             <Grid item>
