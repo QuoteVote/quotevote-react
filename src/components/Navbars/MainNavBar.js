@@ -2,7 +2,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
 import Tabs from '@material-ui/core/Tabs'
 import { NavLink } from 'react-router-dom'
 import Tab from '@material-ui/core/Tab'
@@ -14,6 +13,8 @@ import withWidth from '@material-ui/core/withWidth'
 
 import { SET_SELECTED_PAGE } from 'store/ui'
 import { useApolloClient } from '@apollo/react-hooks'
+import Button from '@material-ui/core/Button'
+import Hidden from '@material-ui/core/Hidden'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
@@ -49,17 +50,16 @@ function MainNavBar(props) {
       <Grid
         container
         direction="row"
-        alignItems="center"
         justify="space-between"
+        alignItems="center"
         wrap="nowrap"
       >
-        <Grid item lg={2}>
+        <Grid item>
           <NavLink to="/hhsb/Home" onClick={handleVoxPop}>
             <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
           </NavLink>
         </Grid>
-
-        <Grid container item lg={5} justify="flex-start">
+        <Grid item>
           <Tabs
             value={selectedPage}
             onChange={handleMenu}
@@ -127,41 +127,51 @@ function MainNavBar(props) {
             </Grid>
           </Tabs>
         </Grid>
-
-        <Grid justify="flex-end" container item alignItems="center" lg={5}>
-          <Grid item lg={2}>
-            <NavLink to="/hhsb/Profile">
-              <IconButton aria-label="Profile" color="inherit" onClick={handleProfileClick}>
-                <Avatar height="50" width="50" {...avatar} />
-              </IconButton>
-            </NavLink>
-          </Grid>
-          <Hidden only={['md']}>
-            <Grid item lg={4}>
-              <Typography variant="h6" className={classes.profileBlockName}>
-                {name}
-              </Typography>
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            justify="space-around"
+            alignItems="center"
+          >
+            <Grid item>
+              <NavLink to="/hhsb/Profile">
+                <Button
+                  aria-label="Profile"
+                  color="inherit"
+                  onClick={handleProfileClick}
+                  className={classes.avatarRoundedButton}
+                >
+                  <Avatar height="50" width="50" {...avatar} />
+                  <Hidden mdDown>
+                    <Typography variant="h6" className={classes.profileBlockName}>
+                      {name}
+                    </Typography>
+                  </Hidden>
+                </Button>
+              </NavLink>
             </Grid>
-          </Hidden>
-          <Grid item lg={2}>
-            <ChatMenu fontSize={fontSize} />
+            <Grid item>
+              <ChatMenu fontSize={fontSize} />
+            </Grid>
+            <Grid item>
+              <IconButton
+                aria-label="Notifications"
+                color="inherit"
+                className={classes.rightMenuButton}
+              >
+                <SvgIcon
+                  component={NotificationsSvg}
+                  fontSize={fontSize}
+                  viewBox="0 0 49 46"
+                />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <SettingsIconButton fontSize={fontSize} />
+            </Grid>
           </Grid>
-          <Grid item lg={2}>
-            <IconButton
-              aria-label="Notifications"
-              color="inherit"
-              className={classes.rightMenuButton}
-            >
-              <SvgIcon
-                component={NotificationsSvg}
-                fontSize={fontSize}
-                viewBox="0 0 49 46"
-              />
-            </IconButton>
-          </Grid>
-          <Grid item lg={2}>
-            <SettingsIconButton fontSize={fontSize} />
-          </Grid>
+
         </Grid>
       </Grid>
     </AppBar>
