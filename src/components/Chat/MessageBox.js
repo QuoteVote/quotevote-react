@@ -5,10 +5,13 @@ import {
 } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useDispatch, useSelector } from 'react-redux'
+import { useMutation } from '@apollo/react-hooks'
 import MessageSend from './MessageSend'
 import MessageItemList from './MessageItemList'
 import { SELECTED_CHAT_ROOM } from '../../store/chat'
 import AvatarDisplay from '../Avatar'
+import { READ_MESSAGES } from '../../graphql/mutations'
+import { GET_CHAT_ROOMS } from '../../graphql/query'
 
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -128,6 +131,15 @@ function MessageBox() {
   const classes = useStyles()
   const size = useWindowSize()
   const maxHeight = size.height - 100
+  const { _id: messageRoomId } = useSelector((state) => state.chat.selectedRoom.room)
+  const [updateMessageReadBy] = useMutation(READ_MESSAGES)
+
+  useEffect(() => {
+    updateMessageReadBy({
+      variables: { messageRoomId },
+      refetchQueries: [{ query: GET_CHAT_ROOMS }],
+    })
+  }, [messageRoomId, updateMessageReadBy])
 
   return (
     <Grid

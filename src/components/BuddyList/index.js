@@ -7,7 +7,9 @@ import LoadingSpinner from '../LoadingSpinner'
 import BuddyItemList from './BuddyItemList'
 
 function BuddyList({ search }) {
-  const { loading, error, data } = useQuery(GET_CHAT_ROOMS)
+  const { loading, error, data } = useQuery(GET_CHAT_ROOMS, {
+    fetchPolicy: 'cache-and-network',
+  })
   const buddyList =
     (!error && !loading && data && !isEmpty(data.messageRooms) &&
       data.messageRooms.map((item) => ({
@@ -16,6 +18,7 @@ function BuddyList({ search }) {
         color: '#191919',
         type: item.messageType,
         avatar: item.avatar,
+        unreadMessages: item.unreadMessages,
       }))) ||
     []
 

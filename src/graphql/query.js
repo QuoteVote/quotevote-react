@@ -121,6 +121,7 @@ export const GET_CHAT_ROOMS = gql`
       created
       title
       avatar
+      unreadMessages
     }
   }
 `
