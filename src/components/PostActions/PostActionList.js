@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Card, CardContent, Grid, GridList, GridListTile, IconButton,
 } from '@material-ui/core'
+import { isEmpty } from 'lodash' 
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Skeleton } from '@material-ui/lab'
@@ -36,7 +37,7 @@ function PostActionList({ postActions, loading }) {
           <Skeleton variant="rect" height={118} />
         </>
       )}
-      {postActions ? (
+      {!isEmpty(postActions) ? (
         <GridList
           spacing={15}
           cols={1}
@@ -49,7 +50,7 @@ function PostActionList({ postActions, loading }) {
             </GridListTile>
           ))}
         </GridList>
-      ) : <Card><CardContent>Start the discussion... </CardContent></Card>}
+      ) : !loading && <Card><CardContent>Start the discussion... </CardContent></Card>}
 
     </>
   )
