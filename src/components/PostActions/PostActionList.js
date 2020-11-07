@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Card, CardContent, Grid, GridList, GridListTile, IconButton,
 } from '@material-ui/core'
-import { isEmpty } from 'lodash' 
+import { isEmpty } from 'lodash'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Skeleton } from '@material-ui/lab'
