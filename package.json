@@ -24,6 +24,7 @@
     "classnames": "^2.2.6",
     "clipboard-copy": "^3.1.0",
     "eslint-import-resolver-webpack": "^0.12.1",
+    "fg-loadcss": "^3.1.0",
     "firebase": "^7.22.0",
     "fontsource-montserrat": "^2.2.6",
     "graphql": "^14.5.8",
@@ -39,6 +40,7 @@
     "node-sass": "^4.14.1",
     "nouislider": "14.0.2",
     "perfect-scrollbar": "1.4.0",
+    "plop": "^2.7.4",
     "prettier": "^1.9.2",
     "prop-types": "^15.6.0",
     "react": "^16.12.0",
@@ -93,7 +95,9 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "cypress:open": "cypress open",
-    "chromatic": "npx chromatic --project-token rh6bhnfp28a"
+    "chromatic": "npx chromatic --project-token rh6bhnfp28a",
+    "generate": "plop --plopfile internals/generators/plopfile.js",
+    "prettify": "prettier --write"
   },
   "optionalDependencies": {
     "@types/googlemaps": "3.37.3",
@@ -113,7 +117,7 @@
     "@storybook/addon-a11y": "^5.3.19",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-backgrounds": "^5.3.19",
-    "@storybook/addon-console": "^1.2.1",
+    "@storybook/addon-console": "^1.2.2",
     "@storybook/addon-docs": "^5.3.19",
     "@storybook/addon-jest": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.19",

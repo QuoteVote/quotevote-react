@@ -1,0 +1,28 @@
+/**
+*
+* {{ properCase ComponentName }}
+*
+*/
+{{#if wantMemo}}
+import React, { memo } from 'react';
+{{else}}
+import React from 'react';
+{{/if}}
+
+
+{{#if wantMemo}}
+export const {{ properCase ComponentName }} = memo((props) => {
+{{else}}
+export function {{ properCase ComponentName }}(props) {
+{{/if}}
+
+return (
+<div>
+</div>
+);
+
+{{#if wantMemo}}
+});
+{{else}}
+};
+{{/if}}

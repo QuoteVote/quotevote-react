@@ -1,0 +1,78 @@
+/**
+*
+* {{ properCase ComponentName }}
+*
+*/
+
+{{#if wantMemo}}
+import React, { memo } from 'react';
+{{else}}
+import React from 'react';
+{{/if}}
+{{#if wantHeaders}}
+import { Helmet } from 'react-helmet-async';
+{{/if}}
+{{#if wantSlice}}
+import { useSelector, useDispatch } from 'react-redux';
+{{/if}}
+
+{{#if wantSlice}}
+{{#if wantSaga}}
+import { useInjectReducer, useInjectSaga } from 'redux-injectors';
+{{else}}
+import { useInjectReducer } from 'redux-injectors';
+{{/if}}
+{{else}}
+{{#if wantSaga}}
+import { useInjectSaga } from 'redux-injectors';
+{{/if}}
+{{/if}}
+{{#if wantSlice}}
+import { reducer, sliceKey } from './slice';
+import { select{{ properCase ComponentName }} } from './selectors';
+{{/if}}
+{{#if wantSaga}}
+import { {{ camelCase ComponentName }}Saga } from './saga';
+{{/if}}
+
+
+{{#if wantMemo}}
+export const {{ properCase ComponentName }} = memo((props) => {
+{{else}}
+export function {{ properCase ComponentName }}(props) {
+{{/if}}
+{{#if wantSlice}}
+useInjectReducer({ key: sliceKey, reducer: reducer });
+{{/if}}
+{{#if wantSaga}}
+  {{#if wantSlice}}
+  useInjectSaga({ key: sliceKey, saga: {{ camelCase ComponentName }}Saga });
+  {{else}}
+  useInjectSaga({ key: '{{ camelCase ComponentName }}', saga: {{ camelCase ComponentName }}Saga });
+  {{/if}}
+{{/if}}
+
+{{#if wantSlice}}
+const {{ camelCase ComponentName }} = useSelector(select{{ properCase ComponentName }});
+const dispatch = useDispatch();
+{{/if}}
+
+
+return (
+<>
+  {{#if wantHeaders}}
+  <Helmet>
+    <title>{{properCase ComponentName}}</title>
+    <meta name="description" content="Description of {{properCase ComponentName}}" />
+  </Helmet>
+  {{/if}}
+    <div>
+    </div>
+</>
+);
+
+{{#if wantMemo}}
+});
+{{else}}
+};
+{{/if}}

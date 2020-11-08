@@ -1,0 +1,19 @@
+import React from 'react';
+
+import { {{ properCase ComponentName }} } from './index';
+
+export default {
+  title: 'Components/{{ properCase ComponentName }}',
+  component: {{ properCase ComponentName }},
+  argTypes: {
+    backgroundColor: { control: 'color' },
+  },
+};
+
+const Template = (args) => <{{ properCase ComponentName }} {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {};
+
+export const Primary = Template.bind({});
+Primary.args = {};
