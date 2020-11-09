@@ -18,11 +18,11 @@ import Hidden from '@material-ui/core/Hidden'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
-import { ReactComponent as NotificationsSvg } from '../../assets/svg/Notifications.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 import SettingsIconButton from '../CustomButtons/SettingsIconButton'
 import Avatar from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
+import NotificationMenu from '../Notifications/NotificationMenu'
 
 function MainNavBar(props) {
   const {
@@ -160,17 +160,7 @@ function MainNavBar(props) {
               <ChatMenu fontSize={fontSize} />
             </Grid>
             <Grid item>
-              <IconButton
-                aria-label="Notifications"
-                color="inherit"
-                className={classes.rightMenuButton}
-              >
-                <SvgIcon
-                  component={NotificationsSvg}
-                  fontSize={fontSize}
-                  viewBox="0 0 49 46"
-                />
-              </IconButton>
+              <NotificationMenu fontSize={fontSize} />
             </Grid>
             <Grid item>
               <SettingsIconButton fontSize={fontSize} />
