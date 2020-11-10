@@ -176,3 +176,12 @@ export const READ_MESSAGES = gql`
     }
   }
 `
+
+export const DELETE_NOTIFICATION = gql`
+  mutation removeNotification($notificationId: String!) {
+    removeNotification(notificationId: $notificationId) {
+      _id
+      status
+    }
+  }
+`

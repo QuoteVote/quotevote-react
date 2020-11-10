@@ -19,6 +19,11 @@ import zeroNotificationsImg from 'assets/img/ZeroNotificationsBG.png'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
+import stringLimit from 'string-limit'
+import { useApolloClient, useMutation } from '@apollo/react-hooks'
+import AvatarDisplay from '../Avatar'
+import { DELETE_NOTIFICATION } from '../../graphql/mutations'
+import { GET_NOTIFICATIONS } from '../../graphql/query'
 
 const NotificationBadge = withStyles(() => ({
   badge: {
@@ -28,27 +33,45 @@ const NotificationBadge = withStyles(() => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    maxWidth: '60ch',
+    width: 350,
     backgroundColor: theme.palette.background.paper,
+    height: '75vh',
+    position: 'relative',
+    overflow: 'auto',
+  },
+  rootMin: {
+    width: 350,
+    backgroundColor: theme.palette.background.paper,
+    position: 'relative',
+    overflow: 'auto',
+  },
+  rootNoNotification: {
+    width: 350,
+    backgroundColor: theme.palette.background.paper,
+    height: '30vh',
+    position: 'relative',
+    overflow: 'auto',
   },
   inline: {
     display: 'inline',
   },
   close: {
-    marginTop: -35,
+    marginTop: -30,
+  },
+  listItem: {
+    paddingTop: 10,
   },
 }))
 
-const getBadgeIcon = (action) => {
-  switch (action) {
+const getBadgeIcon = (notificationType) => {
+  switch (notificationType) {
     case 'UPVOTED':
       return upVoteBadgeIcon
     case 'DOWNVOTED':
       return downVoteBadgeIcon
     case 'COMMENTED':
       return commentBadgeIcon
-    case 'QOUTED':
+    case 'QUOTED':
       return qouteBadgeIcon
     default:
       return ''
@@ -57,6 +80,27 @@ const getBadgeIcon = (action) => {
 
 function NotificationLists({ notifications }) {
   const classes = useStyles()
+  const client = useApolloClient()
+
+  const [removeNotification] = useMutation(DELETE_NOTIFICATION)
+
+  const handleDelete = async (notificationId) => {
+    const newNotifications = notifications.filter((notification) => notification._id !== notificationId)
+
+    client.writeQuery({
+      query: GET_NOTIFICATIONS,
+      data: { notifications: newNotifications },
+    })
+
+    await removeNotification({
+      variables: {
+        notificationId,
+      },
+      refetchQueries: [{
+        query: GET_NOTIFICATIONS,
+      }],
+    })
+  }
 
   if (!notifications || !notifications.length) {
     return (
@@ -65,7 +109,7 @@ function NotificationLists({ notifications }) {
         direction="column"
         justify="center"
         alignItems="center"
-        className={classes.root}
+        className={classes.rootNoNotification}
       >
         <Grid item>
           <img src={zeroNotificationsImg} alt="" />
@@ -83,8 +127,10 @@ function NotificationLists({ notifications }) {
   }
 
   return (
-    <List className={classes.root}>
-      {notifications.map((notification) => (
+    <List className={notifications.length < 5 ? classes.rootMin : classes.root}>
+      {notifications.map(({
+        notificationType, label, created, userBy, _id,
+      }) => (
         <>
           <ListItem alignItems="flex-start">
             <ListItemAvatar>
@@ -93,10 +139,14 @@ function NotificationLists({ notifications }) {
                   vertical: 'bottom',
                   horizontal: 'right',
                 }}
-                badgeContent={<img src={getBadgeIcon(notification.action)} alt="Commented" />}
+                badgeContent={<img src={getBadgeIcon(notificationType)} alt="Commented" />}
               >
-                <IconButton size="small">
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <IconButton
+                  size="small"
+                >
+                  <Avatar alt={userBy.name}>
+                    <AvatarDisplay height={75} width={75} {...userBy.avatar} />
+                  </Avatar>
                 </IconButton>
               </NotificationBadge>
             </ListItemAvatar>
@@ -104,16 +154,16 @@ function NotificationLists({ notifications }) {
               primary={(
                 <>
                   <b>
-                    {notification.action}
+                    {notificationType}
                     .
                   </b>
                   {' '}
-                  {`"${notification.text}"`}
+                  {`"${stringLimit(label, 50)}"`}
                 </>
               )}
               secondary={(
                 <>
-                  {moment(notification.created).calendar(null, {
+                  {moment(created).calendar(null, {
                     sameDay: '[Today]',
                     nextDay: '[Tomorrow]',
                     nextWeek: 'dddd',
@@ -121,12 +171,17 @@ function NotificationLists({ notifications }) {
                     lastWeek: '[Last] dddd',
                     sameElse: 'MMM DD, YYYY',
                   })}
-                  {` @ ${moment(notification.created).format('h:mm A')}`}
+                  {` @ ${moment(created).format('h:mm A')}`}
                 </>
               )}
             />
             <ListItemSecondaryAction className={classes.close}>
-              <IconButton size="small">
+              <IconButton
+                size="small"
+                onClick={() => {
+                  handleDelete(_id)
+                }}
+              >
                 <CloseIcon />
               </IconButton>
             </ListItemSecondaryAction>

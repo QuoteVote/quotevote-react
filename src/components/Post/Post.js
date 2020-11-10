@@ -201,7 +201,7 @@ function Post({ post, user }) {
   }
   const handleVoting = async (type) => {
     const vote = {
-      // text: selectedText.text,
+      content: selectedText.text,
       postId: post._id,
       userId: user._id,
       type,

@@ -278,3 +278,21 @@ export const GET_FOLLOW_INFO = gql`
     getUserFollowInfo(user_id: $user_id, filter: $filter)
   }
 `
+
+export const GET_NOTIFICATIONS = gql`
+  query notifications{
+    notifications{
+      _id
+      userId
+      userIdBy
+      userBy{
+        name
+        avatar
+      }
+      label
+      status
+      created
+      notificationType
+    }
+  }
+`
