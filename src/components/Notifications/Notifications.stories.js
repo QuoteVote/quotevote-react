@@ -15,24 +15,26 @@ export default {
   component: Notification,
   decorators: [withKnobs, withA11y],
 }
-
 const notificationsData = [
   {
-    action: 'UPVOTED',
-    text: 'Relax, you don’t have any alerts right now.',
-    user: { avatar: 'J' },
+    _id: '1234',
+    notificationType: 'UPVOTED',
+    label: 'Relax, you don’t have any alerts right now.',
+    userBy: { avatar: 'J', name: 'John' },
     created: '2020-11-09 03:12 PM',
   },
   {
-    action: 'DOWNVOTED',
-    text: 'I\'ll be in your neighborhood doing errands this',
-    user: { avatar: 'J' },
+    _id: '1235',
+    notificationType: 'DOWNVOTED',
+    label: 'I\'ll be in your neighborhood doing errands this',
+    userBy: { avatar: 'J', name: 'John' },
     created: '2020-11-02 03:12 PM',
   },
   {
-    action: 'COMMENTED',
-    text: 'Wish I could come, but I\'m out of town this…',
-    user: { avatar: 'J' },
+    _id: '1236',
+    notificationType: 'COMMENTED',
+    label: 'Wish I could come, but I\'m out of town this…',
+    userBy: { avatar: 'J', name: 'John' },
     created: '2020-11-05 03:12 PM',
   },
 ]
