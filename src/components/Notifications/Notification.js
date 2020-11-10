@@ -2,16 +2,13 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { Skeleton } from '@material-ui/lab'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import { useSelector } from 'react-redux'
-import { GET_NOTIFICATIONS } from '../../graphql/query'
+import PropTypes from 'prop-types'
 import NotificationLists from './NotificationLists'
-import { NEW_NOTIFICATION_SUBSCRIPTION } from '../../graphql/subscription'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,20 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function Notification() {
+function Notification({ loading, notifications }) {
   const classes = useStyles()
-  const { loading, data, refetch } = useQuery(GET_NOTIFICATIONS)
-  const userId = useSelector((state) => state.user.data._id)
-  useSubscription(
-    NEW_NOTIFICATION_SUBSCRIPTION,
-    {
-      variables: { userId },
-      onSubscriptionData: async () => {
-        await refetch()
-      },
-    },
-  )
-  const { notifications } = loading ? { notifications: [] } : data
   return (
     <Grid
       container
@@ -67,6 +52,11 @@ function Notification() {
 
     </Grid>
   )
+}
+
+Notification.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  notifications: PropTypes.object.isRequired,
 }
 
 export default Notification

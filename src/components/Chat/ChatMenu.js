@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { IconButton, SvgIcon } from '@material-ui/core'
 import PropTypes from 'prop-types'
@@ -7,6 +7,7 @@ import { ReactComponent as ChatSvg } from '../../assets/svg/Chat.svg'
 import RichTooltip from './RichToolTip'
 import ChatContent from './ChatContent'
 import { SET_CHAT_OPEN } from '../../store/chat'
+import { ReactComponent as ChatActiveSvg } from '../../assets/svg/ChatActive.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,8 @@ function ChatMenu({ fontSize }) {
   const tipColor = !selectedRoom ? '#1BB5D8' : '#EEF4F9'
   const tipBackgroundImage = !selectedRoom ?
     'linear-gradient(224.94deg, #1BB5D8 1.63%, #4066EC 97.6%)' : '#EEF4F9'
+
+  const [svgIcon, setSvgIcon] = useState(ChatSvg)
   return (
     <div className={classes.root}>
       <RichTooltip
@@ -42,9 +45,11 @@ function ChatMenu({ fontSize }) {
           aria-label="Chat"
           color="inherit"
           onClick={() => setOpen(!open)}
+          onMouseEnter={() => setSvgIcon(ChatActiveSvg)}
+          onMouseLeave={() => setSvgIcon(ChatSvg)}
         >
           <SvgIcon
-            component={ChatSvg}
+            component={svgIcon}
             fontSize={fontSize}
             viewBox="0 0 37 37"
           />

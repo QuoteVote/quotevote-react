@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom'
 import { useApolloClient } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
 import { ReactComponent as SettingsSvg } from '../../assets/svg/Settings.svg'
+import { ReactComponent as SettingsActiveSvg } from '../../assets/svg/SettingsActive.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,7 @@ export default function SettingsIconButton({ fontSize }) {
   const history = useHistory()
   const client = useApolloClient()
   const user = useSelector((state) => state.user.data)
+  const [svgIcon, setSvgIcon] = useState(SettingsSvg)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -83,9 +85,11 @@ export default function SettingsIconButton({ fontSize }) {
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
+        onMouseEnter={() => setSvgIcon(SettingsActiveSvg)}
+        onMouseLeave={() => setSvgIcon(SettingsSvg)}
       >
         <SvgIcon
-          component={SettingsSvg}
+          component={svgIcon}
           fontSize={fontSize}
           viewBox="0 0 49 46"
           className={classes.rightMenuButton}
