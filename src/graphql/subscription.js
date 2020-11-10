@@ -14,5 +14,22 @@ subscription newMessage($messageRoomId: String!) {
     mutation_type
   }
 }
+`
 
+export const NEW_NOTIFICATION_SUBSCRIPTION = gql`
+  subscription notification($userId: String!) {
+    notification(userId: $userId) {
+      _id
+      userId
+      userIdBy
+      userBy{
+        name
+        avatar
+      }
+      label
+      status
+      created
+      notificationType
+    }
+  }
 `
