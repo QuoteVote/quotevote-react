@@ -13,6 +13,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+/**
+ * FollowButton - description
+ *
+ * @param  {boolean} isFollowing   description
+ * @param  {string} profileUserId   description
+ * @param  {type} otherProps description
+ * @returns {JSX.Element} description
+ */
 function FollowButton({ isFollowing, profileUserId, ...otherProps }) {
   const classes = useStyles()
   // TODO handle data object

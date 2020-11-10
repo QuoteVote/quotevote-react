@@ -21,17 +21,15 @@ FollowInfo.PropTypes = {
 /*  eslint no-underscore-dangle: ["error", { "allow": ["_followingId", "_id"] }] */
 /**
   * Display list of followers OR following (if 0, we'll display something else)
-  * QUESTION: Regarding Following/Not following button indicator,
-  * What about if we are viewing a profile other than our own?
   * @param {string} filter - following / followers
   * @returns {JSX.element}
 */
 
 function FollowInfo({ filter }) {
-  const { userId } = useParams()
+  const { username } = useParams()
   const userData = useSelector((state) => state.user.data)
   const { data, error, loading } = useQuery(GET_FOLLOW_INFO, {
-    variables: { user_id: userId, filter },
+    variables: { username, filter },
   })
   const history = useHistory()
 

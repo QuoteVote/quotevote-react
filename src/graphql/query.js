@@ -274,8 +274,8 @@ export const POP_PREDICTION = gql`
 `
 
 export const GET_FOLLOW_INFO = gql`
-  query getUserFollowInfo($user_id: String! $filter: String) {
-    getUserFollowInfo(user_id: $user_id, filter: $filter)
+  query getUserFollowInfo($username: String! $filter: String) {
+    getUserFollowInfo(username: $username, filter: $filter)
   }
 `
 
