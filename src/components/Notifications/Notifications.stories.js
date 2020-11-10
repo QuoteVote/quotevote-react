@@ -42,6 +42,6 @@ export const EmptyList = () => <NotificationLists />
 
 Base.story = {
   parameters: {
-    jest: ['NotificationLists.test.js'],
+    jest: ['NotificationLists.test.js', 'Notification.test.js'],
   },
 }
