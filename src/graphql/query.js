@@ -293,6 +293,10 @@ export const GET_NOTIFICATIONS = gql`
       status
       created
       notificationType
+      post {
+        _id
+        url
+      }
     }
   }
 `

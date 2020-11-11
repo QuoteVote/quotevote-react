@@ -2,7 +2,6 @@ import React from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import Divider from '@material-ui/core/Divider'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
@@ -21,9 +20,12 @@ import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import stringLimit from 'string-limit'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import AvatarDisplay from '../Avatar'
 import { DELETE_NOTIFICATION } from '../../graphql/mutations'
 import { GET_NOTIFICATIONS } from '../../graphql/query'
+import { SET_SELECTED_POST } from '../../store/ui'
 
 const NotificationBadge = withStyles(() => ({
   badge: {
@@ -81,6 +83,8 @@ const getBadgeIcon = (notificationType) => {
 function NotificationLists({ notifications }) {
   const classes = useStyles()
   const client = useApolloClient()
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const [removeNotification] = useMutation(DELETE_NOTIFICATION)
 
@@ -129,10 +133,17 @@ function NotificationLists({ notifications }) {
   return (
     <List className={notifications.length < 5 ? classes.rootMin : classes.root}>
       {notifications.map(({
-        notificationType, label, created, userBy, _id,
+        notificationType, label, created, userBy, _id, post,
       }) => (
         <>
-          <ListItem alignItems="flex-start">
+          <ListItem
+            button
+            alignItems="flex-start"
+            onClick={() => {
+              dispatch(SET_SELECTED_POST(post._id))
+              history.push(post.url)
+            }}
+          >
             <ListItemAvatar>
               <NotificationBadge
                 anchorOrigin={{
@@ -186,7 +197,6 @@ function NotificationLists({ notifications }) {
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
-          <Divider variant="inset" component="li" />
         </>
       ))}
     </List>

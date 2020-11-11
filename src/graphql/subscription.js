@@ -30,6 +30,10 @@ export const NEW_NOTIFICATION_SUBSCRIPTION = gql`
       status
       created
       notificationType
+      post {
+        _id
+        url
+      }
     }
   }
 `
