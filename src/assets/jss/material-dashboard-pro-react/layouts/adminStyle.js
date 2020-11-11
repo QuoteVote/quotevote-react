@@ -42,6 +42,7 @@ const appStyle = (theme) => ({
     fontWeight: 'bold',
     lineHeight: '24px',
     color: '#424556',
+    marginLeft: 5,
   },
   avatarRoundedButton: {
     borderRadius: '25px',

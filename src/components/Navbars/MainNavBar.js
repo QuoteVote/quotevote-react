@@ -15,12 +15,13 @@ import { SET_SELECTED_PAGE } from 'store/ui'
 import { useApolloClient } from '@apollo/react-hooks'
 import Button from '@material-ui/core/Button'
 import Hidden from '@material-ui/core/Hidden'
+import Avatar from '@material-ui/core/Avatar'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
 import SettingsIconButton from '../CustomButtons/SettingsIconButton'
-import Avatar from '../Avatar'
+import AvatarDisplay from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
 import NotificationMenu from '../Notifications/NotificationMenu'
 
@@ -143,7 +144,9 @@ function MainNavBar(props) {
                     onClick={handleProfileClick}
                     className={classes.avatarRoundedButton}
                   >
-                    <Avatar height="50" width="50" {...avatar} />
+                    <Avatar>
+                      <AvatarDisplay height="50" width="50" {...avatar} />
+                    </Avatar>
                     <Typography variant="h6" className={classes.profileBlockName}>
                       {name}
                     </Typography>
