@@ -20,10 +20,10 @@ import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
-import SettingsIconButton from '../CustomButtons/SettingsIconButton'
 import AvatarDisplay from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
 import NotificationMenu from '../Notifications/NotificationMenu'
+import SettingsMenu from '../Settings/SettingsMenu'
 
 function MainNavBar(props) {
   const {
@@ -166,7 +166,7 @@ function MainNavBar(props) {
               <NotificationMenu fontSize={fontSize} />
             </Grid>
             <Grid item>
-              <SettingsIconButton fontSize={fontSize} />
+              <SettingsMenu fontSize={fontSize} />
             </Grid>
           </Grid>
 
