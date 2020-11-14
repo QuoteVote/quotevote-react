@@ -56,6 +56,7 @@ const appStyle = (theme) => ({
   appBar: {
     color: 'light',
     zIndex: theme.zIndex.drawer + 1,
+    paddingRight: 20,
   },
   title: {
     flexGrow: 1,
