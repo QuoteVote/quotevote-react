@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: theme.typography.pxToRem(350),
     padding: theme.typography.pxToRem(11),
     maxHeight: theme.typography.pxToRem(140),
+    borderRadius: '6px',
     backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
     width: (props) => (props.width ? props.width : '100%'),
   },

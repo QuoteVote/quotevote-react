@@ -12,6 +12,9 @@ export default createMuiTheme({
     text: {
       primary: '#424556',
     },
+    accent: {
+      main: '#56b3ff',
+    },
   },
   typography: {
     fontFamily: ['Montserrat', 'sans-serif'].join(','),
