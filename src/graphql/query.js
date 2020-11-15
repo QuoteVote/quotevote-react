@@ -79,6 +79,7 @@ export const GET_POST = gql`
         endWordIndex
         created
         type
+        tags
         user {
           username
           name

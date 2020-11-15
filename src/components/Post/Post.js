@@ -215,12 +215,13 @@ function Post({ post, user }) {
       )
     }
   }
-  const handleVoting = async (type) => {
+  const handleVoting = async (obj) => {
     const vote = {
       // text: selectedText.text,
       postId: post._id,
       userId: user._id,
-      type,
+      type: obj.type,
+      tags: obj.tags,
       startWordIndex: selectedText.startIndex,
       endWordIndex: selectedText.endIndex,
     }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Card, CardActions, CardContent, CardHeader, IconButton,
+  Card, CardActions, CardContent, IconButton, Typography,
 } from '@material-ui/core'
 import { InsertEmoticon, InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,13 +13,16 @@ import { parseCommentDate } from '../../utils/momentUtils'
 import { SET_FOCUSED_COMMENT } from '../../store/ui'
 import { ReactComponent as DislikeIcon } from '../../assets/svg/Dislike.svg'
 import { ReactComponent as LikeIcon } from '../../assets/svg/Like.svg'
+import { ReactComponent as QuoteIcon } from '../../assets/svg/Quote.svg'
+import { ReactComponent as CommentIcon } from '../../assets/svg/Comment.svg'
 
 const useStyles = makeStyles(() => ({
   content: {
-    marginLeft: 60,
+    marginLeft: 10,
     marginRight: 40,
-    marginTop: -20,
+    marginTop: 10,
     marginBottom: -20,
+    fontSize: 16,
   },
   expand: {
     marginLeft: 'auto',
@@ -42,13 +45,19 @@ function PostActionCard({ postAction }) {
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
   let postContent = content
+  let svgIcon = CommentIcon
+  let voteTags = ''
 
   if (voteType) {
-    postContent = voteType === 'up' ? 'Upvoted this post.' : 'Downvoted this post.'
+    const isUpvote = voteType === 'up'
+    const defaultTag = isUpvote ? '#agree' : '#disagree'
+    svgIcon = isUpvote ? LikeIcon : DislikeIcon
+    voteTags = get(postAction, 'tags') || defaultTag
   }
 
   if (quote) {
-    postContent = quote.length ? <i><q>{quote}</q></i> : 'Quoted this post.'
+    postContent = quote.length ? quote : 'Quoted this post.'
+    svgIcon = QuoteIcon
   }
 
   return (
@@ -57,31 +66,27 @@ function PostActionCard({ postAction }) {
       onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(null))}
       style={{ position: 'relative' }}
     >
-      {voteType && (
-        <SvgIcon
-          component={voteType === 'up' ? LikeIcon : DislikeIcon}
-          fontSize="large"
-          viewBox="0 0 50 50"
-          style={{ position: 'absolute', top: 90, left: 38 }}
-        />
+      {!voteType && (
+        <CardContent
+          className={classes.content}
+        >
+          <p>
+            {postContent}
+          </p>
+        </CardContent>
       )}
-      <CardHeader
-        avatar={(
-          <IconButton>
-            <AvatarDisplay height={40} width={40} {...avatar} />
-          </IconButton>
-        )}
-        subheader={`@${username}`}
-        action={<div className={classes.created}><span>{parsedDate}</span></div>}
-      />
-      <CardContent
-        className={classes.content}
-      >
-        <p>
-          {postContent}
-        </p>
-      </CardContent>
       <CardActions disableSpacing>
+        <IconButton>
+          <AvatarDisplay height={20} width={20} {...avatar} />
+        </IconButton>
+        <Typography display="inline">{`@${username}  ${parsedDate}`}</Typography>
+        <SvgIcon
+          component={svgIcon}
+          fontSize="large"
+          viewBox="-10 -10 50 50"
+          htmlColor="black"
+        />
+        <Typography display="inline">{voteTags}</Typography>
         <IconButton className={classes.expand}>
           <InsertEmoticon />
         </IconButton>
