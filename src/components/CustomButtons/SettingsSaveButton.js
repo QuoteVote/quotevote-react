@@ -27,7 +27,7 @@ function SettingsSaveButton(props) {
       className={classNames(classes.button, props.className)}
       type="submit"
     >
-      Save changes
+      Save
     </Button>
   )
 }

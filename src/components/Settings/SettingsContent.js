@@ -15,6 +15,7 @@ import TextField from '@material-ui/core/TextField'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Link from '@material-ui/core/Link'
 import AvatarDisplay from '../Avatar'
 import SettingsSaveButton from '../CustomButtons/SettingsSaveButton'
 import SignOutButton from '../CustomButtons/SignOutButton'
@@ -75,6 +76,14 @@ const useStyles = makeStyles((theme) => ({
     padding: 15,
     color: 'white',
     font: 'bold',
+  },
+  required: {
+    color: 'red',
+  },
+  forgot: {
+    right: 10,
+    position: 'absolute',
+    marginTop: 5,
   },
 }))
 
@@ -143,120 +152,142 @@ function SettingsContent({ setOpen }) {
         spacing={2}
       >
         <Grid item>
-          <Typography className={classes.title}>
-            Settings
-          </Typography>
-        </Grid>
-        <Grid item>
           <Grid
             container
-            direction="row"
+            direction="column"
             justify="flex-start"
-            alignItems="center"
-            spacing={1}
+            alignItems="stretch"
+            spacing={2}
           >
             <Grid item>
-              <IconButton onClick={handleChangeAvatar}>
-                <Avatar className={classes.avatar}>
-                  <AvatarDisplay height={75} width={75} {...avatar} />
-                  <PhotoCameraIcon className={classes.cameraIcon} />
-                </Avatar>
-              </IconButton>
+              <Typography className={classes.title}>
+                Settings
+              </Typography>
             </Grid>
             <Grid item>
-              <Paper className={classNames(classes.paperName, classes.paper)}>
-                <InputLabel>Name</InputLabel>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+              >
+                <Grid item>
+                  <IconButton onClick={handleChangeAvatar}>
+                    <Avatar className={classes.avatar}>
+                      <AvatarDisplay height={75} width={75} {...avatar} />
+                      <PhotoCameraIcon className={classes.cameraIcon} />
+                    </Avatar>
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <Paper className={classNames(classes.paperName, classes.paper)}>
+                    <InputLabel>Name</InputLabel>
+                    <TextField
+                      inputRef={register({
+                        required: 'Name is required',
+                      })}
+                      defaultValue={name}
+                      fullWidth
+                      name="name"
+                      id="name"
+                      error={errors.name}
+                      helperText={errors.name && errors.name.message}
+                    />
+                  </Paper>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Paper className={classes.paper}>
+                <InputLabel>Username</InputLabel>
                 <TextField
                   inputRef={register({
-                    required: 'Name is required',
+                    required: 'Username is required',
+                    minLength: {
+                      value: 4,
+                      message: 'Username should be more than 4 characters',
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: 'Username should be less than twenty characters',
+                    },
                   })}
-                  defaultValue={name}
+                  defaultValue={username}
                   fullWidth
-                  name="name"
-                  id="name"
-                  error={errors.name}
-                  helperText={errors.name && errors.name.message}
+                  name="username"
+                  id="username"
+                  error={errors.username}
+                  helperText={errors.username && errors.username.message}
                 />
               </Paper>
             </Grid>
+            <Grid item>
+              <Paper className={classes.paper}>
+                <InputLabel>Email</InputLabel>
+                <TextField
+                  inputRef={register({
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                      message: 'Entered value does not match email format',
+                    },
+                  })}
+                  defaultValue={email}
+                  fullWidth
+                  name="email"
+                  id="email"
+                  error={errors.email}
+                  helperText={errors.email && errors.email.message}
+                />
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Grid>
+                <Paper className={classes.paper}>
+                  <InputLabel>
+                    Password
+                    <span className={classes.required}>*</span>
+                  </InputLabel>
+                  <TextField
+                    inputRef={register({
+                      required: 'Password is required',
+                      minLength: {
+                        value: 6,
+                        message: 'Password should be more than six characters',
+                      },
+                      maxLength: {
+                        value: 20,
+                        message: 'Password should be less than twenty characters',
+                      },
+                      pattern: isPasswordTouched ? {
+                        value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+                        message:
+                          'Password should contain a number, an uppercase, and lowercase letter',
+                      } : null,
+                    })}
+                    defaultValue={email}
+                    fullWidth
+                    name="password"
+                    id="password"
+                    error={errors.password}
+                    helperText={errors.password && errors.password.message}
+                    type="password"
+                  />
+                </Paper>
+                <Link
+                  href="/auth/forgot"
+                  className={classes.forgot}
+                  el="noopener"
+                  target="_blank"
+                >
+                  Forgot Password?
+                </Link>
+              </Grid>
+            </Grid>
+            {!loading && error && (<Typography className={classes.error}>Something went wrong! Please try again!</Typography>)}
+            {!loading && data && (<Typography className={classes.success}>Successfully saved!</Typography>)}
           </Grid>
         </Grid>
-        <Grid item>
-          <Paper className={classes.paper}>
-            <InputLabel>Username</InputLabel>
-            <TextField
-              inputRef={register({
-                required: 'Username is required',
-                minLength: {
-                  value: 4,
-                  message: 'Username should be more than 4 characters',
-                },
-                maxLength: {
-                  value: 20,
-                  message: 'Username should be less than twenty characters',
-                },
-              })}
-              defaultValue={username}
-              fullWidth
-              name="username"
-              id="username"
-              error={errors.username}
-              helperText={errors.username && errors.username.message}
-            />
-          </Paper>
-        </Grid>
-        <Grid item>
-          <Paper className={classes.paper}>
-            <InputLabel>Email</InputLabel>
-            <TextField
-              inputRef={register({
-                required: 'Email is required',
-                pattern: {
-                  value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: 'Entered value does not match email format',
-                },
-              })}
-              defaultValue={email}
-              fullWidth
-              name="email"
-              id="email"
-              error={errors.email}
-              helperText={errors.email && errors.email.message}
-            />
-          </Paper>
-        </Grid>
-        <Grid item>
-          <Paper className={classes.paper}>
-            <InputLabel>Password</InputLabel>
-            <TextField
-              inputRef={register({
-                required: 'Password is required',
-                minLength: {
-                  value: 6,
-                  message: 'Password should be more than six characters',
-                },
-                maxLength: {
-                  value: 20,
-                  message: 'Password should be less than twenty characters',
-                },
-                pattern: isPasswordTouched ? {
-                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-                  message:
-                    'Password should contain a number, an uppercase, and lowercase letter',
-                } : null,
-              })}
-              defaultValue={email}
-              fullWidth
-              name="password"
-              id="password"
-              error={errors.password}
-              helperText={errors.password && errors.password.message}
-              type="password"
-            />
-          </Paper>
-        </Grid>
-        {!loading && error && (<Typography className={classes.error}>Something went wrong! Please try again!</Typography>)}
-        {!loading && data && (<Typography className={classes.success}>Successfully saved!</Typography>)}
         <Grid item>
           <Grid
             container
