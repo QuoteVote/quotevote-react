@@ -22,6 +22,7 @@ import SignOutButton from '../CustomButtons/SignOutButton'
 import ManageInviteButton from '../CustomButtons/ManageInviteButton'
 import { UPDATE_USER } from '../../graphql/mutations'
 import { SET_USER_DATA } from '../../store/user'
+import { replaceGqlError } from '../../utils/replaceGqlError'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,30 +101,34 @@ function SettingsContent({ setOpen }) {
     history.push('/hhsb/Profile/hhsb/avatar')
   }
   const defaultValues = {
-    username, password: email, name,
+    username, password: username, name,
   }
   const {
-    register, handleSubmit, errors, formState,
+    register, handleSubmit, errors, formState, reset,
   } = useForm({ defaultValues })
-  const isPasswordTouched = !!formState.touched.password
+  const isPasswordTouched = 'password' in Object.keys(formState.dirtyFields)
   const [updateUser, { loading, error, data }] = useMutation(UPDATE_USER)
   const onSubmit = async (values) => {
-    const result = await updateUser({
-      variables: {
-        user: {
-          _id,
-          ...values,
+    const { password, ...otherValues } = values
+    const otherVariables = values.password === password ? otherValues : values
+    try {
+      const result = await updateUser({
+        variables: {
+          user: {
+            _id,
+            ...otherVariables,
+          },
         },
-      },
-    })
-
-    if (result.data) {
-      const { password, ...otherValues } = values
-      dispatch(SET_USER_DATA({
-        _id,
-        ...otherUserData,
-        ...otherValues,
-      }))
+      })
+      if (result.data) {
+        dispatch(SET_USER_DATA({
+          _id,
+          ...otherUserData,
+          ...otherValues,
+        }))
+      }
+    } catch (e) {
+      reset()
     }
   }
 
@@ -139,7 +144,7 @@ function SettingsContent({ setOpen }) {
     history.push('/hhsb/ControlPanel')
     setOpen(false)
   }
-
+  const hasChange = Object.keys(formState.dirtyFields).length
   return (
 
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -252,8 +257,8 @@ function SettingsContent({ setOpen }) {
                     inputRef={register({
                       required: 'Password is required',
                       minLength: {
-                        value: 6,
-                        message: 'Password should be more than six characters',
+                        value: 3,
+                        message: 'Password should be more than 3 characters',
                       },
                       maxLength: {
                         value: 20,
@@ -265,7 +270,7 @@ function SettingsContent({ setOpen }) {
                           'Password should contain a number, an uppercase, and lowercase letter',
                       } : null,
                     })}
-                    defaultValue={email}
+                    defaultValue={username}
                     fullWidth
                     name="password"
                     id="password"
@@ -284,7 +289,7 @@ function SettingsContent({ setOpen }) {
                 </Link>
               </Grid>
             </Grid>
-            {!loading && error && (<Typography className={classes.error}>Something went wrong! Please try again!</Typography>)}
+            {!loading && error && (<Typography className={classes.error}>{replaceGqlError(error.message)}</Typography>)}
             {!loading && data && (<Typography className={classes.success}>Successfully saved!</Typography>)}
           </Grid>
         </Grid>
@@ -304,7 +309,7 @@ function SettingsContent({ setOpen }) {
               </Grid>
             )}
             <Grid item>
-              <SettingsSaveButton disabled={!formState.isDirty} />
+              <SettingsSaveButton disabled={!hasChange} />
             </Grid>
           </Grid>
         </Grid>
