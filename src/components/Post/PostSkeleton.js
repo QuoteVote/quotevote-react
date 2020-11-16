@@ -26,7 +26,6 @@ function PostSkeleton() {
             </Grid>
           </Grid>
         )}
-
         action={(
           <Grid
             container
