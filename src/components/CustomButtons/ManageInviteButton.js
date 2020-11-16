@@ -20,11 +20,11 @@ const useStyles = makeStyles(() => ({
 
 function ManageInviteButton(props) {
   const classes = useStyles()
-
+  const { className } = props
   return (
     <Button
       {...props}
-      className={classNames(classes.button, props.className)}
+      className={classNames(classes.button, className)}
     >
       Invites
     </Button>

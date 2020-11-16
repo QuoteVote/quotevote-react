@@ -20,11 +20,12 @@ const useStyles = makeStyles(() => ({
 
 function SignOutButton(props) {
   const classes = useStyles()
+  const { className } = props
 
   return (
     <Button
       {...props}
-      className={classNames(classes.button, props.className)}
+      className={classNames(classes.button, className)}
       startIcon={<ExitToAppIcon />}
     >
       Sign out
