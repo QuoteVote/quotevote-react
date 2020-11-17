@@ -15,11 +15,11 @@ function CommentList({ comments, loading, postUrl }) {
   const location = useLocation()
   const { hash } = location
   React.useEffect(() => {
-    if (!loading) {
+    if (!loading && comments.length && hash) {
       const element = document.getElementById(hash)
       element.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [hash, loading])
+  }, [hash, loading, comments])
   return (
     <>
       <Grid
