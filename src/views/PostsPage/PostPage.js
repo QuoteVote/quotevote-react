@@ -56,6 +56,7 @@ function PostPage() {
       alignItems="flex-start"
       spacing={4}
       className={classes.root}
+      style={{ position: 'relative' }}
     >
       <Grid item xs={12} md={6}>
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '33px 15px 10px 15px',
     width: 310,
     position: 'absolute',
-    top: 55,
+    top: 205,
   },
   icon: { fontSize: 40 },
   input: {
@@ -126,7 +126,7 @@ const VotingPopup = ({
           backgroundImage: 'linear-gradient(to top, #1bb5d8, #4066ec)',
           width: 285,
           zIndex: 1,
-          top: expand.open ? 31 : 20,
+          top: expand.open ? 181 : 170,
           left: 20,
           position: 'absolute',
         }}
