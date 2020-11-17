@@ -31,7 +31,7 @@ function PostPage() {
 
   if (error) return 'Something went wrong!'
   const { post } = !loading && data
-  const { comments } = post || { comments: [] }
+  const { comments, url } = post || { comments: [] }
   return (
     <Grid
       container
@@ -45,7 +45,7 @@ function PostPage() {
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}
       </Grid>
       <Grid item xs={12} md={6}>
-        <CommentList loading={loading} comments={comments} />
+        <CommentList loading={loading} comments={comments} postUrl={url} />
       </Grid>
     </Grid>
   )
