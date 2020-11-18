@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Card, CardActions, CardContent, IconButton, Typography,
 } from '@material-ui/core'
@@ -8,6 +8,8 @@ import SvgIcon from '@material-ui/core/SvgIcon'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { get } from 'lodash'
+import copy from 'clipboard-copy'
+import SweetAlert from 'react-bootstrap-sweetalert'
 import AvatarDisplay from '../Avatar'
 import { parseCommentDate } from '../../utils/momentUtils'
 import { SET_FOCUSED_COMMENT } from '../../store/ui'
@@ -15,8 +17,9 @@ import { ReactComponent as DislikeIcon } from '../../assets/svg/Dislike.svg'
 import { ReactComponent as LikeIcon } from '../../assets/svg/Like.svg'
 import { ReactComponent as QuoteIcon } from '../../assets/svg/Quote.svg'
 import { ReactComponent as CommentIcon } from '../../assets/svg/Comment.svg'
+import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     marginLeft: 10,
     marginRight: 40,
@@ -32,11 +35,20 @@ const useStyles = makeStyles(() => ({
     marginTop: 20,
     marginRight: 10,
   },
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    width: '100%',
+  },
+  selectedRoot: {
+    backgroundColor: '#f1e8c1',
+    width: '100%',
+  },
+  ...buttonStyle,
 }))
 
-function PostActionCard({ postAction }) {
+function PostActionCard({ postAction, postUrl, selected }) {
   const {
-    user, content, created,
+    user, content, created, _id,
   } = postAction
   const { username, avatar } = user
   const classes = useStyles()
@@ -44,6 +56,17 @@ function PostActionCard({ postAction }) {
   const dispatch = useDispatch()
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
+
+  const baseUrl = window.location.origin
+  const handleCopy = async () => {
+    await copy(`${baseUrl}${postUrl}/comment#${_id}`)
+    setOpen(true)
+  }
+  const [open, setOpen] = useState(false)
+  const hideAlert = () => {
+    setOpen(false)
+  }
+
   let postContent = content
   let svgIcon = CommentIcon
   let voteTags = ''
@@ -64,7 +87,7 @@ function PostActionCard({ postAction }) {
     <Card
       onMouseEnter={() => dispatch(SET_FOCUSED_COMMENT(postAction))}
       onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(null))}
-      style={{ position: 'relative' }}
+      className={selected ? classes.selectedRoot : classes.root}
     >
       {!voteType && (
         <CardContent
@@ -90,16 +113,28 @@ function PostActionCard({ postAction }) {
         <IconButton className={classes.expand}>
           <InsertEmoticon />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={handleCopy}>
           <InsertLink />
         </IconButton>
       </CardActions>
+      {open && (
+        <SweetAlert
+          confirmBtnCssClass={`${classes.button} ${classes.success}`}
+          success
+          onConfirm={hideAlert}
+          onCancel={hideAlert}
+          title="Comment URL copied!"
+          timeout={1000}
+        />
+      )}
     </Card>
   )
 }
 
 PostActionCard.propTypes = {
   postAction: PropTypes.object.isRequired,
+  postUrl: PropTypes.string,
+  selected: PropTypes.bool,
 }
 
 export default PostActionCard

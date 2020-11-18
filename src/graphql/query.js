@@ -75,6 +75,7 @@ export const GET_POST = gql`
         }
       }
       votes {
+        _id
         startWordIndex
         endWordIndex
         created
@@ -87,6 +88,7 @@ export const GET_POST = gql`
         }
       }
       quotes {
+        _id
         startWordIndex
         endWordIndex
         created

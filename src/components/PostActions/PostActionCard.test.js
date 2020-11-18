@@ -5,7 +5,22 @@ import { render } from '@testing-library/react'
 import PostActionCard from './PostActionCard'
 import withTestWrapper from '../../hoc/withTestWrapper'
 
-const PostActionCardWrapper = withTestWrapper(PostActionCard)
+const postAction = {
+  _id: 1234,
+  user: {
+    name: 'John',
+    avatar: 'J',
+    username: 'jdoe',
+  },
+  content: 'TEST',
+  created: '2020-11-01',
+}
+
+function PostActionCardWithProps() {
+  return (<PostActionCard postAction={postAction} postUrl="" selected />)
+}
+
+const PostActionCardWrapper = withTestWrapper(PostActionCardWithProps)
 
 describe('PostActionCard test -', () => {
   it('renders correctly', () => {

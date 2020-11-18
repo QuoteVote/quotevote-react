@@ -32,9 +32,9 @@ function PostPage() {
 
   if (error) return 'Something went wrong!'
   const { post } = !loading && data
-  const { comments } = post || { comments: [] }
-  const { votes } = post || { votes: [] }
-  const { quotes } = post || { quotes: [] }
+  const {
+    comments, votes, quotes, url,
+  } = post || { comments: [], votes: [], quotes: [] }
   let postActions = []
 
   if (!isEmpty(comments)) {
@@ -62,7 +62,7 @@ function PostPage() {
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}
       </Grid>
       <Grid item xs={12} md={6}>
-        <PostActionList loading={loading} postActions={postActions} />
+        <PostActionList loading={loading} postActions={postActions} postUrl={url} />
       </Grid>
     </Grid>
   )
