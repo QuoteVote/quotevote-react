@@ -18,7 +18,7 @@ import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
 import {
-  ADD_COMMENT, APPROVE_POST, REJECT_POST, VOTE,
+  ADD_QUOTE, ADD_COMMENT, APPROVE_POST, REJECT_POST, VOTE,
 } from '../../graphql/mutations'
 import { GET_POST, GET_TOP_POSTS } from '../../graphql/query'
 import ApproveRejectPopover from '../ApproveRejectPopver/ApproveRejectPopover'
@@ -67,7 +67,7 @@ const useStyles = makeStyles(() => ({
 function Post({ post, user }) {
   const classes = useStyles()
   const {
-    title, creator, upvotes, downvotes, created, _id,
+    title, creator, upvotes, downvotes, created, _id, userId,
   } = post
   const { name, avatar } = creator
   const dispatch = useDispatch()
@@ -125,9 +125,25 @@ function Post({ post, user }) {
         query: GET_TOP_POSTS,
         variables: { limit: 5, offset: 0, searchKey: '' },
       },
+      {
+        query: GET_POST,
+        variables: { postId: _id },
+      },
     ],
   })
   const [addComment] = useMutation(ADD_COMMENT, {
+    refetchQueries: [
+      {
+        query: GET_TOP_POSTS,
+        variables: { limit: 5, offset: 0, searchKey: '' },
+      },
+      {
+        query: GET_POST,
+        variables: { postId: _id },
+      },
+    ],
+  })
+  const [addQuote] = useMutation(ADD_QUOTE, {
     refetchQueries: [
       {
         query: GET_TOP_POSTS,
@@ -199,12 +215,13 @@ function Post({ post, user }) {
       )
     }
   }
-  const handleVoting = async (type) => {
+  const handleVoting = async (obj) => {
     const vote = {
       content: selectedText.text,
       postId: post._id,
       userId: user._id,
-      type,
+      type: obj.type,
+      tags: obj.tags,
       startWordIndex: selectedText.startIndex,
       endWordIndex: selectedText.endIndex,
     }
@@ -222,6 +239,34 @@ function Post({ post, user }) {
         SET_SNACKBAR({
           open: true,
           message: `Vote Error: ${err.message}`,
+          type: 'danger',
+        }),
+      )
+    }
+  }
+  const handleAddQuote = async () => {
+    const quote = {
+      quote: selectedText.text,
+      postId: post._id,
+      quoter: user._id,
+      quoted: userId,
+      startWordIndex: selectedText.startIndex,
+      endWordIndex: selectedText.endIndex,
+    }
+    try {
+      await addQuote({ variables: { quote } })
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: 'Quoted Successfully',
+          type: 'success',
+        }),
+      )
+    } catch (err) {
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: `Quote Error: ${err.message}`,
           type: 'danger',
         }),
       )
@@ -337,6 +382,7 @@ function Post({ post, user }) {
             <VotingPopup
               onVote={handleVoting}
               onAddComment={handleAddComment}
+              onAddQuote={handleAddQuote}
               text={text}
               selectedText={selectedText}
               votedBy={post.votedBy}

@@ -85,7 +85,7 @@ const VotingBoard = ({
   }
 
   return (
-    <Container style={{ position: 'relative' }}>
+    <Container>
       <div data-selectable>
         <p className="voting_board-content">{renderHighlights()}</p>
       </div>

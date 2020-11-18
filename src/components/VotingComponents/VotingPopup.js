@@ -8,52 +8,71 @@ import {
   InputAdornment,
   IconButton,
   Button,
+  ButtonGroup,
   Zoom,
   Tooltip,
+  SvgIcon,
+  Grid,
 } from '@material-ui/core'
-import {
-  Up, Down, Comment, Quote,
-} from 'components/Icons'
 import { isEmpty, findIndex } from 'lodash'
 import { useSelector } from 'react-redux'
+import { ReactComponent as DislikeIcon } from '../../assets/svg/Dislike.svg'
+import { ReactComponent as LikeIcon } from '../../assets/svg/Like.svg'
+import { ReactComponent as CommentIcon } from '../../assets/svg/Comment.svg'
+import { ReactComponent as QuoteIcon } from '../../assets/svg/Quote.svg'
 
 const useStyles = makeStyles((theme) => ({
-  paperCollapsed: {
-    margin: theme.spacing(1),
-    backgroundColor: 'black',
-    padding: 10,
-    paddingTop: 33,
-    height: 90,
-    width: 290,
-    zIndex: 1,
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
   },
   paperExpaned: {
     margin: theme.spacing(1),
-    backgroundColor: 'black',
-    padding: 10,
-    paddingTop: 33,
-    height: 90,
+    backgroundColor: 'white',
+    padding: '33px 15px 10px 15px',
+    width: 310,
     position: 'absolute',
-    top: 55,
+    top: 205,
   },
   icon: { fontSize: 40 },
-  input: { color: 'white', padding: 10 },
+  input: {
+    color: '#3c4858cc',
+    paddingBottom: 1,
+    '&::before': {
+      pointerEvents: 'auto',
+    },
+  },
   button: {
-    backgroundColor: '#df2769',
+    backgroundColor: '#00cf6e',
     color: 'white',
+  },
+  btnGroup: {
+    textTransform: 'none',
   },
 }))
 
 const VotingPopup = ({
-  votedBy, onVote, onAddComment, selectedText,
+  votedBy, onVote, onAddComment, onAddQuote, selectedText,
 }) => {
   const classes = useStyles()
   const { user } = useSelector((state) => state)
-  const [expand, setExpand] = useState(false)
+  const [expand, setExpand] = useState({ open: false, type: '' })
   const [comment, setComment] = useState('')
+  let voteOptions = []
+
+  if (expand.type === 'up') {
+    voteOptions = ['#true', '#agree', '#like']
+  }
+
+  if (expand.type === 'down') {
+    voteOptions = ['#false', '#disagree', '#dislike']
+  }
 
   let showUpvoteTooltip = false
-
   let showDownvoteTooltip = false
   const index = findIndex(votedBy, (vote) => vote.userId === user._id)
   if (index !== -1) {
@@ -63,8 +82,9 @@ const VotingPopup = ({
       showDownvoteTooltip = true
     }
   }
-  const handleVote = (type) => {
-    onVote(type)
+  const handleVote = (tags) => {
+    onVote({ type: expand.type, tags })
+    setExpand({ open: false, type: '' })
   }
 
   const handleAddComment = () => {
@@ -72,6 +92,12 @@ const VotingPopup = ({
     onAddComment(comment, withQuote)
     /* setTimeout(() => { this.setState({ isCommenting: false })}, 500) */
     setComment('')
+    setExpand({ open: false, type: '' })
+  }
+
+  const handleAddQuote = () => {
+    onAddQuote()
+    setExpand({ open: false, type: '' })
   }
 
   useEffect(() => {
@@ -81,104 +107,131 @@ const VotingPopup = ({
     })
   })
 
+  let inputValue = comment
+
+  const isComment = expand.type === 'comment'
+
+  if (!isComment) {
+    if (expand.type === 'up') {
+      inputValue = '#true | #agree | #like'
+    } else {
+      inputValue = '#false | #disagree | #dislike'
+    }
+  }
+
   return (
     <>
-      <Zoom in={!expand}>
-        <Paper
-          id="popButtons"
-          elevation={4}
-          className={classes.paperCollapsed}
-        />
-      </Zoom>
       <Paper
         style={{
-          backgroundColor: '#df2769',
-          width: 266,
+          backgroundImage: 'linear-gradient(to top, #1bb5d8, #4066ec)',
+          width: 285,
           zIndex: 1,
-          top: expand ? 31 : 20,
+          top: expand.open ? 181 : 170,
           left: 20,
           position: 'absolute',
         }}
       >
-        {showUpvoteTooltip ? (
-          <Tooltip title="Upvoted" placement="bottom" arrow>
-            <IconButton>
-              <Up
-                width="419.000000pt"
-                height="419.000000pt"
-                viewBox="0 0 419.000000 419.000000"
-                className={classes.icon}
-              />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <IconButton onClick={() => handleVote('up')}>
-            <Up
-              width="419.000000pt"
-              height="419.000000pt"
-              viewBox="0 0 419.000000 419.000000"
-              className={classes.icon}
-            />
-          </IconButton>
-        )}
-        {showDownvoteTooltip ? (
-          <Tooltip title="Downvoted" placement="bottom" arrow>
-            <IconButton>
-              <Down
-                width="563.000000pt"
-                height="563.000000pt"
-                viewBox="0 0 563.000000 563.000000"
-                className={classes.icon}
-              />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <IconButton onClick={() => handleVote('down')}>
-            <Down
-              width="563.000000pt"
-              height="563.000000pt"
-              viewBox="0 0 563.000000 563.000000"
-              className={classes.icon}
-            />
-          </IconButton>
-        )}
-        <IconButton onClick={() => setExpand(!expand)}>
-          <Comment
-            width="598.000000pt"
-            height="598.000000pt"
-            viewBox="0 0 598.000000 598.000000"
-            className={classes.icon}
-          />
-        </IconButton>
-        <IconButton>
-          <Quote
-            width="607.000000pt"
-            height="605.000000pt"
-            viewBox="0 0 607.000000 605.000000"
-            className={classes.icon}
-          />
-        </IconButton>
-      </Paper>
-      <Zoom in={expand}>
-        <Paper id="popButtons" elevation={4} className={classes.paperExpaned}>
-          <Input
-            placeholder="TYPE COMMENT HERE"
-            className={classes.input}
-            endAdornment={(
-              <InputAdornment position="end">
-                <Button
-                  variant="contained"
-                  className={classes.button}
-                  size="small"
-                  onClick={handleAddComment}
-                >
-                  SEND
-                </Button>
-              </InputAdornment>
+        <Grid container>
+          <Grid item xs={3} style={{ backgroundColor: expand.type === 'up' ? '#2475b0' : 'transparent' }}>
+            {showUpvoteTooltip ? (
+              <Tooltip title="Upvoted" placement="bottom" arrow>
+                <IconButton>
+                  <SvgIcon
+                    component={LikeIcon}
+                    fontSize="large"
+                    viewBox="0 0 30 30"
+                  />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <IconButton onClick={() => setExpand({ open: expand.type !== 'up' || !expand.open, type: 'up' })}>
+                <SvgIcon
+                  component={LikeIcon}
+                  fontSize="large"
+                  viewBox="0 0 30 30"
+                />
+              </IconButton>
             )}
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
+          </Grid>
+          <Grid item xs={3} style={{ backgroundColor: expand.type === 'down' ? '#2475b0' : 'transparent' }}>
+            {showDownvoteTooltip ? (
+              <Tooltip title="Downvoted" placement="bottom" arrow>
+                <IconButton>
+                  <SvgIcon
+                    component={DislikeIcon}
+                    fontSize="large"
+                    viewBox="0 0 30 30"
+                  />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <IconButton onClick={() => setExpand({ open: expand.type !== 'down' || !expand.open, type: 'down' })}>
+                <SvgIcon
+                  component={DislikeIcon}
+                  fontSize="large"
+                  viewBox="0 0 30 30"
+                />
+              </IconButton>
+            )}
+          </Grid>
+          <Grid item xs={3} style={{ backgroundColor: expand.type === 'comment' ? '#2475b0' : 'transparent' }}>
+            <IconButton onClick={() => setExpand({ open: expand.type !== 'comment' || !expand.open, type: 'comment' })}>
+              <SvgIcon
+                component={CommentIcon}
+                fontSize="large"
+                viewBox="0 0 30 30"
+              />
+            </IconButton>
+          </Grid>
+          <Grid item xs={3} style={{ backgroundColor: expand.type === 'quote' ? '#2475b0' : 'transparent' }}>
+            <IconButton
+              onClick={() => {
+                const newQuote = expand.type !== 'quote'
+                setExpand({ open: false, type: newQuote ? 'quote' : '' })
+                if (newQuote) {
+                  handleAddQuote()
+                }
+              }}
+            >
+              <SvgIcon
+                component={QuoteIcon}
+                fontSize="large"
+                viewBox="0 0 25 15"
+                htmlColor="white"
+              />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Zoom in={expand.open}>
+        <Paper id="popButtons" elevation={4} className={classes.paperExpaned}>
+          {isComment ? (
+            <Input
+              placeholder="Type comment here"
+              className={classes.input}
+              endAdornment={(
+                <InputAdornment position="end">
+                  <Button
+                    variant="contained"
+                    className={classes.button}
+                    size="small"
+                    onClick={handleAddComment}
+                  >
+                    Send
+                  </Button>
+                </InputAdornment>
+              )}
+              value={inputValue}
+              onChange={(e) => setComment(e.target.value)}
+              fullWidth
+            />
+          ) : (
+            <div className={classes.root}>
+              <ButtonGroup variant="text" color="red" size="small">
+                {voteOptions.map((option) => <Button key={option} className={classes.btnGroup} onClick={() => handleVote(option)}>{option}</Button>)}
+              </ButtonGroup>
+            </div>
+          )}
         </Paper>
       </Zoom>
     </>

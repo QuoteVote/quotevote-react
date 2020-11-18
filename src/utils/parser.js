@@ -24,7 +24,7 @@ export function parser(doc, selected, select) {
   return {
     startIndex: charStartIndex,
     endIndex: charEndIndex,
-    text: words.slice(startIndex, endIndex + 1).join(' '),
+    text: selected/* words.slice(startIndex, endIndex + 1).join(' ') */,
     points: endIndex - startIndex + 1,
   }
 }

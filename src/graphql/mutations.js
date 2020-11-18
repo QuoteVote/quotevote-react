@@ -59,6 +59,14 @@ export const ADD_COMMENT = gql`
   }
 `
 
+export const ADD_QUOTE = gql`
+  mutation addQuote($quote: QuoteInput!) {
+    addQuote(quote: $quote) {
+      _id
+    }
+  }
+`
+
 export const UPDATE_POST_BOOKMARK = gql`
   mutation updatePostBookmark($postId: String!, $userId: String!) {
     updatePostBookmark(postId: $postId, userId: $userId) {

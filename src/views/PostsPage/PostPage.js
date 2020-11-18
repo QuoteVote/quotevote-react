@@ -3,8 +3,9 @@ import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
+import { isEmpty } from 'lodash'
 import Post from '../../components/Post/Post'
-import CommentList from '../../components/Comment/CommentList'
+import PostActionList from '../../components/PostActions/PostActionList'
 import { GET_POST } from '../../graphql/query'
 import PostSkeleton from '../../components/Post/PostSkeleton'
 
@@ -31,7 +32,22 @@ function PostPage() {
 
   if (error) return 'Something went wrong!'
   const { post } = !loading && data
-  const { comments, url } = post || { comments: [] }
+  const { comments } = post || { comments: [] }
+  const { votes } = post || { votes: [] }
+  const { quotes } = post || { quotes: [] }
+  let postActions = []
+
+  if (!isEmpty(comments)) {
+    postActions = postActions.concat(comments)
+  }
+
+  if (!isEmpty(votes)) {
+    postActions = postActions.concat(votes)
+  }
+
+  if (!isEmpty(quotes)) {
+    postActions = postActions.concat(quotes)
+  }
   return (
     <Grid
       container
@@ -40,12 +56,13 @@ function PostPage() {
       alignItems="flex-start"
       spacing={4}
       className={classes.root}
+      style={{ position: 'relative' }}
     >
       <Grid item xs={12} md={6}>
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}
       </Grid>
       <Grid item xs={12} md={6}>
-        <CommentList loading={loading} comments={comments} postUrl={url} />
+        <PostActionList loading={loading} postActions={postActions} />
       </Grid>
     </Grid>
   )
