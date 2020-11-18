@@ -144,6 +144,7 @@ export const GET_CHAT_ROOMS = gql`
       created
       title
       avatar
+      unreadMessages
     }
   }
 `
@@ -296,7 +297,29 @@ export const POP_PREDICTION = gql`
 `
 
 export const GET_FOLLOW_INFO = gql`
-  query getUserFollowInfo($user_id: String! $filter: String) {
-    getUserFollowInfo(user_id: $user_id, filter: $filter)
+  query getUserFollowInfo($username: String! $filter: String) {
+    getUserFollowInfo(username: $username, filter: $filter)
+  }
+`
+
+export const GET_NOTIFICATIONS = gql`
+  query notifications{
+    notifications{
+      _id
+      userId
+      userIdBy
+      userBy{
+        name
+        avatar
+      }
+      label
+      status
+      created
+      notificationType
+      post {
+        _id
+        url
+      }
+    }
   }
 `

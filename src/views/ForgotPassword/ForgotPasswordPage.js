@@ -1,9 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import GridContainer from 'mui-pro/Grid/GridContainer'
-import { tokenValidator } from 'store/user'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
 import { useMutation } from '@apollo/react-hooks'
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
@@ -14,17 +11,9 @@ const useStyles = makeStyles(styles)
 
 export default function ForgotPasswordPage() {
   const classes = useStyles()
-  const dispatch = useDispatch()
-  const history = useHistory()
   const [loading, setLoading] = React.useState(false)
   const [emailSent, setEmailSent] = React.useState(false)
   const [error, setError] = React.useState(null)
-
-  // TODO: Abstract validation into custom hook
-  React.useEffect(() => {
-    if (tokenValidator(dispatch)) history.push('/hhsb/Home')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   const [sendPasswordResetEmail] = useMutation(SEND_PASSWORD_RESET_EMAIL)
   const handleSubmit = async (values) => {
     const { email } = values

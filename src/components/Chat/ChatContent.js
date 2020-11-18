@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useSelector } from 'react-redux'
@@ -18,13 +18,14 @@ const useStyles = makeStyles(() => ({
 function ChatContent() {
   const classes = useStyles()
   const selectedRoom = useSelector((state) => state.chat.selectedRoom)
+  const [search, setSearch] = useState('')
 
   if (!selectedRoom || !selectedRoom.room) {
     return (
       <div className={classes.root}>
         <Typography className={classes.title} variant="h6">Chat</Typography>
-        <ChatSearchInput />
-        <BuddyList />
+        <ChatSearchInput setSearch={setSearch} />
+        <BuddyList search={search} />
       </div>
     )
   }

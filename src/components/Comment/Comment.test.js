@@ -5,7 +5,21 @@ import { render } from '@testing-library/react'
 import Comment from './Comment'
 import withTestWrapper from '../../hoc/withTestWrapper'
 
-const CommentPostWrapper = withTestWrapper(Comment)
+const comment = {
+  user: {
+    name: 'John',
+    avatar: 'J',
+    username: 'jdoe',
+  },
+  content: 'TEST',
+  created: '2020-11-01',
+}
+
+function CommentData() {
+  return (<Comment comment={comment} />)
+}
+
+const CommentPostWrapper = withTestWrapper(CommentData)
 
 describe('Comment test -', () => {
   it('renders correctly', () => {

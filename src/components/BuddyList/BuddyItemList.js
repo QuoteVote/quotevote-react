@@ -123,7 +123,7 @@ function BuddyItemList({ buddyList }) {
               />
               <ListItemSecondaryAction>
                 <div className={classes.count}>
-                  {Math.floor((Math.random() * 20) + 1)}
+                  {item.unreadMessages}
                 </div>
               </ListItemSecondaryAction>
             </ListItem>

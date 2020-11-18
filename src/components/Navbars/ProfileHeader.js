@@ -119,6 +119,12 @@ export default function ProfileHeader(props) {
                     <span className={classes.points}>
                       {`${_followersId ? _followersId.length : 0} Followers`}
                     </span>
+                  </Typography>
+                  <Typography
+                    onClick={() => history.push(`/hhsb/Profile/${username}/following`)}
+                    variant="overline"
+                    noWrap
+                  >
                     <span className={classes.points}>
                       {`${_followingId ? _followingId.length : 0} Following`}
                     </span>

@@ -1,8 +1,5 @@
 import {
-  drawerWidth,
-  drawerMiniWidth,
-  transition,
-  containerFluid,
+  containerFluid, drawerMiniWidth, drawerWidth, transition,
 } from 'assets/jss/material-dashboard-pro-react'
 
 const appStyle = (theme) => ({
@@ -40,14 +37,15 @@ const appStyle = (theme) => ({
     width: '100px',
   },
   profileBlockName: {
-    marginLeft: '5px',
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 'bold',
     lineHeight: '24px',
     color: '#424556',
-    paddingTop: '10px',
-    paddingRight: '10px',
+    marginLeft: 5,
+  },
+  avatarRoundedButton: {
+    borderRadius: '25px',
   },
   voxPop: {
     height: '80px',
@@ -58,6 +56,7 @@ const appStyle = (theme) => ({
   appBar: {
     color: 'light',
     zIndex: theme.zIndex.drawer + 1,
+    paddingRight: 20,
   },
   title: {
     flexGrow: 1,

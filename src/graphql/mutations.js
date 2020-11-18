@@ -172,3 +172,24 @@ export const CREATE_POST_MESSAGE_ROOM = gql`
     }
   }
 `
+
+export const READ_MESSAGES = gql`
+  mutation updateMessageReadBy($messageRoomId: String!) {
+    updateMessageReadBy(messageRoomId: $messageRoomId) {
+      messageRoomId
+      title
+      text
+      created
+      readBy
+    }
+  }
+`
+
+export const DELETE_NOTIFICATION = gql`
+  mutation removeNotification($notificationId: String!) {
+    removeNotification(notificationId: $notificationId) {
+      _id
+      status
+    }
+  }
+`

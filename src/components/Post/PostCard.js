@@ -156,7 +156,7 @@ function PostCard(props) {
   const { width } = props
   const {
     _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, creator,
-    activityType,
+    activityType, limitText,
   } = props
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
@@ -227,12 +227,12 @@ function PostCard(props) {
                 history.push(url)
               }}
             >
-              {stringLimit(title, props.limitText ? 20 : postTitleStringLimit)}
+              {stringLimit(title, limitText ? 20 : postTitleStringLimit)}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography className={classes.postContent}>
-              {stringLimit(text, props.limitText ? 20 : 10000)}
+              {stringLimit(text, limitText ? 20 : 10000)}
             </Typography>
           </Grid>
         </Grid>

@@ -144,9 +144,10 @@ const ControlPanelContainer = ({ data }) => {
   // eslint-disable-next-line radix
   const inviteRequestCount = data.userInviteRequests.filter((user) => parseInt(user.status) === 1).length
   const totalUsers = data.userInviteRequests.length
-  const result = data.userInviteRequests.reduce((r, { joined }) => {
+  const result = data.userInviteRequests.reduce((_r, { joined }) => {
     const dateObj = moment(joined).format('yyyy-MM-01')
     const objectKey = dateObj.toLocaleString('en-us', { year: 'numeric', month: 'numeric', day: 'numeric' })
+    const r = { ..._r } // decouple instance
     if (!r[objectKey]) r[objectKey] = { objectKey, entries: 1 }
     else r[objectKey].entries++
     return r
