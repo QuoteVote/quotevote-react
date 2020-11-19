@@ -91,6 +91,12 @@ class SelectionPopover extends Component {
           zIndex: '1',
           ...style,
         }}
+        onMouseEnter={() => {
+          const selection = window.getSelection()
+          const range = selection.getRangeAt(0)
+          range.expand('word')
+          this.props.onSelect(selection)
+        }}
       >
         {showPopover && children}
       </div>
