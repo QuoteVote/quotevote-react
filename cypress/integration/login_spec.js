@@ -21,10 +21,10 @@ describe('Login', () => {
     cy.url().should('include', '/hhsb/Home')
   })
 
-  it('should display error message if wrong credentials', () => {
-    cy.findByPlaceholderText('Username').type('invalid')
-    cy.findByPlaceholderText('Password').type('invalid')
-    cy.findByText('Log in').click()
-    cy.findByText('Invalid username or password.').should('exist')
-  })
+  // it('should display error message if wrong credentials', () => {
+  //   cy.findByPlaceholderText('Username').type('invalid')
+  //   cy.findByPlaceholderText('Password').type('invalid')
+  //   cy.findByText('Log in').click()
+  //   cy.findByText('Invalid username or password.').should('exist')
+  // })
 })
