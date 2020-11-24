@@ -15,3 +15,5 @@ jobs:
           wait-on: http://localhost:3000
           browser: chrome
           # headless: true
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
