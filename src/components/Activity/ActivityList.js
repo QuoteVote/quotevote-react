@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
@@ -17,10 +17,12 @@ import { CREATE_POST_MESSAGE_ROOM, UPDATE_POST_BOOKMARK } from '../../graphql/mu
 import {
   GET_CHAT_ROOMS, GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY,
 } from '../../graphql/query'
+import { SET_SELECTED_POST } from '../../store/ui'
 
 function LoadActivityCard({ width, activity }) {
   const {
-    _id, creator, created, activityType, upvotes, downvotes, bookmarkedBy, text,
+    _id, creator, created, activityType, upvotes, downvotes, bookmarkedBy, content,
+    url, text,
   } = activity
   const postId = _id
   const user = useSelector((state) => state.user.data)
@@ -69,6 +71,12 @@ function LoadActivityCard({ width, activity }) {
   }
   const isLiked = bookmarkedBy.includes(user._id)
 
+  const dispatch = useDispatch()
+  const handleCardClick = () => {
+    dispatch(SET_SELECTED_POST(postId))
+    history.push(url)
+  }
+
   return (
     <ActivityCard
       avatar={creator.avatar}
@@ -79,10 +87,11 @@ function LoadActivityCard({ width, activity }) {
       upvotes={upvotes}
       downvotes={downvotes}
       liked={isLiked}
-      content={text}
+      content={`${content} "${text}"`}
       width={width}
       onLike={handleLike}
       handleRedirectToProfile={handleRedirectToProfile}
+      onCardClick={handleCardClick}
     />
   )
 }
@@ -103,6 +112,7 @@ function LoadActivityList({ data, onLoadMore }) {
 
   const activities = data.activities.entities
     .map((activity, index) => ({
+      content: activity.content,
       ...activity.post,
       activityType: activity.activityType === 'VOTED' ? `${activity.vote.type}${activity.activityType}` : activity.activityType,
       rank: index + 1,

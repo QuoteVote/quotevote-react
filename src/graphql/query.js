@@ -251,6 +251,7 @@ query activities(
       postId
       userId
       activityType
+      content
       post {
         _id
         title
