@@ -1,27 +1,99 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { Box } from '@material-ui/core'
-import PostCard from '../Post/PostCard'
+import { useMutation } from '@apollo/react-hooks'
+import { useHistory } from 'react-router-dom'
 import AlertSkeletonLoader from '../AlertSkeletonLoader'
-import { SET_HIDDEN_POSTS } from '../../store/ui'
 import ActivityEmptyList from './ActivityEmptyList'
 import LoadingSpinner from '../LoadingSpinner'
 import { getGridListCols, useWidth } from '../../utils/display'
+import { ActivityCard } from '../../ui/ActivityCard'
+import getCardBackgroundColor from '../../utils/getCardBackgroundColor'
+import { CREATE_POST_MESSAGE_ROOM, UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
+import {
+  GET_CHAT_ROOMS, GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY,
+} from '../../graphql/query'
 
-function LoadActivityList({
-  data, onLoadMore,
-}) {
-  const dispatch = useDispatch()
+function LoadActivityCard({ width, activity }) {
+  const {
+    _id, creator, created, activityType, upvotes, downvotes, bookmarkedBy, text,
+  } = activity
+  const postId = _id
   const user = useSelector((state) => state.user.data)
+  const [createPostMessageRoom] = useMutation(CREATE_POST_MESSAGE_ROOM)
+  const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK)
+  const limit = 5
+
+  const handleLike = async () => {
+    await updatePostBookmark({
+      variables: { postId, userId: user._id },
+    })
+
+    await createPostMessageRoom({
+      variables: { postId },
+      refetchQueries: [
+        {
+          query: GET_CHAT_ROOMS,
+        },
+        {
+          query: GET_POST,
+          variables: {
+            postId,
+          },
+        },
+        {
+          query: GET_USER_ACTIVITY,
+          variables: {
+            user_id: user._id,
+            limit,
+            offset: 0,
+            searchKey: '',
+            activityEvent: [],
+          },
+        },
+        {
+          query: GET_TOP_POSTS,
+          variables: { limit, offset: 0, searchKey: '' },
+        },
+      ],
+    })
+  }
+
+  const history = useHistory()
+  const handleRedirectToProfile = (username) => {
+    history.push(`/hhsb/Profile/${username}`)
+  }
+  const isLiked = bookmarkedBy.includes(user._id)
+
+  return (
+    <ActivityCard
+      avatar={creator.avatar}
+      cardColor={getCardBackgroundColor(activityType)}
+      name={creator.name}
+      username={creator.username}
+      date={created}
+      upvotes={upvotes}
+      downvotes={downvotes}
+      liked={isLiked}
+      content={text}
+      width={width}
+      onLike={handleLike}
+      handleRedirectToProfile={handleRedirectToProfile}
+    />
+  )
+}
+LoadActivityCard.propTypes = {
+  width: PropTypes.number,
+  activity: PropTypes.object,
+}
+
+function LoadActivityList({ data, onLoadMore }) {
   const hiddenPosts = useSelector((state) => state.ui.hiddenPosts) || []
   const width = useWidth()
-  const handleHidePost = (post) => {
-    dispatch(SET_HIDDEN_POSTS(post._id))
-  }
 
   if (!data || !data.activities.pagination.total_count) {
     return (
@@ -46,7 +118,7 @@ function LoadActivityList({
     >
       <GridList cols={getGridListCols[width]}>
         {activities.map((activity, key) => (
-          <GridListTile key={key} rows={1.3} cols={1}>
+          <GridListTile key={key} rows={1} cols={1}>
             <Box
               boxShadow={3}
               style={{
@@ -54,12 +126,7 @@ function LoadActivityList({
                 borderRadius: 7,
               }}
             >
-              <PostCard
-                limitText
-                {...activity}
-                onHidePost={handleHidePost}
-                user={user}
-              />
+              <LoadActivityCard activity={activity} width={width} />
             </Box>
           </GridListTile>
         ))}
@@ -68,7 +135,12 @@ function LoadActivityList({
   )
 }
 
-export default function ActivityList({
+LoadActivityList.propTypes = {
+  data: PropTypes.object.isRequired,
+  onLoadMore: PropTypes.func,
+}
+
+function ActivityList({
   data, loading, fetchMore, variables,
 }) {
   if (!data && loading) return <AlertSkeletonLoader cols={3} />
@@ -106,7 +178,4 @@ ActivityList.propTypes = {
   variables: PropTypes.object,
 }
 
-LoadActivityList.propTypes = {
-  data: PropTypes.object.isRequired,
-  onLoadMore: PropTypes.func,
-}
+export default ActivityList

@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
+import AvatarDisplay from '../../components/Avatar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
   activityBody: {
     marginLeft: theme.typography.pxToRem(20),
+  },
+  avatar: {
+    cursor: 'pointer',
   },
 }))
 
@@ -56,14 +60,24 @@ ActivityHeader.propTypes = {
 }
 
 function ActivityContent({
-  name, date, content, avatar, width,
+  name, date, content, avatar, width, handleRedirectToProfile, username,
 }) {
   const classes = useStyles()
   const contentLength = width > 350 ? 500 : 100
 
   return (
     <Box display="flex">
-      <Avatar alt="profile" src={avatar} />
+      <Avatar
+        onClick={() => handleRedirectToProfile(username)}
+        className={classes.avatar}
+      >
+        <AvatarDisplay
+          height="40"
+          width="40"
+          className={classes.avatarStyle}
+          {...avatar}
+        />
+      </Avatar>
       <Box flexGrow={1}>
         <ActivityHeader name={name} date={date} />
         <Typography className={classes.activityBody} variant="body1">
@@ -78,10 +92,12 @@ function ActivityContent({
 
 ActivityContent.propTypes = {
   name: PropTypes.string,
+  username: PropTypes.string,
   date: PropTypes.string,
   content: PropTypes.string,
   avatar: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
   width: PropTypes.number,
+  handleRedirectToProfile: PropTypes.func,
 }
 
 function ActivityActions({
@@ -92,9 +108,9 @@ function ActivityActions({
       <Typography variant="caption">{`+${upvotes} / -${downvotes}`}</Typography>
       <IconButton onClick={(e) => onLike(liked, e)} style={{ padding: 0 }}>
         {liked ? (
-          <Icon className="far fa-heart" />
-        ) : (
           <Icon className="fas fa-heart" />
+        ) : (
+          <Icon className="far fa-heart" />
         )}
       </IconButton>
     </Box>
@@ -120,11 +136,13 @@ export const ActivityCard = memo(
     liked = false,
     width,
     onLike = () => {},
+    handleRedirectToProfile = () => {},
+    username,
   }) => {
     React.useEffect(() => {
       const node = loadCSS(
         'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
-        document.querySelector('#font-awesome-css'),
+        document.querySelector('#font-awesome-css')
       )
 
       return () => {
@@ -140,6 +158,8 @@ export const ActivityCard = memo(
           date={date}
           content={content}
           avatar={avatar}
+          username={username}
+          handleRedirectToProfile={handleRedirectToProfile}
         />
         <ActivityActions
           upvotes={upvotes}
@@ -149,7 +169,7 @@ export const ActivityCard = memo(
         />
       </Card>
     )
-  },
+  }
 )
 
 ActivityCard.propTypes = {
@@ -157,10 +177,12 @@ ActivityCard.propTypes = {
   content: PropTypes.string,
   cardColor: PropTypes.string,
   name: PropTypes.string,
+  username: PropTypes.string,
   date: PropTypes.string,
   upvotes: PropTypes.number,
   downvotes: PropTypes.number,
   liked: PropTypes.bool,
   width: PropTypes.number,
   onLike: PropTypes.func,
+  handleRedirectToProfile: PropTypes.func,
 }
