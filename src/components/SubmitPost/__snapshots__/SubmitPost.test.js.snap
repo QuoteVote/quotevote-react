@@ -1,3 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SubmitPost test - renders correctly 1`] = `null`;
+exports[`SubmitPost test - renders correctly 1`] = `
+<div
+  class="makeStyles-card-1"
+>
+  <div
+    class="makeStyles-cardBody-18"
+  >
+    <div
+      class="MuiTypography-root MuiTypography-h2"
+    >
+      <span
+        class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse"
+      />
+    </div>
+    <div
+      class="MuiTypography-root MuiTypography-h4"
+    >
+      <span
+        class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse"
+      />
+    </div>
+    <div
+      class="MuiTypography-root MuiTypography-h4"
+    >
+      <span
+        class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse"
+      />
+    </div>
+    <div
+      class="MuiTypography-root MuiTypography-caption"
+    >
+      <span
+        class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-pulse"
+      />
+    </div>
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-flex-end"
+    >
+      <span
+        class="MuiSkeleton-root MuiSkeleton-rect MuiSkeleton-pulse"
+        style="width: 100px; height: 35px;"
+      />
+    </div>
+  </div>
+</div>
+`;
