@@ -250,6 +250,12 @@ query activities(
       created
       postId
       userId
+      user {
+        _id
+        name
+        username
+        avatar
+      }
       activityType
       content
       post {
@@ -270,7 +276,29 @@ query activities(
       }
       voteId
       vote {
+        _id
+        startWordIndex
+        endWordIndex
+        created
         type
+        tags
+      }
+      commentId
+      comment {
+        _id
+        created
+        userId
+        content
+        startWordIndex
+        endWordIndex
+      }
+      quoteId
+      quote {        
+        _id
+        startWordIndex
+        endWordIndex
+        created
+        quote
       }
     }
     pagination {

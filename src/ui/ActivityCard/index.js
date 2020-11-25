@@ -23,8 +23,8 @@ import AvatarDisplay from '../../components/Avatar'
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: theme.typography.pxToRem(350),
-    maxHeight: theme.typography.pxToRem(160),
-    minHeight: theme.typography.pxToRem(160),
+    minHeight: theme.typography.pxToRem(200),
+    maxHeight: theme.typography.pxToRem(200),
     borderRadius: '6px',
     backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
     width: (props) => (props.width ? props.width : '100%'),
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginLeft: theme.typography.pxToRem(20),
+    marginBottom: 10,
   },
   activityBody: {
     marginLeft: theme.typography.pxToRem(20),
@@ -45,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   expand: {
     marginLeft: 'auto',
     padding: 0,
+  },
+  content: {
+    minHeight: theme.typography.pxToRem(130),
   },
 }))
 
@@ -77,12 +81,13 @@ ActivityHeader.propTypes = {
 
 function ActivityContent({
   name, date, content, avatar, width, handleRedirectToProfile, username, onCardClick,
+  post, activityType,
 }) {
   const classes = useStyles()
-  const contentLength = width > 350 ? 500 : 100
+  const contentLength = width > 350 ? 100 : 50
 
   return (
-    <Box display="flex">
+    <Box display="flex" className={classes.content}>
       <Avatar
         onClick={() => handleRedirectToProfile(username)}
         className={classes.avatar}
@@ -94,12 +99,23 @@ function ActivityContent({
           {...avatar}
         />
       </Avatar>
-      <Box flexGrow={1}>
+      <Box flexGrow={1} onClick={onCardClick}>
         <ActivityHeader name={name} date={date} />
-        <Typography className={classes.activityBody} variant="body1" onClick={onCardClick}>
+        <Typography className={classes.activityBody} variant="body1">
+          <b>
+            {activityType.toUpperCase()}
+          </b>
+          {' on '}
+          <i>
+            {`${post.title}.`}
+          </i>
+        </Typography>
+        <Typography className={classes.activityBody} variant="body1">
+          &quot;
           {content.length > 100 ?
             `${content.slice(0, contentLength)}...` :
             content}
+          &quot;
         </Typography>
       </Box>
     </Box>
@@ -115,6 +131,8 @@ ActivityContent.propTypes = {
   width: PropTypes.number,
   handleRedirectToProfile: PropTypes.func,
   onCardClick: PropTypes.func,
+  post: PropTypes.object,
+  activityType: PropTypes.string,
 }
 
 function ActivityActions({
@@ -160,6 +178,8 @@ export const ActivityCard = memo(
     onCardClick = () => {},
     handleRedirectToProfile = () => {},
     username,
+    post = {},
+    activityType = '',
   }) => {
     React.useEffect(() => {
       const node = loadCSS(
@@ -184,8 +204,9 @@ export const ActivityCard = memo(
             username={username}
             handleRedirectToProfile={handleRedirectToProfile}
             onCardClick={onCardClick}
+            post={post}
+            activityType={activityType}
           />
-
         </CardContent>
         <CardActions disableSpacing>
           <ActivityActions
@@ -214,4 +235,6 @@ ActivityCard.propTypes = {
   onLike: PropTypes.func,
   onCardClick: PropTypes.func,
   handleRedirectToProfile: PropTypes.func,
+  post: PropTypes.object,
+  activityType: PropTypes.string,
 }

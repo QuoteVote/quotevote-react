@@ -18,21 +18,26 @@ import {
   GET_CHAT_ROOMS, GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY,
 } from '../../graphql/query'
 import { SET_SELECTED_POST } from '../../store/ui'
+import getActivityContent from '../../utils/getActivityContent'
 
 function LoadActivityCard({ width, activity }) {
   const {
-    _id, creator, created, activityType, upvotes, downvotes, bookmarkedBy, content,
-    url, text,
+    post, user, quote, comment, vote, created, activityType,
   } = activity
-  const postId = _id
-  const user = useSelector((state) => state.user.data)
+  const {
+    url, bookmarkedBy, upvotes, downvotes,
+  } = post
+  const postId = post._id
+  const { username, avatar, name } = user
+  const currentUser = useSelector((state) => state.user.data)
   const [createPostMessageRoom] = useMutation(CREATE_POST_MESSAGE_ROOM)
   const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK)
   const limit = 5
-
+  const type = activityType === 'VOTED' ? `${vote.type}${activity.activityType}` : activity.activityType
+  const content = getActivityContent(type, post, quote, vote, comment)
   const handleLike = async () => {
     await updatePostBookmark({
-      variables: { postId, userId: user._id },
+      variables: { postId, userId: currentUser._id },
     })
 
     await createPostMessageRoom({
@@ -50,7 +55,7 @@ function LoadActivityCard({ width, activity }) {
         {
           query: GET_USER_ACTIVITY,
           variables: {
-            user_id: user._id,
+            user_id: currentUser._id,
             limit,
             offset: 0,
             searchKey: '',
@@ -64,13 +69,11 @@ function LoadActivityCard({ width, activity }) {
       ],
     })
   }
-
   const history = useHistory()
-  const handleRedirectToProfile = (username) => {
+  const handleRedirectToProfile = () => {
     history.push(`/hhsb/Profile/${username}`)
   }
-  const isLiked = bookmarkedBy.includes(user._id)
-
+  const isLiked = bookmarkedBy.includes(currentUser._id)
   const dispatch = useDispatch()
   const handleCardClick = () => {
     dispatch(SET_SELECTED_POST(postId))
@@ -79,19 +82,21 @@ function LoadActivityCard({ width, activity }) {
 
   return (
     <ActivityCard
-      avatar={creator.avatar}
-      cardColor={getCardBackgroundColor(activityType)}
-      name={creator.name}
-      username={creator.username}
+      avatar={avatar}
+      cardColor={getCardBackgroundColor(type)}
+      name={name}
+      username={username}
       date={created}
       upvotes={upvotes}
       downvotes={downvotes}
       liked={isLiked}
-      content={`${content} "${text}"`}
+      post={post}
+      content={content}
       width={width}
       onLike={handleLike}
       handleRedirectToProfile={handleRedirectToProfile}
       onCardClick={handleCardClick}
+      activityType={type}
     />
   )
 }
@@ -111,12 +116,6 @@ function LoadActivityList({ data, onLoadMore }) {
   }
 
   const activities = data.activities.entities
-    .map((activity, index) => ({
-      content: activity.content,
-      ...activity.post,
-      activityType: activity.activityType === 'VOTED' ? `${activity.vote.type}${activity.activityType}` : activity.activityType,
-      rank: index + 1,
-    }))
     .filter((activity) => !hiddenPosts.includes(activity._id))
   const hasMore = data.activities.pagination.total_count > activities.length
   return (
@@ -128,9 +127,9 @@ function LoadActivityList({ data, onLoadMore }) {
     >
       <GridList cols={getGridListCols[width]}>
         {activities.map((activity, key) => (
-          <GridListTile key={key} rows={1} cols={1}>
+          <GridListTile key={key} rows={1.2} cols={1}>
             <Box
-              boxShadow={3}
+              boxShadow={5}
               style={{
                 marginRight: 20,
                 borderRadius: 7,
