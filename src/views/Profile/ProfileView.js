@@ -1,24 +1,19 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
-import Card from 'mui-pro/Card/Card'
 
 import AppBar from 'components/Navbars/ProfileHeader'
 import LoadingSpinner from 'components/LoadingSpinner'
+import { Grid } from '@material-ui/core'
 import Activity from '../../components/Activity/Activity'
 
-const useStyles = makeStyles((theme) => ({
-  activityListCard: {
-    [theme.breakpoints.up('lg')]: {
-      padding: 100,
-      paddingTop: 10,
-    },
-    [theme.breakpoints.down('md')]: {
-      padding: 10,
-    },
-    [theme.breakpoints.down('xs')]: {
-      padding: 0,
-    },
+const useStyles = makeStyles(({
+  root: {
+    display: 'flex',
+    flexGrow: 1,
+  },
+  header: {
+    marginTop: 20,
   },
 }))
 
@@ -36,17 +31,29 @@ function ProfileView({
   if (loading) return <LoadingSpinner />
 
   return (
-    <Card className={classes.activityListCard}>
-      <AppBar
-        handleActivityEvent={handleActivityEvent}
-        handleSelectAll={handleSelectAll}
-        selectAll={selectAll}
-        filterState={filterState}
-        setOffset={setOffset}
-        profileUser={profileUser}
-      />
-      <Activity showSubHeader={false} />
-    </Card>
+    <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="stretch"
+      className={classes.root}
+      spacing={4}
+    >
+      <Grid item xs={12} className={classes.header}>
+        <AppBar
+          handleActivityEvent={handleActivityEvent}
+          handleSelectAll={handleSelectAll}
+          selectAll={selectAll}
+          filterState={filterState}
+          setOffset={setOffset}
+          profileUser={profileUser}
+        />
+      </Grid>
+
+      <Grid item xs={12}>
+        <Activity showSubHeader={false} />
+      </Grid>
+    </Grid>
   )
 }
 

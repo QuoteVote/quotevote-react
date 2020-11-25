@@ -16,8 +16,10 @@ import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
-import Icon from '@material-ui/core/Icon'
 import moment from 'moment'
+import stringLimit from 'string-limit'
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import AvatarDisplay from '../../components/Avatar'
 
 const useStyles = makeStyles((theme) => ({
@@ -85,7 +87,7 @@ function ActivityContent({
 }) {
   const classes = useStyles()
   const contentLength = width > 350 ? 100 : 50
-
+  const title = post.title ? stringLimit(post.title, 20) : ''
   return (
     <Box display="flex" className={classes.content}>
       <Avatar
@@ -107,7 +109,7 @@ function ActivityContent({
           </b>
           {' on '}
           <i>
-            {`${post.title}.`}
+            {title}
           </i>
         </Typography>
         <Typography className={classes.activityBody} variant="body1">
@@ -147,9 +149,9 @@ function ActivityActions({
         className={classes.expand}
       >
         {liked ? (
-          <Icon className="fas fa-heart" />
+          <BookmarkIcon />
         ) : (
-          <Icon className="far fa-heart" />
+          <BookmarkBorderIcon />
         )}
       </IconButton>
     </>
