@@ -65,10 +65,10 @@ export default function SubHeader({ headerName, showFilterIconButton = true, set
           {headerName}
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={5} md={6}>
+      <Grid item xs={8} sm={5} md={6}>
         <CustomizedInputBase setOffset={setOffset} />
       </Grid>
-      <Grid item xs={12} sm={3} md={3}>
+      <Grid item xs={4} sm={3} md={3}>
         <FilterIconButtons showFilterIconButton={showFilterIconButton} />
       </Grid>
     </Grid>

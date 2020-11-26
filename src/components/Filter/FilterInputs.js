@@ -21,6 +21,7 @@ export default function FilterInputs({
       direction="row"
       justify="flex-start"
       alignItems="flex-start"
+      style={{ marginBottom: 10 }}
       spacing={1}
     >
       {showFilterIconButton && filterState.filter.visibility ? (

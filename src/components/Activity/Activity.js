@@ -36,7 +36,12 @@ export default function Activity({ showSubHeader = true }) {
     setSelectAll(newSelectAll)
   }
   const handleActivityEvent = (event, newActivityEvent) => {
-    if (!newActivityEvent.length) {
+    if (selectAll.length) {
+      const newFilter = conditions.filter((condition) => !newActivityEvent.includes(condition))
+      setSelectAll([])
+      setSelectedEvent(newFilter)
+      dispatch(FILTER_VALUE(newFilter))
+    } else if (!newActivityEvent.length) {
       setSelectAll(['ALL'])
       setSelectedEvent(conditions)
       dispatch(FILTER_VALUE(conditions))
