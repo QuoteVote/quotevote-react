@@ -101,6 +101,7 @@ const RichTooltip = ({
     <div>
       {React.cloneElement(children, { ...children.props, ref: setChildNode })}
       <Popper
+        id="popper-1"
         open={open}
         anchorEl={childNode}
         placement={placement}
@@ -116,6 +117,7 @@ const RichTooltip = ({
             element: arrowRef,
           },
         }}
+        disablePortal
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>

@@ -56,7 +56,7 @@ function NotificationMenu({ fontSize }) {
   return (
     <div className={classes.root}>
       <RichTooltip
-        content={<NotificationContent loading={loading} notifications={notifications} refetch={refetch} />}
+        content={<NotificationContent loading={loading} notifications={notifications} refetch={refetch} setOpenPopUp={setOpen} />}
         open={open}
         placement="bottom"
         onClose={() => setOpen(false)}

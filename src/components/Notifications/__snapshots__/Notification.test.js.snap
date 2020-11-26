@@ -2,7 +2,7 @@
 
 exports[`Notification test - renders correctly 1`] = `
 <div
-  class="MuiGrid-root makeStyles-root-1 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-flex-start"
+  class="MuiGrid-root makeStyles-root-1 makeStyles-root-4 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-flex-start"
 >
   <div
     class="MuiGrid-root MuiGrid-item"
@@ -12,12 +12,15 @@ exports[`Notification test - renders correctly 1`] = `
     >
       Notifications
     </h5>
+    <hr
+      class="MuiDivider-root"
+    />
   </div>
   <div
-    class="MuiGrid-root MuiGrid-item"
+    class="MuiGrid-root makeStyles-content-3 MuiGrid-item"
   >
     <div
-      class="MuiGrid-root makeStyles-rootNoNotification-5 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+      class="MuiGrid-root makeStyles-rootNoNotification-8 makeStyles-rootNoNotification-14 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
     >
       <div
         class="MuiGrid-root MuiGrid-item"

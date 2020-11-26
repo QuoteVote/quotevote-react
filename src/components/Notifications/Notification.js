@@ -9,6 +9,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import PropTypes from 'prop-types'
 import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import LaunchIcon from '@material-ui/icons/Launch'
+import { useHistory } from 'react-router-dom'
 import NotificationLists from './NotificationLists'
 
 const useStyles = makeStyles((theme) => ({
@@ -23,12 +27,23 @@ const useStyles = makeStyles((theme) => ({
   content: {
     width: 'inherit',
   },
+  moreMenu: {
+    position: 'absolute',
+    top: 20,
+    right: 5,
+  },
 }))
 
 function Notification({
-  loading, notifications, spacing = 0, pageView,
+  loading, notifications, spacing = 0, pageView, setOpenPopUp,
 }) {
   const classes = useStyles({ pageView })
+  const history = useHistory()
+  const handleClick = () => {
+    setOpenPopUp(false)
+    history.push('/hhsb/Notifications')
+  }
+
   return (
     <Grid
       container
@@ -41,6 +56,17 @@ function Notification({
       <Grid item>
         <Typography variant="h5">Notifications</Typography>
         <Divider variant="hr" />
+        {!pageView && (
+          <Tooltip
+            title="Open Notifications"
+            arrow
+            placement="top"
+          >
+            <IconButton className={classes.moreMenu} size="small" onClick={handleClick}>
+              <LaunchIcon />
+            </IconButton>
+          </Tooltip>
+        )}
       </Grid>
       <Grid item className={classes.content}>
         {loading && (
@@ -69,6 +95,7 @@ Notification.propTypes = {
   notifications: PropTypes.object.isRequired,
   spacing: PropTypes.number,
   pageView: PropTypes.bool,
+  setOpenPopUp: PropTypes.func,
 }
 
 export default Notification
