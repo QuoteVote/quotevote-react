@@ -7,18 +7,26 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Skeleton } from '@material-ui/lab'
 import { useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { Filter as FilterIcon } from '../Icons'
 import PostActionCard from './PostActionCard'
+import { SET_FOCUSED_COMMENT, SET_SHARED_COMMENT } from '../../store/ui'
 
 function PostActionList({ postActions, loading, postUrl }) {
   const location = useLocation()
   const { hash } = location
+  const dispatch = useDispatch()
   React.useEffect(() => {
+    if (!hash) {
+      dispatch(SET_FOCUSED_COMMENT(null))
+      dispatch(SET_SHARED_COMMENT(null))
+    }
+
     if (!loading && postActions.length && hash) {
       const element = document.getElementById(hash)
       element.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [hash, loading, postActions])
+  }, [hash, loading, postActions, dispatch])
   return (
     <>
       <Grid

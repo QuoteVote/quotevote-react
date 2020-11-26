@@ -26,6 +26,7 @@ export const uiInitialState = {
   },
   selectedPlan: 'personal',
   focusedComment: null,
+  sharedComment: null,
 }
 
 const uiSlice = createSlice({
@@ -50,6 +51,9 @@ const uiSlice = createSlice({
     SET_FOCUSED_COMMENT: (state, action) => {
       state.focusedComment = action.payload
     },
+    SET_SHARED_COMMENT: (state, action) => {
+      state.sharedComment = action.payload
+    },
   },
 })
 
@@ -60,6 +64,7 @@ export const {
   SET_SNACKBAR,
   SET_SELECTED_PLAN,
   SET_FOCUSED_COMMENT,
+  SET_SHARED_COMMENT,
 } = uiSlice.actions
 
 export default uiSlice.reducer

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Card, CardActions, CardContent, IconButton, Typography,
 } from '@material-ui/core'
@@ -6,13 +6,13 @@ import { InsertEmoticon, InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import SvgIcon from '@material-ui/core/SvgIcon'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { get } from 'lodash'
 import copy from 'clipboard-copy'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import AvatarDisplay from '../Avatar'
 import { parseCommentDate } from '../../utils/momentUtils'
-import { SET_FOCUSED_COMMENT } from '../../store/ui'
+import { SET_FOCUSED_COMMENT, SET_SHARED_COMMENT } from '../../store/ui'
 import { ReactComponent as DislikeIcon } from '../../assets/svg/Dislike.svg'
 import { ReactComponent as LikeIcon } from '../../assets/svg/Like.svg'
 import { ReactComponent as QuoteIcon } from '../../assets/svg/Quote.svg'
@@ -56,6 +56,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
   const dispatch = useDispatch()
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
+  const sharedComment = useSelector((state) => state.ui.sharedComment)
 
   const baseUrl = window.location.origin
   const handleCopy = async () => {
@@ -83,10 +84,16 @@ function PostActionCard({ postAction, postUrl, selected }) {
     svgIcon = QuoteIcon
   }
 
+  useEffect(() => {
+    if (selected) {
+      dispatch(SET_SHARED_COMMENT(postAction))
+      dispatch(SET_FOCUSED_COMMENT(postAction))
+    }
+  }, [postAction, selected, dispatch])
   return (
     <Card
       onMouseEnter={() => dispatch(SET_FOCUSED_COMMENT(postAction))}
-      onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(null))}
+      onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(sharedComment))}
       className={selected ? classes.selectedRoot : classes.root}
     >
       {!voteType && (

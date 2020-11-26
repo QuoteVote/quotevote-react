@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
@@ -59,10 +59,16 @@ function Comment({ comment, postUrl, selected }) {
     setOpen(true)
   }
 
+  useEffect(() => {
+    if (selected) {
+      SET_FOCUSED_COMMENT(comment)
+    }
+  }, [comment, selected])
+
   return (
     <Card
       onMouseEnter={() => dispatch(SET_FOCUSED_COMMENT(comment))}
-      onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(null))}
+      onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(selected ? comment : null))}
       className={selected ? classes.selectedRoot : classes.root}
     >
       <CardHeader
