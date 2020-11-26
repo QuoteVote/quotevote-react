@@ -5,8 +5,8 @@ import moment from 'moment'
 export const getGridListCols = {
   xl: 3,
   lg: 3,
-  md: 3,
-  sm: 2,
+  md: 2,
+  sm: 1,
   xs: 1,
 }
 

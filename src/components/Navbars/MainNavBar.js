@@ -62,9 +62,9 @@ function MainNavBar(props) {
         </Grid>
         <Grid item>
           <Tabs
-            value={selectedPage}
+            value={selectedPage === null ? 0 : selectedPage}
             onChange={handleMenu}
-            indicatorColor="secondary"
+            indicatorColor={selectedPage === null ? 'primary' : 'secondary'}
             textColor="secondary"
           >
             <Grid item lg={4}>
