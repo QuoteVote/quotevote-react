@@ -20,7 +20,7 @@ exports[`Post test - renders correctly 1`] = `
         </p>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-5 MuiGrid-grid-md-6"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-5 MuiGrid-grid-md-6"
       >
         <div
           class="MuiPaper-root makeStyles-root-4 MuiPaper-elevation1 MuiPaper-rounded"
@@ -76,7 +76,7 @@ exports[`Post test - renders correctly 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-3 MuiGrid-grid-md-3"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-sm-3 MuiGrid-grid-md-3"
       />
     </div>
   </div>

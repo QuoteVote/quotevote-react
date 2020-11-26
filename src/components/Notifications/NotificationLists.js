@@ -35,30 +35,29 @@ const NotificationBadge = withStyles(() => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 350,
+    width: (props) => (props.pageView ? '100%' : 350),
     backgroundColor: theme.palette.background.paper,
     height: '75vh',
     position: 'relative',
     overflow: 'auto',
   },
   rootMin: {
-    width: 350,
+    width: (props) => (props.pageView ? '100%' : 350),
     backgroundColor: theme.palette.background.paper,
     position: 'relative',
     overflow: 'auto',
   },
   rootNoNotification: {
-    width: 350,
+    width: 'inherit',
+    height: (props) => (props.pageView ? '100%' : '30vh'),
     backgroundColor: theme.palette.background.paper,
-    height: '30vh',
-    position: 'relative',
-    overflow: 'auto',
   },
   inline: {
     display: 'inline',
   },
   close: {
-    marginTop: -30,
+    position: 'absolute',
+    top: 20,
   },
   listItem: {
     paddingTop: 10,
@@ -80,8 +79,8 @@ const getBadgeIcon = (notificationType) => {
   }
 }
 
-function NotificationLists({ notifications }) {
-  const classes = useStyles()
+function NotificationLists({ notifications, pageView }) {
+  const classes = useStyles({ pageView })
   const client = useApolloClient()
   const dispatch = useDispatch()
   const history = useHistory()
@@ -169,7 +168,7 @@ function NotificationLists({ notifications }) {
                     .
                   </b>
                   {' '}
-                  {`"${stringLimit(label, 50)}"`}
+                  {`"${stringLimit(label, pageView ? 1000 : 50)}"`}
                 </>
               )}
               secondary={(
@@ -205,5 +204,6 @@ function NotificationLists({ notifications }) {
 
 NotificationLists.propTypes = {
   notifications: PropTypes.object.isRequired,
+  pageView: PropTypes.bool,
 }
 export default NotificationLists

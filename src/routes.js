@@ -1,23 +1,20 @@
-import PostPageOld from 'views/PostsPage/PostPage'
-
 import add from 'assets/img/add.png'
 import Alert from 'assets/img/Alerts.png'
 import Avatar from 'assets/img/Avatar.png'
 
 import TrendingPosts from 'views/TrendingPosts/TrendingPosts'
 import SubmitPost from 'views/SubmitPostPage/SubmitPostPage'
-import SearchView from 'views/SearchView/SearchView'
-import ManageInvites from 'views/ManageInvites/ManageInvites'
 import HomePage from 'views/Homepage/Homepage'
 import Profile from 'views/Profile'
 import ControlPanel from 'views/ControlPanel/ControlPanel'
 import Chat from 'assets/img/Chat.svg'
 import Home from 'assets/img/Home.svg'
-import Search from 'assets/img/Search.png'
 import Settings from 'assets/img/Settings.png'
 import Trending from 'assets/img/Trending.png'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import PostPage from 'views/PostsPage/PostPage'
 import LogoutPage from './components/LogoutPage'
+import NotificationMobileView from './components/Notifications/NotificationMobileView'
 
 const routes = [
   {
@@ -28,15 +25,6 @@ const routes = [
     component: HomePage,
     layout: '/hhsb',
   },
-  {
-    path: '/invites',
-    name: 'Manage Invites',
-    rtlName: 'Manage Invites',
-    icon: Avatar,
-    component: ManageInvites,
-    layout: '/hhsb',
-  },
-
   {
     path: '/Profile',
     name: 'My Profile',
@@ -51,6 +39,12 @@ const routes = [
     rtlName: 'التقويم',
     icon: add,
     component: SubmitPost,
+    layout: '/hhsb',
+  },
+  {
+    path: '/post',
+    name: 'Posts',
+    component: PostPage,
     layout: '/hhsb',
   },
   {
@@ -70,39 +64,18 @@ const routes = [
     layout: '/hhsb',
   },
   {
-    path: '/Search',
-    name: 'Search',
-    rtlName: 'search',
-    icon: Search,
-    component: SearchView,
-    layout: '/hhsb',
-  },
-  {
     path: '/Notifications',
     name: 'Notifications',
     rtlName: 'التقويم',
     icon: Alert,
-    component: HomePage,
-    layout: '/hhsb',
-  },
-  {
-    path: '/Settings',
-    name: 'Settings',
-    rtlName: 'التقويم',
-    icon: Settings,
-    component: HomePage,
-    layout: '/hhsb',
-  },
-  {
-    path: '/post',
-    name: 'Posts',
-    component: PostPageOld,
+    component: NotificationMobileView,
     layout: '/hhsb',
   },
   {
     path: '/ControlPanel',
     name: 'ControlPanel',
     component: ControlPanel,
+    icon: Settings,
     layout: '/hhsb',
   },
   {
