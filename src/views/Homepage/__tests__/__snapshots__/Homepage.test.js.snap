@@ -2,19 +2,19 @@
 
 exports[`Post test - renders correctly 1`] = `
 <div
-  class="MuiGrid-root makeStyles-root-1 MuiGrid-container MuiGrid-justify-xs-center"
+  class="MuiGrid-root makeStyles-root-1 MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
 >
   <div
     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
   >
     <div
-      class="MuiGrid-root makeStyles-header-2 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+      class="MuiGrid-root makeStyles-header-3 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
     >
       <div
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-3 MuiGrid-grid-md-3"
       >
         <p
-          class="MuiTypography-root makeStyles-headerName-3 MuiTypography-body1"
+          class="MuiTypography-root makeStyles-headerName-4 MuiTypography-body1"
         >
           Activity Feed
         </p>
@@ -23,11 +23,11 @@ exports[`Post test - renders correctly 1`] = `
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-5 MuiGrid-grid-md-6"
       >
         <div
-          class="MuiPaper-root makeStyles-root-4 MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root makeStyles-root-5 MuiPaper-elevation1 MuiPaper-rounded"
         >
           <button
             aria-label="menu"
-            class="MuiButtonBase-root MuiIconButton-root makeStyles-iconButton-6"
+            class="MuiButtonBase-root MuiIconButton-root makeStyles-iconButton-7"
             tabindex="0"
             type="button"
           >
@@ -50,7 +50,7 @@ exports[`Post test - renders correctly 1`] = `
             />
           </button>
           <div
-            class="MuiInputBase-root makeStyles-input-5 MuiInputBase-fullWidth"
+            class="MuiInputBase-root makeStyles-input-6 MuiInputBase-fullWidth"
           >
             <input
               aria-label="search"
@@ -62,7 +62,7 @@ exports[`Post test - renders correctly 1`] = `
           </div>
           <button
             aria-label="search"
-            class="MuiButtonBase-root MuiIconButton-root makeStyles-iconButton-6"
+            class="MuiButtonBase-root MuiIconButton-root makeStyles-iconButton-7"
             tabindex="0"
             type="button"
           >
@@ -81,7 +81,7 @@ exports[`Post test - renders correctly 1`] = `
     </div>
   </div>
   <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+    class="MuiGrid-root makeStyles-list-2 MuiGrid-item MuiGrid-grid-xs-12"
   />
 </div>
 `;

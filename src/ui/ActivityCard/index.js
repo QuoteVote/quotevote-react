@@ -87,7 +87,7 @@ function ActivityContent({
 }) {
   const classes = useStyles()
   const contentLength = width > 500 ? 1000 : 100
-  const title = post.title ? stringLimit(post.title, 20) : ''
+  const title = post.title ? stringLimit(post.title, 100) : ''
   return (
     <Box display="flex" className={classes.content}>
       <Avatar

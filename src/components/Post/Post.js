@@ -12,16 +12,11 @@ import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
 import { cloneDeep, findIndex } from 'lodash'
 import moment from 'moment'
-import ApproveButton from '../CustomButtons/ApproveButton'
-import RejectButton from '../CustomButtons/RejectButton'
 import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
-import {
-  ADD_QUOTE, ADD_COMMENT, APPROVE_POST, REJECT_POST, VOTE,
-} from '../../graphql/mutations'
+import { ADD_COMMENT, ADD_QUOTE, VOTE } from '../../graphql/mutations'
 import { GET_POST, GET_TOP_POSTS } from '../../graphql/query'
-import ApproveRejectPopover from '../ApproveRejectPopver/ApproveRejectPopover'
 import AvatarDisplay from '../Avatar'
 import PostMessageButton from '../CustomButtons/PostMessageButton'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
@@ -73,9 +68,6 @@ function Post({ post, user }) {
   const dispatch = useDispatch()
   const history = useHistory()
   const parsedCreated = moment(created).format('LLL')
-
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [buttonType, setButtonType] = useState('approved')
   const [selectedText, setSelectedText] = useState('')
   const [addVote] = useMutation(VOTE, {
     update(
@@ -155,22 +147,7 @@ function Post({ post, user }) {
       },
     ],
   })
-  const [approvePost] = useMutation(APPROVE_POST, {
-    refetchQueries: [
-      {
-        query: GET_POST,
-        variables: { postId: _id },
-      },
-    ],
-  })
-  const [rejectPost] = useMutation(REJECT_POST, {
-    refetchQueries: [
-      {
-        query: GET_POST,
-        variables: { postId: _id },
-      },
-    ],
-  })
+
   const handleAddComment = async (comment, commentWithQuote = false) => {
     let startIndex
     let endIndex
@@ -273,60 +250,6 @@ function Post({ post, user }) {
     }
   }
 
-  const disableApproveReject = user._id === post.userId
-  const disableApprove = post.approvedBy.includes(user._id)
-  const disableReject = post.rejectedBy.includes(user._id)
-  const handleApprovePost = async () => {
-    if (!disableApproveReject || !disableApprove) {
-      try {
-        dispatch(
-          SET_SNACKBAR({
-            open: true,
-            message: 'Approved Post Successfully',
-            type: 'success',
-          }),
-        )
-        approvePost({ variables: { userId: user._id, postId: post._id } })
-      } catch (err) {
-        dispatch(
-          SET_SNACKBAR({
-            open: true,
-            message: `Approve Post Error: ${err.message}`,
-            type: 'danger',
-          }),
-        )
-      }
-    }
-  }
-  const handleRejectPost = async () => {
-    if (!disableApproveReject || !disableReject) {
-      try {
-        rejectPost({ variables: { userId: user._id, postId: post._id } })
-        dispatch(
-          SET_SNACKBAR({
-            open: true,
-            message: 'Rejected Post Successfully',
-            type: 'success',
-          }),
-        )
-      } catch (err) {
-        dispatch(
-          SET_SNACKBAR({
-            open: true,
-            message: `Reject Post error: ${err.message}`,
-            type: 'danger',
-          }),
-        )
-      }
-    }
-  }
-  const handlePopoverOpen = (event, type) => {
-    setAnchorEl(event.currentTarget)
-    setButtonType(type)
-  }
-  const handlePopoverClose = () => {
-    setAnchorEl(null)
-  }
   const handleRedirectToProfile = (username) => {
     history.push(`/hhsb/Profile/${username}`)
   }
@@ -392,35 +315,12 @@ function Post({ post, user }) {
       </CardContent>
 
       <CardActions disableSpacing style={{ marginLeft: 20 }}>
-        <RejectButton
-          onMouseEnter={(e) => handlePopoverOpen(e, 'rejected')}
-          onClick={handleRejectPost}
-          style={{
-            opacity: disableApproveReject || disableReject ? 0.65 : 1,
-          }}
-        />
-        <ApproveButton
-          onClick={handleApprovePost}
-          style={{
-            marginLeft: 10,
-            opacity: disableApproveReject || disableApprove ? 0.65 : 1,
-          }}
-          onMouseEnter={(e) => handlePopoverOpen(e, 'approved')}
-        />
         <PostMessageButton className={classes.expand} post={post} />
         <IconButton>
           <PersonAdd />
         </IconButton>
         <BookmarkIconButton post={post} user={user} />
       </CardActions>
-
-      <ApproveRejectPopover
-        anchorEl={anchorEl}
-        handlePopoverClose={handlePopoverClose}
-        type={buttonType}
-        approvedBy={post.approvedBy}
-        rejectedBy={post.rejectedBy}
-      />
     </Card>
   )
 }
