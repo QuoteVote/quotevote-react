@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { get } from 'lodash'
 import copy from 'clipboard-copy'
 import SweetAlert from 'react-bootstrap-sweetalert'
+import { useHistory } from 'react-router-dom'
 import AvatarDisplay from '../Avatar'
 import { parseCommentDate } from '../../utils/momentUtils'
 import { SET_FOCUSED_COMMENT, SET_SHARED_COMMENT } from '../../store/ui'
@@ -47,13 +48,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function PostActionCard({ postAction, postUrl, selected }) {
+  const history = useHistory()
+  const classes = useStyles()
+  const dispatch = useDispatch()
   const {
     user, content, created, _id,
   } = postAction
   const { username, avatar } = user
-  const classes = useStyles()
   const parsedDate = parseCommentDate(created)
-  const dispatch = useDispatch()
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
   const sharedComment = useSelector((state) => state.ui.sharedComment)
@@ -71,6 +73,10 @@ function PostActionCard({ postAction, postUrl, selected }) {
   let postContent = content
   let svgIcon = CommentIcon
   let voteTags = ''
+
+  const handleRedirectToProfile = () => {
+    history.push(`/hhsb/Profile/${username}`)
+  }
 
   if (voteType) {
     const isUpvote = voteType === 'up'
@@ -106,7 +112,9 @@ function PostActionCard({ postAction, postUrl, selected }) {
         </CardContent>
       )}
       <CardActions disableSpacing>
-        <IconButton>
+        <IconButton
+          onClick={() => handleRedirectToProfile()}
+        >
           <AvatarDisplay height={20} width={20} {...avatar} />
         </IconButton>
         <Typography display="inline">{`@${username}  ${parsedDate}`}</Typography>
