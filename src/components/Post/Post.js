@@ -16,7 +16,7 @@ import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
 import { ADD_COMMENT, ADD_QUOTE, VOTE } from '../../graphql/mutations'
-import { GET_POST, GET_TOP_POSTS } from '../../graphql/query'
+import { GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY } from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
 import PostMessageButton from '../CustomButtons/PostMessageButton'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
@@ -145,6 +145,18 @@ function Post({ post, user }) {
         query: GET_POST,
         variables: { postId: _id },
       },
+      {
+        query: GET_USER_ACTIVITY,
+        variables: {
+          limit: 15,
+          offset: 0,
+          searchKey: '',
+          activityEvent: ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED', 'LIKED'],
+          user_id: user._id,
+          startDateRange: '',
+          endDateRange: '',
+        },
+      },
     ],
   })
 
@@ -260,7 +272,10 @@ function Post({ post, user }) {
         {upvotes}
       </span>
       <span> / </span>
-      <span className={classes.downVote}>{downvotes}</span>
+      <span className={classes.downVote}>
+        -
+        {downvotes}
+      </span>
     </div>
   )
   const cardTitle = (
