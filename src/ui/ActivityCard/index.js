@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: theme.typography.pxToRem(350),
     minHeight: theme.typography.pxToRem(200),
-    maxHeight: theme.typography.pxToRem(200),
     borderRadius: '6px',
     backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
     width: (props) => (props.width ? props.width : '100%'),
@@ -41,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   activityBody: {
     marginLeft: theme.typography.pxToRem(20),
     cursor: 'pointer',
+    marginBottom: theme.typography.pxToRem(10),
   },
   avatar: {
     cursor: 'pointer',
@@ -86,7 +86,7 @@ function ActivityContent({
   post, activityType,
 }) {
   const classes = useStyles()
-  const contentLength = width > 350 ? 100 : 50
+  const contentLength = width > 500 ? 1000 : 100
   const title = post.title ? stringLimit(post.title, 20) : ''
   return (
     <Box display="flex" className={classes.content}>
@@ -114,7 +114,7 @@ function ActivityContent({
         </Typography>
         <Typography className={classes.activityBody} variant="body1">
           &quot;
-          {content.length > 100 ?
+          {content.length > 1000 ?
             `${content.slice(0, contentLength)}...` :
             content}
           &quot;

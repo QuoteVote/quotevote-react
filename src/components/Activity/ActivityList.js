@@ -2,15 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
 import { Box } from '@material-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
 import AlertSkeletonLoader from '../AlertSkeletonLoader'
 import ActivityEmptyList from './ActivityEmptyList'
 import LoadingSpinner from '../LoadingSpinner'
-import { getGridListCols, useWidth } from '../../utils/display'
+import { useWidth } from '../../utils/display'
 import { ActivityCard } from '../../ui/ActivityCard'
 import getCardBackgroundColor from '../../utils/getCardBackgroundColor'
 import { CREATE_POST_MESSAGE_ROOM, UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
@@ -125,9 +124,15 @@ function LoadActivityList({ data, onLoadMore }) {
       hasMore={hasMore}
       loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
     >
-      <GridList cols={getGridListCols[width]}>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="stretch"
+        spacing={5}
+      >
         {activities.map((activity, key) => (
-          <GridListTile key={key} rows={1.2} cols={1}>
+          <Grid item key={key}>
             <Box
               boxShadow={5}
               style={{
@@ -137,9 +142,9 @@ function LoadActivityList({ data, onLoadMore }) {
             >
               <LoadActivityCard activity={activity} width={width} />
             </Box>
-          </GridListTile>
+          </Grid>
         ))}
-      </GridList>
+      </Grid>
     </InfiniteScroll>
   )
 }
@@ -152,7 +157,7 @@ LoadActivityList.propTypes = {
 function ActivityList({
   data, loading, fetchMore, variables,
 }) {
-  if (!data && loading) return <AlertSkeletonLoader cols={3} />
+  if (!data && loading) return <AlertSkeletonLoader cols={1} />
   const newOffset = data && data.activities.entities.length
   return (
     <LoadActivityList
