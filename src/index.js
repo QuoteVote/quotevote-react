@@ -38,6 +38,9 @@ import 'fontsource-montserrat'
 import ErrorPage from './mui-pro/views/Pages/ErrorPage'
 
 const hist = createBrowserHistory()
+hist.listen(() => {
+  window.scrollTo(0, 0)
+})
 
 const theme = createMuiTheme(customTheme)
 

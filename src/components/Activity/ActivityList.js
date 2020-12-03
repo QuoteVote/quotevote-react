@@ -157,7 +157,7 @@ LoadActivityList.propTypes = {
 function ActivityList({
   data, loading, fetchMore, variables,
 }) {
-  if (!data && loading) return <AlertSkeletonLoader cols={1} />
+  if (loading) return <AlertSkeletonLoader cols={1} />
   const newOffset = data && data.activities.entities.length
   return (
     <LoadActivityList

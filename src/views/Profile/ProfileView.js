@@ -51,7 +51,7 @@ function ProfileView({
       </Grid>
 
       <Grid item xs={12}>
-        <Activity showSubHeader={false} />
+        <Activity showSubHeader={false} userId={profileUser._id} />
       </Grid>
     </Grid>
   )

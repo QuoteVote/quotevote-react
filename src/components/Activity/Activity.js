@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GET_SEARCH_KEY } from 'components/SearchBar'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
@@ -25,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 10,
       maxWidth: '100%',
     },
+    marginBottom: 10,
   },
 }))
 
-export default function Activity({ showSubHeader = true }) {
+export default function Activity({ showSubHeader = true, userId = '' }) {
   const dispatch = useDispatch()
   const classes = useStyles()
   const limit = 15
@@ -62,20 +63,23 @@ export default function Activity({ showSubHeader = true }) {
     }
   }
 
-  const user = useSelector((state) => state.user.data)
   const { data: { searchKey } } = useQuery(GET_SEARCH_KEY)
   const variables = {
     limit,
     offset,
     searchKey,
     activityEvent: selectedEvent,
-    user_id: user._id,
+    user_id: userId,
     startDateRange: dateRangeFilter.startDate,
     endDateRange: dateRangeFilter.endDate,
   }
   const { loading, data, fetchMore } = useQuery(GET_USER_ACTIVITY, {
     variables,
   })
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const filterState = useSelector((state) => state.filter)
   return (
@@ -136,4 +140,5 @@ export default function Activity({ showSubHeader = true }) {
 
 Activity.propTypes = {
   showSubHeader: PropTypes.bool.isRequired,
+  userId: PropTypes.string,
 }
