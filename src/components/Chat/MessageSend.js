@@ -104,6 +104,11 @@ export default function MessageSend({ messageRoomId, type, title }) {
           const { value } = event.target
           setText(value)
         }}
+        onKeyPress={(event) => {
+          if (event.key === 'Enter') {
+            handleSubmit()
+          }
+        }}
       />
       <IconButton
         type="submit"

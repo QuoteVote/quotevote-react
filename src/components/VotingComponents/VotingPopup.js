@@ -224,6 +224,11 @@ const VotingPopup = ({
               value={inputValue}
               onChange={(e) => setComment(e.target.value)}
               fullWidth
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  handleAddComment()
+                }
+              }}
             />
           ) : (
             <div className={classes.root}>
