@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
   bubble: {
     position: 'relative',
     background: '#ffffff',
-    minHeight: 60,
+    minHeight: 30,
     minWidth: 250,
     marginLeft: '10px',
     borderRadius: '2px',
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
   bubbleReverse: {
     position: 'relative',
     background: '#00cf6e',
-    minHeight: 60,
+    minHeight: 30,
     minWidth: 250,
     color: 'white',
     marginRight: '10px',
