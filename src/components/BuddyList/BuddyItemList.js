@@ -21,6 +21,9 @@ const useStyles = makeStyles(() => ({
     height: '60vh',
     position: 'relative',
     overflow: 'auto',
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   blur: {
     opacity: 0.5,

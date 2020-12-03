@@ -367,7 +367,13 @@ exports[`PostActionCard test - renders correctly 1`] = `
     <p
       class="MuiTypography-root MuiTypography-body1 MuiTypography-displayInline"
     >
-      @jdoe  November 1, 2020
+      John
+       
+      <span
+        class="makeStyles-date-35"
+      >
+        November 1, 2020
+      </span>
     </p>
     <svg
       aria-hidden="true"
