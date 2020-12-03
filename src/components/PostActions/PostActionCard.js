@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   ...buttonStyle,
+  date: {
+    color: '#949292',
+  },
 }))
 
 function PostActionCard({ postAction, postUrl, selected }) {
@@ -54,7 +57,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
   const {
     user, content, created, _id,
   } = postAction
-  const { username, avatar } = user
+  const { username, avatar, name } = user
   const parsedDate = parseCommentDate(created)
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
@@ -117,7 +120,11 @@ function PostActionCard({ postAction, postUrl, selected }) {
         >
           <AvatarDisplay height={20} width={20} {...avatar} />
         </IconButton>
-        <Typography display="inline">{`@${username}  ${parsedDate}`}</Typography>
+        <Typography display="inline">
+          {name}
+          {' '}
+          <span className={classes.date}>{parsedDate}</span>
+        </Typography>
         <SvgIcon
           component={svgIcon}
           fontSize="large"
