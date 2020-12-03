@@ -15,7 +15,7 @@ export default function TokenExpired() {
   return (
     <GridContainer>
       <SweetAlert
-        style={{ display: 'block', marginTop: '-100px' }}
+        style={{ display: 'block' }}
         title="Token Expired!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}

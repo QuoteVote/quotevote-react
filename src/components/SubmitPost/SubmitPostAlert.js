@@ -27,7 +27,7 @@ function SubmitPostAlert({ hideAlert, shareableLink, error }) {
     return (
       <SweetAlert
         error
-        style={{ display: 'block', top: '50%' }}
+        style={{ display: 'block' }}
         title="Error"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
@@ -45,7 +45,7 @@ function SubmitPostAlert({ hideAlert, shareableLink, error }) {
   return (
     <SweetAlert
       success
-      style={{ display: 'block', top: '50%' }}
+      style={{ display: 'block' }}
       title="You Created a Post!"
       onConfirm={() => history.push(shareableLink)}
       onCancel={() => hideAlert()}
