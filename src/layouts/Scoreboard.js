@@ -11,8 +11,6 @@ import logoWhite from 'assets/img/logo-white.svg'
 import Hidden from '@material-ui/core/Hidden'
 import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Fab from '@material-ui/core/Fab'
-import MenuIcon from '@material-ui/icons/Menu'
 
 import appRoutes from 'routes'
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/adminStyle'
@@ -122,6 +120,7 @@ function Scoreboard(props) {
             currentRoute={currentRoute()}
             {...props}
             miniActive
+            dispatch={dispatch}
           />
         </Hidden>
         <main className={classes.content}>
@@ -148,11 +147,6 @@ function Scoreboard(props) {
               />
             ) : null
           }
-          <Hidden only={['md', 'lg', 'xl']}>
-            <Fab className={classes.fab}>
-              <MenuIcon />
-            </Fab>
-          </Hidden>
         </main>
       </div>
     </MuiThemeProvider>

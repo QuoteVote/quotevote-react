@@ -206,10 +206,9 @@ const sidebarStyle = (theme) => ({
   itemIcon: {
     color: 'inherit',
     width: '30px',
-    height: '24px',
+    height: '35px',
     float: 'left',
     position: 'inherit',
-    top: '3px',
     marginRight: '15px',
     textAlign: 'center',
     verticalAlign: 'middle',

@@ -96,10 +96,9 @@ const appStyle = (theme) => ({
     height: '100%',
     marginTop: theme.spacing(10),
     [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(1),
-      marginLeft: drawerMiniWidth,
-      paddingLeft: '10px',
-      marginRight: '10px',
+      marginTop: theme.spacing(7),
+      marginRight: 10,
+      marginLeft: 10,
     },
     overflow: 'hidden',
     marginLeft: '10%',
