@@ -12,7 +12,7 @@ import { Grid } from '@material-ui/core'
 import FilterInputs from '../../components/Filter/FilterInputs'
 import ErrorBoundary from '../../components/ErrorBoundary'
 
-const useStyles = makeStyles(({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
@@ -20,6 +20,11 @@ const useStyles = makeStyles(({
   list: {
     marginRight: 10,
     maxWidth: '70%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+      marginRight: 2,
+      marginLeft: 2,
+    },
   },
 }))
 export default function TrendingPosts() {

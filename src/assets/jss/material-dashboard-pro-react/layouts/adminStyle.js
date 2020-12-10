@@ -95,14 +95,14 @@ const appStyle = (theme) => ({
     flexGrow: 1,
     height: '100%',
     marginTop: theme.spacing(10),
-    [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(7),
-      marginRight: 10,
-      marginLeft: 10,
-    },
     overflow: 'hidden',
     marginLeft: '10%',
     marginRight: '10%',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(7),
+      marginRight: 5,
+      marginLeft: 5,
+    },
   },
   contentChat: {
     flexGrow: 1,
