@@ -90,7 +90,7 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
         justify="center"
         alignItems="center"
         className={classes.root}
-        spacing={4}
+        spacing={2}
       >
         {showSubHeader && (
           <Grid item xs={12}>

@@ -18,20 +18,19 @@ export default function FilterInputs({
   return (
     <Grid
       container
-      direction="row"
-      justify="flex-start"
-      alignItems="flex-start"
-      style={{ marginBottom: 10 }}
+      direction="column"
+      justify="center"
+      alignItems="center"
       spacing={1}
     >
       {showFilterIconButton && filterState.filter.visibility ? (
-        <Grid container item xs={12}>
+        <Grid item xs={12}>
           <ToggleButtonGroup
             value={selectAll}
             onChange={handleSelectAll}
             aria-label="All Event"
           >
-            <ToggleButton value="ALL" aria-label="All">
+            <ToggleButton value="ALL" aria-label="All" size="small">
               All
             </ToggleButton>
           </ToggleButtonGroup>
@@ -40,23 +39,23 @@ export default function FilterInputs({
             onChange={handleActivityEvent}
             aria-label="Event"
           >
-            <ToggleButton value="POSTED" aria-label="POSTED">
+            <ToggleButton value="POSTED" aria-label="POSTED" size="small">
               Content
             </ToggleButton>
-            <ToggleButton value="VOTED" aria-label="VOTED">
+            <ToggleButton value="VOTED" aria-label="VOTED" size="small">
               Votes
             </ToggleButton>
-            <ToggleButton value="COMMENTED" aria-label="COMMENTED">
+            <ToggleButton value="COMMENTED" aria-label="COMMENTED" size="small">
               Comments
             </ToggleButton>
-            <ToggleButton value="QUOTED" aria-label="QUOTED">
+            <ToggleButton value="QUOTED" aria-label="QUOTED" size="small">
               Quotes
             </ToggleButton>
           </ToggleButtonGroup>
         </Grid>
       ) : null}
       {filterState.date.visibility ? (
-        <Grid container item xs={12}>
+        <Grid item xs={12}>
           <DateSearchBar
             setOffset={setOffset}
             setDateRangeFilter={setDateRangeFilter}
