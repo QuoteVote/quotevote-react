@@ -136,7 +136,6 @@ function LoadActivityList({ data, onLoadMore }) {
             <Box
               boxShadow={5}
               style={{
-                marginRight: 20,
                 borderRadius: 7,
               }}
             >

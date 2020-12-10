@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '6px',
     backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
     width: (props) => (props.width ? props.width : '100%'),
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+      minWidth: '100%',
+      width: '100%',
+    },
   },
   activityHeader: {
     display: 'flex',

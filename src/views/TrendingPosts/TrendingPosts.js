@@ -58,6 +58,7 @@ export default function TrendingPosts() {
         justify="center"
         alignItems="center"
         className={classes.root}
+        spacing={2}
       >
         <Grid item xs={12}>
           <SubHeader
