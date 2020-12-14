@@ -7,12 +7,11 @@ function PersonalPlanHeaderText({ classes, index }) {
     <>
       {index === 0 && (
         <>
-          Share
+          What is
           {' '}
           <span className={greenTitleText}>
-            your voice
+            VoxPOP
           </span>
-          , democratically
         </>
       )}
       {index === 1 && (
@@ -20,13 +19,25 @@ function PersonalPlanHeaderText({ classes, index }) {
           Share
           {' '}
           <span className={greenTitleText}>
-            your thoughts
+            a thought
           </span>
-          , ideas and plans
+          , get feedback
         </>
       )}
 
       {index === 2 && (
+        <>
+          Share
+          {' '}
+          <span className={greenTitleText}>
+            your voice
+          </span>
+          {' '}
+          , democratically
+        </>
+      )}
+
+      {index === 3 && (
         <>
           <span className={greenTitleText}>
             Trending

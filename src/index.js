@@ -21,7 +21,6 @@ import { Provider } from 'react-redux'
 import {
   Redirect, Route, Router, Switch,
 } from 'react-router-dom'
-import AdminLayout from 'layouts/Admin'
 import AuthLayout from 'layouts/Auth'
 import client from 'config/apollo'
 import React from 'react'
@@ -52,7 +51,6 @@ ReactDOM.render(
           <Router history={hist}>
             <Switch>
               <Route path="/auth" component={AuthLayout} />
-              <Route path="/admin" component={AdminLayout} />
               <Route path="/hhsb" component={Scoreboard} />
               <Route path="/unauth" component={TokenExpired} />
               <Route path="/logout" component={LogoutPage} />

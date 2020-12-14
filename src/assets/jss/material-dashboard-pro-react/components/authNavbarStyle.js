@@ -104,7 +104,7 @@ const pagesHeaderStyle = (theme) => ({
     position: 'relative',
     display: 'block',
     width: 'auto',
-    margin: '0',
+    marginLeft: 5,
     padding: '0',
     [theme.breakpoints.down('sm')]: {
       zIndex: '999',
@@ -174,11 +174,23 @@ const pagesHeaderStyle = (theme) => ({
     flex: 'none',
     padding: '0',
     minWidth: '0',
-    margin: 0,
+    marginLeft: 10,
+    marginTop: 5,
+    width: 45,
     display: 'inline-block',
     position: 'relative',
     whiteSpace: 'nowrap',
-    // textTransform: 'none'
+  },
+  listItemTextRequestInvite: {
+    textTransform: 'none',
+    backgroundColor: '#00cf6e',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#00cf6e',
+    },
+    whiteSpace: 'nowrap',
+    marginLeft: 5,
+    marginRight: 5,
   },
   listItemTextAccess: {
     flex: 'none',

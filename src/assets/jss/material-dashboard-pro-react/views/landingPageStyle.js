@@ -74,6 +74,9 @@ const landingPageStyle = (theme) => ({
   },
   opinionsText: {
     maxWidth: '400px',
+    [theme.breakpoints.down('sm')]: {
+      margin: 10,
+    },
   },
   greenText: {
     color: '#00cf6e',
