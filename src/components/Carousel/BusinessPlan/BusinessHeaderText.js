@@ -7,29 +7,29 @@ function BusinessHeaderText({ classes, index }) {
     <>
       {index === 0 && (
         <>
-          Equal Teams,
-          {' '}
-          <span className={greenTitleText}>
-            Quality Teamwork
-          </span>
-        </>
-      )}
-      {index === 1 && (
-        <>
-          Share roadmaps,
+          Highlight text,
           {' '}
           <span className={greenTitleText}>
             discuss decisions
           </span>
         </>
       )}
-
-      {index === 2 && (
+      {index === 1 && (
         <>
-          Every Team on the
+          Every team on the
           {' '}
           <span className={greenTitleText}>
             Same Page
+          </span>
+        </>
+      )}
+
+      {index === 2 && (
+        <>
+          Equal Teams,
+          {' '}
+          <span className={greenTitleText}>
+            Quality Teamwork
           </span>
         </>
       )}
