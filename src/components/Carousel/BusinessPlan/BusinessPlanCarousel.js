@@ -4,12 +4,18 @@ import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import Carousel from 'react-material-ui-carousel'
 import withWidth from '@material-ui/core/withWidth'
+import { isMobile } from 'react-device-detect'
 import BusinessContent1Image from '../../../assets/svg/BusinessContent1.svg'
 import BusinessContent2Image from '../../../assets/svg/BusinessContent2.svg'
 import BusinessContent3Image from '../../../assets/img/BusinessContent3.png'
+import RequestInviteCarouselButton from '../RequestInviteCarouselButton'
+import { MOBILE_IMAGE_WIDTH } from '../../../views/LandingPage/LandingPage'
 
 function BusinessCarouselFirstContent(props) {
   const { width, classes } = props
+  const browserWidth = width === 'xs' ? '400px' : '435.43px'
+  const imageWidth = isMobile ? MOBILE_IMAGE_WIDTH : browserWidth
+
   return (
     <Grid
       container
@@ -23,8 +29,8 @@ function BusinessCarouselFirstContent(props) {
           alt="Business"
           src={BusinessContent1Image}
           style={{
-            width: width === 'xs' ? '400px' : '435.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -43,6 +49,7 @@ function BusinessCarouselFirstContent(props) {
           </div>
         </Typography>
       </Grid>
+      <RequestInviteCarouselButton classes={classes} />
     </Grid>
   )
 }
@@ -54,6 +61,8 @@ BusinessCarouselFirstContent.propTypes = {
 
 function BusinessCarouselSecondContent(props) {
   const { width, classes } = props
+  const browserWidth = width === 'xs' ? '400px' : '435.43px'
+  const imageWidth = isMobile ? 200 : browserWidth
   return (
     <Grid
       container
@@ -67,8 +76,8 @@ function BusinessCarouselSecondContent(props) {
           alt="Business 2"
           src={BusinessContent2Image}
           style={{
-            width: width === 'xs' ? '400px' : '435.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -86,6 +95,7 @@ function BusinessCarouselSecondContent(props) {
           </div>
         </Typography>
       </Grid>
+      <RequestInviteCarouselButton classes={classes} />
     </Grid>
   )
 }
@@ -97,6 +107,8 @@ BusinessCarouselSecondContent.propTypes = {
 
 function BusinessCarouselThirdContent(props) {
   const { width, classes } = props
+  const browserWidth = width === 'xs' ? '400px' : '380.43px'
+  const imageWidth = isMobile ? 200 : browserWidth
   return (
     <Grid
       container
@@ -110,8 +122,8 @@ function BusinessCarouselThirdContent(props) {
           alt="Business 2"
           src={BusinessContent3Image}
           style={{
-            width: width === 'xs' ? '400px' : '380.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -137,6 +149,7 @@ function BusinessCarouselThirdContent(props) {
           </div>
         </Typography>
       </Grid>
+      <RequestInviteCarouselButton classes={classes} />
     </Grid>
   )
 }

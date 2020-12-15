@@ -69,7 +69,7 @@ const landingPageStyle = (theme) => ({
   },
   buttonSpacing: {
     '& > *': {
-      margin: theme.spacing(2),
+      margin: ((props) => props.isMobile ? theme.spacing(1) : theme.spacing(2)),
     },
   },
   opinionsText: {
@@ -91,6 +91,10 @@ const landingPageStyle = (theme) => ({
   bottomText: {
     fontSize: '18px',
     fontWeight: 'bold',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: ((props) => props.isMobile ? 0 : 100),
+      marginTop: 10,
+    },
   },
   sendEmail: {
     background: 'white',
@@ -104,6 +108,44 @@ const landingPageStyle = (theme) => ({
     '&:hover': {
       backgroundColor: green[700],
       color: 'white',
+    },
+  },
+  requestInvite: {
+    textTransform: 'none',
+    backgroundColor: '#00cf6e',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#00cf6e',
+    },
+    whiteSpace: 'nowrap',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: ((props) => props.isMobile ? 10 : 20),
+      marginLeft: ((props) => props.isMobile ? 25 : 100),
+      width: 200,
+    },
+    [theme.breakpoints.up('sm')]: {
+      marginTop: ((props) => props.isMobile ? 20 : 10),
+      marginLeft: ((props) => props.isMobile ? 25 : 200),
+      width: 200,
+    },
+  },
+  investButton: {
+    textTransform: 'none',
+    color: '#00cf6e',
+    backgroundColor: 'white',
+    '&:hover': {
+      backgroundColor: 'white',
+    },
+    whiteSpace: 'nowrap',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 20,
+      marginLeft: ((props) => props.isMobile ? 25 : 100),
+      width: ((props) => props.isMobile ? 100 : 200),
+    },
+    [theme.breakpoints.up('sm')]: {
+      marginTop: 20,
+      marginLeft: ((props) => props.isMobile ? 25 : 200),
+      width: ((props) => props.isMobile ? 100 : 200),
     },
   },
 })

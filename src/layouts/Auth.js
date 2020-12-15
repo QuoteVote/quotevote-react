@@ -105,7 +105,9 @@ export default function Pages(props) {
   return (
     <div
       className={classes.content}
-      style={{ backgroundImage: `url(${getBgImage()})` }}
+      style={{
+        backgroundImage: `url(${getBgImage()})`,
+      }}
     >
       <Grid
         container

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Carousel from 'react-material-ui-carousel'
 import withWidth from '@material-ui/core/withWidth'
 import Grid from '@material-ui/core/Grid'
+import { isMobile } from 'react-device-detect'
 import AvatarGirlImage from '../../../assets/img/AvatarGirl.png'
 import PostPageImage from '../../../assets/svg/PostPage.svg'
 import PersonalContent1bImage from '../../../assets/img/PersonalContent1b.png'
@@ -11,9 +12,10 @@ import PersonalContent2Image from '../../../assets/svg/PersonalContent2.svg'
 import PersonalContent3Image from '../../../assets/img/PersonalContent3.png'
 import PersonalContent4Image from '../../../assets/svg/PersonalContent4.svg'
 import DoubleArrowIconButton from '../../CustomButtons/DoubleArrowIconButton'
+import RequestInviteCarouselButton from '../RequestInviteCarouselButton'
 
 function PersonalCarouselFirstContent(props) {
-  const { width } = props
+  const { width, classes } = props
   return (
     <Grid
       container
@@ -34,8 +36,8 @@ function PersonalCarouselFirstContent(props) {
               alt="Personal"
               src={AvatarGirlImage}
               style={{
-                width: '90%',
-                height: '350.51px',
+                width: isMobile ? 50 : '90%',
+                height: isMobile ? 'auto' : '350.51px',
                 objectFit: 'contain',
               }}
             />
@@ -45,8 +47,8 @@ function PersonalCarouselFirstContent(props) {
               alt="Personal"
               src={PostPageImage}
               style={{
-                height: '350.51px',
-                width: width === 'xs' ? '100%' : '100%',
+                height: isMobile ? 'auto' : '350.51px',
+                width: isMobile ? 200 : '100%',
                 objectFit: 'contain',
               }}
             />
@@ -58,22 +60,26 @@ function PersonalCarouselFirstContent(props) {
           alt="Personal"
           src={PersonalContent1bImage}
           style={{
-            width: '80%',
+            width: isMobile ? 200 : '80%',
             objectFit: 'cover',
             marginLeft: width === 'xs' ? 20 : 10,
           }}
         />
       </Grid>
+      <RequestInviteCarouselButton classes={classes} />
     </Grid>
   )
 }
 
 PersonalCarouselFirstContent.propTypes = {
   width: PropTypes.string,
+  classes: PropTypes.object,
 }
 
 function PersonalCarouselSecondContent(props) {
-  const { width } = props
+  const { width, classes } = props
+  // eslint-disable-next-line no-nested-ternary
+  const imageWidth = isMobile ? 200 : (width === 'xs' || width === 'sm' ? '400.43px' : '435.43px')
   return (
     <Grid
       container
@@ -87,8 +93,8 @@ function PersonalCarouselSecondContent(props) {
           alt="Personal"
           src={PersonalContent2Image}
           style={{
-            width: width === 'xs' || width === 'sm' ? '400.43px' : '435.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -100,15 +106,19 @@ function PersonalCarouselSecondContent(props) {
 
         </div>
       </Grid>
+      <RequestInviteCarouselButton classes={classes} />
     </Grid>
   )
 }
 
 PersonalCarouselSecondContent.propTypes = {
   width: PropTypes.string,
+  classes: PropTypes.object,
 }
 
 function PersonalCarouselThirdContent({ width, classes, setContentIndex }) {
+  // eslint-disable-next-line no-nested-ternary
+  const imageWidth = isMobile ? 200 : (width === 'md' ? '365.43px' : '400.43px')
   return (
     <Grid
       container
@@ -122,8 +132,8 @@ function PersonalCarouselThirdContent({ width, classes, setContentIndex }) {
           alt="Personal 3"
           src={PersonalContent3Image}
           style={{
-            width: width === 'md' ? '365.43px' : '400.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -155,6 +165,7 @@ function PersonalCarouselThirdContent({ width, classes, setContentIndex }) {
           <DoubleArrowIconButton onClick={() => setContentIndex(3)} />
         </Typography>
       </Grid>
+      <RequestInviteCarouselButton classes={classes} />
     </Grid>
   )
 }
@@ -166,6 +177,9 @@ PersonalCarouselThirdContent.propTypes = {
 }
 
 function PersonalCarouselFourthContent({ width, classes }) {
+  // eslint-disable-next-line no-nested-ternary
+  const imageWidth = isMobile ? 200 : (width === 'md' ? '365.43px' : '400.43px')
+
   return (
     <Grid
       container
@@ -179,8 +193,8 @@ function PersonalCarouselFourthContent({ width, classes }) {
           alt="Personal 4"
           src={PersonalContent4Image}
           style={{
-            width: width === 'md' ? '365.43px' : '400.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -201,6 +215,7 @@ function PersonalCarouselFourthContent({ width, classes }) {
           </div>
         </Typography>
       </Grid>
+      <RequestInviteCarouselButton classes={classes} />
     </Grid>
   )
 }

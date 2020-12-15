@@ -78,6 +78,7 @@ export default function AuthNavbar(props) {
 
       {activeRoute("/auth/landing-page") && (
         <React.Fragment>
+          <Hidden mdDown>
           <ListItem className={classes.listItem}>
               <Button
                 variant="contained"
@@ -89,6 +90,7 @@ export default function AuthNavbar(props) {
                 Request Invite
               </Button>
           </ListItem>
+          </Hidden>
           <ListItem className={classes.listItem}>
             <NavLink
               to="/auth/login"
@@ -158,36 +160,7 @@ export default function AuthNavbar(props) {
             </IconButton>
           </div>
         </Hidden>
-        <Hidden smDown>{list}</Hidden>
-        <Hidden mdUp>
-          <Button
-            className={classes.sidebarButton}
-            color="transparent"
-            justIcon
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-          >
-            <Menu />
-          </Button>
-        </Hidden>
-        <Hidden mdUp>
-          <Hidden mdUp>
-            <Drawer
-              variant="temporary"
-              anchor="right"
-              open={open}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              onClose={handleDrawerToggle}
-              ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-              }}
-            >
-              {list}
-            </Drawer>
-          </Hidden>
-        </Hidden>
+       {list}
       </Toolbar>
     </AppBar>
   );

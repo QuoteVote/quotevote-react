@@ -4,11 +4,13 @@ import Button from '@material-ui/core/Button'
 import PropTypes from 'prop-types'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { useHistory } from 'react-router-dom'
+import { isMobile } from 'react-device-detect'
 import { useMutation } from '@apollo/react-hooks'
 import { useForm } from 'react-hook-form'
 import Carousel from 'react-material-ui-carousel'
 import Grid from '@material-ui/core/Grid'
 import withWidth from '@material-ui/core/withWidth'
+import Hidden from '@material-ui/core/Hidden'
 import GridItem from '../../../mui-pro/Grid/GridItem'
 import InvestorContent1Image from '../../../assets/img/InvestorContent1.png'
 import InvestorContent2Image from '../../../assets/svg/InvestorContent2.svg'
@@ -16,14 +18,18 @@ import InvestorContent3Image from '../../../assets/svg/InvestorContent3.svg'
 import InvestButton from '../../CustomButtons/InvestButton'
 import { SEND_INVESTOR_EMAIL } from '../../../graphql/mutations'
 import DoubleArrowIconButton from '../../CustomButtons/DoubleArrowIconButton'
+import { MOBILE_IMAGE_WIDTH } from '../../../views/LandingPage/LandingPage'
 
 InvestorCarouselFirstContent.propTypes = {
   classes: PropTypes.object,
   setContentIndex: PropTypes.func,
+  width: PropTypes.string,
 }
 
-function InvestorCarouselFirstContent({ classes, setContentIndex }) {
+function InvestorCarouselFirstContent({ classes, setContentIndex, width }) {
   const { opinionsText, bottomText, greenText } = classes
+  const browserWidth = '400.43px'
+  const imageWidth = isMobile ? MOBILE_IMAGE_WIDTH : browserWidth
   return (
     <Grid
       container
@@ -36,8 +42,8 @@ function InvestorCarouselFirstContent({ classes, setContentIndex }) {
           alt="Investor"
           src={InvestorContent1Image}
           style={{
-            width: '400.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -57,12 +63,23 @@ function InvestorCarouselFirstContent({ classes, setContentIndex }) {
             <br />
           </div>
         </Typography>
-        <Typography className={bottomText}>
+        <Hidden mdUp>
           <InvestButton
+            width={width}
             handleClick={() => {
               setContentIndex(2)
             }}
           />
+        </Hidden>
+        <Typography className={bottomText}>
+          <Hidden smDown>
+            <InvestButton
+              width={width}
+              handleClick={() => {
+                setContentIndex(2)
+              }}
+            />
+          </Hidden>
           {' '}
           What is
           <span className={greenText}> the deal </span>
@@ -81,6 +98,8 @@ InvestorCarouselSecondContent.propTypes = {
 
 function InvestorCarouselSecondContent({ classes, setContentIndex, width }) {
   const { opinionsText, bottomText, greenText } = classes
+  const browserWidth = '435.43px'
+  const imageWidth = isMobile ? MOBILE_IMAGE_WIDTH : browserWidth
   return (
     <Grid
       container
@@ -97,8 +116,8 @@ function InvestorCarouselSecondContent({ classes, setContentIndex, width }) {
           alt="Investor 2"
           src={InvestorContent2Image}
           style={{
-            width: '435.43px',
-            height: '350.51px',
+            width: imageWidth,
+            height: isMobile ? 'auto' : '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -118,12 +137,23 @@ function InvestorCarouselSecondContent({ classes, setContentIndex, width }) {
             <br />
           </div>
         </Typography>
-        <Typography className={bottomText}>
+        <Hidden mdUp>
           <InvestButton
+            width={width}
             handleClick={() => {
               setContentIndex(2)
             }}
           />
+        </Hidden>
+        <Typography className={bottomText}>
+          <Hidden smDown>
+            <InvestButton
+              width={width}
+              handleClick={() => {
+                setContentIndex(2)
+              }}
+            />
+          </Hidden>
           {'  '}
           I want to
           {' '}
@@ -151,6 +181,8 @@ function InvestorCarouselThirdContent({ classes, width }) {
     const { email } = getValues()
     await sendInvestorMail({ variables: { email } })
   }
+  const browserWidth = width === 'md' ? '400.43px' : '435.43px'
+  const imageWidth = isMobile ? MOBILE_IMAGE_WIDTH : browserWidth
 
   if (data) {
     history.push('/auth/investor-thanks')
@@ -173,8 +205,8 @@ function InvestorCarouselThirdContent({ classes, width }) {
             alt="Investor"
             src={`${InvestorContent3Image}`}
             style={{
-              width: width === 'md' ? '400.43px' : '435.43px',
-              height: '350.51px',
+              width: imageWidth,
+              height: isMobile ? 'auto' : '350.51px',
               objectFit: 'contain',
             }}
           />

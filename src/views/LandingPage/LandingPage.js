@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 import { Typography } from '@material-ui/core'
 import { SET_SELECTED_PLAN } from 'store/ui'
+import { isMobile } from 'react-device-detect'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import SelectPlansButton from '../../components/CustomButtons/SelectPlansButton'
@@ -18,8 +19,10 @@ import InvestorHeaderText from '../../components/Carousel/InvestorsPlan/Investor
 
 const useStyles = makeStyles(styles)
 
+export const MOBILE_IMAGE_WIDTH = 250
+
 export default function LandingPage() {
-  const classes = useStyles()
+  const classes = useStyles({ isMobile })
   const dispatch = useDispatch()
   const history = useHistory()
   const selectedPlan = useSelector((state) => state.ui.selectedPlan)
