@@ -4,10 +4,11 @@ import PropTypes from 'prop-types'
 import Carousel from 'react-material-ui-carousel'
 import withWidth from '@material-ui/core/withWidth'
 import Grid from '@material-ui/core/Grid'
-import PersonalContent1aImage from '../../../assets/img/PersonalContent1a.png'
+import AvatarGirlImage from '../../../assets/img/AvatarGirl.png'
+import PostPageImage from '../../../assets/svg/PostPage.svg'
 import PersonalContent1bImage from '../../../assets/img/PersonalContent1b.png'
 import PersonalContent2Image from '../../../assets/svg/PersonalContent2.svg'
-import PersonalContent3Image from '../../../assets/svg/PersonalContent3.svg'
+import PersonalContent3Image from '../../../assets/img/PersonalContent3.png'
 import PersonalContent4Image from '../../../assets/svg/PersonalContent4.svg'
 import DoubleArrowIconButton from '../../CustomButtons/DoubleArrowIconButton'
 
@@ -17,20 +18,40 @@ function PersonalCarouselFirstContent(props) {
     <Grid
       container
       direction="row"
-      justify="center"
-      alignItems="center"
+      justify="flex-end"
+      alignItems="baseline"
       style={{ paddingLeft: 40, paddingRight: 10 }}
     >
       <Grid item xs={12} md={6}>
-        <img
-          alt="Personal"
-          src={PersonalContent1aImage}
-          style={{
-            width: width === 'xs' ? '400px' : '435.43px',
-            height: '300.51px',
-            objectFit: 'contain',
-          }}
-        />
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-end"
+        >
+          <Grid item xs={3}>
+            <img
+              alt="Personal"
+              src={AvatarGirlImage}
+              style={{
+                width: '90%',
+                height: '350.51px',
+                objectFit: 'contain',
+              }}
+            />
+          </Grid>
+          <Grid item xs={9}>
+            <img
+              alt="Personal"
+              src={PostPageImage}
+              style={{
+                height: '350.51px',
+                width: width === 'xs' ? '100%' : '100%',
+                objectFit: 'contain',
+              }}
+            />
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} md={6}>
         <img
@@ -67,7 +88,7 @@ function PersonalCarouselSecondContent(props) {
           src={PersonalContent2Image}
           style={{
             width: width === 'xs' || width === 'sm' ? '400.43px' : '435.43px',
-            height: '300.51px',
+            height: '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -102,7 +123,7 @@ function PersonalCarouselThirdContent({ width, classes, setContentIndex }) {
           src={PersonalContent3Image}
           style={{
             width: width === 'md' ? '365.43px' : '400.43px',
-            height: '300.51px',
+            height: '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -159,7 +180,7 @@ function PersonalCarouselFourthContent({ width, classes }) {
           src={PersonalContent4Image}
           style={{
             width: width === 'md' ? '365.43px' : '400.43px',
-            height: '300.51px',
+            height: '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -191,13 +212,19 @@ PersonalCarouselFourthContent.propTypes = {
 
 function PersonalPlanCarousel(props) {
   const [contentIndex, setContentIndex] = useState(0)
-  const { setCarouselCurrentIndex } = props
+  const { setCarouselCurrentIndex, classes } = props
   return (
     <Carousel
       navButtonsAlwaysVisible
       index={contentIndex}
       onChange={(index) => {
         setCarouselCurrentIndex(index)
+      }}
+      activeIndicatorProps={{
+        className: classes.activeIndicator,
+      }}
+      indicatorProps={{
+        className: classes.inactiveIndicator,
       }}
     >
       <PersonalCarouselFirstContent {...props} />

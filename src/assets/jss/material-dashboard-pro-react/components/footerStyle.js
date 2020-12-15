@@ -27,9 +27,7 @@ const footerStyle = (theme) => ({
   footer: {
     bottom: '0',
     borderTop: `1px solid ${grayColor[15]}`,
-    padding: '15px 0',
     ...defaultFont,
-    zIndex: 4,
   },
   container: {
     zIndex: 3,
@@ -65,6 +63,7 @@ const footerStyle = (theme) => ({
     '& > * + *': {
       marginLeft: theme.spacing(2),
     },
+    left: 0,
   },
 })
 export default footerStyle

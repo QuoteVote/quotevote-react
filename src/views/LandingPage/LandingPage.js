@@ -51,14 +51,6 @@ export default function LandingPage() {
             {isInvestors && <InvestorHeaderText classes={classes} index={carouselCurrentIndex} />}
           </Typography>
         </GridItem>
-
-        <GridItem xs={12}>
-          <GridContainer justify="center">
-            <Typography className={classes.fits}>
-              Select what fits for you
-            </Typography>
-          </GridContainer>
-        </GridItem>
         <GridItem xs={12}>
           <GridContainer justify="center">
             <div className={classes.buttonSpacing}>

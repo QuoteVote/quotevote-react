@@ -24,7 +24,7 @@ function BusinessCarouselFirstContent(props) {
           src={BusinessContent1Image}
           style={{
             width: width === 'xs' ? '400px' : '435.43px',
-            height: '300.51px',
+            height: '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -68,7 +68,7 @@ function BusinessCarouselSecondContent(props) {
           src={BusinessContent2Image}
           style={{
             width: width === 'xs' ? '400px' : '435.43px',
-            height: '300.51px',
+            height: '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -111,7 +111,7 @@ function BusinessCarouselThirdContent(props) {
           src={BusinessContent3Image}
           style={{
             width: width === 'xs' ? '400px' : '380.43px',
-            height: '300.51px',
+            height: '350.51px',
             objectFit: 'contain',
           }}
         />
@@ -148,13 +148,19 @@ BusinessCarouselThirdContent.propTypes = {
 
 function BusinessPlanCarousel(props) {
   const [contentIndex, setContentIndex] = useState(0)
-  const { setCarouselCurrentIndex } = props
+  const { setCarouselCurrentIndex, classes } = props
   return (
     <Carousel
       navButtonsAlwaysVisible
       index={contentIndex}
       onChange={(index) => {
         setCarouselCurrentIndex(index)
+      }}
+      activeIndicatorProps={{
+        className: classes.activeIndicator,
+      }}
+      indicatorProps={{
+        className: classes.inactiveIndicator,
       }}
     >
       <BusinessCarouselFirstContent {...props} setContentIndex={setContentIndex} />

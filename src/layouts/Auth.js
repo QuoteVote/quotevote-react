@@ -21,6 +21,7 @@ import error from 'assets/img/clint-mckoy.jpg'
 import pricing from 'assets/img/bg-pricing.jpeg'
 import requestAccess from 'assets/img/RequestAccess/bg.png'
 import buildingsBG from 'assets/img/BuildingsBG.png'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles(styles)
 
@@ -34,7 +35,8 @@ export default function Pages(props) {
   React.useEffect(() => {
     document.body.style.overflow = 'unset'
     // Specify how to clean up after this effect:
-    return function cleanup() {}
+    return function cleanup() {
+    }
   })
   const getRoutes = (routesParameter) => routesParameter.map((prop, key) => {
     if (prop.collapse) {
@@ -54,25 +56,32 @@ export default function Pages(props) {
   const getBgImage = () => {
     if (window.location.pathname.indexOf('/auth/register-page') !== -1) {
       return register
-    } if (window.location.pathname.indexOf('/auth/login') !== -1) {
+    }
+    if (window.location.pathname.indexOf('/auth/login') !== -1) {
       return login
-    } if (window.location.pathname.indexOf('/auth/pricing-page') !== -1) {
+    }
+    if (window.location.pathname.indexOf('/auth/pricing-page') !== -1) {
       return pricing
-    } if (
+    }
+    if (
       window.location.pathname.indexOf('/auth/lock-screen-page') !== -1
     ) {
       return lock
-    } if (isRequestAccess) {
+    }
+    if (isRequestAccess) {
       return requestAccess
-    } if (
+    }
+    if (
       window.location.pathname.indexOf('/auth/landing-page') !== -1
     ) {
       return buildingsBG
-    } if (
+    }
+    if (
       window.location.pathname.indexOf('/auth/investor-thanks') !== -1
     ) {
       return buildingsBG
-    } if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
+    }
+    if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
       return error
     }
     return buildingsBG
@@ -94,20 +103,35 @@ export default function Pages(props) {
     return activeRoute
   }
   return (
-    <div>
-      <AuthNavbar brandText={getActiveRoute(routes)} {...rest} />
-      <div className={classes.wrapper} ref={wrapper}>
-        <div
-          className={isRequestAccess ? classes.requestAccessFullPage : classes.fullPage}
-          style={{ backgroundImage: `url(${getBgImage()})` }}
-        >
-          <Switch>
-            {getRoutes(routes)}
-            <Redirect from="/auth" to="/auth/landing-page" />
-          </Switch>
+    <div
+      className={classes.content}
+      style={{ backgroundImage: `url(${getBgImage()})` }}
+    >
+      <Grid
+        container
+        direction="column"
+        justify="space-between"
+        alignItems="stretch"
+      >
+        <Grid item>
+          <AuthNavbar brandText={getActiveRoute(routes)} {...rest} />
+        </Grid>
+        <Grid item>
+          <div className={classes.wrapper} ref={wrapper}>
+            <div
+              className={classes.fullPage}
+            >
+              <Switch>
+                {getRoutes(routes)}
+                <Redirect from="/auth" to="/auth/landing-page" />
+              </Switch>
+            </div>
+          </div>
+        </Grid>
+        <Grid item>
           <Footer white />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   )
 }

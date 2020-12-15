@@ -81,6 +81,13 @@ const landingPageStyle = (theme) => ({
   greenText: {
     color: '#00cf6e',
   },
+  inactiveIndicator: {
+    fontSize: '25px',
+  },
+  activeIndicator: {
+    fontSize: '25px',
+    color: '#00cf6e',
+  },
   bottomText: {
     fontSize: '18px',
     fontWeight: 'bold',
