@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useMutation } from '@apollo/react-hooks'
 import { useSelector, useDispatch } from 'react-redux'
@@ -38,6 +38,7 @@ const useStyles = makeStyles({
  * @returns {JSX.Element}
  */
 function ChangePhoto() {
+  const [allAvatars, addAvatar] = useState([])
   const user = useSelector((state) => state.user.data)
   const [updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
   let defaultAvatar = {}
@@ -68,7 +69,8 @@ function ChangePhoto() {
     'Top Type': 'Top',
     'Accessories Type': 'Accessories',
     hairColor: 'Hair Color',
-    facialHairColor: 'Facial Hair',
+    facialHairColor: 'Facial Hair Color',
+    facialHairType: 'Facial Hair',
     clotheColor: 'Clothes',
     eyeType: 'Eyes',
     eyebrowType: 'Eyebrow',
@@ -78,19 +80,28 @@ function ChangePhoto() {
 
   const shouldIgnore = {
     'Hat Color': true,
-    facialHairType: true,
     clotheType: true,
     graphicType: true,
   }
   const watchAllFields = watch()
 
-  const generateAvatar = () => avatarOptions.reduce((newAvatar, category) => [
-    ...newAvatar,
-    {
-      key: category.name,
-      option: category.options[Math.floor(Math.random() * Math.floor(category.options.length))],
-    },
-  ], [])
+  const generateAvatar = () => {
+    const avatar = avatarOptions.reduce((newAvatar, category) => [
+      ...newAvatar,
+      {
+        key: category.name,
+        option: category.options[Math.floor(Math.random() * Math.floor(category.options.length))],
+      },
+    ], [])
+    const newAvatars = allAvatars.concat({ avatar })
+    addAvatar(newAvatars)
+    return avatar
+  }
+
+  const pickLastAvatar = () => {
+    const { avatar } = allAvatars[allAvatars.length - 2]
+    return avatar
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -121,7 +132,9 @@ function ChangePhoto() {
             <Button
               variant="outlined"
               color="secondary"
-              onClick={() => generateAvatar('worse').map((q) => setValue(q.key, q.option))}
+              onClick={() => {
+                pickLastAvatar().map((q) => setValue(q.key, q.option))
+              }}
             >
               Worse
             </Button>
@@ -146,7 +159,6 @@ function ChangePhoto() {
             {
               avatarOptions.map((category) => {
                 const { displayName, name, options } = category
-                console.log('displayName', displayName)
                 if (!shouldIgnore[displayName]) {
                   return (
                     <Grid container item>
