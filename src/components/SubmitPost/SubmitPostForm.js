@@ -11,6 +11,7 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import PropTypes from 'prop-types'
+import Mercury from '@postlight/mercury-parser'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch } from 'react-redux'
 import CardBody from '../../mui-pro/Card/CardBody'
@@ -101,6 +102,17 @@ function SubmitPostForm({ options = [], user }) {
     setSelectedGroup(null)
     reset()
   }
+  const [value, setValue] = React.useState({ title: '', content: '' })
+
+  const handleChange = (event) => {
+    Mercury.parse(`https://cors-anywhere.herokuapp.com/${event.target.value}`, { contentType: 'markdown' })
+      .then((result) => setValue({ title: result.title, content: result.content }))
+  }
+
+  const handleTitleChange = (event) => {
+    setValue({ ...value, title: event.target.value })
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {showAlert && (
@@ -117,6 +129,8 @@ function SubmitPostForm({ options = [], user }) {
             id="title"
             className={classes.title}
             placeholder="Enter Title Here"
+            value={value.title}
+            onChange={handleTitleChange}
             name="title"
             inputRef={register({
               required: 'Title is required',
@@ -129,6 +143,8 @@ function SubmitPostForm({ options = [], user }) {
           <InputBase
             id="text"
             placeholder="Input text to submit post"
+            value={value.content}
+            onChange={handleChange}
             className={classes.text}
             multiline
             fullWidth
