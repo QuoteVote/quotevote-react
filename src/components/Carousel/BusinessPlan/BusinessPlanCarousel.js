@@ -68,7 +68,7 @@ function BusinessCarouselSecondContent(props) {
       container
       direction="row"
       justify="center"
-      alignItems="flex-start"
+      alignItems="center"
       style={{ paddingLeft: 50, paddingRight: width === 'xs' ? 10 : 50 }}
     >
       <Grid item xs={12} md={6}>

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import { isMobile } from 'react-device-detect'
 import AvatarGirlImage from '../../../assets/img/AvatarGirl.png'
 import PostPageImage from '../../../assets/svg/PostPage.svg'
-import PersonalContent1bImage from '../../../assets/img/PersonalContent1b.png'
+import PersonalContent1bImage from '../../../assets/svg/PersonalContent1b.svg'
 import PersonalContent2Image from '../../../assets/svg/PersonalContent2.svg'
 import PersonalContent3Image from '../../../assets/img/PersonalContent3.png'
 import PersonalContent4Image from '../../../assets/svg/PersonalContent4.svg'
@@ -60,7 +60,7 @@ function PersonalCarouselFirstContent(props) {
           alt="Personal"
           src={PersonalContent1bImage}
           style={{
-            width: isMobile ? 200 : '80%',
+            width: isMobile ? 200 : '100%',
             objectFit: 'cover',
             marginLeft: width === 'xs' ? 20 : 10,
           }}
