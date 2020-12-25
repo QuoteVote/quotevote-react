@@ -44,7 +44,7 @@ export default function Footer(props) {
               <Link href="#careers" color="inherit">
                 Careers
               </Link>
-              <Link href="#about-us" color="inherit">
+              <Link href="/auth/about" color="inherit">
                 About Us
               </Link>
             </Typography>

@@ -8,6 +8,7 @@ import InvestorThanks from "../views/InvestorThanks/InvestorThanks";
 import ForgotPasswordPage from "../views/ForgotPassword/ForgotPasswordPage";
 import PasswordResetPage from "../views/PasswordResetPage/PasswordResetPage";
 import SignupPage from "../views/SignupPage/SignupPage";
+import AboutPage from "../views/AboutPage";
 
 const dashRoutes = [
   {
@@ -24,6 +25,15 @@ const dashRoutes = [
         mini: 'L',
         rtlMini: 'هعذا',
         component: LandingPage,
+        layout: '/auth',
+      },
+      {
+        path: '/about',
+        name: 'About Page',
+        rtlName: 'هعذاتسجيل الدخول',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: AboutPage,
         layout: '/auth',
       },
       {
