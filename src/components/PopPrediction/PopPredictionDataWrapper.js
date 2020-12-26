@@ -21,6 +21,7 @@ function PopPredictionDataWrapper() {
   })
 
   const [text, setText] = useState('')
+  const [read, setRead] = useState(false)
 
   const handlePredict = async (values) => {
     if (values.length > 0) {
@@ -40,12 +41,13 @@ function PopPredictionDataWrapper() {
             0
         }
       />
-      {error && (
+      {error && !read && (
         <SweetAlert
           error
           style={{ display: 'block', top: '50%' }}
           title="Error"
           confirmBtnText="Ok"
+          onConfirm={() => setRead(true)} // temporary onConfirm value
         >
           {/* We don't know what, yet let us know and we can find out */}
           Error:
