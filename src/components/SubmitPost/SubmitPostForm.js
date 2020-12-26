@@ -14,6 +14,7 @@ import PropTypes from 'prop-types'
 import Mercury from '@postlight/mercury-parser'
 import { useMutation } from '@apollo/react-hooks'
 import { useDispatch } from 'react-redux'
+import { isEmpty } from 'lodash'
 import CardBody from '../../mui-pro/Card/CardBody'
 import Card from '../../mui-pro/Card/Card'
 import Button from '../../mui-pro/CustomButtons/Button'
@@ -103,14 +104,32 @@ function SubmitPostForm({ options = [], user }) {
     reset()
   }
   const [value, setValue] = React.useState({ title: '', content: '' })
-
-  const handleChange = (event) => {
-    Mercury.parse(`https://cors-anywhere.herokuapp.com/${event.target.value}`, { contentType: 'markdown' })
-      .then((result) => setValue({ title: result.title, content: result.content }))
-  }
+  const [isPasting, setPasting] = React.useState(false)
 
   const handleTitleChange = (event) => {
     setValue({ ...value, title: event.target.value })
+  }
+
+  const handleContentChange = (event) => {
+    const contentValue = event.target.value
+    const validURL = /^(?:http(s)?:\/\/)([\w.-])+(?:[\w.-]+)+([\w\-._~:/?#[\]@!$&'()*+,;=.])+$/
+    setValue({ ...value, content: contentValue })
+    if (isPasting && contentValue.match(validURL)) {
+      Mercury.parse(`https://cors-anywhere.herokuapp.com/${contentValue}`, { contentType: 'markdown' })
+        .then((result) => {
+          if (isEmpty(result.content)) {
+            setError('Could not extract site content.')
+            setShowAlert(true)
+          } else {
+            setValue({ title: result.title, content: result.content })
+          }
+        })
+    }
+    setPasting(false)
+  }
+
+  const handlePaste = () => {
+    setPasting(true)
   }
 
   return (
@@ -144,7 +163,8 @@ function SubmitPostForm({ options = [], user }) {
             id="text"
             placeholder="Input text to submit post"
             value={value.content}
-            onChange={handleChange}
+            onChange={handleContentChange}
+            onPaste={handlePaste}
             className={classes.text}
             multiline
             fullWidth
