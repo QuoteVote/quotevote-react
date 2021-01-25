@@ -5,14 +5,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const useStyles = (props) => makeStyles((theme) => {
+  console.log('usestyles props:', props)
+
   const color = props.tipColor || theme.palette.background.paper // Feel free to customise this like they do in Tooltip
+
+  console.log('theme palette bg', theme.palette.background.paper)
+  console.log('color:', color)
+
+  console.log('props spacing', props.spacing)
+  console.log('theme spacing', theme.spacing(props.spacing))
+
   return {
     popoverRoot: {
       backgroundColor: color,
       maxWidth: 1000,
     },
     content: {
-      padding: theme.spacing(props.spacing),
+      padding: theme.spacing(props.spacing || 0),
       backgroundImage: props.tipBackgroundImage || color,
       borderRadius: '5px',
     },
@@ -93,6 +102,8 @@ const RichTooltip = ({
   children,
   ...otherProps
 }) => {
+  console.log('otherprops:', otherProps)
+
   const classes = useStyles(otherProps)()
   const [arrowRef, setArrowRef] = React.useState(null)
   const [childNode, setChildNode] = React.useState(null)

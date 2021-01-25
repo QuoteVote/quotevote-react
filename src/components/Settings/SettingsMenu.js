@@ -35,6 +35,7 @@ function SettingsMenu({ fontSize }) {
         onClose={() => setOpen(false)}
         tipColor={tipColor}
         tipBackgroundImage={tipBackgroundImage}
+        spacing={0}
       >
         <IconButton
           aria-label="Settings"
