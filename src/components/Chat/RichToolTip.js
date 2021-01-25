@@ -94,8 +94,6 @@ const RichTooltip = ({
   children,
   ...otherProps
 }) => {
-  console.log('otherprops:', otherProps)
-
   const classes = useStyles(otherProps)()
   const [arrowRef, setArrowRef] = React.useState(null)
   const [childNode, setChildNode] = React.useState(null)
