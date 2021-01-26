@@ -3,31 +3,34 @@
  * ActivityCard
  *
  */
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 import { loadCSS } from 'fg-loadcss'
 
 import { makeStyles } from '@material-ui/core/styles'
-
+import clsx from 'clsx'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
+import Collapse from '@material-ui/core/Collapse'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import moment from 'moment'
 import stringLimit from 'string-limit'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import AvatarDisplay from '../../components/Avatar'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: theme.typography.pxToRem(350),
-    minHeight: theme.typography.pxToRem(200),
+    // minHeight: theme.typography.pxToRem(200),
     borderRadius: '6px',
-    backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
+    backgroundColor: 'white',
     width: (props) => (props.width ? props.width : '100%'),
     [theme.breakpoints.down('sm')]: {
       maxWidth: '100%',
@@ -41,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginLeft: theme.typography.pxToRem(20),
     marginBottom: 10,
+    // backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
+  },
+  ActivityActions: {
+    backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
   },
   activityBody: {
     marginLeft: theme.typography.pxToRem(20),
@@ -51,32 +58,71 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
   expand: {
+    transform: 'rotate(0deg)',
     marginLeft: 'auto',
-    padding: 0,
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
   },
   content: {
     minHeight: theme.typography.pxToRem(130),
+    backgroundColor: 'white',
   },
 }))
 
-function ActivityHeader({ name, date }) {
+function ActivityHeader({
+  name,
+  date,
+  title,
+  avatar,
+}) {
   const classes = useStyles()
   return (
     <div className={classes.activityHeader}>
-      <Typography color="textPrimary" variant="subtitle2">
-        {name}
-      </Typography>
-      <Typography color="textPrimary" variant="caption">
-        {moment(date).calendar(null, {
-          sameDay: '[Today]',
-          nextDay: '[Tomorrow]',
-          nextWeek: 'dddd',
-          lastDay: '[Yesterday]',
-          lastWeek: '[Last] dddd',
-          sameElse: 'MMM DD, YYYY',
-        })}
-        {` @ ${moment(date).format('h:mm A')}`}
-      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={4}>
+          <Avatar
+            className={classes.avatar}
+          >
+            <AvatarDisplay
+              height="40"
+              width="40"
+              className={classes.avatarStyle}
+              {...avatar}
+            />
+          </Avatar>
+        </Grid>
+        <Grid item container direction="column" xs={8}>
+          <Grid item xs={12}>
+            <Typography color="textPrimary" variant="subtitle2">
+              {title}
+            </Typography>
+          </Grid>
+          <Grid item container direction="row" xs={12}>
+            <Grid item xs={6}>
+              <Typography color="textPrimary" variant="body">
+                {name}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography color="textPrimary" variant="caption">
+                {moment(date).calendar(null, {
+                  sameDay: '[Today]',
+                  nextDay: '[Tomorrow]',
+                  nextWeek: 'dddd',
+                  lastDay: '[Yesterday]',
+                  lastWeek: '[Last] dddd',
+                  sameElse: 'MMM DD, YYYY',
+                })}
+                {` @ ${moment(date).format('h:mm A')}`}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   )
 }
@@ -84,6 +130,8 @@ function ActivityHeader({ name, date }) {
 ActivityHeader.propTypes = {
   name: PropTypes.string,
   date: PropTypes.string,
+  avatar: PropTypes.object,
+  title: PropTypes.string,
 }
 
 function ActivityContent({
@@ -108,7 +156,7 @@ function ActivityContent({
         />
       </Avatar>
       <Box flexGrow={1} onClick={onCardClick}>
-        <ActivityHeader name={name} date={date} />
+        <ActivityHeader name={name} date={date} title={title} avatar={avatar} />
         {isPosted && (
           <Typography className={classes.activityBody} variant="body1">
             <b>
@@ -153,7 +201,7 @@ ActivityContent.propTypes = {
 }
 
 function ActivityActions({
-  upvotes, downvotes, liked, onLike,
+  upvotes, downvotes, liked, onLike, handleExpandClick, expanded,
 }) {
   const classes = useStyles()
   return (
@@ -169,6 +217,16 @@ function ActivityActions({
           <BookmarkBorderIcon />
         )}
       </IconButton>
+      <IconButton
+        className={clsx(classes.expand, {
+          [classes.expandOpen]: expanded,
+        })}
+        onClick={handleExpandClick}
+        aria-expanded={expanded}
+        aria-label="show more"
+      >
+        <ExpandMoreIcon />
+      </IconButton>
     </>
   )
 }
@@ -178,6 +236,8 @@ ActivityActions.propTypes = {
   downvotes: PropTypes.number,
   liked: PropTypes.bool,
   onLike: PropTypes.func,
+  handleExpandClick: PropTypes.func,
+  expanded: PropTypes.bool,
 }
 
 export const ActivityCard = memo(
@@ -210,27 +270,53 @@ export const ActivityCard = memo(
     }, [])
 
     const classes = useStyles({ cardColor, width })
+    const [expanded, setExpanded] = useState(false)
+
+    // const handleExpandClick = () => {
+    //   console.log('handleExpandClick', expanded)
+    //   setExpanded(!expanded)
+    // }
     return (
       <Card className={classes.root}>
         <CardContent>
-          <ActivityContent
-            name={name}
-            date={date}
-            content={content}
-            avatar={avatar}
-            username={username}
-            handleRedirectToProfile={handleRedirectToProfile}
-            onCardClick={onCardClick}
-            post={post}
-            activityType={activityType}
-          />
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <ActivityContent
+              name={name}
+              date={date}
+              content={content}
+              avatar={avatar}
+              username={username}
+              handleRedirectToProfile={handleRedirectToProfile}
+              onCardClick={onCardClick}
+              post={post}
+              activityType={activityType}
+            />
+          </Collapse>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions className={classes.ActivityActions} disableSpacing>
+          {
+            !expanded && (
+              <ActivityHeader
+                name={name}
+                date={date}
+                content={content}
+                avatar={avatar}
+                username={username}
+                handleRedirectToProfile={handleRedirectToProfile}
+                onCardClick={onCardClick}
+                post={post}
+                activityType={activityType}
+                title={post.title}
+              />
+            )
+          }
           <ActivityActions
             upvotes={upvotes}
             downvotes={downvotes}
             liked={liked}
             onLike={onLike}
+            handleExpandClick={() => setExpanded(!expanded)}
+            expanded={expanded}
           />
         </CardActions>
       </Card>
