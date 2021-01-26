@@ -15,7 +15,7 @@ module.exports = {
     serviceworker: true,
     'cypress/globals': true,
   },
-  plugins: ['react', 'jsx-a11y', 'cypress'],
+  plugins: ['react', 'jsx-a11y', 'cypress', "only-warn"],
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
