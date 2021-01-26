@@ -28,6 +28,8 @@ import ReactDOM from 'react-dom'
 import Scoreboard from 'layouts/Scoreboard'
 import TokenExpired from 'layouts/TokenExpired'
 import store, { persistor } from 'store/store'
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginReact from '@bugsnag/plugin-react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import customTheme from './theme'
 import 'assets/scss/material-dashboard-pro-react.scss'
@@ -35,6 +37,13 @@ import LogoutPage from './components/LogoutPage'
 
 import 'fontsource-montserrat'
 import ErrorPage from './mui-pro/views/Pages/ErrorPage'
+
+Bugsnag.start({
+  apiKey: '8abc6ef921198b96692efde8ec89b695',
+  plugins: [new BugsnagPluginReact()],
+})
+
+const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React)
 
 const hist = createBrowserHistory()
 hist.listen(() => {
@@ -44,23 +53,25 @@ hist.listen(() => {
 const theme = createMuiTheme(customTheme)
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <Router history={hist}>
-            <Switch>
-              <Route path="/auth" component={AuthLayout} />
-              <Route path="/hhsb" component={Scoreboard} />
-              <Route path="/unauth" component={TokenExpired} />
-              <Route path="/logout" component={LogoutPage} />
-              <Route path="/error" component={ErrorPage} />
-              <Redirect from="/" to="/auth" />
-            </Switch>
-          </Router>
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
-  </ApolloProvider>,
-  document.getElementById('root')
+  <ErrorBoundary>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <Router history={hist}>
+              <Switch>
+                <Route path="/auth" component={AuthLayout} />
+                <Route path="/hhsb" component={Scoreboard} />
+                <Route path="/unauth" component={TokenExpired} />
+                <Route path="/logout" component={LogoutPage} />
+                <Route path="/error" component={ErrorPage} />
+                <Redirect from="/" to="/auth" />
+              </Switch>
+            </Router>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
+    </ApolloProvider>
+  </ErrorBoundary>,
+  document.getElementById('root'),
 )
