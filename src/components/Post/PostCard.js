@@ -149,7 +149,6 @@ const getCardBg = (activityType = 'POSTED') => {
 }
 
 function PostCard(props) {
-  console.log("POSTCARD PROPS:", props)
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector((state) => state.user.data)

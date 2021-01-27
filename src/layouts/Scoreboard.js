@@ -51,7 +51,6 @@ function Scoreboard(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
-
   const [color] = React.useState('blue')
   const [bgColor] = React.useState('black')
   const [logo] = React.useState(logoWhite)

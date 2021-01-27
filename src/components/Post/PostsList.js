@@ -38,7 +38,7 @@ export function LoadPostsList({
       pageStart={0}
       loadMore={onLoadMore}
       hasMore={hasMore}
-      loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
+      loader={<div className="loader" key={0}><LoadingSpinner size={30} marginTop={"15px"}/></div>}
     >
       <Grid
         container
@@ -62,9 +62,8 @@ export function LoadPostsList({
 }
 
 LoadPostsList.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
   onLoadMore: PropTypes.func.isRequired,
-  cols: PropTypes.number.isRequired,
 }
 
 export default function PostList({
@@ -76,7 +75,6 @@ export default function PostList({
   return (
     <LoadPostsList
       data={data}
-      cols={cols}
       onLoadMore={() => fetchMore({
         variables: {
           ...variables,
@@ -101,7 +99,7 @@ export default function PostList({
 }
 
 PostList.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   limit: PropTypes.number.isRequired,
   fetchMore: PropTypes.func.isRequired,
