@@ -38,7 +38,7 @@ export function LoadPostsList({
       pageStart={0}
       loadMore={onLoadMore}
       hasMore={hasMore}
-      loader={<div className="loader" key={0}><LoadingSpinner size={30} marginTop={"15px"}/></div>}
+      loader={<div className="loader" key={0}><LoadingSpinner size={30} /></div>}
     >
       <Grid
         container

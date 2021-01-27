@@ -100,7 +100,7 @@ function Scoreboard(props) {
 
   return (
     <MuiThemeProvider theme={theme}>
-       <div className={classes.root}>
+      <div className={classes.root}>
         <CssBaseline />
         <Hidden only={['xs', 'sm']}>
           <MainNavBar

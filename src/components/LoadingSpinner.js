@@ -12,5 +12,5 @@ export default function LoadingSpinner({ size = 80, marginTop = '15px' }) {
 
 LoadingSpinner.propTypes = {
   size: PropTypes.number.isRequired,
-  marginTop: PropTypes.string.isRequired,
+  marginTop: PropTypes.string,
 }
