@@ -15,7 +15,7 @@ import NoFollowers from 'components/Profile/NoFollowers'
 
 export default FollowInfo
 
-FollowInfo.PropTypes = {
+FollowInfo.propTypes = {
   filter: PropTypes.string.isRequired,
 }
 /*  eslint no-underscore-dangle: ["error", { "allow": ["_followingId", "_id"] }] */
