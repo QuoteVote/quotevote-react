@@ -270,7 +270,7 @@ PostCard.propTypes = {
   bookmarkedBy: PropTypes.array.isRequired,
   created: PropTypes.string.isRequired,
   onHidePost: PropTypes.func.isRequired,
-  onBookmark: PropTypes.func.isRequired,
+  onBookmark: PropTypes.func,
   creator: PropTypes.any,
   activityType: PropTypes.string,
   avatar: PropTypes.object,
