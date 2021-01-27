@@ -149,6 +149,7 @@ const getCardBg = (activityType = 'POSTED') => {
 }
 
 function PostCard(props) {
+  console.log("POSTCARD PROPS:", props)
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector((state) => state.user.data)
@@ -158,6 +159,7 @@ function PostCard(props) {
     _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, creator,
     activityType, limitText,
   } = props
+
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
   const handleRedirectToProfile = (username) => {
@@ -254,7 +256,7 @@ function PostCard(props) {
     </Card>
   )
 }
-PostCard.defaults = {
+PostCard.defaultProps = {
   activityType: 'POSTED',
 }
 
@@ -270,7 +272,7 @@ PostCard.propTypes = {
   onHidePost: PropTypes.func.isRequired,
   onBookmark: PropTypes.func.isRequired,
   creator: PropTypes.any,
-  activityType: PropTypes.string.isRequired,
+  activityType: PropTypes.string,
   avatar: PropTypes.object,
   width: PropTypes.any,
   limitText: PropTypes.bool,
