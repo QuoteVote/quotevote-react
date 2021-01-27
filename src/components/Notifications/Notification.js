@@ -92,7 +92,7 @@ function Notification({
 
 Notification.propTypes = {
   loading: PropTypes.bool.isRequired,
-  notifications: PropTypes.object.isRequired,
+  notifications: PropTypes.array.isRequired,
   spacing: PropTypes.number,
   pageView: PropTypes.bool,
   setOpenPopUp: PropTypes.func,

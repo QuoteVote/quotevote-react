@@ -29,6 +29,7 @@ function DisplayAvatar(props) {
     height,
     width: height,
   }
+
   return (
     <>
       <Avatar
