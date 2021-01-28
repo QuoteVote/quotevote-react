@@ -144,7 +144,7 @@ ActivityContent.propTypes = {
   username: PropTypes.string,
   date: PropTypes.string,
   content: PropTypes.string,
-  avatar: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+  avatar: PropTypes.any,
   width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']),
   handleRedirectToProfile: PropTypes.func,
   onCardClick: PropTypes.func,
@@ -239,7 +239,7 @@ export const ActivityCard = memo(
 )
 
 ActivityCard.propTypes = {
-  avatar: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+  avatar: PropTypes.any,
   content: PropTypes.string,
   cardColor: PropTypes.string,
   name: PropTypes.string,
