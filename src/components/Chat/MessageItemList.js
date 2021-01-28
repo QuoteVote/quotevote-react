@@ -52,7 +52,7 @@ export default function MessageItemList() {
       <ScrollableFeed>
         {loading && <LoadingSpinner size={50} />}
         {messageData.map((message) => (
-          <ListItem alignItems="flex-start">
+          <ListItem alignItems="flex-start" key={message._id}>
             <MessageItem message={message} />
           </ListItem>
         ))}

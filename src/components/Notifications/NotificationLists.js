@@ -203,7 +203,7 @@ function NotificationLists({ notifications, pageView }) {
 }
 
 NotificationLists.propTypes = {
-  notifications: PropTypes.object.isRequired,
+  notifications: PropTypes.array.isRequired,
   pageView: PropTypes.bool,
 }
 export default NotificationLists

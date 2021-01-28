@@ -95,6 +95,7 @@ function BuddyItemList({ buddyList }) {
       dispatch(SELECTED_CHAT_ROOM(room))
     }
   }
+
   return (
     <>
       {!buddyList.length && (
