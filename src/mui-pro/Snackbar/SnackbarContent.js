@@ -23,6 +23,8 @@ export default function SnackbarContent(props) {
   const messageClasses = cx({
     [classes.iconMessage]: icon !== undefined,
   })
+
+  console.log("SNACKBARCONTENT",props)
   if (close !== undefined) {
     action = [
       <IconButton

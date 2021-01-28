@@ -23,6 +23,7 @@ export default function Snackbar(props) {
   const messageClasses = cx({
     [classes.iconMessage]: icon !== undefined
   });
+  
   if (close !== undefined) {
     action = [
       <IconButton
@@ -82,7 +83,7 @@ export default function Snackbar(props) {
 }
 
 Snackbar.defaultProps = {
-  color: "info"
+  color: 'info',
 };
 
 Snackbar.propTypes = {

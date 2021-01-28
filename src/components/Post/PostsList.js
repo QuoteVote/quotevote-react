@@ -53,6 +53,7 @@ export function LoadPostsList({
               {...prop}
               onHidePost={handleHidePost}
               user={user}
+              key={prop._id}
             />
           </Grid>
         ))}
