@@ -146,7 +146,7 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
         class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-flex-end MuiGrid-justify-xs-flex-end"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-31 makeStyles-button-4"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-31 makeStyles-lg-54 makeStyles-button-4"
           id="submit-button"
           tabindex="0"
           type="submit"

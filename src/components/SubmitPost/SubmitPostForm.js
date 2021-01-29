@@ -291,7 +291,7 @@ function SubmitPostForm({ options = [], user }) {
   )
 }
 SubmitPostForm.propTypes = {
-  options: PropTypes.object,
+  options: PropTypes.array,
   user: PropTypes.object,
 }
 
