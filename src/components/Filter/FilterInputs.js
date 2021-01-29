@@ -73,7 +73,7 @@ function FilterInputs({
 
 FilterInputs.propTypes = {
   filterState: PropTypes.object,
-  selectAll: PropTypes.bool,
+  selectAll: PropTypes.string,
   setOffset: PropTypes.func,
   handleSelectAll: PropTypes.func,
   handleActivityEvent: PropTypes.func,
