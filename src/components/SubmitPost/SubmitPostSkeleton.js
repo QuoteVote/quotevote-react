@@ -9,8 +9,8 @@ function SubmitPostSkeleton() {
   return (
     <Card>
       <CardBody>
-        {variants.map((variant) => (
-          <Typography component="div" key={variant} variant={variant}>
+        {variants.map((variant, index) => (
+          <Typography component="div" key={index} variant={variant}>
             <Skeleton />
           </Typography>
         ))}
