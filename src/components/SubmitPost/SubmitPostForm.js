@@ -275,7 +275,7 @@ function SubmitPostForm({ options = [], user }) {
               id="submit-button"
               type="submit"
               variant="contained"
-              size="large"
+              size="lg"
               className={classes.button}
               disabled={loadingGroup || loading}
             >
