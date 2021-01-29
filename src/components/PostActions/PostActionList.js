@@ -87,7 +87,7 @@ function PostActionList({ postActions, loading, postUrl }) {
 }
 
 PostActionList.propTypes = {
-  postActions: PropTypes.object.isRequired,
+  postActions: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   postUrl: PropTypes.string,
 }
