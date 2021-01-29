@@ -55,7 +55,7 @@ function Notification({
     >
       <Grid item>
         <Typography variant="h5">Notifications</Typography>
-        <Divider variant="hr" />
+        <Divider />
         {!pageView && (
           <Tooltip
             title="Open Notifications"
