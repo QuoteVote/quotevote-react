@@ -48,7 +48,7 @@ export function LoadPostsList({
         spacing={0}
       >
         {rankedPosts.map((prop) => (
-          <Grid item style={{ marginBottom: -25 }}>
+          <Grid item style={{ marginBottom: -25 }} key={prop._id}>
             <PostCard
               {...prop}
               onHidePost={handleHidePost}
