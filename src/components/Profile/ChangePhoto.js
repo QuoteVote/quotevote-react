@@ -161,7 +161,7 @@ function ChangePhoto() {
                 const { displayName, name, options } = category
                 if (!shouldIgnore[displayName]) {
                   return (
-                    <Grid container item>
+                    <Grid container item key={category.name}>
                       <Grid item>
                         <Grid container>
                           <Grid item style={{ margin: 15 }}>
@@ -174,7 +174,7 @@ function ChangePhoto() {
                                   className={classes.selectInput}
                                 >
                                   {
-                                    options.map((i) => <MenuItem value={i}>{i}</MenuItem>)
+                                    options.map((i) => <MenuItem value={i} key={i}>{i}</MenuItem>)
                                   }
                                 </Select>
                               )}
