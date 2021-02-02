@@ -8,6 +8,7 @@ import Post from '../../components/Post/Post'
 import PostActionList from '../../components/PostActions/PostActionList'
 import { GET_POST } from '../../graphql/query'
 import PostSkeleton from '../../components/Post/PostSkeleton'
+import PostChat from '../../components/PostChat/PostChat'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -60,6 +61,9 @@ function PostPage() {
     >
       <Grid item xs={12} md={6}>
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <PostChat />
       </Grid>
       <Grid item xs={12} md={6}>
         <PostActionList loading={loading} postActions={postActions} postUrl={url} />
