@@ -55,7 +55,7 @@ function PostChatMessage(props) {
   const { message } = props
   const classes = useStyles()
   const userId = useSelector((state) => state.user.data._id)
-  const isDefaultDirection = message.userId !== userId
+  const isDefaultDirection = message.user.userId !== userId
   const direction = isDefaultDirection ? 'row' : 'row-reverse'
 
   return (
@@ -68,7 +68,7 @@ function PostChatMessage(props) {
     >
       <Grid item xs={2} md={2}>
         <Avatar>
-          <AvatarDisplay height={70} width={70} {...message.avatar} />
+          <AvatarDisplay height={70} width={70} {...message.user.avatar} />
         </Avatar>
       </Grid>
       <Grid item xs={10} md={10}>

@@ -38,12 +38,12 @@ const useStyles = makeStyles(() => ({
 function PostChat(props) {
   const dispatch = useDispatch()
   const { messageRoomId } = props
-  console.log(messageRoomId)
   const [text, setText] = useState()
   const classes = useStyles()
   const avatar = useSelector((state) => state.user.data.avatar)
   const user = useSelector((state) => state.user.data)
   const userId = useSelector((state) => state.user.data._id)
+  let messages = [{text: 'SHALALA', timestamp: 'TIME', user: { avatar: avatar, userId: userId }},{text: 'Boom Boom', timestamp: 'TIME', user: { avatar: avatar, userId: userId }}]
 
   function handleSubmit() {
     console.log('click click')
@@ -87,9 +87,9 @@ function PostChat(props) {
           </Paper>
         </Grid>
       </Grid>
-      {/* {messages.map((message) => (
+      {messages.map((message) => (
         <PostChatMessage message={message} />
-      ))} */}
+      ))} 
     </Grid>
   )
 }
