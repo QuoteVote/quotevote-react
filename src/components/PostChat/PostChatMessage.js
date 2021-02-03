@@ -93,7 +93,7 @@ function PostChatMessage(props) {
 }
 
 PostChatMessage.propTypes = {
-  message: PropTypes.array,
+  message: PropTypes.object,
 }
 
 export default PostChatMessage

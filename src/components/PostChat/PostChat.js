@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+import { CHAT_SUBMITTING } from 'store/chat'
+import { useMutation } from '@apollo/react-hooks'
 import { Grid, InputBase } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useSelector } from 'react-redux'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import SendIcon from 'assets/svg/SendIcon.svg'
 import PostChatMessage from './PostChatMessage'
+import { SEND_MESSAGE } from '../../graphql/mutations'
+import { GET_ROOM_MESSAGES } from '../../graphql/query'
 
 const useStyles = makeStyles(() => ({
   chatRoot: {
@@ -32,15 +36,17 @@ const useStyles = makeStyles(() => ({
 }))
 
 function PostChat(props) {
-  const { postId } = props
+  const dispatch = useDispatch()
+  const { messageRoomId } = props
+  console.log(messageRoomId)
   const [text, setText] = useState()
   const classes = useStyles()
   const avatar = useSelector((state) => state.user.data.avatar)
+  const user = useSelector((state) => state.user.data)
   const userId = useSelector((state) => state.user.data._id)
-  const messages = [{ text: 'HEYYYYYY', timestamp: 'TIME', avatar: avatar }, { text: 'HEYYYYYY', timestamp: 'TIME', avatar: avatar, userId: userId } ]
 
   function handleSubmit() {
-    const dateSubmitted = new Date()
+    console.log('click click')
   }
 
   return (
@@ -81,9 +87,9 @@ function PostChat(props) {
           </Paper>
         </Grid>
       </Grid>
-      {messages.map((message) => (
-      <PostChatMessage message={message} />
-      ))}
+      {/* {messages.map((message) => (
+        <PostChatMessage message={message} />
+      ))} */}
     </Grid>
   )
 }

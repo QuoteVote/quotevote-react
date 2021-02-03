@@ -46,7 +46,6 @@ export default function MessageItemList() {
   if (error) return 'Something went wrong!'
 
   const messageData = (!loading && data.messages) || []
-  console.log(messageData)
 
   return (
     <List className={classes.root} dense>
