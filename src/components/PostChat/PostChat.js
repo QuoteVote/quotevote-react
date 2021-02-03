@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import { Grid, InputBase, SvgIcon, Icon, Button } from '@material-ui/core'
+import PropTypes from 'prop-types'
+import { Grid, InputBase } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useSelector } from 'react-redux'
-import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
 import Typography from '@material-ui/core/Typography'
 import SendIcon from 'assets/svg/SendIcon.svg'
-import AvatarDisplay from '../Avatar'
+import PostChatMessage from './PostChatMessage'
 
 const useStyles = makeStyles(() => ({
   chatRoot: {
@@ -68,18 +67,15 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-function PostChat() {
-  const [message, setMessage] = useState()
+function PostChat(props) {
+  const { postId } = props
+  const [text, setText] = useState()
   const classes = useStyles()
   const avatar = useSelector((state) => state.user.data.avatar)
-  const user = useSelector((state) => state.user.data)
-
-  console.log(user.avatar, user._id, user.username)
-  // const isDefaultDirection = message.userId !== userId
-  // const direction = isDefaultDirection ? 'row' : 'row-reverse'
+  const messages = []
 
   function handleSubmit() {
-    console.log(message)
+    console.log('click')
   }
 
   return (
@@ -102,7 +98,7 @@ function PostChat() {
               className={classes.input}
               onChange={(event) => {
                 const { value } = event.target
-                setMessage(value)
+                setText(value)
               }}
               onKeyPress={(event) => {
                 if (event.key === 'Enter') {
@@ -115,41 +111,18 @@ function PostChat() {
                 handleSubmit()
               }}
             >
-                <img src={SendIcon}></img>
+              <img src={SendIcon} alt="send"></img>
             </IconButton>
           </Paper>
         </Grid>
       </Grid>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        className={classes.chatRoot}
-      >
-        <Grid item xs={2} md={2}>
-            <Avatar>
-            <AvatarDisplay height={70} width={70} {...avatar} />
-            </Avatar>
-        </Grid>
-        <Grid item xs={10} md={10}>
-            <Paper className={classes.bubble}>
-                <Typography variant="p">
-                Message will go here
-                </Typography>
-                <Grid container direction="row" justify="flex-end">
-                <Grid item md={3} xs={3}>
-                    <Typography className="timestamp">[TimeStamp]</Typography>
-                </Grid>
-                <Grid item md={1} xs={1}>
-                    <FavoriteBorderOutlinedIcon onClick={(event) => { console.log('Love Love') }} />
-                </Grid>
-                </Grid>
-            </Paper>
-        </Grid>
-      </Grid>
+      <PostChatMessage messages={messages} />
     </Grid>
   )
+}
+
+PostChat.propTypes = {
+  postId: PropTypes.string,
 }
 
 export default PostChat

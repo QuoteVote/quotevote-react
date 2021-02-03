@@ -63,7 +63,7 @@ function PostPage() {
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}
       </Grid>
       <Grid item xs={12} md={6}>
-        <PostChat />
+        <PostChat postId={postId}/>
       </Grid>
       <Grid item xs={12} md={6}>
         <PostActionList loading={loading} postActions={postActions} postUrl={url} />
