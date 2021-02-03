@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { CHAT_SUBMITTING } from 'store/chat'
-import { useMutation } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import { Grid, InputBase } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -36,6 +36,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 function PostChat(props) {
+  console.log(props)
   const dispatch = useDispatch()
   const { messageRoomId } = props
   const [text, setText] = useState()
@@ -43,7 +44,15 @@ function PostChat(props) {
   const avatar = useSelector((state) => state.user.data.avatar)
   const user = useSelector((state) => state.user.data)
   const userId = useSelector((state) => state.user.data._id)
-  let messages = [{text: 'SHALALA', timestamp: 'TIME', user: { avatar: avatar, userId: userId }},{text: 'Boom Boom', timestamp: 'TIME', user: { avatar: avatar, userId: userId }}]
+  const {
+    loading, error, data, refetch,
+  } = useQuery(GET_ROOM_MESSAGES, {
+    variables: { messageRoomId },
+  })
+
+  console.log(data)
+
+  const messages = (!loading && data.messages) || []
 
   function handleSubmit() {
     console.log('click click')
