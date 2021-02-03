@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import {
   Grid, Paper, Typography, Avatar,
 } from '@material-ui/core'
@@ -51,49 +52,48 @@ const useStyles = makeStyles(() => ({
 }))
 
 function PostChatMessage(props) {
-  const { messages } = props
+  const { message } = props
   const classes = useStyles()
+  const userId = useSelector((state) => state.user.data._id)
+  const isDefaultDirection = message.userId !== userId
+  const direction = isDefaultDirection ? 'row' : 'row-reverse'
 
   return (
-    <div>
-      {messages.map((message) => (
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-          className={classes.chatRoot}
-        >
-          <Grid item xs={2} md={2}>
-            <Avatar>
-              <AvatarDisplay height={70} width={70} {...message.avatar} />
-            </Avatar>
-          </Grid>
-          <Grid item xs={10} md={10}>
-            <Grid item xs={10} md={10}>
-              <Paper className={classes.bubble}>
-                <Typography variant="p">
-                  {message.text}
-                </Typography>
-                <Grid container direction="row" justify="flex-end">
-                  <Grid item md={3} xs={3}>
-                    <Typography className="timestamp">{message.timestamp}</Typography>
-                  </Grid>
-                  <Grid item md={1} xs={1}>
-                    <FavoriteBorderOutlinedIcon onClick={(event) => { console.log('Love Love') }} />
-                  </Grid>
-                </Grid>
-              </Paper>
+    <Grid
+      container
+      direction={direction}
+      justify="space-between"
+      alignItems="center"
+      className={classes.chatRoot}
+    >
+      <Grid item xs={2} md={2}>
+        <Avatar>
+          <AvatarDisplay height={70} width={70} {...message.avatar} />
+        </Avatar>
+      </Grid>
+      <Grid item xs={10} md={10}>
+        <Grid item xs={10} md={10}>
+          <Paper className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
+            <Typography variant="p">
+              {message.text}
+            </Typography>
+            <Grid container direction="row" justify="flex-end">
+              <Grid item md={3} xs={3}>
+                <Typography className="timestamp">{message.timestamp}</Typography>
+              </Grid>
+              <Grid item md={1} xs={1}>
+                <FavoriteBorderOutlinedIcon onClick={(event) => { console.log('Love Love') }} />
+              </Grid>
             </Grid>
-          </Grid>
+          </Paper>
         </Grid>
-      ))}
-    </div>
+      </Grid>
+    </Grid>
   )
 }
 
 PostChatMessage.propTypes = {
-  messages: PropTypes.array,
+  message: PropTypes.array,
 }
 
 export default PostChatMessage

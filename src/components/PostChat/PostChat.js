@@ -29,42 +29,6 @@ const useStyles = makeStyles(() => ({
     height: 39,
     paddingLeft: 10,
   },
-  bubble: {
-    position: 'relative',
-    background: '#ffffff',
-    minHeight: 30,
-    minWidth: 250,
-    width: 450,
-    marginLeft: '10px',
-    borderRadius: '6px',
-    padding: 5,
-    '&::after': {
-      content: "''",
-      position: 'absolute',
-      border: '10px solid transparent',
-      borderTop: '10px solid #ffffff',
-      top: '0px',
-      left: '-10px',
-    },
-  },
-  bubbleReverse: {
-    position: 'relative',
-    background: '#00cf6e',
-    minHeight: 30,
-    minWidth: 250,
-    color: 'white',
-    marginRight: '10px',
-    borderRadius: '6px',
-    padding: 5,
-    '&::after': {
-      content: "''",
-      position: 'absolute',
-      border: '10px solid transparent',
-      borderTop: '10px solid #00cf6e',
-      top: '0px',
-      right: '-10px',
-    },
-  },
 }))
 
 function PostChat(props) {
@@ -72,10 +36,11 @@ function PostChat(props) {
   const [text, setText] = useState()
   const classes = useStyles()
   const avatar = useSelector((state) => state.user.data.avatar)
-  const messages = []
+  const userId = useSelector((state) => state.user.data._id)
+  const messages = [{ text: 'HEYYYYYY', timestamp: 'TIME', avatar: avatar }, { text: 'HEYYYYYY', timestamp: 'TIME', avatar: avatar, userId: userId } ]
 
   function handleSubmit() {
-    console.log('click')
+    const dateSubmitted = new Date()
   }
 
   return (
@@ -116,7 +81,9 @@ function PostChat(props) {
           </Paper>
         </Grid>
       </Grid>
-      <PostChatMessage messages={messages} />
+      {messages.map((message) => (
+      <PostChatMessage message={message} />
+      ))}
     </Grid>
   )
 }
