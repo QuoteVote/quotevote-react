@@ -12,35 +12,13 @@ import SendIcon from 'assets/svg/SendIcon.svg'
 import PostChatMessage from './PostChatMessage'
 import { SEND_MESSAGE } from '../../graphql/mutations'
 import { GET_ROOM_MESSAGES } from '../../graphql/query'
-
-const useStyles = makeStyles(() => ({
-  chatRoot: {
-    display: 'flex',
-    padding: 10,
-  },
-  chat: {
-    width: 59,
-    height: 30,
-    fontSize: 24,
-    lineHeight: 1.25,
-    letterSpacing: 0.25,
-    fontFamily: 'Montserrat',
-  },
-  input: {
-    borderRadius: 6,
-    background: '#ffffff',
-    width: 400,
-    height: 39,
-    paddingLeft: 10,
-  },
-}))
+import PostChatSend from './PostChatSend'
 
 function PostChat(props) {
   console.log(props)
   const dispatch = useDispatch()
   const { messageRoomId } = props
   const [text, setText] = useState()
-  const classes = useStyles()
   const avatar = useSelector((state) => state.user.data.avatar)
   const user = useSelector((state) => state.user.data)
   const userId = useSelector((state) => state.user.data._id)
@@ -50,52 +28,55 @@ function PostChat(props) {
     variables: { messageRoomId },
   })
 
-  console.log(data)
-
   const messages = (!loading && data.messages) || []
+  console.log(messages)
 
-  function handleSubmit() {
-    console.log('click click')
+  async function handleSubmit() {
+    // const dateSubmitted = new Date()
+    // await createMessage({
+    //   variables: { message },
+    //   optimisticResponse: {
+    //     __typename: 'Mutation',
+    //     createMessage: {
+    //       __typename: 'Message',
+    //       _id: dateSubmitted, // dummy
+    //       messageRoomId,
+    //       userName: user.name,
+    //       userId: user._id,
+    //       title,
+    //       text,
+    //       type,
+    //       created: dateSubmitted,
+    //       user: {
+    //         __typename: 'User',
+    //         name: user.name,
+    //         username: user.username,
+    //         avatar: user.avatar,
+    //       },
+    //     },
+    //   },
+    //   // eslint-disable-next-line no-shadow
+    //   update: (proxy, { data: { createMessage } }) => {
+    //     // Read the data from our cache for this query.
+    //     const data = proxy.readQuery({ query: GET_ROOM_MESSAGES, variables: { messageRoomId } })
+    //     if (data) {
+    //       // Write our data back to the cache with the new message in it
+    //       proxy.writeQuery({
+    //         query: GET_ROOM_MESSAGES,
+    //         variables: { messageRoomId },
+    //         data: {
+    //           ...data,
+    //           messages: [...data.messages, createMessage],
+    //         },
+    //       })
+    //     }
+    //   },
+    // })
   }
 
   return (
     <Grid container>
-      <Grid
-        item
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        className={classes.chatRoot}
-        style={{ width: '100%' }}
-      >
-        <Grid item md={2} xs={2}>
-          <Typography className={classes.chat}>Chat</Typography>
-        </Grid>
-        <Grid item md={10} xs={10}>
-          <Paper>
-            <InputBase
-              placeholder="type a message..."
-              className={classes.input}
-              onChange={(event) => {
-                const { value } = event.target
-                setText(value)
-              }}
-              onKeyPress={(event) => {
-                if (event.key === 'Enter') {
-                  handleSubmit()
-                }
-              }}
-            />
-            <IconButton
-              onClick={(event) => {
-                handleSubmit()
-              }}
-            >
-              <img src={SendIcon} alt="send"></img>
-            </IconButton>
-          </Paper>
-        </Grid>
-      </Grid>
+     <PostChatSend messageRoomId={messageRoomId} />
       {messages.map((message) => (
         <PostChatMessage message={message} />
       ))} 
