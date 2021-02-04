@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import SendIcon from 'assets/svg/SendIcon.svg'
-import PostChatMessage from './PostChatMessage'
 import { SEND_MESSAGE } from '../../graphql/mutations'
 import { GET_ROOM_MESSAGES } from '../../graphql/query'
 
@@ -36,11 +35,14 @@ const useStyles = makeStyles(() => ({
   }))
 
 function PostChatSend(props) {
+    console.log(props)
     const classes = useStyles()
-    const { messageRoomId } = props
-    const avatar = useSelector((state) => state.user.data.avatar)
+    const dispatch = useDispatch()
+    const { messageRoomId, title } = props
+    const type = 'Post'
+    const [text, setText] = useState()
+    const [ error, setError ] = useState(null)
     const user = useSelector((state) => state.user.data)
-    const userId = useSelector((state) => state.user.data._id)
     const [createMessage, { loading }] = useMutation(SEND_MESSAGE, {
         onError: (err) => {
         setError(err)
@@ -53,11 +55,59 @@ function PostChatSend(props) {
       }],
     })
   async function handleSubmit() {
+    dispatch(CHAT_SUBMITTING(true))
+    const dateSubmitted = new Date()
 
+    const message = {
+        title,
+        type,
+        messageRoomId,
+        text,
+      }
+
+    await createMessage({
+      variables: { message },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createMessage: {
+          __typename: 'Message',
+          _id: dateSubmitted, // dummy
+          messageRoomId,
+          userName: user.name,
+          userId: user._id,
+          title,
+          text,
+          type,
+          created: dateSubmitted,
+          user: {
+            __typename: 'User',
+            name: user.name,
+            username: user.username,
+            avatar: user.avatar,
+          },
+        },
+      },
+      // eslint-disable-next-line no-shadow
+      update: (proxy, { data: { createMessage } }) => {
+        // Read the data from our cache for this query.
+        const data = proxy.readQuery({ query: GET_ROOM_MESSAGES, variables: { messageRoomId, } })
+        if (data) {
+          // Write our data back to the cache with the new message in it
+          proxy.writeQuery({
+            query: GET_ROOM_MESSAGES,
+            variables: { messageRoomId, },
+            data: {
+              ...data,
+              messages: [...data.messages, createMessage],
+            },
+          })
+        }
+      },
+    })
 }
 
 return (
-    <Grid
+  <Grid
     item
     direction="row"
     justify="space-between"

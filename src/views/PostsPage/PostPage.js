@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery } from '@apollo/react-hooks'
@@ -33,6 +33,10 @@ function PostPage() {
 
   if (error) return 'Something went wrong!'
   const { post } = !loading && data
+  let title
+  if (post) {
+    title = post.title
+  }
   const {
     comments, votes, quotes, url,
   } = post || { comments: [], votes: [], quotes: [] }
@@ -62,10 +66,8 @@ function PostPage() {
       <Grid item xs={12} md={6}>
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}
       </Grid>
-      <Grid item xs={12} md={6}>
-        <PostChat messageRoomId={postId} />
-      </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid container direction="column" className={classes.root} xs={12} md={6}>
+        <PostChat messageRoomId={postId} title={title} />
         <PostActionList loading={loading} postActions={postActions} postUrl={url} />
       </Grid>
     </Grid>
