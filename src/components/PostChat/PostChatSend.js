@@ -20,16 +20,22 @@ const useStyles = makeStyles(() => ({
   chat: {
     width: 59,
     height: 30,
-    fontSize: 24,
+    fontSize: '1.7rem',
     lineHeight: 1.25,
     letterSpacing: 0.25,
+    color: '#474646',
     fontFamily: 'Montserrat',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   input: {
     borderRadius: 6,
     background: '#ffffff',
     height: 45,
     paddingLeft: 10,
+  },
+  send: {
+    float: 'right',
   },
 }))
 
@@ -110,44 +116,37 @@ function PostChatSend(props) {
   return (
     <Grid
       container
-      spacing={1}
       direction="row"
-      justify="space-around"
+      justify="center"
       alignItems="center"
       className={classes.root}
     >
-      <Grid item sm={1}>
+      <Grid item sm={2}>
         <Typography className={classes.chat}>Chat</Typography>
       </Grid>
-      <Grid item sm={10}>
-
-        <Paper>
-          <Grid container justify="center">
-            <Grid item sm={11}>
-              <InputBase
-                placeholder="type a message..."
-                className={classes.input}
-                onChange={(event) => {
-                  const { value } = event.target
-                  setText(value)
-                }}
-                onKeyPress={(event) => {
-                  if (event.key === 'Enter') {
-                    handleSubmit()
-                  }
-                }}
-              />
-            </Grid>
-            <Grid item sm={1}>
-              <IconButton
-                onClick={(event) => {
-                  handleSubmit()
-                }}
-              >
-                <img src={SendIcon} alt="send"></img>
-              </IconButton>
-            </Grid>
-          </Grid>
+      <Grid item sm={9}>
+        <Paper elevation={0}>
+          <InputBase
+            placeholder="type a message..."
+            className={classes.input}
+            onChange={(event) => {
+              const { value } = event.target
+              setText(value)
+            }}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                handleSubmit()
+              }
+            }}
+          />
+          <IconButton
+            className={classes.send}
+            onClick={(event) => {
+              handleSubmit()
+            }}
+          >
+            <img src={SendIcon} alt="send"></img>
+          </IconButton>
         </Paper>
       </Grid>
     </Grid>
@@ -156,6 +155,7 @@ function PostChatSend(props) {
 
 PostChatSend.propTypes = {
   messageRoomId: PropTypes.string,
+  title: PropTypes.string,
 }
 
 export default PostChatSend

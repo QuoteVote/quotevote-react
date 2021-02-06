@@ -12,10 +12,17 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: 10,
   },
+  avatar: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    height: '50px', 
+    width: '50px' 
+  },
   text: {
     fontFamily: 'Roboto',
-    fontSize: 15,
+    fontSize: 16,
     letterSpacing: 0.5,
+    lineHeight: 1.43,
   },
   bubble: {
     position: 'relative',
@@ -31,7 +38,7 @@ const useStyles = makeStyles(() => ({
       top: '0px',
       left: '-10px',
     },
-    color: 'var(--subsection-title-muted-black)',
+    color: '#474646',
   },
   bubbleReverse: {
     position: 'relative',
@@ -61,19 +68,18 @@ function PostChatMessage(props) {
   return (
     <Grid
       container
-      spacing={1}
       direction={direction}
-      justify="space-around"
+      justify={isDefaultDirection ? "center" : "flex-start"}
       alignItems="center"
       className={classes.root}
     >
-      <Grid item sm={1}>
-        <Avatar>
+      <Grid item sm={2}>
+        <Avatar className={classes.avatar}>
           <AvatarDisplay {...message.user.avatar} />
         </Avatar>
       </Grid>
-      <Grid item sm={10}>
-        <Paper className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
+      <Grid item sm={9}>
+        <Paper elevation={0} className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
           <Typography className={classes.text}>
             {message.text}
           </Typography>

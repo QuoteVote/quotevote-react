@@ -16,8 +16,6 @@ function PostChat(props) {
     variables: { messageRoomId },
   })
 
-  console.log(loading, data)
-
   useSubscription(
     NEW_MESSAGE_SUBSCRIPTION,
     {
@@ -38,7 +36,7 @@ function PostChat(props) {
       <PostChatSend messageRoomId={messageRoomId} title={title} />
       {orderedMessages.map((message) => (
         <PostChatMessage message={message} key={message._id} />
-      ))} 
+      ))}
     </Grid>
   )
 }
