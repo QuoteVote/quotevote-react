@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { CHAT_SUBMITTING } from 'store/chat'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import { Grid, InputBase } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -28,8 +28,7 @@ const useStyles = makeStyles(() => ({
   input: {
     borderRadius: 6,
     background: '#ffffff',
-    width: 450,
-    height: 39,
+    height: 45,
     paddingLeft: 10,
   },
 }))
@@ -45,7 +44,6 @@ function PostChatSend(props) {
   const [createMessage, { loading }] = useMutation(SEND_MESSAGE, {
     onError: (err) => {
       setError(err)
-      console.log(err)
     },
     refetchQueries: [{
       query: GET_ROOM_MESSAGES,
@@ -112,36 +110,44 @@ function PostChatSend(props) {
   return (
     <Grid
       container
+      spacing={1}
       direction="row"
-      justify="space-evenly"
+      justify="space-around"
       alignItems="center"
       className={classes.root}
     >
-      <Grid item>
+      <Grid item sm={1}>
         <Typography className={classes.chat}>Chat</Typography>
       </Grid>
-      <Grid item>
+      <Grid item sm={10}>
+
         <Paper>
-          <InputBase
-            placeholder="type a message..."
-            className={classes.input}
-            onChange={(event) => {
-              const { value } = event.target
-              setText(value)
-            }}
-            onKeyPress={(event) => {
-              if (event.key === 'Enter') {
-                handleSubmit()
-              }
-            }}
-          />
-          <IconButton
-            onClick={(event) => {
-              handleSubmit()
-            }}
-          >
-            <img src={SendIcon} alt="send"></img>
-          </IconButton>
+          <Grid container justify="center">
+            <Grid item sm={11}>
+              <InputBase
+                placeholder="type a message..."
+                className={classes.input}
+                onChange={(event) => {
+                  const { value } = event.target
+                  setText(value)
+                }}
+                onKeyPress={(event) => {
+                  if (event.key === 'Enter') {
+                    handleSubmit()
+                  }
+                }}
+              />
+            </Grid>
+            <Grid item sm={1}>
+              <IconButton
+                onClick={(event) => {
+                  handleSubmit()
+                }}
+              >
+                <img src={SendIcon} alt="send"></img>
+              </IconButton>
+            </Grid>
+          </Grid>
         </Paper>
       </Grid>
     </Grid>

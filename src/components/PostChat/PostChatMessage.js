@@ -12,14 +12,17 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: 10,
   },
+  text: {
+    fontFamily: 'Roboto',
+    fontSize: 15,
+    letterSpacing: 0.5,
+  },
   bubble: {
     position: 'relative',
     background: '#ffffff',
     minHeight: 30,
-    width: 500,
-    marginLeft: '10px',
     borderRadius: '6px',
-    padding: 5,
+    padding: 14,
     '&::after': {
       content: "''",
       position: 'absolute',
@@ -28,16 +31,15 @@ const useStyles = makeStyles(() => ({
       top: '0px',
       left: '-10px',
     },
+    color: 'var(--subsection-title-muted-black)',
   },
   bubbleReverse: {
     position: 'relative',
     background: '#00cf6e',
     minHeight: 30,
-    width: 500,
     color: 'white',
-    marginRight: '10px',
     borderRadius: '6px',
-    padding: 5,
+    padding: 14,
     '&::after': {
       content: "''",
       position: 'absolute',
@@ -59,22 +61,23 @@ function PostChatMessage(props) {
   return (
     <Grid
       container
+      spacing={1}
       direction={direction}
-      justify="space-evenly"
+      justify="space-around"
       alignItems="center"
       className={classes.root}
     >
-      <Grid item className={classes.root}>
+      <Grid item sm={1}>
         <Avatar>
-          <AvatarDisplay height={70} width={70} {...message.user.avatar} />
+          <AvatarDisplay {...message.user.avatar} />
         </Avatar>
       </Grid>
-      <Grid item>
+      <Grid item sm={10}>
         <Paper className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
-          <Typography variant="p">
+          <Typography className={classes.text}>
             {message.text}
           </Typography>
-          <PostChatReactions created={message.created}/>
+          <PostChatReactions created={message.created} />
         </Paper>
       </Grid>
     </Grid>

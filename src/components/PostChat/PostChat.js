@@ -15,6 +15,8 @@ function PostChat(props) {
     variables: { messageRoomId, },
   })
 
+  console.log(loading, data)
+
   useSubscription(
     NEW_MESSAGE_SUBSCRIPTION,
     {
@@ -24,12 +26,8 @@ function PostChat(props) {
       },
     },
   )
-
+ 
   const messages = (!loading && data.messages) || []
-
-  if (messages === undefined) {
-    return <div></div>
-  }
 
   return (
     <Grid container>

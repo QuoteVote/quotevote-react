@@ -170,11 +170,10 @@ exports[`Post Page test - renders correctly 1`] = `
       class="MuiGrid-root MuiGrid-container"
     >
       <div
-        class="MuiGrid-root makeStyles-root-2 MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-between"
-        style="width: 100%;"
+        class="MuiGrid-root makeStyles-root-2 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-evenly"
       >
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 MuiGrid-grid-md-2"
+          class="MuiGrid-root MuiGrid-item"
         >
           <p
             class="MuiTypography-root makeStyles-chat-3 MuiTypography-body1"
@@ -183,7 +182,7 @@ exports[`Post Page test - renders correctly 1`] = `
           </p>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 MuiGrid-grid-md-10"
+          class="MuiGrid-root MuiGrid-item"
         >
           <div
             class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
