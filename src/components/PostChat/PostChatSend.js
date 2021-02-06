@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   input: {
     borderRadius: 6,
     background: '#ffffff',
-    width: 400,
+    width: 450,
     height: 39,
     paddingLeft: 10,
   },
@@ -111,17 +111,16 @@ function PostChatSend(props) {
 
   return (
     <Grid
-      item
+      container
       direction="row"
-      justify="space-between"
+      justify="space-evenly"
       alignItems="center"
       className={classes.root}
-      style={{ width: '100%' }}
     >
-      <Grid item md={2} xs={2}>
+      <Grid item>
         <Typography className={classes.chat}>Chat</Typography>
       </Grid>
-      <Grid item md={10} xs={10}>
+      <Grid item>
         <Paper>
           <InputBase
             placeholder="type a message..."

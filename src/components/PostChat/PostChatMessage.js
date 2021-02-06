@@ -16,8 +16,7 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     background: '#ffffff',
     minHeight: 30,
-    minWidth: 250,
-    width: 450,
+    width: 500,
     marginLeft: '10px',
     borderRadius: '6px',
     padding: 5,
@@ -34,7 +33,7 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     background: '#00cf6e',
     minHeight: 30,
-    minWidth: 250,
+    width: 500,
     color: 'white',
     marginRight: '10px',
     borderRadius: '6px',
@@ -60,26 +59,24 @@ function PostChatMessage(props) {
   return (
     <Grid
       container
-      fullWidth
       direction={direction}
-      justify="center"
-      alignItems="flex-start"
+      justify="space-evenly"
+      alignItems="center"
       className={classes.root}
     >
-      <Grid item>
+      <Grid item className={classes.root}>
         <Avatar>
           <AvatarDisplay height={70} width={70} {...message.user.avatar} />
         </Avatar>
-        </Grid>
-        <Grid item>
-          <Paper className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
-            <Typography variant="p">
-              {message.text}
-            </Typography>
-            <PostChatReactions created={message.created}/>
-          </Paper>
-        </Grid>
-
+      </Grid>
+      <Grid item>
+        <Paper className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
+          <Typography variant="p">
+            {message.text}
+          </Typography>
+          <PostChatReactions created={message.created}/>
+        </Paper>
+      </Grid>
     </Grid>
   )
 }

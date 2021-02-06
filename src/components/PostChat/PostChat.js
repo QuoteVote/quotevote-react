@@ -27,7 +27,7 @@ function PostChat(props) {
 
   const messages = (!loading && data.messages) || []
 
-  if (!messages) {
+  if (messages === undefined) {
     return <div></div>
   }
 
