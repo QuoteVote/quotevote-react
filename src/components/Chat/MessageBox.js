@@ -110,6 +110,7 @@ function Header() {
 function Content() {
   const classes = useStyles()
   const { _id: messageRoomId, title, messageType } = useSelector((state) => state.chat.selectedRoom.room)
+  console.log(messageRoomId)
   return (
     <Grid
       container

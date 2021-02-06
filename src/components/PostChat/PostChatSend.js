@@ -13,58 +13,61 @@ import { SEND_MESSAGE } from '../../graphql/mutations'
 import { GET_ROOM_MESSAGES } from '../../graphql/query'
 
 const useStyles = makeStyles(() => ({
-    chatRoot: {
-      display: 'flex',
-      padding: 10,
-    },
-    chat: {
-      width: 59,
-      height: 30,
-      fontSize: 24,
-      lineHeight: 1.25,
-      letterSpacing: 0.25,
-      fontFamily: 'Montserrat',
-    },
-    input: {
-      borderRadius: 6,
-      background: '#ffffff',
-      width: 400,
-      height: 39,
-      paddingLeft: 10,
-    },
-  }))
+  root: {
+    display: 'flex',
+    padding: 10,
+  },
+  chat: {
+    width: 59,
+    height: 30,
+    fontSize: 24,
+    lineHeight: 1.25,
+    letterSpacing: 0.25,
+    fontFamily: 'Montserrat',
+  },
+  input: {
+    borderRadius: 6,
+    background: '#ffffff',
+    width: 400,
+    height: 39,
+    paddingLeft: 10,
+  },
+}))
 
 function PostChatSend(props) {
-    console.log(props)
-    const classes = useStyles()
-    const dispatch = useDispatch()
-    const { messageRoomId, title } = props
-    const type = 'Post'
-    const [text, setText] = useState()
-    const [ error, setError ] = useState(null)
-    const user = useSelector((state) => state.user.data)
-    const [createMessage, { loading }] = useMutation(SEND_MESSAGE, {
-        onError: (err) => {
-        setError(err)
+  const classes = useStyles()
+  const dispatch = useDispatch()
+  const { messageRoomId, title } = props
+  const type = 'POST'
+  const [text, setText] = useState()
+  const [error, setError] = useState(null)
+  const user = useSelector((state) => state.user.data)
+  const [createMessage, { loading }] = useMutation(SEND_MESSAGE, {
+    onError: (err) => {
+      setError(err)
+      console.log(err)
+    },
+    refetchQueries: [{
+      query: GET_ROOM_MESSAGES,
+      variables: {
+        messageRoomId,
       },
-      refetchQueries: [{
-        query: GET_ROOM_MESSAGES,
-        variables: {
-          messageRoomId,
-        },
-      }],
-    })
-  async function handleSubmit() {
+    }],
+  })
+
+  const handleSubmit = async () => {
     dispatch(CHAT_SUBMITTING(true))
-    const dateSubmitted = new Date()
 
     const message = {
-        title,
-        type,
-        messageRoomId,
-        text,
-      }
+      title,
+      type,
+      messageRoomId,
+      text,
+    }
 
+    setText('')
+
+    const dateSubmitted = new Date()
     await createMessage({
       variables: { message },
       optimisticResponse: {
@@ -90,12 +93,12 @@ function PostChatSend(props) {
       // eslint-disable-next-line no-shadow
       update: (proxy, { data: { createMessage } }) => {
         // Read the data from our cache for this query.
-        const data = proxy.readQuery({ query: GET_ROOM_MESSAGES, variables: { messageRoomId, } })
+        const data = proxy.readQuery({ query: GET_ROOM_MESSAGES, variables: { messageRoomId } })
         if (data) {
-          // Write our data back to the cache with the new message in it
+        // Write our data back to the cache with the new message in it
           proxy.writeQuery({
             query: GET_ROOM_MESSAGES,
-            variables: { messageRoomId, },
+            variables: { messageRoomId },
             data: {
               ...data,
               messages: [...data.messages, createMessage],
@@ -104,50 +107,50 @@ function PostChatSend(props) {
         }
       },
     })
-}
+  }
 
-return (
-  <Grid
-    item
-    direction="row"
-    justify="space-between"
-    alignItems="center"
-    className={classes.chatRoot}
-    style={{ width: '100%' }}
-  >
-    <Grid item md={2} xs={2}>
-      <Typography className={classes.chat}>Chat</Typography>
-    </Grid>
-    <Grid item md={10} xs={10}>
-      <Paper>
-        <InputBase
-          placeholder="type a message..."
-          className={classes.input}
-          onChange={(event) => {
-            const { value } = event.target
-            setText(value)
-          }}
-          onKeyPress={(event) => {
-            if (event.key === 'Enter') {
+  return (
+    <Grid
+      item
+      direction="row"
+      justify="space-between"
+      alignItems="center"
+      className={classes.root}
+      style={{ width: '100%' }}
+    >
+      <Grid item md={2} xs={2}>
+        <Typography className={classes.chat}>Chat</Typography>
+      </Grid>
+      <Grid item md={10} xs={10}>
+        <Paper>
+          <InputBase
+            placeholder="type a message..."
+            className={classes.input}
+            onChange={(event) => {
+              const { value } = event.target
+              setText(value)
+            }}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                handleSubmit()
+              }
+            }}
+          />
+          <IconButton
+            onClick={(event) => {
               handleSubmit()
-            }
-          }}
-        />
-        <IconButton
-          onClick={(event) => {
-            handleSubmit()
-          }}
-        >
-          <img src={SendIcon} alt="send"></img>
-        </IconButton>
-      </Paper>
+            }}
+          >
+            <img src={SendIcon} alt="send"></img>
+          </IconButton>
+        </Paper>
+      </Grid>
     </Grid>
-  </Grid>
-)
+  )
 }
 
 PostChatSend.propTypes = {
-    messageRoomId: PropTypes.string,
-  }
+  messageRoomId: PropTypes.string,
+}
 
 export default PostChatSend

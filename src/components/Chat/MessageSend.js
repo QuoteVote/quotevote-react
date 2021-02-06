@@ -48,6 +48,7 @@ export default function MessageSend({ messageRoomId, type, title }) {
       text,
     }
     setText('')
+
     const dateSubmitted = new Date()
     await createMessage({
       variables: { message },

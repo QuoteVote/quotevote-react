@@ -99,6 +99,13 @@ export const GET_POST = gql`
           avatar
         }
       }
+      messageRoom {
+        _id
+        users
+        postId
+        messageType
+        created
+      }
     }
   }
 `

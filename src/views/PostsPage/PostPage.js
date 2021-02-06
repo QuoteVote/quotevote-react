@@ -33,9 +33,13 @@ function PostPage() {
 
   if (error) return 'Something went wrong!'
   const { post } = !loading && data
+  console.log(post)
+
+  let messageRoomId
   let title
   if (post) {
     title = post.title
+    messageRoomId = post.messageRoom._id
   }
   const {
     comments, votes, quotes, url,
@@ -66,8 +70,8 @@ function PostPage() {
       <Grid item xs={12} md={6}>
         {loading ? <PostSkeleton /> : <Post post={post} loading={loading} user={user} />}
       </Grid>
-      <Grid container direction="column" className={classes.root} xs={12} md={6}>
-        <PostChat messageRoomId={postId} title={title} />
+      <Grid item direction="column" className={classes.root} xs={12} md={6}>
+        <PostChat messageRoomId={messageRoomId} title={title} />
         <PostActionList loading={loading} postActions={postActions} postUrl={url} />
       </Grid>
     </Grid>

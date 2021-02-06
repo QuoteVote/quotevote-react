@@ -77,6 +77,7 @@ cache.writeData({
 const client = new ApolloClient({
   // By default, this client will send queries to the
   //  `/graphql` endpoint on the same host
+  connectToDevTools: true,
   link: concat(authMiddleware, link),
   cache,
   resolvers: {},
