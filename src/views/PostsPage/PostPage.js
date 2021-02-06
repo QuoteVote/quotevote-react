@@ -29,6 +29,7 @@ function PostPage() {
     variables: { postId },
     fetchPolicy: 'cache-and-network',
   })
+
   const user = useSelector((state) => state.user.data)
 
   if (error) return 'Something went wrong!'
