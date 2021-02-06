@@ -4,14 +4,12 @@ import { useSelector } from 'react-redux'
 import {
   Grid, Paper, Typography, Avatar,
 } from '@material-ui/core'
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import AvatarDisplay from '../Avatar'
-import moment from 'moment'
+import PostChatReactions from './PostChatReactions'
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: 'flex',
     padding: 10,
   },
   bubble: {
@@ -54,7 +52,6 @@ const useStyles = makeStyles(() => ({
 
 function PostChatMessage(props) {
   const { message } = props
-  const time = moment(message.created).format('LT');
   const classes = useStyles()
   const userId = useSelector((state) => state.user.data._id)
   const isDefaultDirection = message.userId !== userId
@@ -63,27 +60,23 @@ function PostChatMessage(props) {
   return (
     <Grid
       container
+      fullWidth
       direction={direction}
-      justify="space-around"
-      alignItems="center"
+      justify="center"
+      alignItems="flex-start"
       className={classes.root}
     >
+      <Grid item>
         <Avatar>
           <AvatarDisplay height={70} width={70} {...message.user.avatar} />
         </Avatar>
-        <Grid item xs={10} md={10}>
+        </Grid>
+        <Grid item>
           <Paper className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
             <Typography variant="p">
               {message.text}
             </Typography>
-            <Grid container direction="row" justify="flex-end">
-              <Grid item md={3} xs={3}>
-                <Typography className="timestamp">{time}</Typography>
-              </Grid>
-              <Grid item md={1} xs={1}>
-                <FavoriteBorderOutlinedIcon onClick={(event) => { console.log('Love Love') }} />
-              </Grid>
-            </Grid>
+            <PostChatReactions created={message.created}/>
           </Paper>
         </Grid>
 
