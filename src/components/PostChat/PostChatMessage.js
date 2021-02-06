@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import AvatarDisplay from '../Avatar'
 
 const useStyles = makeStyles(() => ({
-  chatRoot: {
+  root: {
     display: 'flex',
     padding: 10,
   },
@@ -55,7 +55,7 @@ function PostChatMessage(props) {
   const { message } = props
   const classes = useStyles()
   const userId = useSelector((state) => state.user.data._id)
-  const isDefaultDirection = message.user.userId !== userId
+  const isDefaultDirection = message.userId !== userId
   const direction = isDefaultDirection ? 'row' : 'row-reverse'
 
   return (
@@ -64,7 +64,7 @@ function PostChatMessage(props) {
       direction={direction}
       justify="space-between"
       alignItems="center"
-      className={classes.chatRoot}
+      className={classes.root}
     >
       <Grid item xs={2} md={2}>
         <Avatar>

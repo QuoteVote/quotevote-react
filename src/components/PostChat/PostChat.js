@@ -15,7 +15,6 @@ function PostChat(props) {
     variables: { messageRoomId, },
   })
 
-  console.log(messageRoomId)
   useSubscription(
     NEW_MESSAGE_SUBSCRIPTION,
     {

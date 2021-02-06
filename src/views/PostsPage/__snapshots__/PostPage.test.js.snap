@@ -164,13 +164,13 @@ exports[`Post Page test - renders correctly 1`] = `
     </div>
   </div>
   <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6"
+    class="MuiGrid-root makeStyles-root-1 MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-12 MuiGrid-grid-md-6"
   >
     <div
       class="MuiGrid-root MuiGrid-container"
     >
       <div
-        class="MuiGrid-root makeStyles-chatRoot-2 MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-between"
+        class="MuiGrid-root makeStyles-root-2 MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-between"
         style="width: 100%;"
       >
         <div
@@ -219,10 +219,6 @@ exports[`Post Page test - renders correctly 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6"
-  >
     <div
       class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-flex-start MuiGrid-justify-xs-space-between"
     >
