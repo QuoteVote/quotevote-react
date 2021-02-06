@@ -27,6 +27,10 @@ function PostChat(props) {
 
   const messages = (!loading && data.messages) || []
 
+  if (!messages) {
+    return <div></div>
+  }
+
   return (
     <Grid container>
      <PostChatSend messageRoomId={messageRoomId} title={title} />

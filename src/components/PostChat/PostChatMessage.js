@@ -7,6 +7,7 @@ import {
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import AvatarDisplay from '../Avatar'
+import moment from 'moment'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -53,6 +54,7 @@ const useStyles = makeStyles(() => ({
 
 function PostChatMessage(props) {
   const { message } = props
+  const time = moment(message.created).format('LT');
   const classes = useStyles()
   const userId = useSelector((state) => state.user.data._id)
   const isDefaultDirection = message.userId !== userId
@@ -62,16 +64,13 @@ function PostChatMessage(props) {
     <Grid
       container
       direction={direction}
-      justify="space-between"
+      justify="space-around"
       alignItems="center"
       className={classes.root}
     >
-      <Grid item xs={2} md={2}>
         <Avatar>
           <AvatarDisplay height={70} width={70} {...message.user.avatar} />
         </Avatar>
-      </Grid>
-      <Grid item xs={10} md={10}>
         <Grid item xs={10} md={10}>
           <Paper className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
             <Typography variant="p">
@@ -79,7 +78,7 @@ function PostChatMessage(props) {
             </Typography>
             <Grid container direction="row" justify="flex-end">
               <Grid item md={3} xs={3}>
-                <Typography className="timestamp">{message.timestamp}</Typography>
+                <Typography className="timestamp">{time}</Typography>
               </Grid>
               <Grid item md={1} xs={1}>
                 <FavoriteBorderOutlinedIcon onClick={(event) => { console.log('Love Love') }} />
@@ -87,7 +86,7 @@ function PostChatMessage(props) {
             </Grid>
           </Paper>
         </Grid>
-      </Grid>
+
     </Grid>
   )
 }
