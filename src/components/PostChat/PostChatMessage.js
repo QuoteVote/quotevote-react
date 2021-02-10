@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     background: '#ffffff',
     minHeight: 30,
     borderRadius: '6px',
-    padding: 14,
+    padding: '14px 14px 0px 14px',
     '&::after': {
       content: "''",
       position: 'absolute',
@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
     minHeight: 30,
     color: 'white',
     borderRadius: '6px',
-    padding: 14,
+    padding: '14px 14px 0px 14px',
     '&::after': {
       content: "''",
       position: 'absolute',

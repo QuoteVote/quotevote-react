@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Card, CardContent, Grid, IconButton, List, ListItem,
+  Card, CardContent, Grid, List, ListItem,
 } from '@material-ui/core'
 import { isEmpty } from 'lodash'
 import PropTypes from 'prop-types'
@@ -8,7 +8,6 @@ import moment from 'moment'
 import { Skeleton } from '@material-ui/lab'
 import { useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Filter as FilterIcon } from '../Icons'
 import PostActionCard from './PostActionCard'
 import { SET_FOCUSED_COMMENT, SET_SHARED_COMMENT } from '../../store/ui'
 
@@ -36,15 +35,6 @@ function PostActionList({ postActions, loading, postUrl }) {
         justify="space-between"
         alignItems="flex-start"
       >
-        {/* <Grid item>
-          <IconButton style={{ marginLeft: 'auto' }}>
-            <FilterIcon
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            />
-          </IconButton>
-        </Grid> */}
       </Grid>
       {loading && (
         <>

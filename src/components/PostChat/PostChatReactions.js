@@ -1,34 +1,57 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Grid, Typography,
+  Grid, Typography, IconButton, Popover,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { InsertEmoticon } from '@material-ui/icons'
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
 import { parseCommentDate } from '../../utils/momentUtils'
 
-const useStyles = makeStyles(() => ({
-  root: {
-    paddingLeft: 10,
-  },
-}))
-
 function PostChatReactions(props) {
+  const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
   const { created } = props
-  const classes = useStyles()
   const parsedTime = parseCommentDate(created)
+
+  function handleClick(event) {
+    setAnchorEl(event.target)
+    setOpen(true)
+  }
 
   return (
     <Grid
       container
       direction="row"
       justify="flex-end"
+      alignItems="center"
     >
       <Grid item>
-        <Typography className="timestamp">{parsedTime}</Typography>
+        <Typography>{parsedTime}</Typography>
       </Grid>
-      <Grid item className={classes.root}>
-        <FavoriteBorderOutlinedIcon onClick={(event) => { console.log('Love Love') }} />
+      <Grid item>
+        <IconButton fontSize="small">
+          <FavoriteBorderOutlinedIcon onClick={(event) => { handleClick(event) }} />
+        </IconButton>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          onClose={() => setOpen(false)}
+        >
+          <IconButton>
+            <InsertEmoticon />
+          </IconButton>
+          <IconButton>
+            <FavoriteBorderOutlinedIcon />
+          </IconButton>
+        </Popover>
       </Grid>
     </Grid>
   )

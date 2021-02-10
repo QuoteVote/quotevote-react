@@ -18,7 +18,6 @@ import { SET_SNACKBAR } from '../../store/ui'
 import { ADD_COMMENT, ADD_QUOTE, VOTE } from '../../graphql/mutations'
 import { GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY } from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
-import PostMessageButton from '../CustomButtons/PostMessageButton'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 
 const useStyles = makeStyles(() => ({
@@ -330,7 +329,6 @@ function Post({ post, user }) {
       </CardContent>
 
       <CardActions disableSpacing style={{ marginLeft: 20 }}>
-        <PostMessageButton className={classes.expand} post={post} />
         <IconButton>
           <PersonAdd />
         </IconButton>
