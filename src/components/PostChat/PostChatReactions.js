@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
-import moment from 'moment'
+import { parseCommentDate } from '../../utils/momentUtils'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 function PostChatReactions(props) {
   const { created } = props
   const classes = useStyles()
-  const time = moment(created).format('LT')
+  const parsedTime = parseCommentDate(created)
 
   return (
     <Grid
@@ -25,7 +25,7 @@ function PostChatReactions(props) {
       justify="flex-end"
     >
       <Grid item>
-        <Typography className="timestamp">{time}</Typography>
+        <Typography className="timestamp">{parsedTime}</Typography>
       </Grid>
       <Grid item className={classes.root}>
         <FavoriteBorderOutlinedIcon onClick={(event) => { console.log('Love Love') }} />
