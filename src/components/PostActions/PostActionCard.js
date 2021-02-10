@@ -19,6 +19,7 @@ import { ReactComponent as LikeIcon } from '../../assets/svg/Like.svg'
 import { ReactComponent as QuoteIcon } from '../../assets/svg/Quote.svg'
 import { ReactComponent as CommentIcon } from '../../assets/svg/Comment.svg'
 import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
+import PostChatMessage from '../PostChat/PostChatMessage'
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -99,6 +100,13 @@ function PostActionCard({ postAction, postUrl, selected }) {
       dispatch(SET_FOCUSED_COMMENT(postAction))
     }
   }, [postAction, selected, dispatch])
+
+  if (postAction.text) {
+    return (
+      <PostChatMessage message={postAction} key={postAction._id} />
+    )
+  }
+
   return (
     <Card
       onMouseEnter={() => dispatch(SET_FOCUSED_COMMENT(postAction))}

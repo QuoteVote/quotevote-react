@@ -36,7 +36,7 @@ function PostActionList({ postActions, loading, postUrl }) {
         justify="space-between"
         alignItems="flex-start"
       >
-        <Grid item>
+        {/* <Grid item>
           <IconButton style={{ marginLeft: 'auto' }}>
             <FilterIcon
               width="32"
@@ -44,7 +44,7 @@ function PostActionList({ postActions, loading, postUrl }) {
               viewBox="0 0 32 32"
             />
           </IconButton>
-        </Grid>
+        </Grid> */}
       </Grid>
       {loading && (
         <>

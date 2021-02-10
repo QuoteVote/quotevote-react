@@ -7,9 +7,9 @@ import { isEmpty } from 'lodash'
 import Post from '../../components/Post/Post'
 import PostActionList from '../../components/PostActions/PostActionList'
 import PostSkeleton from '../../components/Post/PostSkeleton'
-import PostChat from '../../components/PostChat/PostChat'
 import { GET_ROOM_MESSAGES, GET_POST } from '../../graphql/query'
 import { NEW_MESSAGE_SUBSCRIPTION } from '../../graphql/subscription'
+import PostChatSend from '../../components/PostChat/PostChatSend'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -36,22 +36,19 @@ function PostPage() {
 
   if (postError) return 'Something went wrong!'
   const { post } = !loadingPost && postData
-  console.log(post)
 
   let messageRoomId
   let title
   if (post) {
-    title = post.title
     messageRoomId = post.messageRoom._id
+    title = post.title
   }
 
   const {
-    loading: loadingMessages, error: messageError, data: messageData, refetch,
+    loading: loadingMessages, data: messageData, refetch,
   } = useQuery(GET_ROOM_MESSAGES, {
     variables: { messageRoomId },
   })
-
-  console.log(messageData)
 
   useSubscription(
     NEW_MESSAGE_SUBSCRIPTION,
@@ -63,15 +60,12 @@ function PostPage() {
     },
   )
 
+  const { messages } = (!loadingMessages && messageData) || []
+
   const {
     comments, votes, quotes, url,
   } = post || { comments: [], votes: [], quotes: [] }
   let postActions = []
-
-  //add messages here
-  // get messages associated with the messageRoomId
-  //if messages exist - copy display them with the rest of the data. 
-  //If not, yada yada
 
   if (!isEmpty(comments)) {
     postActions = postActions.concat(comments)
@@ -84,6 +78,11 @@ function PostPage() {
   if (!isEmpty(quotes)) {
     postActions = postActions.concat(quotes)
   }
+
+  if (!isEmpty(messages)) {
+    postActions = postActions.concat(messages)
+  }
+
   return (
     <Grid
       container
@@ -98,7 +97,7 @@ function PostPage() {
         {loadingPost ? <PostSkeleton /> : <Post post={post} loading={loadingPost} user={user} />}
       </Grid>
       <Grid item className={classes.root} xs={12} md={6}>
-        <PostChat messageRoomId={messageRoomId} title={title} />
+        <PostChatSend messageRoomId={messageRoomId} title={title} />
         <PostActionList loading={loadingPost} postActions={postActions} postUrl={url} />
       </Grid>
     </Grid>

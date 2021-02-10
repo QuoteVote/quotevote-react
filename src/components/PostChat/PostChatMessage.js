@@ -9,14 +9,11 @@ import AvatarDisplay from '../Avatar'
 import PostChatReactions from './PostChatReactions'
 
 const useStyles = makeStyles(() => ({
-  root: {
-    padding: 10,
-  },
   avatar: {
     marginLeft: 'auto',
     marginRight: 'auto',
     height: '50px', 
-    width: '50px' 
+    width: '50px', 
   },
   text: {
     fontFamily: 'Roboto',
@@ -78,7 +75,7 @@ function PostChatMessage(props) {
           <AvatarDisplay {...message.user.avatar} />
         </Avatar>
       </Grid>
-      <Grid item sm={9}>
+      <Grid item sm={10}>
         <Paper elevation={0} className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
           <Typography className={classes.text}>
             {message.text}

@@ -33,6 +33,7 @@ const useStyles = makeStyles(() => ({
     background: '#ffffff',
     height: 45,
     paddingLeft: 10,
+    width: '80%',
   },
   send: {
     float: 'right',
@@ -47,7 +48,7 @@ function PostChatSend(props) {
   const [text, setText] = useState()
   const [error, setError] = useState(null)
   const user = useSelector((state) => state.user.data)
-  const [createMessage, { loading }] = useMutation(SEND_MESSAGE, {
+  const [createMessage] = useMutation(SEND_MESSAGE, {
     onError: (err) => {
       setError(err)
     },
@@ -124,7 +125,7 @@ function PostChatSend(props) {
       <Grid item sm={2}>
         <Typography className={classes.chat}>Chat</Typography>
       </Grid>
-      <Grid item sm={9}>
+      <Grid item sm={10}>
         <Paper elevation={0}>
           <InputBase
             placeholder="type a message..."
