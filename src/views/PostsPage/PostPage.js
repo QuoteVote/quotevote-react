@@ -34,7 +34,6 @@ function PostPage() {
 
   const user = useSelector((state) => state.user.data)
 
-  if (postError) return 'Something went wrong!'
   const { post } = !loadingPost && postData
 
   let messageRoomId
@@ -59,6 +58,8 @@ function PostPage() {
       },
     },
   )
+
+  if (postError) return 'Something went wrong!'
 
   const { messages } = (!loadingMessages && messageData) || []
 
