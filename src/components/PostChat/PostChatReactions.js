@@ -5,6 +5,8 @@ import {
 } from '@material-ui/core'
 import { InsertEmoticon } from '@material-ui/icons'
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
+import { Picker } from 'emoji-mart'
+import 'emoji-mart/css/emoji-mart.css'
 import { parseCommentDate } from '../../utils/momentUtils'
 
 function PostChatReactions(props) {
@@ -45,12 +47,9 @@ function PostChatReactions(props) {
           }}
           onClose={() => setOpen(false)}
         >
-          <IconButton>
-            <InsertEmoticon />
-          </IconButton>
-          <IconButton>
-            <FavoriteBorderOutlinedIcon />
-          </IconButton>
+          <div className="reactions">
+            <Picker showPreview={false} showSkinTones={false}/>
+          </div>
         </Popover>
       </Grid>
     </Grid>
