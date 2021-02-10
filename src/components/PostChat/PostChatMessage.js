@@ -12,8 +12,8 @@ const useStyles = makeStyles(() => ({
   avatar: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    height: '50px', 
-    width: '50px', 
+    height: '50px',
+    width: '50px',
   },
   text: {
     fontFamily: 'Roboto',
@@ -66,7 +66,7 @@ function PostChatMessage(props) {
     <Grid
       container
       direction={direction}
-      justify={isDefaultDirection ? "center" : "flex-start"}
+      justify={isDefaultDirection ? 'center' : 'flex-start'}
       alignItems="center"
       className={classes.root}
     >
