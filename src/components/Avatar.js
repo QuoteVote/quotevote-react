@@ -65,7 +65,7 @@ DisplayAvatar.propTypes = {
   mouthType: PropTypes.string,
   skinColor: PropTypes.string,
   hatColor: PropTypes.string,
-  height: PropTypes.any.isRequired,
+  height: PropTypes.any,
 }
 
 export default DisplayAvatar
