@@ -1,23 +1,62 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import {
   Grid, Typography, IconButton, Popover,
 } from '@material-ui/core'
 import { InsertEmoticon } from '@material-ui/icons'
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
+import { makeStyles } from '@material-ui/core/styles'
+import { useDispatch, useSelector } from 'react-redux'
+import { useMutation } from '@apollo/react-hooks'
 import { Picker } from 'emoji-mart'
+import Emoji from 'a11y-react-emoji'
+import _ from 'lodash'
 import 'emoji-mart/css/emoji-mart.css'
-import { parseCommentDate } from '../../utils/momentUtils'
+import moment from 'moment'
+import { ADD_REACTION } from '../../graphql/mutations'
+import { GET_MESSAGE_REACTIONS } from '../../graphql/query'
+
+const useStyles = makeStyles(() => ({
+
+}))
 
 function PostChatReactions(props) {
+  const userId = useSelector((state) => state.user.data._id)
+  const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
-  const { created } = props
-  const parsedTime = parseCommentDate(created)
+  const { created, messageId, reactions } = props
+  const parsedTime = moment(created).format('LLL')
+  const [addReaction] = useMutation(ADD_REACTION, {
+    onError: (err) => {
+      console.log(err)
+    },
+    refetchQueries: [{
+      query: GET_MESSAGE_REACTIONS,
+      variables: {
+        messageId,
+      },
+    }],
+  })
+
+  const userReaction = _.find(reactions, { userId: userId }) || null
+  console.log(userReaction)
 
   function handleClick(event) {
     setAnchorEl(event.target)
     setOpen(true)
+  }
+
+  async function handleEmojiSelect(emoji) {
+    const newEmoji = emoji.native
+    const reaction = {
+      userId,
+      messageId,
+      emoji: newEmoji,
+    }
+
+    await addReaction({
+      variables: { reaction },
+    })
   }
 
   return (
@@ -30,10 +69,15 @@ function PostChatReactions(props) {
       <Grid item>
         <Typography>{parsedTime}</Typography>
       </Grid>
+
       <Grid item>
-        <IconButton fontSize="small">
-          <FavoriteBorderOutlinedIcon onClick={(event) => { handleClick(event) }} />
+        <IconButton onClick={(event) => { handleClick(event) }}>
+          <InsertEmoticon />
         </IconButton>
+        <Fragment>
+        {reactions ? reactions.map((reaction) => <Emoji symbol={reaction.emoji} />) : null}
+        {reactions.length > 0 ? <span>{reactions.length}</span> : null}
+        </Fragment>
         <Popover
           open={open}
           anchorEl={anchorEl}
@@ -48,7 +92,7 @@ function PostChatReactions(props) {
           onClose={() => setOpen(false)}
         >
           <div className="reactions">
-            <Picker showPreview={false} showSkinTones={false}/>
+            <Picker showPreview={false} showSkinTones={false} onSelect={handleEmojiSelect} />
           </div>
         </Popover>
       </Grid>
@@ -58,6 +102,8 @@ function PostChatReactions(props) {
 
 PostChatReactions.propTypes = {
   created: PropTypes.string,
+  messageId: PropTypes.string,
+  reactions: PropTypes.array,
 }
 
 export default PostChatReactions

@@ -193,3 +193,13 @@ export const DELETE_NOTIFICATION = gql`
     }
   }
 `
+
+export const ADD_REACTION = gql`
+  mutation addReaction($reaction: ReactionInput!) {
+    addReaction(reaction: $reaction) {
+      userId
+      messageId
+      emoji
+    }
+  }
+`

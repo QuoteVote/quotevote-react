@@ -5,8 +5,10 @@ import {
   Grid, Paper, Typography, Avatar,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useQuery } from '@apollo/react-hooks'
 import AvatarDisplay from '../Avatar'
 import PostChatReactions from './PostChatReactions'
+import { GET_MESSAGE_REACTIONS } from '../../graphql/query'
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -62,6 +64,12 @@ function PostChatMessage(props) {
   const isDefaultDirection = message.userId !== userId
   const direction = isDefaultDirection ? 'row' : 'row-reverse'
 
+  const { loading, data } = useQuery(GET_MESSAGE_REACTIONS, {
+    variables: { messageId: message._id },
+  })
+
+  const { messageReactions } = (!loading && data) || []
+
   return (
     <Grid
       container
@@ -80,7 +88,7 @@ function PostChatMessage(props) {
           <Typography className={classes.text}>
             {message.text}
           </Typography>
-          <PostChatReactions created={message.created} />
+          <PostChatReactions created={message.created} messageId={message._id} reactions={messageReactions} />
         </Paper>
       </Grid>
     </Grid>
