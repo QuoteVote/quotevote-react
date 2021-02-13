@@ -12,7 +12,7 @@ import Emoji from 'a11y-react-emoji'
 import _ from 'lodash'
 import 'emoji-mart/css/emoji-mart.css'
 import moment from 'moment'
-import { ADD_REACTION } from '../../graphql/mutations'
+import { ADD_MESSAGE_REACTION } from '../../graphql/mutations'
 import { GET_MESSAGE_REACTIONS } from '../../graphql/query'
 
 const useStyles = makeStyles(() => ({
@@ -26,7 +26,7 @@ function PostChatReactions(props) {
   const [anchorEl, setAnchorEl] = useState(null)
   const { created, messageId, reactions } = props
   const parsedTime = moment(created).format('LLL')
-  const [addReaction] = useMutation(ADD_REACTION, {
+  const [addReaction] = useMutation(ADD_MESSAGE_REACTION, {
     onError: (err) => {
       console.log(err)
     },
@@ -39,7 +39,6 @@ function PostChatReactions(props) {
   })
 
   const userReaction = _.find(reactions, { userId: userId }) || null
-  console.log(userReaction)
 
   function handleClick(event) {
     setAnchorEl(event.target)
@@ -47,6 +46,9 @@ function PostChatReactions(props) {
   }
 
   async function handleEmojiSelect(emoji) {
+    if (userReaction) {
+      console.log(userReaction)
+    }
     const newEmoji = emoji.native
     const reaction = {
       userId,
@@ -75,8 +77,8 @@ function PostChatReactions(props) {
           <InsertEmoticon />
         </IconButton>
         <Fragment>
-        {reactions ? reactions.map((reaction) => <Emoji symbol={reaction.emoji} />) : null}
-        {reactions.length > 0 ? <span>{reactions.length}</span> : null}
+          {reactions ? reactions.map((reaction) => <Emoji symbol={reaction.emoji} key={reaction._id}/>) : null}
+          {reactions && reactions.length > 0 ? <span>{reactions.length}</span> : null}
         </Fragment>
         <Popover
           open={open}
@@ -102,7 +104,7 @@ function PostChatReactions(props) {
 
 PostChatReactions.propTypes = {
   created: PropTypes.string,
-  messageId: PropTypes.string,
+  actionId: PropTypes.string,
   reactions: PropTypes.array,
 }
 

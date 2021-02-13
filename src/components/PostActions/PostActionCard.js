@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import {
   Card, CardActions, CardContent, IconButton, Typography,
 } from '@material-ui/core'
-import { InsertEmoticon, InsertLink } from '@material-ui/icons'
+import { InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import SvgIcon from '@material-ui/core/SvgIcon'
 import PropTypes from 'prop-types'
+import { useQuery } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { get } from 'lodash'
 import copy from 'clipboard-copy'
@@ -14,12 +15,14 @@ import { useHistory } from 'react-router-dom'
 import AvatarDisplay from '../Avatar'
 import { parseCommentDate } from '../../utils/momentUtils'
 import { SET_FOCUSED_COMMENT, SET_SHARED_COMMENT } from '../../store/ui'
+import { GET_ACTION_REACTIONS } from '../../graphql/query'
 import { ReactComponent as DislikeIcon } from '../../assets/svg/Dislike.svg'
 import { ReactComponent as LikeIcon } from '../../assets/svg/Like.svg'
 import { ReactComponent as QuoteIcon } from '../../assets/svg/Quote.svg'
 import { ReactComponent as CommentIcon } from '../../assets/svg/Comment.svg'
 import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
 import PostChatMessage from '../PostChat/PostChatMessage'
+import CommentReactions from '../Comment/CommentReactions'
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -63,6 +66,11 @@ function PostActionCard({ postAction, postUrl, selected }) {
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
   const sharedComment = useSelector((state) => state.ui.sharedComment)
+  const { loading, data } = useQuery(GET_ACTION_REACTIONS, {
+    variables: { actionId: _id },
+  })
+
+  const { actionReactions } = (!loading && data) || []
 
   const baseUrl = window.location.origin
   const handleCopy = async () => {
@@ -140,9 +148,9 @@ function PostActionCard({ postAction, postUrl, selected }) {
           htmlColor="black"
         />
         <Typography display="inline">{voteTags}</Typography>
-        <IconButton className={classes.expand}>
-          <InsertEmoticon />
-        </IconButton>
+        <div className={classes.expand}>
+          <CommentReactions actionId={_id} reactions={actionReactions} />
+        </div>
         <IconButton onClick={handleCopy}>
           <InsertLink />
         </IconButton>

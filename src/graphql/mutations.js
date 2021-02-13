@@ -194,11 +194,21 @@ export const DELETE_NOTIFICATION = gql`
   }
 `
 
-export const ADD_REACTION = gql`
-  mutation addReaction($reaction: ReactionInput!) {
-    addReaction(reaction: $reaction) {
+export const ADD_MESSAGE_REACTION = gql`
+  mutation addMessageReaction($reaction: ReactionInput!) {
+    addMessageReaction(reaction: $reaction) {
       userId
       messageId
+      emoji
+    }
+  }
+`
+
+export const ADD_ACTION_REACTION = gql`
+  mutation addActionReaction($reaction: ReactionInput!) {
+    addActionReaction(reaction: $reaction) {
+      userId
+      actionId
       emoji
     }
   }
