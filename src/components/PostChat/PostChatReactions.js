@@ -14,14 +14,10 @@ import 'emoji-mart/css/emoji-mart.css'
 import moment from 'moment'
 import { ADD_MESSAGE_REACTION } from '../../graphql/mutations'
 import { GET_MESSAGE_REACTIONS } from '../../graphql/query'
-
-const useStyles = makeStyles(() => ({
-
-}))
+import { UPDATE_MESSAGE_REACTION } from '../../graphql/mutations'
 
 function PostChatReactions(props) {
   const userId = useSelector((state) => state.user.data._id)
-  const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const { created, messageId, reactions } = props
@@ -38,7 +34,17 @@ function PostChatReactions(props) {
     }],
   })
 
-  const userReaction = _.find(reactions, { userId: userId }) || null
+  const [updateReaction] = useMutation(UPDATE_MESSAGE_REACTION, {
+    onError: (err) => {
+      console.log(err)
+    },
+    refetchQueries: [{
+      query: GET_MESSAGE_REACTIONS,
+      variables: {
+        messageId,
+      },
+    }],
+  })
 
   function handleClick(event) {
     setAnchorEl(event.target)
@@ -46,9 +52,7 @@ function PostChatReactions(props) {
   }
 
   async function handleEmojiSelect(emoji) {
-    if (userReaction) {
-      console.log(userReaction)
-    }
+    const userReaction = await _.find(reactions, { userId: userId }) || null
     const newEmoji = emoji.native
     const reaction = {
       userId,
@@ -56,9 +60,16 @@ function PostChatReactions(props) {
       emoji: newEmoji,
     }
 
-    await addReaction({
-      variables: { reaction },
-    })
+    if (userReaction !== null) {
+      console.log(userReaction)
+      await updateReaction({
+        variables: { _id: userReaction._id, emoji: reaction.emoji },
+      })
+    } else {
+      await addReaction({
+        variables: { reaction },
+      })
+    }
   }
 
   return (
@@ -76,10 +87,10 @@ function PostChatReactions(props) {
         <IconButton onClick={(event) => { handleClick(event) }}>
           <InsertEmoticon />
         </IconButton>
-        <Fragment>
-          {reactions ? reactions.map((reaction) => <Emoji symbol={reaction.emoji} key={reaction._id}/>) : null}
+        <>
+          {reactions ? reactions.map((reaction) => <Emoji symbol={reaction.emoji} key={reaction._id} />) : null}
           {reactions && reactions.length > 0 ? <span>{reactions.length}</span> : null}
-        </Fragment>
+        </>
         <Popover
           open={open}
           anchorEl={anchorEl}
@@ -104,7 +115,7 @@ function PostChatReactions(props) {
 
 PostChatReactions.propTypes = {
   created: PropTypes.string,
-  actionId: PropTypes.string,
+  messageId: PropTypes.string,
   reactions: PropTypes.array,
 }
 

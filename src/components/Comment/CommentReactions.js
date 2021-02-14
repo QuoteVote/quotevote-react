@@ -31,9 +31,7 @@ function CommentReactions(props) {
     }],
   })
 
-  console.log(actionId)
-
-  //   const userReaction = _.find(reactions, { userId: userId }) || null
+  const userReaction = _.find(reactions, { userId: userId }) || null
 
   function handleClick(event) {
     setAnchorEl(event.target)
