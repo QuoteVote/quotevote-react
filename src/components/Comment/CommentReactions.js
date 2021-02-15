@@ -4,6 +4,7 @@ import {
   IconButton, Popover,
 } from '@material-ui/core'
 import { InsertEmoticon } from '@material-ui/icons'
+import { makeStyles } from '@material-ui/core/styles'
 import { useSelector } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { Picker } from 'emoji-mart'
@@ -13,8 +14,16 @@ import 'emoji-mart/css/emoji-mart.css'
 import { ADD_ACTION_REACTION, UPDATE_ACTION_REACTION } from '../../graphql/mutations'
 import { GET_ACTION_REACTIONS } from '../../graphql/query'
 
+const useStyles = makeStyles(() => ({
+    root: {
+      marginLeft: 4,
+      fontSize: 12,
+    }
+  }))
+
 function CommentReactions(props) {
   const userId = useSelector((state) => state.user.data._id)
+  const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const { actionId, reactions } = props
@@ -79,14 +88,14 @@ function CommentReactions(props) {
 
   return (
     <div>
-      <IconButton onClick={(event) => { handleClick(event) }}>
-        <InsertEmoticon />
-      </IconButton>
       <>
         {userReaction && userReaction.emoji !== displayReaction.emoji ? <Emoji symbol={userReaction.emoji} /> : null}
         {displayReaction ? <Emoji symbol={displayReaction.emoji} /> : null}
-        {reactions && reactions.length > 0 ? <span>{reactions.length}</span> : null}
+        {reactions && reactions.length > 0 ? <span className={classes.root}>{reactions.length}</span> : null}
       </>
+      <IconButton onClick={(event) => { handleClick(event) }}>
+        <InsertEmoticon />
+      </IconButton>
       <Popover
         open={open}
         anchorEl={anchorEl}

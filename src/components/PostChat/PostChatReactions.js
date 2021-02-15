@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Grid, Typography, IconButton, Popover,
 } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { InsertEmoticon } from '@material-ui/icons'
 import { useSelector } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
@@ -10,16 +11,27 @@ import { Picker } from 'emoji-mart'
 import Emoji from 'a11y-react-emoji'
 import _ from 'lodash'
 import 'emoji-mart/css/emoji-mart.css'
-import moment from 'moment'
+import { parseCommentDate } from '../../utils/momentUtils'
 import { ADD_MESSAGE_REACTION, UPDATE_MESSAGE_REACTION } from '../../graphql/mutations'
 import { GET_MESSAGE_REACTIONS } from '../../graphql/query'
 
+const useStyles = makeStyles(() => ({
+  root: {
+    marginLeft: 4,
+    fontSize: 12,
+  },
+  pad: {
+    paddingRight: 10,
+  }
+}))
+
 function PostChatReactions(props) {
   const userId = useSelector((state) => state.user.data._id)
+  const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const { created, messageId, reactions } = props
-  const parsedTime = moment(created).format('LLL')
+  const parsedTime = parseCommentDate(created)
   const [addReaction] = useMutation(ADD_MESSAGE_REACTION, {
     onError: (err) => {
       console.log(err)
@@ -86,18 +98,18 @@ function PostChatReactions(props) {
       justify="flex-end"
       alignItems="center"
     >
-      <Grid item>
+      <Grid item className={classes.pad}>
         <Typography>{parsedTime}</Typography>
       </Grid>
       <Grid item>
-        <IconButton onClick={(event) => { handleClick(event) }}>
-          <InsertEmoticon />
-        </IconButton>
         <>
           {userReaction && userReaction.emoji !== displayReaction.emoji ? <Emoji symbol={userReaction.emoji} /> : null}
           {displayReaction ? <Emoji symbol={displayReaction.emoji} /> : null}
-          {reactions && reactions.length > 0 ? <span>{reactions.length}</span> : null}
+          {reactions && reactions.length > 0 ? <span className={classes.root}>{reactions.length}</span> : null}
         </>
+        <IconButton onClick={(event) => { handleClick(event) }}>
+          <InsertEmoticon />
+        </IconButton>
         <Popover
           open={open}
           anchorEl={anchorEl}
