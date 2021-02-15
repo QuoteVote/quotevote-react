@@ -9,7 +9,7 @@ export const parseCommentDate = (rawDate) => {
   if (days > 7) { // more than 1 week
     parseDated = moment(rawDate).format('LL')
   } else {
-    parseDated = moment().subtract(days, 'days').calendar()
+    parseDated = moment(rawDate).subtract(days, 'days').calendar()
   }
   return parseDated
 }
