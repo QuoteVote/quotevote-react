@@ -222,3 +222,12 @@ export const UPDATE_MESSAGE_REACTION = gql`
     }
   }
 `
+
+export const UPDATE_ACTION_REACTION = gql`
+  mutation updateReaction($_id: String! $emoji: String!) {
+    updateReaction(_id: $_id, emoji: $emoji) {
+      _id
+      emoji
+    }
+  }
+`

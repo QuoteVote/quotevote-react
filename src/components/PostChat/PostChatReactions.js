@@ -1,20 +1,18 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Grid, Typography, IconButton, Popover,
 } from '@material-ui/core'
 import { InsertEmoticon } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { Picker } from 'emoji-mart'
 import Emoji from 'a11y-react-emoji'
 import _ from 'lodash'
 import 'emoji-mart/css/emoji-mart.css'
 import moment from 'moment'
-import { ADD_MESSAGE_REACTION } from '../../graphql/mutations'
+import { ADD_MESSAGE_REACTION, UPDATE_MESSAGE_REACTION } from '../../graphql/mutations'
 import { GET_MESSAGE_REACTIONS } from '../../graphql/query'
-import { UPDATE_MESSAGE_REACTION } from '../../graphql/mutations'
 
 function PostChatReactions(props) {
   const userId = useSelector((state) => state.user.data._id)
@@ -46,13 +44,21 @@ function PostChatReactions(props) {
     }],
   })
 
+  const userReaction = _.find(reactions, { userId: userId }) || null
+
+  const mostFrequentReaction = _.head(_(reactions)
+    .countBy('emoji')
+    .entries()
+    .maxBy(_.last))
+
+  const displayReaction = userReaction ? userReaction : mostFrequentReaction
+
   function handleClick(event) {
     setAnchorEl(event.target)
     setOpen(true)
   }
 
   async function handleEmojiSelect(emoji) {
-    const userReaction = await _.find(reactions, { userId: userId }) || null
     const newEmoji = emoji.native
     const reaction = {
       userId,
@@ -61,7 +67,6 @@ function PostChatReactions(props) {
     }
 
     if (userReaction !== null) {
-      console.log(userReaction)
       await updateReaction({
         variables: { _id: userReaction._id, emoji: reaction.emoji },
       })
@@ -70,6 +75,8 @@ function PostChatReactions(props) {
         variables: { reaction },
       })
     }
+
+    setOpen(false)
   }
 
   return (
@@ -82,13 +89,13 @@ function PostChatReactions(props) {
       <Grid item>
         <Typography>{parsedTime}</Typography>
       </Grid>
-
       <Grid item>
         <IconButton onClick={(event) => { handleClick(event) }}>
           <InsertEmoticon />
         </IconButton>
         <>
-          {reactions ? reactions.map((reaction) => <Emoji symbol={reaction.emoji} key={reaction._id} />) : null}
+          {userReaction && userReaction.emoji !== displayReaction.emoji ? <Emoji symbol={userReaction.emoji} /> : null}
+          {displayReaction ? <Emoji symbol={displayReaction.emoji} /> : null}
           {reactions && reactions.length > 0 ? <span>{reactions.length}</span> : null}
         </>
         <Popover

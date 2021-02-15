@@ -1,17 +1,16 @@
 import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import {
-   IconButton, Popover,
+  IconButton, Popover,
 } from '@material-ui/core'
 import { InsertEmoticon } from '@material-ui/icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { Picker } from 'emoji-mart'
 import Emoji from 'a11y-react-emoji'
 import _ from 'lodash'
 import 'emoji-mart/css/emoji-mart.css'
-import moment from 'moment'
-import { ADD_ACTION_REACTION } from '../../graphql/mutations'
+import { ADD_ACTION_REACTION, UPDATE_ACTION_REACTION } from '../../graphql/mutations'
 import { GET_ACTION_REACTIONS } from '../../graphql/query'
 
 function CommentReactions(props) {
@@ -31,7 +30,26 @@ function CommentReactions(props) {
     }],
   })
 
+  const [updateReaction] = useMutation(UPDATE_ACTION_REACTION, {
+    onError: (err) => {
+      console.log(err)
+    },
+    refetchQueries: [{
+      query: GET_ACTION_REACTIONS,
+      variables: {
+        actionId,
+      },
+    }],
+  })
+
   const userReaction = _.find(reactions, { userId: userId }) || null
+
+  const mostFrequentReaction = _.head(_(reactions)
+    .countBy('emoji')
+    .entries()
+    .maxBy(_.last))
+
+  const displayReaction = userReaction ? userReaction : mostFrequentReaction
 
   function handleClick(event) {
     setAnchorEl(event.target)
@@ -39,7 +57,6 @@ function CommentReactions(props) {
   }
 
   async function handleEmojiSelect(emoji) {
-    console.log(emoji)
     const newEmoji = emoji.native
     const reaction = {
       userId,
@@ -47,9 +64,17 @@ function CommentReactions(props) {
       emoji: newEmoji,
     }
 
-    await addReaction({
-      variables: { reaction },
-    })
+    if (userReaction !== null) {
+      await updateReaction({
+        variables: { _id: userReaction._id, emoji: reaction.emoji },
+      })
+    } else {
+      await addReaction({
+        variables: { reaction },
+      })
+    }
+
+    setOpen(false)
   }
 
   return (
@@ -57,10 +82,11 @@ function CommentReactions(props) {
       <IconButton onClick={(event) => { handleClick(event) }}>
         <InsertEmoticon />
       </IconButton>
-      <Fragment>
-          {reactions ? reactions.map((reaction) => <Emoji symbol={reaction.emoji} key={reaction._id}/>) : null}
-          {reactions && reactions.length > 0 ? <span>{reactions.length}</span> : null}
-        </Fragment>
+      <>
+        {userReaction && userReaction.emoji !== displayReaction.emoji ? <Emoji symbol={userReaction.emoji} /> : null}
+        {displayReaction ? <Emoji symbol={displayReaction.emoji} /> : null}
+        {reactions && reactions.length > 0 ? <span>{reactions.length}</span> : null}
+      </>
       <Popover
         open={open}
         anchorEl={anchorEl}
@@ -84,6 +110,7 @@ function CommentReactions(props) {
 
 CommentReactions.propTypes = {
   actionId: PropTypes.string,
+  reactions: PropTypes.array,
 }
 
 export default CommentReactions
