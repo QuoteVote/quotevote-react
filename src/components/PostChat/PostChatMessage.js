@@ -10,6 +10,7 @@ import AvatarDisplay from '../Avatar'
 import PostChatReactions from './PostChatReactions'
 import { GET_MESSAGE_REACTIONS } from '../../graphql/query'
 
+
 const useStyles = makeStyles(() => ({
   avatar: {
     marginLeft: 'auto',
