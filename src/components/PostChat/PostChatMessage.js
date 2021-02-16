@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     marginRight: 'auto',
     height: '50px',
     width: '50px',
+    cursor: 'pointer',
   },
   text: {
     fontFamily: 'Roboto',
