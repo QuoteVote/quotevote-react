@@ -2,7 +2,7 @@
 
 exports[`Post test - renders correctly 1`] = `
 <div
-  class="MuiPaper-root MuiCard-root makeStyles-root-1 MuiPaper-elevation1 MuiPaper-rounded"
+  class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
 >
   <div
     class="MuiCardHeader-root"
@@ -15,7 +15,7 @@ exports[`Post test - renders correctly 1`] = `
       >
         <div>
           <span
-            class="makeStyles-title-3"
+            class="makeStyles-title-2"
           >
             Title of a post
           </span>
@@ -52,7 +52,7 @@ exports[`Post test - renders correctly 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root makeStyles-blockIcon-4"
+                class="MuiSvgIcon-root makeStyles-blockIcon-3"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -72,10 +72,10 @@ exports[`Post test - renders correctly 1`] = `
       class="MuiCardHeader-action"
     >
       <div
-        class="makeStyles-points-8"
+        class="makeStyles-points-7"
       >
         <span
-          class="makeStyles-upVote-6"
+          class="makeStyles-upVote-5"
         >
           +
           100
@@ -84,7 +84,7 @@ exports[`Post test - renders correctly 1`] = `
            / 
         </span>
         <span
-          class="makeStyles-downVote-7"
+          class="makeStyles-downVote-6"
         >
           -
           200
@@ -93,7 +93,7 @@ exports[`Post test - renders correctly 1`] = `
     </div>
   </div>
   <div
-    class="MuiCardHeader-root makeStyles-header2-2"
+    class="MuiCardHeader-root makeStyles-header2-1"
   >
     <div
       class="MuiCardHeader-avatar"

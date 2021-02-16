@@ -45,7 +45,7 @@ function PostChatSend(props) {
   const dispatch = useDispatch()
   const { messageRoomId, title } = props
   const type = 'POST'
-  const [text, setText] = useState()
+  const [text, setText] = useState('')
   const [error, setError] = useState(null)
   const user = useSelector((state) => state.user.data)
   const [createMessage] = useMutation(SEND_MESSAGE, {
@@ -69,8 +69,6 @@ function PostChatSend(props) {
       messageRoomId,
       text,
     }
-
-    setText('')
 
     const dateSubmitted = new Date()
     await createMessage({
@@ -112,6 +110,8 @@ function PostChatSend(props) {
         }
       },
     })
+
+    setText('')
   }
 
   return (

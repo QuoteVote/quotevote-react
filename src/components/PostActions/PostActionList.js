@@ -48,6 +48,7 @@ function PostActionList({ postActions, loading, postUrl }) {
       {!isEmpty(postActions) ? (
         <List
           style={{
+            height: postActions.length > 2 ? '75vh' : 'auto',
             marginTop: 5,
             width: '100%',
             position: 'relative',
