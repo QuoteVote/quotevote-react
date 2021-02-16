@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   IconButton, Popover,
@@ -15,11 +15,21 @@ import { ADD_ACTION_REACTION, UPDATE_ACTION_REACTION } from '../../graphql/mutat
 import { GET_ACTION_REACTIONS } from '../../graphql/query'
 
 const useStyles = makeStyles(() => ({
-    root: {
-      marginLeft: 4,
-      fontSize: 12,
-    }
-  }))
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  emoji: {
+    padding: 3,
+    display: 'flex',
+  },
+  reactions: {
+    borderRadius: 8,
+    backgroundColor: '#F6F1F1',
+    padding: '2px 6px',
+    marginLeft: 4,
+  },
+}))
 
 function CommentReactions(props) {
   const userId = useSelector((state) => state.user.data._id)
@@ -51,15 +61,11 @@ function CommentReactions(props) {
     }],
   })
 
+  const groupedReactions = _.groupBy(reactions, 'emoji')
+
   const userReaction = _.find(reactions, { userId: userId }) || null
 
-  const mostFrequentReaction = _.head(_(reactions)
-    .countBy('emoji')
-    .entries()
-    .maxBy(_.last))
-
-  const displayReaction = userReaction ? userReaction : mostFrequentReaction
-
+  // Handle emoji button interaction
   function handleClick(event) {
     setAnchorEl(event.target)
     setOpen(true)
@@ -86,13 +92,22 @@ function CommentReactions(props) {
     setOpen(false)
   }
 
+  const emojiElements = []
+
+  Object.keys(groupedReactions).map((emoji) => {
+    emojiElements.push(
+      <div className={classes.reactions}>
+        <Emoji symbol={emoji} />
+        <span>{groupedReactions[emoji].length}</span>
+      </div>
+    )
+  })
+
   return (
-    <div>
-      <>
-        {userReaction && userReaction.emoji !== displayReaction.emoji ? <Emoji symbol={userReaction.emoji} /> : null}
-        {displayReaction ? <Emoji symbol={displayReaction.emoji} /> : null}
-        {reactions && reactions.length > 0 ? <span className={classes.root}>{reactions.length}</span> : null}
-      </>
+    <div className={classes.container}>
+      <div className={classes.emoji}>
+        {emojiElements}
+      </div>
       <IconButton onClick={(event) => { handleClick(event) }}>
         <InsertEmoticon />
       </IconButton>

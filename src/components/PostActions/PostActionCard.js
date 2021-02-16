@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   content: {
     marginLeft: 10,
     marginRight: 40,
-    marginTop: 10,
     marginBottom: -20,
     fontSize: 16,
   },
@@ -121,32 +120,26 @@ function PostActionCard({ postAction, postUrl, selected }) {
       onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(sharedComment))}
       className={selected ? classes.selectedRoot : classes.root}
     >
-      {!voteType && (
-        <CardContent
-          className={classes.content}
-        >
+      <IconButton
+        onClick={() => handleRedirectToProfile()}
+      >
+        <AvatarDisplay height={20} width={20} {...avatar} />
+      </IconButton>
+      <Typography display="inline">
+        {name}
+        {' '}
+        <span className={classes.date}>{parsedDate}</span>
+      </Typography>
+        {!voteType && (
+          <CardContent
+            className={classes.content}
+          >
           <p>
             {postContent}
           </p>
-        </CardContent>
-      )}
+          </CardContent>
+        )}
       <CardActions disableSpacing>
-        <IconButton
-          onClick={() => handleRedirectToProfile()}
-        >
-          <AvatarDisplay height={20} width={20} {...avatar} />
-        </IconButton>
-        <Typography display="inline">
-          {name}
-          {' '}
-          <span className={classes.date}>{parsedDate}</span>
-        </Typography>
-        <SvgIcon
-          component={svgIcon}
-          fontSize="large"
-          viewBox="-10 -10 50 50"
-          htmlColor="black"
-        />
         <Typography display="inline">{voteTags}</Typography>
         <div className={classes.expand}>
           <CommentReactions actionId={_id} reactions={actionReactions} />

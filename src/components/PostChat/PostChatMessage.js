@@ -88,7 +88,7 @@ function PostChatMessage(props) {
           <Typography className={classes.text}>
             {message.text}
           </Typography>
-          <PostChatReactions created={message.created} messageId={message._id} reactions={messageReactions} />
+          <PostChatReactions created={message.created} messageId={message._id} reactions={messageReactions} isDefaultDirection={isDefaultDirection} />
         </Paper>
       </Grid>
     </Grid>

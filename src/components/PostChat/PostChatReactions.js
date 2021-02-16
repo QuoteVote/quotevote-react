@@ -20,9 +20,29 @@ const useStyles = makeStyles(() => ({
     marginLeft: 4,
     fontSize: 12,
   },
-  pad: {
+  time: {
     paddingRight: 10,
-  }
+  },
+  emoji: {
+    padding: 3,
+    display: 'flex',
+  },
+  bubble: {
+    borderRadius: 8,
+    backgroundColor: '#F6F1F1',
+    padding: '2px 6px',
+    marginLeft: 4,
+  },
+  bubbleReverse: {
+    borderRadius: 8,
+    backgroundColor: '#56DA9C',
+    padding: '2px 6px',
+    marginLeft: 4,
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }))
 
 function PostChatReactions(props) {
@@ -30,7 +50,9 @@ function PostChatReactions(props) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
-  const { created, messageId, reactions } = props
+  const {
+    created, messageId, reactions, isDefaultDirection,
+  } = props
   const parsedTime = parseCommentDate(created)
   const [addReaction] = useMutation(ADD_MESSAGE_REACTION, {
     onError: (err) => {
@@ -58,12 +80,7 @@ function PostChatReactions(props) {
 
   const userReaction = _.find(reactions, { userId: userId }) || null
 
-  const mostFrequentReaction = _.head(_(reactions)
-    .countBy('emoji')
-    .entries()
-    .maxBy(_.last))
-
-  const displayReaction = userReaction ? userReaction : mostFrequentReaction
+  const groupedReactions = _.groupBy(reactions, 'emoji')
 
   function handleClick(event) {
     setAnchorEl(event.target)
@@ -91,22 +108,31 @@ function PostChatReactions(props) {
     setOpen(false)
   }
 
+  const emojiElements = []
+
+  Object.keys(groupedReactions).map((emoji) => {
+    emojiElements.push(
+      <div className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
+        <Emoji symbol={emoji} />
+        <span>{groupedReactions[emoji].length}</span>
+      </div>
+    )
+  })
+
   return (
     <Grid
       container
       direction="row"
-      justify="flex-end"
+      justify="space-between"
       alignItems="center"
     >
-      <Grid item className={classes.pad}>
+      <Grid item className={classes.time}>
         <Typography>{parsedTime}</Typography>
       </Grid>
-      <Grid item>
-        <>
-          {userReaction && userReaction.emoji !== displayReaction.emoji ? <Emoji symbol={userReaction.emoji} /> : null}
-          {displayReaction ? <Emoji symbol={displayReaction.emoji} /> : null}
-          {reactions && reactions.length > 0 ? <span className={classes.root}>{reactions.length}</span> : null}
-        </>
+      <Grid item className={classes.container}>
+        <div className={classes.emoji}>
+          {emojiElements}
+        </div>
         <IconButton onClick={(event) => { handleClick(event) }}>
           <InsertEmoticon />
         </IconButton>
@@ -136,6 +162,7 @@ PostChatReactions.propTypes = {
   created: PropTypes.string,
   messageId: PropTypes.string,
   reactions: PropTypes.array,
+  isDefaultDirection: PropTypes.bool,
 }
 
 export default PostChatReactions
