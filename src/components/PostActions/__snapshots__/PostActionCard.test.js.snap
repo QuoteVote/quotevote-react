@@ -375,6 +375,13 @@ exports[`PostActionCard test - renders correctly 1`] = `
   <div
     class="MuiCardActions-root"
   >
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+      color="black"
+      focusable="false"
+      viewBox="-10 -10 50 50"
+    />
     <p
       class="MuiTypography-root MuiTypography-body1 MuiTypography-displayInline"
     />

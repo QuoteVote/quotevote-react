@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
-  Card, CardActions, CardContent, IconButton, Typography, SvgIcon
+  Card, CardActions, CardContent, IconButton, Typography, SvgIcon,
 } from '@material-ui/core'
 import { InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
@@ -17,8 +17,6 @@ import { SET_FOCUSED_COMMENT, SET_SHARED_COMMENT } from '../../store/ui'
 import { GET_ACTION_REACTIONS } from '../../graphql/query'
 import { ReactComponent as DislikeIcon } from '../../assets/svg/Dislike.svg'
 import { ReactComponent as LikeIcon } from '../../assets/svg/Like.svg'
-import { ReactComponent as QuoteIcon } from '../../assets/svg/Quote.svg'
-import { ReactComponent as CommentIcon } from '../../assets/svg/Comment.svg'
 import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
 import PostChatMessage from '../PostChat/PostChatMessage'
 import CommentReactions from '../Comment/CommentReactions'
@@ -65,7 +63,6 @@ function PostActionCard({ postAction, postUrl, selected }) {
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
   const sharedComment = useSelector((state) => state.ui.sharedComment)
-  console.log(sharedComment)
   const { loading, data } = useQuery(GET_ACTION_REACTIONS, {
     variables: { actionId: _id },
   })
@@ -139,15 +136,15 @@ function PostActionCard({ postAction, postUrl, selected }) {
         {' '}
         <span className={classes.date}>{parsedDate}</span>
       </Typography>
-        {!voteType && (
-          <CardContent
-            className={classes.content}
-          >
+      {!voteType && (
+        <CardContent
+          className={classes.content}
+        >
           <p>
             {postContent}
           </p>
-          </CardContent>
-        )}
+        </CardContent>
+      )}
       <CardActions disableSpacing>
         <SvgIcon
           component={svgIcon}

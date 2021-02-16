@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import {
   Grid, Paper, Typography, Avatar,
@@ -59,6 +60,8 @@ const useStyles = makeStyles(() => ({
 
 function PostChatMessage(props) {
   const { message } = props
+  const username = message.user.username
+  const history = useHistory()
   const classes = useStyles()
   const userId = useSelector((state) => state.user.data._id)
   const isDefaultDirection = message.userId !== userId
@@ -70,6 +73,10 @@ function PostChatMessage(props) {
 
   const { messageReactions } = (!loading && data) || []
 
+  const handleRedirectToProfile = () => {
+    history.push(`/hhsb/Profile/${username}`)
+  }
+
   return (
     <Grid
       container
@@ -79,7 +86,9 @@ function PostChatMessage(props) {
       className={classes.root}
     >
       <Grid item sm={2}>
-        <Avatar className={classes.avatar}>
+        <Avatar className={classes.avatar}
+          onClick={() => handleRedirectToProfile()}
+        >
           <AvatarDisplay {...message.user.avatar} />
         </Avatar>
       </Grid>
