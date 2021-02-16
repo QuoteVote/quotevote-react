@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
-  Card, CardActions, CardContent, IconButton, Typography,
+  Card, CardActions, CardContent, IconButton, Typography, SvgIcon
 } from '@material-ui/core'
 import { InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
@@ -83,7 +83,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
   }
 
   let postContent = content
-  let svgIcon = CommentIcon
+  let svgIcon
   let voteTags = ''
 
   const handleClick = () => {
@@ -109,7 +109,6 @@ function PostActionCard({ postAction, postUrl, selected }) {
 
   if (quote) {
     postContent = quote.length ? quote : 'Quoted this post.'
-    svgIcon = QuoteIcon
   }
 
   useEffect(() => {
@@ -150,6 +149,12 @@ function PostActionCard({ postAction, postUrl, selected }) {
           </CardContent>
         )}
       <CardActions disableSpacing>
+        <SvgIcon
+          component={svgIcon}
+          fontSize="large"
+          viewBox="-10 -10 50 50"
+          htmlColor="black"
+        />
         <Typography display="inline">{voteTags}</Typography>
         <div className={classes.expand}>
           <CommentReactions actionId={_id} reactions={actionReactions} />
