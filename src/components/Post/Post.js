@@ -22,7 +22,7 @@ import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 
 const useStyles = makeStyles(() => ({
   root: {
-    maxHeight: '720px',
+    height: 'calc(95vh - 90px)',
     overflowY: 'scroll',
   },
   header2: {
