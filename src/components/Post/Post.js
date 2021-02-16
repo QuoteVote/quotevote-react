@@ -21,6 +21,10 @@ import AvatarDisplay from '../Avatar'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 
 const useStyles = makeStyles(() => ({
+  root: {
+    maxHeight: '720px',
+    overflowY: 'scroll',
+  },
   header2: {
     padding: 0,
     marginLeft: 10,
