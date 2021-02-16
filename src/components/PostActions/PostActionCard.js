@@ -4,7 +4,6 @@ import {
 } from '@material-ui/core'
 import { InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
-import SvgIcon from '@material-ui/core/SvgIcon'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
@@ -54,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function PostActionCard({ postAction, postUrl, selected }) {
+  const [commentSelected, setCommentSelected] = useState()
   const history = useHistory()
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -65,6 +65,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
   const voteType = get(postAction, 'type')
   const quote = get(postAction, 'quote')
   const sharedComment = useSelector((state) => state.ui.sharedComment)
+  console.log(sharedComment)
   const { loading, data } = useQuery(GET_ACTION_REACTIONS, {
     variables: { actionId: _id },
   })
@@ -84,6 +85,16 @@ function PostActionCard({ postAction, postUrl, selected }) {
   let postContent = content
   let svgIcon = CommentIcon
   let voteTags = ''
+
+  const handleClick = () => {
+    if (!commentSelected) {
+      dispatch(SET_FOCUSED_COMMENT(postAction))
+      setCommentSelected(true)
+    } else {
+      dispatch(SET_FOCUSED_COMMENT(sharedComment))
+      setCommentSelected(false)
+    }
+  }
 
   const handleRedirectToProfile = () => {
     history.push(`/hhsb/Profile/${username}`)
@@ -116,8 +127,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
 
   return (
     <Card
-      onMouseEnter={() => dispatch(SET_FOCUSED_COMMENT(postAction))}
-      onMouseLeave={() => dispatch(SET_FOCUSED_COMMENT(sharedComment))}
+      onClick={(event) => handleClick()}
       className={selected ? classes.selectedRoot : classes.root}
     >
       <IconButton
