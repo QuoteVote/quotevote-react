@@ -70,6 +70,8 @@ function PostChatSend(props) {
       text,
     }
 
+    setText('')
+
     const dateSubmitted = new Date()
     await createMessage({
       variables: { message },
@@ -110,8 +112,6 @@ function PostChatSend(props) {
         }
       },
     })
-
-    setText('')
   }
 
   return (
@@ -136,14 +136,14 @@ function PostChatSend(props) {
             }}
             onKeyPress={(event) => {
               if (event.key === 'Enter') {
-                handleSubmit()
+                handleSubmit(event)
               }
             }}
           />
           <IconButton
             className={classes.send}
             onClick={(event) => {
-              handleSubmit()
+              handleSubmit(event)
             }}
           >
             <img src={SendIcon} alt="send"></img>
