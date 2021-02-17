@@ -52,7 +52,7 @@ const useStyles = makeStyles({
     padding: 10,
   },
   avatarCard: {
-    padding: '20px 30px',
+    padding: '20px 40px',
   },
   discardButton: {
     backgroundColor: '#DB6666',
@@ -81,15 +81,10 @@ const useStyles = makeStyles({
   },
   svgButton: {
     borderRadius: 100,
-    backgroundColor: '#7DD6AD',
+    backgroundColor: 'rgba(255, 255, 255, .6)',
     height: 80,
     width: 80,
-  },
-  buttonIcon: {
-    verticalAlign: 'middle',
-  },
-  avatarRow: {
-    paddingBottom: 20,
+    margin: '5px 20px 5px 15px',
   },
 })
 
@@ -102,18 +97,16 @@ function ChangePhoto() {
   const [allAvatars, addAvatar] = useState([])
   const user = useSelector((state) => state.user.data)
   const [updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
+  const [avatarOptionsArray, setAvatarOptionsArray] = useState()
+  const [updatedAvatar, setUpdatedAvatar] = useState()
   let defaultAvatar = {}
   //  prevent legacy image file avatars from crapping out front end
-  if (typeof user.avatar === 'object') {
+  if (updatedAvatar !== undefined) {
+    defaultAvatar = updatedAvatar
+  } else if (typeof user.avatar === 'object') {
     defaultAvatar = user.avatar
   }
-  const {
-    handleSubmit, watch, control, setValue,
-  } = useForm({
-    defaultValues: {
-      ...defaultAvatar,
-    },
-  })
+  console.log(defaultAvatar)
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -126,26 +119,102 @@ function ChangePhoto() {
       open: true,
     }))
   }
-  const nameLookup = {
-    'Top Type': 'Top',
-    'Accessories Type': 'Accessories',
-    hairColor: 'Hair Color',
-    facialHairColor: 'Facial Hair Color',
-    facialHairType: 'Facial Hair',
-    clotheColor: 'Clothes',
-    eyeType: 'Eyes',
-    eyebrowType: 'Eyebrow',
-    'Mouth Type': 'Mouth',
-    'Skin Color': 'Skin',
+
+  const groupedAvatarOptions = _.groupBy(avatarOptions, 'name')
+
+  const {
+    topType, accessoriesType, facialHairType, clotheType, graphicType, mouthType, eyebrowType, eyeType, facialHairColor, clotheColor, hairColor, hatColor, skinColor
+  } = groupedAvatarOptions
+
+  topType.icon = Hat
+  accessoriesType.icon = Glasses
+  facialHairType.icon = Beard
+  clotheType.icon = Shirt
+  graphicType.icon = Silhouette
+  mouthType.icon = Mouth
+  eyeType.icon = Eyes
+  eyebrowType.icon = Eyebrow
+
+  const buttonOptions = []
+
+  buttonOptions.push(eyebrowType, topType, accessoriesType, facialHairType, clotheType, graphicType, mouthType, eyeType)
+
+  const displayAvatarOptions = []
+
+  function handleIconClick(category) {
+    const { name, options } = category
+    switch (name) {
+      case "topType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.topType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+      case "eyebrowType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.eyebrowType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+      case "eyeType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.eyeType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+      case "clotheType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.clotheType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+      case "graphicType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.graphicType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+      case "facialHairType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.facialHairType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+      case "mouthType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.mouthType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+      case "accessoriesType":
+        for (let i = 0; i < options.length; i++) {
+          const avatarCategoryDisplay = {...defaultAvatar}
+          avatarCategoryDisplay.accessoriesType = options[i]
+          displayAvatarOptions.push(avatarCategoryDisplay)
+        }
+        setAvatarOptionsArray(displayAvatarOptions)
+        break
+    }
   }
 
-  const shouldIgnore = {
-    'Hat Color': true,
-    clotheType: true,
-    graphicType: true,
+  function handleSelectAvatarOption(options) {
+    setUpdatedAvatar(options)
   }
-  const watchAllFields = watch()
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Grid container display="flex" direction="row" className={classes.fullCard}>
@@ -157,7 +226,7 @@ function ChangePhoto() {
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-              <AvatarPreview {...watchAllFields} />
+              <AvatarPreview {...defaultAvatar} />
             </Avatar>
           </Grid>
           <Grid item>
@@ -183,48 +252,17 @@ function ChangePhoto() {
             </Typography>
           </Grid>
           <Grid container display="flex" direction="column" className={classes.avatarCard}>
-            <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Eyebrow} /></Button>
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Beard} /></Button>
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Hat} /></Button>
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Eyes} /></Button>
-            </Grid>
-            <Grid item container display="flex" direction="row" justify="space-evenly">
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Shirt} /></Button>
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Mouth} /></Button>
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Glasses} /></Button>
-              <Button className={classes.svgButton} display="flex" justify="center" alignItems="center"><img src={Silhouette} /></Button>
+            <Grid item container display="flex" direction="row" justify="space-evenly" wrap className={classes.avatarRow}>
+            {buttonOptions.map((category) => <Button className={classes.svgButton} display="flex" justify="center" alignItems="center" onClick={(event)=> handleIconClick(category[0])}><img src={category.icon} /></Button>)}
             </Grid>
           </Grid>
-          <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container display="flex" direction="column" className={classes.optionCard}>
               <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-              </Grid>
-              <Grid item container display="flex" direction="row" justify="space-evenly">
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
+                {avatarOptionsArray && avatarOptionsArray.map((options) => 
+                  <Avatar className={classes.size} onClick={(event) => handleSelectAvatarOption(options)}>
+                    <AvatarPreview {...options} />
+                  </Avatar>
+                )}
               </Grid>
             </Grid>
             <Grid container display="flex" direction="column" className={classes.optionCard}>
@@ -243,7 +281,6 @@ function ChangePhoto() {
                 </Avatar>
               </Grid>
             </Grid>
-          </form>
         </Grid>
       </Grid>
     </ThemeProvider>

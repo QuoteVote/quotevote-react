@@ -119,6 +119,8 @@ function PostChatReactions(props) {
     )
   })
 
+  console.log(groupedReactions)
+
   return (
     <Grid
       container
