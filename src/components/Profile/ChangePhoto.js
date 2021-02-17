@@ -49,10 +49,7 @@ const useStyles = makeStyles({
     color: '#97999A',
     fontWeight: 'bold',
     fontSize: 16,
-    padding: 10,
-  },
-  avatarCard: {
-    padding: '20px 40px',
+    padding: '10px 0px 0px 10px',
   },
   discardButton: {
     backgroundColor: '#DB6666',
@@ -78,13 +75,20 @@ const useStyles = makeStyles({
     height: 80,
     width: 80,
     backgroundColor: '#65C9FF',
+    margin: '5px 20px 5px 15px',
+    cursor: 'pointer',
   },
   svgButton: {
     borderRadius: 100,
     backgroundColor: 'rgba(255, 255, 255, .6)',
     height: 80,
     width: 80,
-    margin: '5px 20px 5px 15px',
+    margin: '0px 30px 5px 15px',
+  },
+  avatarRow: {
+    padding: 20,
+    height: 200,
+    overflowY: 'scroll',
   },
 })
 
@@ -130,14 +134,14 @@ function ChangePhoto() {
   accessoriesType.icon = Glasses
   facialHairType.icon = Beard
   clotheType.icon = Shirt
-  graphicType.icon = Silhouette
+  skinColor.icon = Silhouette
   mouthType.icon = Mouth
   eyeType.icon = Eyes
   eyebrowType.icon = Eyebrow
 
   const buttonOptions = []
 
-  buttonOptions.push(eyebrowType, topType, accessoriesType, facialHairType, clotheType, graphicType, mouthType, eyeType)
+  buttonOptions.push(eyebrowType, topType, accessoriesType, facialHairType, clotheType, skinColor, mouthType, eyeType)
 
   const displayAvatarOptions = []
 
@@ -176,10 +180,11 @@ function ChangePhoto() {
         }
         setAvatarOptionsArray(displayAvatarOptions)
         break
-      case "graphicType":
+      case "skinColor":
         for (let i = 0; i < options.length; i++) {
+          console.log(options[i])
           const avatarCategoryDisplay = {...defaultAvatar}
-          avatarCategoryDisplay.graphicType = options[i]
+          avatarCategoryDisplay.skinColor = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
         setAvatarOptionsArray(displayAvatarOptions)
@@ -251,7 +256,7 @@ function ChangePhoto() {
               choose a feature to customize
             </Typography>
           </Grid>
-          <Grid container display="flex" direction="column" className={classes.avatarCard}>
+          <Grid container display="flex" direction="column">
             <Grid item container display="flex" direction="row" justify="space-evenly" wrap className={classes.avatarRow}>
             {buttonOptions.map((category) => <Button className={classes.svgButton} display="flex" justify="center" alignItems="center" onClick={(event)=> handleIconClick(category[0])}><img src={category.icon} /></Button>)}
             </Grid>
