@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useMutation } from '@apollo/react-hooks'
 import { useSelector, useDispatch } from 'react-redux'
@@ -83,11 +83,11 @@ const useStyles = makeStyles({
     backgroundColor: 'rgba(255, 255, 255, .6)',
     height: 80,
     width: 80,
-    margin: '0px 30px 5px 15px',
+    margin: '0px 30px 0px 15px',
   },
   avatarRow: {
     padding: 20,
-    height: 200,
+    height: 205,
     overflowY: 'scroll',
   },
 })
@@ -103,6 +103,10 @@ function ChangePhoto() {
   const [updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
   const [avatarOptionsArray, setAvatarOptionsArray] = useState()
   const [updatedAvatar, setUpdatedAvatar] = useState()
+  const [selectedOptions, setSelectedOptions] = useState()
+  console.log(selectedOptions)
+  const [colorOptions, setColorOptions] = useState()
+  console.log(colorOptions)
   let defaultAvatar = {}
   //  prevent legacy image file avatars from crapping out front end
   if (updatedAvatar !== undefined) {
@@ -110,7 +114,6 @@ function ChangePhoto() {
   } else if (typeof user.avatar === 'object') {
     defaultAvatar = user.avatar
   }
-  console.log(defaultAvatar)
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -129,6 +132,8 @@ function ChangePhoto() {
   const {
     topType, accessoriesType, facialHairType, clotheType, graphicType, mouthType, eyebrowType, eyeType, facialHairColor, clotheColor, hairColor, hatColor, skinColor
   } = groupedAvatarOptions
+
+  console.log(facialHairColor)
 
   topType.icon = Hat
   accessoriesType.icon = Glasses
@@ -154,6 +159,7 @@ function ChangePhoto() {
           avatarCategoryDisplay.topType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(name)
         setAvatarOptionsArray(displayAvatarOptions)
         break
       case "eyebrowType":
@@ -178,11 +184,11 @@ function ChangePhoto() {
           avatarCategoryDisplay.clotheType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(name)
         setAvatarOptionsArray(displayAvatarOptions)
         break
       case "skinColor":
         for (let i = 0; i < options.length; i++) {
-          console.log(options[i])
           const avatarCategoryDisplay = {...defaultAvatar}
           avatarCategoryDisplay.skinColor = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
@@ -195,6 +201,7 @@ function ChangePhoto() {
           avatarCategoryDisplay.facialHairType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(name)
         setAvatarOptionsArray(displayAvatarOptions)
         break
       case "mouthType":
@@ -216,8 +223,47 @@ function ChangePhoto() {
     }
   }
 
-  function handleSelectAvatarOption(options) {
-    setUpdatedAvatar(options)
+  const displayColorOptions = []
+
+  function handleSelectAvatarOption(option) {
+    console.log(option)
+    setUpdatedAvatar(option)
+    let colors
+    switch (selectedOptions) {
+      case "topType":
+        colors = hairColor[0].options
+        for (let i = 0; i < colors.length; i++) {
+          console.log(colors[i])
+          const avatarCategoryDisplay = {...option}
+          avatarCategoryDisplay.hairColor = colors[i]
+          console.log(avatarCategoryDisplay)
+          displayColorOptions.push(avatarCategoryDisplay)
+        }
+        setColorOptions(displayColorOptions)
+        break
+      case "facialHairType":
+        colors = facialHairColor[0].options
+        for (let i = 0; i < colors.length; i++) {
+          console.log(colors[i])
+          const avatarCategoryDisplay = {...option}
+          avatarCategoryDisplay.facialHairColor = colors[i]
+          console.log(avatarCategoryDisplay)
+          displayColorOptions.push(avatarCategoryDisplay)
+        }
+        setColorOptions(displayColorOptions)
+        break
+      case "clotheType":
+        colors = clotheColor[0].options
+        for (let i = 0; i < colors.length; i++) {
+          console.log(colors[i])
+          const avatarCategoryDisplay = {...option}
+          avatarCategoryDisplay.clotheColor = colors[i]
+          console.log(avatarCategoryDisplay)
+          displayColorOptions.push(avatarCategoryDisplay)
+        }
+        setColorOptions(displayColorOptions)
+        break
+    }
   }
   
   return (
@@ -257,33 +303,26 @@ function ChangePhoto() {
             </Typography>
           </Grid>
           <Grid container display="flex" direction="column">
-            <Grid item container display="flex" direction="row" justify="space-evenly" wrap className={classes.avatarRow}>
+            <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
             {buttonOptions.map((category) => <Button className={classes.svgButton} display="flex" justify="center" alignItems="center" onClick={(event)=> handleIconClick(category[0])}><img src={category.icon} /></Button>)}
             </Grid>
           </Grid>
             <Grid container display="flex" direction="column" className={classes.optionCard}>
               <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-                {avatarOptionsArray && avatarOptionsArray.map((options) => 
-                  <Avatar className={classes.size} onClick={(event) => handleSelectAvatarOption(options)}>
-                    <AvatarPreview {...options} />
+                {avatarOptionsArray && avatarOptionsArray.map((option) => 
+                  <Avatar className={classes.size} onClick={(event) => handleSelectAvatarOption(option)}>
+                    <AvatarPreview {...option} />
                   </Avatar>
                 )}
               </Grid>
             </Grid>
             <Grid container display="flex" direction="column" className={classes.optionCard}>
               <Grid item container display="flex" direction="row" justify="space-evenly">
+              {colorOptions && colorOptions.map((option) => 
                 <Avatar className={classes.size}>
-                  <AvatarPreview />
+                  <AvatarPreview {...option}/>
                 </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
-                <Avatar className={classes.size}>
-                  <AvatarPreview />
-                </Avatar>
+              )}
               </Grid>
             </Grid>
         </Grid>
