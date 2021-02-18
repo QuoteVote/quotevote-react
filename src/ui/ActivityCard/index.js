@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
   },
   ActivityActions: {
     backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
+    height: '100%',
+  },
+  actionsExpandOpen: {
+    height: 7,
   },
   activityBody: {
     marginLeft: theme.typography.pxToRem(20),
@@ -87,7 +91,7 @@ function ActivityHeader({
   return (
     <div className={classes.activityHeader}>
       <Grid container spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <Avatar>
             <AvatarDisplay
               height="40"
@@ -97,7 +101,7 @@ function ActivityHeader({
             />
           </Avatar>
         </Grid>
-        <Grid item container direction="column" xs={8}>
+        <Grid item container direction="column" xs={10}>
           <Grid item xs={12}>
             <Typography color="textPrimary" variant="subtitle2">
               {title}
@@ -223,7 +227,7 @@ ActivityContent.propTypes = {
 }
 
 function ActivityActions({
-  upvotes, downvotes, liked, onLike, handleExpandClick, expanded,
+  liked, onLike, handleExpandClick, expanded,
 }) {
   const classes = useStyles()
   return (
@@ -253,8 +257,6 @@ function ActivityActions({
 }
 
 ActivityActions.propTypes = {
-  upvotes: PropTypes.number,
-  downvotes: PropTypes.number,
   liked: PropTypes.bool,
   onLike: PropTypes.func,
   handleExpandClick: PropTypes.func,
@@ -316,9 +318,14 @@ export const ActivityCard = memo(
             />
           </Collapse>
         </CardContent>
-        <CardActions className={classes.ActivityActions} disableSpacing>
-          <Grid container direction="column">
-            <Grid item xs={12}>
+        <CardActions
+          className={clsx(classes.ActivityActions, {
+            [classes.actionsExpandOpen]: expanded,
+          })}
+          disableSpacing
+        >
+          <Grid container direction="row" justify="space-between">
+            <Grid item xs={11}>
               {
                 !expanded && (
                   <ActivityHeader
@@ -336,15 +343,17 @@ export const ActivityCard = memo(
                 )
               }
             </Grid>
-            <Grid item xs={12}>
-              <ActivityActions
-                upvotes={upvotes}
-                downvotes={downvotes}
-                liked={liked}
-                onLike={onLike}
-                handleExpandClick={() => setExpanded(!expanded)}
-                expanded={expanded}
-              />
+            <Grid item xs={1}>
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: expanded,
+                })}
+                onClick={() => setExpanded(!expanded)}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
             </Grid>
           </Grid>
         </CardActions>
