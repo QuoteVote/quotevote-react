@@ -2,19 +2,19 @@
 
 exports[`<ActivityCard  /> should match snapshot 1`] = `
 <div
-  class="MuiPaper-root MuiCard-root makeStyles-root-1 makeStyles-root-10 MuiPaper-elevation1 MuiPaper-rounded"
+  class="MuiPaper-root MuiCard-root makeStyles-root-1 makeStyles-root-11 MuiPaper-elevation1 MuiPaper-rounded"
 >
   <div
-    class="MuiCardContent-root makeStyles-cardContent-9"
+    class="MuiCardContent-root makeStyles-cardContent-10"
   />
   <div
-    class="MuiCardActions-root makeStyles-ActivityActions-3 makeStyles-ActivityActions-11"
+    class="MuiCardActions-root makeStyles-ActivityActions-3 makeStyles-ActivityActions-12"
   >
     <div
-      class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column"
+      class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-space-between"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11"
       >
         <div
           class="makeStyles-activityHeader-2"
@@ -23,7 +23,7 @@ exports[`<ActivityCard  /> should match snapshot 1`] = `
             class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
           >
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
             >
               <div
                 class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
@@ -367,7 +367,7 @@ exports[`<ActivityCard  /> should match snapshot 1`] = `
               </div>
             </div>
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-8"
+              class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-10"
             >
               <div
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
@@ -404,60 +404,33 @@ exports[`<ActivityCard  /> should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
       >
-        <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-flex-end"
+        <button
+          aria-expanded="false"
+          aria-label="show more"
+          class="MuiButtonBase-root MuiIconButton-root makeStyles-expand-7"
+          tabindex="0"
+          type="button"
         >
-          <button
-            class="MuiButtonBase-root MuiIconButton-root makeStyles-expand-6"
-            tabindex="0"
-            type="button"
+          <span
+            class="MuiIconButton-label"
           >
-            <span
-              class="MuiIconButton-label"
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
             >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
-          <button
-            aria-expanded="false"
-            aria-label="show more"
-            class="MuiButtonBase-root MuiIconButton-root makeStyles-expand-6"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
-        </div>
+              <path
+                d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
       </div>
     </div>
   </div>
