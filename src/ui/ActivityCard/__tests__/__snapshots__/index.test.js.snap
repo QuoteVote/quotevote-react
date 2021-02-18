@@ -2,13 +2,16 @@
 
 exports[`<ActivityCard  /> should match snapshot 1`] = `
 <div
-  class="MuiPaper-root MuiCard-root makeStyles-root-1 makeStyles-root-9 MuiPaper-elevation1 MuiPaper-rounded"
+  class="MuiPaper-root MuiCard-root makeStyles-root-1 makeStyles-root-10 MuiPaper-elevation1 MuiPaper-rounded"
 >
   <div
-    class="MuiCardContent-root"
+    class="MuiCardContent-root makeStyles-cardContent-9"
+  />
+  <div
+    class="MuiCardActions-root makeStyles-ActivityActions-3 makeStyles-ActivityActions-11"
   >
     <div
-      class="makeStyles-activityHeader-2 makeStyles-activityHeader-13"
+      class="makeStyles-activityHeader-2"
     >
       <div
         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
@@ -368,31 +371,31 @@ exports[`<ActivityCard  /> should match snapshot 1`] = `
             />
           </div>
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8"
+            class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12"
           >
-            <h6
-              class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorTextPrimary"
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
             >
-              Username
-            </h6>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
-          >
-            <span
-              class="MuiTypography-root MuiTypography-caption MuiTypography-colorTextPrimary"
+              <span
+                class="MuiTypography-root MuiTypography-colorTextPrimary"
+              >
+                Username
+              </span>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
             >
-              Invalid date
-               @ Invalid date
-            </span>
+              <span
+                class="MuiTypography-root MuiTypography-caption MuiTypography-colorTextPrimary"
+              >
+                Invalid date
+                 @ Invalid date
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="MuiCardActions-root makeStyles-ActivityActions-3 makeStyles-ActivityActions-11"
-  >
     <span
       class="MuiTypography-root MuiTypography-caption"
     >

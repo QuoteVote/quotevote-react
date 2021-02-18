@@ -15,7 +15,6 @@ import CardContent from '@material-ui/core/CardContent'
 import Collapse from '@material-ui/core/Collapse'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
-import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import moment from 'moment'
@@ -37,13 +36,14 @@ const useStyles = makeStyles((theme) => ({
       minWidth: '100%',
       width: '100%',
     },
+    padding: 0,
   },
   activityHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginLeft: theme.typography.pxToRem(20),
-    marginBottom: 10,
+    // marginBottom: 10,
     // backgroundColor: (props) => (props.cardColor ? props.cardColor : '#FFF'),
   },
   ActivityActions: {
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     cursor: 'pointer',
+    margin: theme.typography.pxToRem(10),
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -71,6 +72,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: theme.typography.pxToRem(130),
     backgroundColor: 'white',
   },
+  cardContent: {
+    padding: 0,
+  },
 }))
 
 function ActivityHeader({
@@ -84,9 +88,7 @@ function ActivityHeader({
     <div className={classes.activityHeader}>
       <Grid container spacing={3}>
         <Grid item xs={4}>
-          <Avatar
-            className={classes.avatar}
-          >
+          <Avatar>
             <AvatarDisplay
               height="40"
               width="40"
@@ -136,45 +138,27 @@ ActivityHeader.propTypes = {
 
 function ActivityContent({
   name, date, content, avatar, width, handleRedirectToProfile, username, onCardClick,
-  post, activityType,
+  post, activityType, upvotes, downvotes,
 }) {
   const classes = useStyles()
   const contentLength = width > 500 ? 1000 : 500
   const isPosted = activityType.toUpperCase() === 'POSTED'
   const title = post.title ? stringLimit(post.title, isPosted ? 1000 : 100) : ''
   return (
-    <Box display="flex" className={classes.content}>
-      <Avatar
-        onClick={() => handleRedirectToProfile(username)}
-        className={classes.avatar}
-      >
-        <AvatarDisplay
-          height="40"
-          width="40"
-          className={classes.avatarStyle}
-          {...avatar}
-        />
-      </Avatar>
-      <Box flexGrow={1} onClick={onCardClick}>
-        <ActivityHeader name={name} date={date} title={title} avatar={avatar} />
-        {isPosted && (
-          <Typography className={classes.activityBody} variant="body1">
+    <Grid container direction="column">
+      <Grid item xs={12} container="row">
+        <Grid item xs={3}>
+          <Typography variant="caption">{`+${upvotes} / -${downvotes}`}</Typography>
+        </Grid>
+        <Grid item xs={9} onClick={onCardClick}>
+          <Typography className={classes.activityBody} variant="subtitle2">
             <b>
               {title}
             </b>
           </Typography>
-        )}
-        {!isPosted && (
-          <Typography className={classes.activityBody} variant="body1">
-            <b>
-              {activityType.toUpperCase()}
-            </b>
-            {' on '}
-            <i>
-              {title}
-            </i>
-          </Typography>
-        )}
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
         <Typography className={classes.activityBody} variant="body1">
           &quot;
           {content.length > 1000 ?
@@ -182,8 +166,44 @@ function ActivityContent({
             content}
           &quot;
         </Typography>
-      </Box>
-    </Box>
+      </Grid>
+      <Grid container alignItems="center" direction="row" item xs={12}>
+        <Grid item xs={1}>
+          <Avatar
+            onClick={() => handleRedirectToProfile(username)}
+            className={classes.avatar}
+          >
+            <AvatarDisplay
+              height="40"
+              width="40"
+              className={classes.avatarStyle}
+              {...avatar}
+            />
+          </Avatar>
+        </Grid>
+        <Grid item alignItems="center" justify="space-evenly" container="row" xs={7}>
+          <Typography variant="body1">
+            {`${name}`}
+          </Typography>
+          <Typography color="textPrimary" variant="caption">
+            {moment(date).calendar(null, {
+              sameDay: '[Today]',
+              nextDay: '[Tomorrow]',
+              nextWeek: 'dddd',
+              lastDay: '[Yesterday]',
+              lastWeek: '[Last] dddd',
+              sameElse: 'MMM DD, YYYY',
+            })}
+            {` @ ${moment(date).format('h:mm A')}`}
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography color="textPrimary" variant="subtitle2">
+            Group Name?
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 
@@ -198,6 +218,8 @@ ActivityContent.propTypes = {
   onCardClick: PropTypes.func,
   post: PropTypes.object,
   activityType: PropTypes.string,
+  upvotes: PropTypes.string,
+  downvotes: PropTypes.string,
 }
 
 function ActivityActions({
@@ -205,8 +227,7 @@ function ActivityActions({
 }) {
   const classes = useStyles()
   return (
-    <>
-      <Typography variant="caption">{`+${upvotes} / -${downvotes}`}</Typography>
+    <Grid container justify="flex-end" direction="row">
       <IconButton
         onClick={(e) => onLike(liked, e)}
         className={classes.expand}
@@ -227,7 +248,7 @@ function ActivityActions({
       >
         <ExpandMoreIcon />
       </IconButton>
-    </>
+    </Grid>
   )
 }
 
@@ -278,7 +299,7 @@ export const ActivityCard = memo(
     // }
     return (
       <Card className={classes.root}>
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <ActivityContent
               name={name}
@@ -290,34 +311,42 @@ export const ActivityCard = memo(
               onCardClick={onCardClick}
               post={post}
               activityType={activityType}
+              upvote={upvotes}
+              downvotes={downvotes}
             />
           </Collapse>
         </CardContent>
         <CardActions className={classes.ActivityActions} disableSpacing>
-          {
-            !expanded && (
-              <ActivityHeader
-                name={name}
-                date={date}
-                content={content}
-                avatar={avatar}
-                username={username}
-                handleRedirectToProfile={handleRedirectToProfile}
-                onCardClick={onCardClick}
-                post={post}
-                activityType={activityType}
-                title={post.title}
+          <Grid container direction="column">
+            <Grid item xs={12}>
+              {
+                !expanded && (
+                  <ActivityHeader
+                    name={name}
+                    date={date}
+                    content={content}
+                    avatar={avatar}
+                    username={username}
+                    handleRedirectToProfile={handleRedirectToProfile}
+                    onCardClick={onCardClick}
+                    post={post}
+                    activityType={activityType}
+                    title={post.title}
+                  />
+                )
+              }
+            </Grid>
+            <Grid item xs={12}>
+              <ActivityActions
+                upvotes={upvotes}
+                downvotes={downvotes}
+                liked={liked}
+                onLike={onLike}
+                handleExpandClick={() => setExpanded(!expanded)}
+                expanded={expanded}
               />
-            )
-          }
-          <ActivityActions
-            upvotes={upvotes}
-            downvotes={downvotes}
-            liked={liked}
-            onLike={onLike}
-            handleExpandClick={() => setExpanded(!expanded)}
-            expanded={expanded}
-          />
+            </Grid>
+          </Grid>
         </CardActions>
       </Card>
     )
