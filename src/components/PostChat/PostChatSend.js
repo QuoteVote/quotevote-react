@@ -136,14 +136,14 @@ function PostChatSend(props) {
             }}
             onKeyPress={(event) => {
               if (event.key === 'Enter') {
-                handleSubmit(event)
+                handleSubmit()
               }
             }}
           />
           <IconButton
             className={classes.send}
             onClick={(event) => {
-              handleSubmit(event)
+              handleSubmit()
             }}
           >
             <img src={SendIcon} alt="send"></img>
