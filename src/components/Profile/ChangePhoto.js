@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
@@ -61,7 +61,7 @@ const useStyles = makeStyles({
     height: 88,
     textTransform: 'none',
     fontWeight: 'normal',
-     '&:hover': {
+    '&:hover': {
       backgroundColor: '#E75656 !important',
     },
   },
@@ -119,16 +119,15 @@ function ChangePhoto() {
   const [updatedAvatar, setUpdatedAvatar] = useState()
   const [selectedOptions, setSelectedOptions] = useState()
   const [colorOptions, setColorOptions] = useState()
-  const [defaultAvatar, setDefaultAvatar] = useState({})
   //  prevent legacy image file avatars from crapping out front end
-  useEffect(() => {
-    if (updatedAvatar !== undefined) {
-      setDefaultAvatar(updatedAvatar)
-    } else if (typeof user.avatar === 'object') {
-      setDefaultAvatar(user.avatar)
-    }
-  }), []
-  
+  let defaultAvatar = {}
+
+  if (updatedAvatar !== undefined) {
+    defaultAvatar = updatedAvatar
+  } else if (typeof user.avatar === 'object') {
+    defaultAvatar = user.avatar
+  }
+
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -245,7 +244,7 @@ function ChangePhoto() {
         setAvatarOptionsArray(displayAvatarOptions)
         break
       default:
-        null
+        setSelectedOptions(null)
     }
   }
 
@@ -303,7 +302,7 @@ function ChangePhoto() {
         setColorOptions(displayColorOptions)
         break
       default:
-        null
+        setColorOptions(null)
     }
   }
 
@@ -325,13 +324,13 @@ function ChangePhoto() {
             <Button
               type="submit"
               className={classes.bingoButton}
-              onClick={(event) => onSubmit(defaultAvatar)}
+              onClick={() => onSubmit(defaultAvatar)}
             >
               Bingo
             </Button>
             <Button
               className={classes.discardButton}
-              onClick={(event) => setUpdatedAvatar(user.avatar)}
+              onClick={() => setUpdatedAvatar(user.avatar)}
             >
               Nah
             </Button>
@@ -345,23 +344,29 @@ function ChangePhoto() {
           </Grid>
           <Grid container display="flex" direction="column" className={classes.buttonCard}>
             <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-              {buttonOptions.map((category) => <Button className={classes.svgButton} hover display="flex" justify="center" alignItems="center" onClick={(event) => handleIconClick(category[0])}><img src={category.icon} /></Button>)}
+              {buttonOptions.map((category) => (
+                <Button className={classes.svgButton} hover display="flex" justify="center" alignItems="center" onClick={() => handleIconClick(category[0])}>
+                  <img src={category.icon} alt={category.name} />
+                </Button>
+              ))}
             </Grid>
           </Grid>
           <Grid container display="flex" direction="column" className={classes.optionCard}>
             <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-              {avatarOptionsArray && avatarOptionsArray.map((option) =>
-                <Avatar className={classes.size} onClick={(event) => handleSelectAvatarOption(option)}>
+              {avatarOptionsArray && avatarOptionsArray.map((option) => (
+                <Avatar className={classes.size} onClick={() => handleSelectAvatarOption(option)}>
                   <AvatarPreview {...option} />
-                </Avatar>)}
+                </Avatar>
+              ))}
             </Grid>
           </Grid>
           <Grid container display="flex" direction="column" className={classes.optionCard}>
             <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-              {colorOptions && colorOptions.map((option) =>
-                <Avatar className={classes.size} onClick={(event) => setUpdatedAvatar(option)}>
+              {colorOptions && colorOptions.map((option) => (
+                <Avatar className={classes.size} onClick={() => setUpdatedAvatar(option)}>
                   <AvatarPreview {...option} />
-                </Avatar>)}
+                </Avatar>
+              ))}
             </Grid>
           </Grid>
         </Grid>
