@@ -117,8 +117,8 @@ function ChangePhoto() {
   const dispatch = useDispatch()
   const classes = useStyles()
 
-  const onSubmit = async (formData) => {
-    const newAvatar = await updateUserAvatar({ variables: { user_id: user._id, avatarQualities: formData } })
+  const onSubmit = async (avatar) => {
+    const newAvatar = await updateUserAvatar({ variables: { user_id: user._id, avatarQualities: avatar } })
     await updateAvatar(dispatch, newAvatar.data.updateUserAvatar.avatar)
     dispatch(SET_SNACKBAR({
       type: 'danger',
@@ -149,12 +149,14 @@ function ChangePhoto() {
   buttonOptions.push(eyebrowType, topType, accessoriesType, facialHairType, clotheType, skinColor, mouthType, eyeType)
 
   const displayAvatarOptions = []
+  const displayColorOptions = []
 
   function handleIconClick(category) {
     const { name, options } = category
     switch (name) {
       case "topType":
         for (let i = 0; i < options.length; i++) {
+          console.log(options[i])
           const avatarCategoryDisplay = {...defaultAvatar}
           avatarCategoryDisplay.topType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
@@ -168,6 +170,8 @@ function ChangePhoto() {
           avatarCategoryDisplay.eyebrowType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(null)
+        setColorOptions(null)
         setAvatarOptionsArray(displayAvatarOptions)
         break
       case "eyeType":
@@ -176,6 +180,8 @@ function ChangePhoto() {
           avatarCategoryDisplay.eyeType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(null)
+        setColorOptions(null)
         setAvatarOptionsArray(displayAvatarOptions)
         break
       case "clotheType":
@@ -193,6 +199,8 @@ function ChangePhoto() {
           avatarCategoryDisplay.skinColor = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(null)
+        setColorOptions(null)
         setAvatarOptionsArray(displayAvatarOptions)
         break
       case "facialHairType":
@@ -210,6 +218,8 @@ function ChangePhoto() {
           avatarCategoryDisplay.mouthType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(null)
+        setColorOptions(null)
         setAvatarOptionsArray(displayAvatarOptions)
         break
       case "accessoriesType":
@@ -218,22 +228,20 @@ function ChangePhoto() {
           avatarCategoryDisplay.accessoriesType = options[i]
           displayAvatarOptions.push(avatarCategoryDisplay)
         }
+        setSelectedOptions(null)
+        setColorOptions(null)
         setAvatarOptionsArray(displayAvatarOptions)
         break
     }
   }
 
-  const displayColorOptions = []
-
   function handleSelectAvatarOption(option) {
-    console.log(option)
     setUpdatedAvatar(option)
     let colors
     switch (selectedOptions) {
       case "topType":
         colors = hairColor[0].options
         for (let i = 0; i < colors.length; i++) {
-          console.log(colors[i])
           const avatarCategoryDisplay = {...option}
           avatarCategoryDisplay.hairColor = colors[i]
           console.log(avatarCategoryDisplay)
@@ -244,7 +252,6 @@ function ChangePhoto() {
       case "facialHairType":
         colors = facialHairColor[0].options
         for (let i = 0; i < colors.length; i++) {
-          console.log(colors[i])
           const avatarCategoryDisplay = {...option}
           avatarCategoryDisplay.facialHairColor = colors[i]
           console.log(avatarCategoryDisplay)
@@ -255,7 +262,6 @@ function ChangePhoto() {
       case "clotheType":
         colors = clotheColor[0].options
         for (let i = 0; i < colors.length; i++) {
-          console.log(colors[i])
           const avatarCategoryDisplay = {...option}
           avatarCategoryDisplay.clotheColor = colors[i]
           console.log(avatarCategoryDisplay)
@@ -263,6 +269,9 @@ function ChangePhoto() {
         }
         setColorOptions(displayColorOptions)
         break
+      case null: 
+      setColorOptions(null)
+      break
     }
   }
   
@@ -285,6 +294,7 @@ function ChangePhoto() {
               type="submit"
               variant="contained"
               className={classes.bingoButton}
+              onClick={(event) => onSubmit(defaultAvatar)}
             >
               Bingo
             </Button>
@@ -317,9 +327,9 @@ function ChangePhoto() {
               </Grid>
             </Grid>
             <Grid container display="flex" direction="column" className={classes.optionCard}>
-              <Grid item container display="flex" direction="row" justify="space-evenly">
+              <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
               {colorOptions && colorOptions.map((option) => 
-                <Avatar className={classes.size}>
+                <Avatar className={classes.size} onClick={(event) => setUpdatedAvatar(option)}>
                   <AvatarPreview {...option}/>
                 </Avatar>
               )}
