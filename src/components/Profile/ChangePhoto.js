@@ -13,7 +13,6 @@ import {
 import { updateAvatar } from 'store/user'
 import { UPDATE_USER_AVATAR } from '../../graphql/mutations'
 import AvatarPreview from '../Avatar'
-// import AvatarDisplay from '../Avatar'
 import { avatarOptions } from '../../utils/display'
 import theme from '../../themes/MainTheme'
 import { SET_SNACKBAR } from '../../store/ui'
@@ -60,13 +59,24 @@ const useStyles = makeStyles({
     fontSize: 30,
     width: 163,
     height: 88,
+    textTransform: 'none',
+    fontWeight: 'normal',
+     '&:hover': {
+      backgroundColor: '#E75656 !important',
+    },
   },
   bingoButton: {
     backgroundColor: '#7DD6AD',
+    marginRight: 30,
     color: 'white',
     fontSize: 30,
     width: 163,
     height: 88,
+    textTransform: 'none',
+    fontWeight: 'normal',
+    '&:hover': {
+      backgroundColor: '#59D099 !important',
+    },
   },
   avatar: {
     margin: 50,
@@ -83,10 +93,12 @@ const useStyles = makeStyles({
   },
   svgButton: {
     borderRadius: 100,
-    backgroundColor: 'rgba(255, 255, 255, .6)',
     height: 80,
     width: 80,
     margin: '0px 30px 0px 15px',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 207, 110, .5) !important',
+    },
   },
   avatarRow: {
     padding: 20,
@@ -242,38 +254,48 @@ function ChangePhoto() {
         if (option.topType.includes('WinterHat') || option.topType === 'Hijab' || option.topType === 'Turban') {
           colors = hatColor[0].options
           for (let i = 0; i < colors.length; i++) {
-          const avatarCategoryDisplay = { ...option }
-          avatarCategoryDisplay.hatColor = colors[i]
-          displayColorOptions.push(avatarCategoryDisplay)
-        }
-        } else if (option.topType === 'LongHairFrida' || option.topType === 'Eyepatch' || option.topType === 'NoHair'|| option.topType === 'Hat') {
+            const avatarCategoryDisplay = { ...option }
+            avatarCategoryDisplay.hatColor = colors[i]
+            displayColorOptions.push(avatarCategoryDisplay)
+          }
+        } else if (option.topType === 'LongHairFrida' || option.topType === 'Eyepatch' || option.topType === 'NoHair' || option.topType === 'Hat' || option.topType === 'LongHairShavedSides') {
           const avatarCategoryDisplay = { ...option }
           displayColorOptions.push(avatarCategoryDisplay)
         } else {
-        colors = hairColor[0].options
-        for (let i = 0; i < colors.length; i++) {
-          const avatarCategoryDisplay = { ...option }
-          avatarCategoryDisplay.hairColor = colors[i]
-          displayColorOptions.push(avatarCategoryDisplay)
-        }
+          colors = hairColor[0].options
+          for (let i = 0; i < colors.length; i++) {
+            const avatarCategoryDisplay = { ...option }
+            avatarCategoryDisplay.hairColor = colors[i]
+            displayColorOptions.push(avatarCategoryDisplay)
+          }
         }
         setColorOptions(displayColorOptions)
         break
       case 'facialHairType':
-        colors = facialHairColor[0].options
-        for (let i = 0; i < colors.length; i++) {
+        if (option.facialHairType === 'Blank') {
           const avatarCategoryDisplay = { ...option }
-          avatarCategoryDisplay.facialHairColor = colors[i]
           displayColorOptions.push(avatarCategoryDisplay)
+        } else {
+          colors = facialHairColor[0].options
+          for (let i = 0; i < colors.length; i++) {
+            const avatarCategoryDisplay = { ...option }
+            avatarCategoryDisplay.facialHairColor = colors[i]
+            displayColorOptions.push(avatarCategoryDisplay)
+          }
         }
         setColorOptions(displayColorOptions)
         break
       case 'clotheType':
-        colors = clotheColor[0].options
-        for (let i = 0; i < colors.length; i++) {
+        if (option.clotheType.includes('Blazer')) {
           const avatarCategoryDisplay = { ...option }
-          avatarCategoryDisplay.clotheColor = colors[i]
           displayColorOptions.push(avatarCategoryDisplay)
+        } else {
+          colors = clotheColor[0].options
+          for (let i = 0; i < colors.length; i++) {
+            const avatarCategoryDisplay = { ...option }
+            avatarCategoryDisplay.clotheColor = colors[i]
+            displayColorOptions.push(avatarCategoryDisplay)
+          }
         }
         setColorOptions(displayColorOptions)
         break
@@ -306,6 +328,7 @@ function ChangePhoto() {
             </Button>
             <Button
               className={classes.discardButton}
+              onClick={(event) => console.log("HELP")}
             >
               Nah
             </Button>
@@ -319,7 +342,7 @@ function ChangePhoto() {
           </Grid>
           <Grid container display="flex" direction="column" className={classes.buttonCard}>
             <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-              {buttonOptions.map((category) => <Button className={classes.svgButton} display="flex" justify="center" alignItems="center" onClick={(event) => handleIconClick(category[0])}><img src={category.icon} /></Button>)}
+              {buttonOptions.map((category) => <Button className={classes.svgButton} hover display="flex" justify="center" alignItems="center" onClick={(event) => handleIconClick(category[0])}><img src={category.icon} /></Button>)}
             </Grid>
           </Grid>
           <Grid container display="flex" direction="column" className={classes.optionCard}>
