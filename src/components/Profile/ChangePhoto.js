@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
@@ -75,7 +75,7 @@ const useStyles = makeStyles({
     textTransform: 'none',
     fontWeight: 'normal',
     '&:hover': {
-      backgroundColor: '#59D099 !important',
+      backgroundColor: '#52E39F !important',
     },
   },
   avatar: {
@@ -119,13 +119,16 @@ function ChangePhoto() {
   const [updatedAvatar, setUpdatedAvatar] = useState()
   const [selectedOptions, setSelectedOptions] = useState()
   const [colorOptions, setColorOptions] = useState()
-  let defaultAvatar = {}
+  const [defaultAvatar, setDefaultAvatar] = useState({})
   //  prevent legacy image file avatars from crapping out front end
-  if (updatedAvatar !== undefined) {
-    defaultAvatar = updatedAvatar
-  } else if (typeof user.avatar === 'object') {
-    defaultAvatar = user.avatar
-  }
+  useEffect(() => {
+    if (updatedAvatar !== undefined) {
+      setDefaultAvatar(updatedAvatar)
+    } else if (typeof user.avatar === 'object') {
+      setDefaultAvatar(user.avatar)
+    }
+  }), []
+  
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -328,7 +331,7 @@ function ChangePhoto() {
             </Button>
             <Button
               className={classes.discardButton}
-              onClick={(event) => console.log("HELP")}
+              onClick={(event) => setUpdatedAvatar(user.avatar)}
             >
               Nah
             </Button>
