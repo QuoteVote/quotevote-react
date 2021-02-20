@@ -64,12 +64,18 @@ function ArticleOptions(props) {
 }
 
 function ArticleColorOptions(props) {
-  const { colorOptions, setUpdatedAvatar } = props
+  const { colorOptions, setUpdatedAvatar, setSelectedOptions } = props
   const classes = useStyles()
+
+  function handleColorSelect(option) {
+    setUpdatedAvatar(option)
+    setSelectedOptions(null)
+  }
+
   return (
     <Grid item container display="flex" direction="row" justify="space-evenly">
       {colorOptions && colorOptions.map((option) => (
-        <Avatar className={classes.size} onClick={() => setUpdatedAvatar(option)}>
+        <Avatar className={classes.size} onClick={() => handleColorSelect(option)}>
           <AvatarPreview {...option} />
         </Avatar>
       ))}
@@ -159,6 +165,7 @@ function AvatarOptionButtons(props) {
         break
       default:
         setColorOptions(null)
+        setSelectedOptions(null)
     }
   }
 
@@ -166,7 +173,7 @@ function AvatarOptionButtons(props) {
     <ThemeProvider theme={theme}>
       <Grid container display="flex" direction="column" alignItems="center" justify="center">
         <Grid item className={classes.card} xs={6}>
-          {colorOptions ? <ArticleColorOptions colorOptions={colorOptions} setUpdatedAvatar={setUpdatedAvatar} /> : <ArticleOptions avatarOptionsArray={avatarOptionsArray} handleSelectAvatarOption={handleSelectAvatarOption} setUpdatedAvatar={setUpdatedAvatar} />}
+          {colorOptions ? <ArticleColorOptions colorOptions={colorOptions} setUpdatedAvatar={setUpdatedAvatar} setSelectedOptions={setSelectedOptions} /> : <ArticleOptions avatarOptionsArray={avatarOptionsArray} handleSelectAvatarOption={handleSelectAvatarOption} setUpdatedAvatar={setUpdatedAvatar} />}
         </Grid>
         <Grid item>
           <Button type="submit" class={classes.backbtn} onClick={() => handleBackButtonClick()}>Back</Button>
@@ -178,7 +185,6 @@ function AvatarOptionButtons(props) {
 
 AvatarOptionButtons.propTypes = {
   avatarOptionsArray: PropTypes.array,
-  handleSelectAvatarOption: PropTypes.func,
   setSelectedOptions: PropTypes.func,
   setUpdatedAvatar: PropTypes.func,
   selectedOptions: PropTypes.string,
@@ -187,6 +193,7 @@ AvatarOptionButtons.propTypes = {
 ArticleColorOptions.propTypes = {
   colorOptions: PropTypes.array,
   setUpdatedAvatar: PropTypes.func,
+  setSelectedOptions: PropTypes.func,
 }
 
 ArticleOptions.propTypes = {

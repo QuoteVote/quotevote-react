@@ -45,6 +45,7 @@ const useStyles = makeStyles({
     fontSize: 30,
     width: 163,
     height: 88,
+    marginBottom: 50,
     textTransform: 'none',
     fontWeight: 'normal',
     '&:hover': {
