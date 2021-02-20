@@ -1,27 +1,19 @@
 import React, { useState } from 'react'
-import { useMutation } from '@apollo/react-hooks'
-import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
+import { useSelector } from 'react-redux'
 
 // MUI
 import { MuiThemeProvider as ThemeProvider, makeStyles } from '@material-ui/core/styles'
 import {
-  Avatar, Typography, Grid, Button,
+  Typography, Grid,
 } from '@material-ui/core'
 
 // Local
-import { updateAvatar } from 'store/user'
-import { UPDATE_USER_AVATAR } from '../../graphql/mutations'
-import AvatarPreview from '../Avatar'
 import AvatarIconButtons from './AvatarIconButtons'
 import AvatarOptionButtons from './AvatarOptionButtons'
-import { avatarOptions } from '../../utils/display'
 import theme from '../../themes/MainTheme'
-import { SET_SNACKBAR } from '../../store/ui'
 
 const useStyles = makeStyles({
   fullCard: {
-    height: 'calc(95vh - 90px)',
     paddingTop: 30,
   },
   heading: {
@@ -30,6 +22,7 @@ const useStyles = makeStyles({
   },
   card: {
     backgroundColor: 'rgba(255, 255, 255, .6)',
+    height: 205,
     borderRadius: 5,
   },
 })
@@ -145,18 +138,14 @@ function ChangePhoto() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container display="flex" direction="row" alignItems="center" className={classes.fullCard} xs={6}>
-        <Grid container item display="flex" direction="column" alignItems="center" justify="flex-start">
+      <Grid container className={classes.fullCard} display="flex" direction="column" alignItems="center">
         <Grid item>
-            <Typography className={classes.heading}>
-              Create your avatar
-            </Typography>
-          </Grid>
-          {!selectedOptions ? 
-          <AvatarIconButtons setSelectedOptions={setSelectedOptions} defaultAvatar={defaultAvatar} updatedAvatar={updatedAvatar} handleIconClick={handleIconClick}/> 
-          : 
-          <AvatarOptionButtons avatarOptionsArray={avatarOptionsArray} setUpdatedAvatar={setUpdatedAvatar} updatedAvatar={updatedAvatar} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions}/>
-          }
+          <Typography className={classes.heading}>
+            Create your avatar
+          </Typography>
+        </Grid>
+        <Grid item container>
+          {!selectedOptions ? <AvatarIconButtons setSelectedOptions={setSelectedOptions} defaultAvatar={defaultAvatar} updatedAvatar={updatedAvatar} handleIconClick={handleIconClick} /> : <AvatarOptionButtons avatarOptionsArray={avatarOptionsArray} setUpdatedAvatar={setUpdatedAvatar} updatedAvatar={updatedAvatar} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} />}
         </Grid>
       </Grid>
     </ThemeProvider>

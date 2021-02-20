@@ -1,26 +1,25 @@
 import React, { useState } from 'react'
-import { useMutation } from '@apollo/react-hooks'
-import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
+import PropTypes from 'prop-types'
 
 // MUI
 import { MuiThemeProvider as ThemeProvider, makeStyles } from '@material-ui/core/styles'
 import {
-  Avatar, Typography, Grid, Button,
+  Avatar, Grid, Button,
 } from '@material-ui/core'
 
 // Local
-import { updateAvatar } from 'store/user'
-import { UPDATE_USER_AVATAR } from '../../graphql/mutations'
 import AvatarPreview from '../Avatar'
 import { avatarOptions } from '../../utils/display'
 import theme from '../../themes/MainTheme'
-import { SET_SNACKBAR } from '../../store/ui'
 
 const useStyles = makeStyles({
   card: {
     backgroundColor: 'rgba(255, 255, 255, .6)',
+    height: 210,
     borderRadius: 5,
+    overflowY: 'scroll',
+    padding: 25,
   },
   avatar: {
     margin: 50,
@@ -32,63 +31,60 @@ const useStyles = makeStyles({
     height: 80,
     width: 80,
     backgroundColor: '#65C9FF',
-    margin: '5px 20px 5px 15px',
+    margin: '5px 30px 5px 15px',
     cursor: 'pointer',
   },
-  avatarRow: {
-    padding: 20,
-    height: 205,
-    overflowY: 'scroll',
-  },
   backbtn: {
-    backgroundColor: '#146998',
-    width: 163,
-    height: 88,
-    fontSize: 30,
+    backgroundColor: '#139797',
+    width: 250,
+    height: 70,
+    fontSize: 25,
     color: 'white',
     textTransform: 'none',
     fontWeight: 'normal',
-    borderRadius: 5,
-  }
+    borderRadius: 2,
+    border: 'none',
+    cursor: 'pointer',
+    margin: 40,
+  },
 })
 
 function ArticleOptions(props) {
-    const { avatarOptionsArray, handleSelectAvatarOption } = props
-    const classes = useStyles()
-    return (
-        <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-        {avatarOptionsArray && avatarOptionsArray.map((option) => (
-          <Avatar className={classes.size} onClick={() => handleSelectAvatarOption(option)}>
-            <AvatarPreview {...option} />
-          </Avatar>
-        ))}
-      </Grid>
-    )
+  const { avatarOptionsArray, handleSelectAvatarOption } = props
+  const classes = useStyles()
+  return (
+    <Grid item container display="flex" direction="row" justify="space-evenly">
+      {avatarOptionsArray && avatarOptionsArray.map((option) => (
+        <Avatar className={classes.size} onClick={() => handleSelectAvatarOption(option)}>
+          <AvatarPreview {...option} />
+        </Avatar>
+      ))}
+    </Grid>
+  )
 }
 
 function ArticleColorOptions(props) {
-    const { colorOptions, setUpdatedAvatar } = props
-    console.log(props)
-    const classes = useStyles()
-    return (
-        <Grid item container display="flex" direction="row" justify="space-evenly" className={classes.avatarRow}>
-        {colorOptions && colorOptions.map((option) => (
-          <Avatar className={classes.size} onClick={() => setUpdatedAvatar(option)}>
-            <AvatarPreview {...option} />
-          </Avatar>
-        ))}
-      </Grid>
-    )
+  const { colorOptions, setUpdatedAvatar } = props
+  const classes = useStyles()
+  return (
+    <Grid item container display="flex" direction="row" justify="space-evenly">
+      {colorOptions && colorOptions.map((option) => (
+        <Avatar className={classes.size} onClick={() => setUpdatedAvatar(option)}>
+          <AvatarPreview {...option} />
+        </Avatar>
+      ))}
+    </Grid>
+  )
 }
 
 function AvatarOptionButtons(props) {
-    console.log(props)
-  const { avatarOptionsArray, setSelectedOptions, setUpdatedAvatar, selectedOptions } = props
-  console.log(setSelectedOptions)
-  const user = useSelector((state) => state.user.data)
+  const {
+    avatarOptionsArray,
+    setSelectedOptions,
+    setUpdatedAvatar,
+    selectedOptions,
+  } = props
   const [colorOptions, setColorOptions] = useState()
-
-  const dispatch = useDispatch()
   const classes = useStyles()
 
   const groupedAvatarOptions = _.groupBy(avatarOptions, 'name')
@@ -101,10 +97,10 @@ function AvatarOptionButtons(props) {
 
   function handleBackButtonClick() {
     if (colorOptions) {
-        setColorOptions(null)
+      setColorOptions(null)
     }
     if (!colorOptions) {
-        setSelectedOptions(null)
+      setSelectedOptions(null)
     }
   }
 
@@ -168,16 +164,34 @@ function AvatarOptionButtons(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container item display="flex" direction="column" alignItems="center" justify="center" >
-        <Grid container item display="flex" direction="column" className={classes.card}>
-          <Grid container display="flex" direction="column" className={classes.optionCard}>
-            {colorOptions ? <ArticleColorOptions colorOptions={colorOptions} setUpdatedAvatar={setUpdatedAvatar}/> : <ArticleOptions avatarOptionsArray={avatarOptionsArray} handleSelectAvatarOption={handleSelectAvatarOption} setUpdatedAvatar={setUpdatedAvatar}/>}
-          </Grid>
-          </Grid>
+      <Grid container display="flex" direction="column" alignItems="center" justify="center">
+        <Grid item className={classes.card} xs={6}>
+          {colorOptions ? <ArticleColorOptions colorOptions={colorOptions} setUpdatedAvatar={setUpdatedAvatar} /> : <ArticleOptions avatarOptionsArray={avatarOptionsArray} handleSelectAvatarOption={handleSelectAvatarOption} setUpdatedAvatar={setUpdatedAvatar} />}
+        </Grid>
+        <Grid item>
           <Button type="submit" class={classes.backbtn} onClick={() => handleBackButtonClick()}>Back</Button>
-    </Grid>
+        </Grid>
+      </Grid>
     </ThemeProvider>
   )
+}
+
+AvatarOptionButtons.propTypes = {
+  avatarOptionsArray: PropTypes.array,
+  handleSelectAvatarOption: PropTypes.func,
+  setSelectedOptions: PropTypes.func,
+  setUpdatedAvatar: PropTypes.func,
+  selectedOptions: PropTypes.string,
+}
+
+ArticleColorOptions.propTypes = {
+  colorOptions: PropTypes.array,
+  setUpdatedAvatar: PropTypes.func,
+}
+
+ArticleOptions.propTypes = {
+  avatarOptionsArray: PropTypes.array,
+  handleSelectAvatarOption: PropTypes.func,
 }
 
 export default AvatarOptionButtons
