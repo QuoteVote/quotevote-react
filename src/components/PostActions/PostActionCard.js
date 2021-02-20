@@ -143,8 +143,8 @@ function PostActionCard({ postAction, postUrl, selected }) {
           <p>
             {postContent}
           </p>
-        </CardContent>
-      )}
+          </CardContent>
+        )}
       <CardActions disableSpacing>
         <SvgIcon
           component={svgIcon}
