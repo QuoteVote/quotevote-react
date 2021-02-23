@@ -5,7 +5,6 @@ import { Grid } from '@material-ui/core'
 
 // Material Icons
 import SubmitPost from '../../components/SubmitPost/SubmitPost'
-import PopPredictionDataWrapper from '../../components/PopPrediction/PopPredictionDataWrapper'
 
 function SubmitPostPage() {
   return (
@@ -18,9 +17,6 @@ function SubmitPostPage() {
     >
       <Grid item xs={12} md={6}>
         <SubmitPost />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <PopPredictionDataWrapper />
       </Grid>
     </Grid>
   )
