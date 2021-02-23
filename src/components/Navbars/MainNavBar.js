@@ -20,7 +20,7 @@ import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
 import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
-import AvatarDisplay from '../Avatar'
+import AvatarPreview from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
 import NotificationMenu from '../Notifications/NotificationMenu'
 import SettingsMenu from '../Settings/SettingsMenu'
@@ -31,6 +31,7 @@ function MainNavBar(props) {
   } = props
   const selectedPage = useSelector((state) => state.ui.selectedPage)
   const avatar = useSelector((state) => state.user.data.avatar)
+  console.log(avatar)
   const name = useSelector((state) => state.user.data.name)
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
@@ -145,7 +146,7 @@ function MainNavBar(props) {
                     className={classes.avatarRoundedButton}
                   >
                     <Avatar>
-                      <AvatarDisplay height="50" width="50" {...avatar} />
+                      <AvatarPreview height="50" width="50" {...avatar} />
                     </Avatar>
                     <Typography variant="h6" className={classes.profileBlockName}>
                       {name}
@@ -153,9 +154,9 @@ function MainNavBar(props) {
                   </Button>
                 </Hidden>
                 <Hidden lgUp>
-                  <IconButton size="medium">
-                    <Avatar height="35" width="35" {...avatar} />
-                  </IconButton>
+                  <Avatar height="35" width="35">
+                    <AvatarPreview {...avatar} />
+                  </Avatar>
                 </Hidden>
               </NavLink>
             </Grid>
