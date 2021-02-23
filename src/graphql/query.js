@@ -350,12 +350,6 @@ export const VERIFY_PASSWORD_RESET_TOKEN = gql`
   }
 `
 
-export const POP_PREDICTION = gql`
-  query popPrediction($comment: String!) {
-    popPrediction(comment: $comment)
-  }
-`
-
 export const GET_FOLLOW_INFO = gql`
   query getUserFollowInfo($username: String! $filter: String) {
     getUserFollowInfo(username: $username, filter: $filter)
