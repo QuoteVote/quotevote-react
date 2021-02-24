@@ -16,8 +16,9 @@ import Avatar from 'components/Avatar'
 */
 
 function UserFollowDisplay({
-  avatar, username, numFollowers, numFollowing, id, boolFol,
+  avatar, username, numFollowers, numFollowing, id, boolFol, isFollowing,
 }) {
+  console.log(username, isFollowing)
   return (
     <Grid
       container
@@ -44,16 +45,16 @@ function UserFollowDisplay({
       </Grid>
       <Grid item sm={3}>
         {
-          boolFol ? (
+          isFollowing ? (
             <FollowButton
-              isFollowing={boolFol}
+              isFollowing={isFollowing}
               profileUserId={id}
             >
               Follow
             </FollowButton>
           ) : (
             <FollowButton
-              isFollowing={boolFol}
+              isFollowing={isFollowing}
               profileUserId={id}
             >
               Unfollow

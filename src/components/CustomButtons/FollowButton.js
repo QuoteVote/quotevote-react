@@ -38,6 +38,7 @@ function FollowButton({
       },
     }],
   })
+  console.log(isFollowing)
   if (isFollowing) {
     return (
       <Button

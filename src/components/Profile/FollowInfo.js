@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
+import _ from 'lodash'
 import { useQuery } from '@apollo/react-hooks'
 import { useParams, useHistory } from 'react-router'
 import { GET_FOLLOW_INFO } from 'graphql/query'
@@ -33,6 +34,8 @@ function FollowInfo({ filter }) {
   })
   const history = useHistory()
 
+  console.log(username)
+
   //  boolFol will equal true if the state user is following the iterated user
 
   if (loading) return <div>Loading</div>
@@ -40,6 +43,7 @@ function FollowInfo({ filter }) {
 
   if (data) {
     const { getUserFollowInfo } = data
+    console.log(getUserFollowInfo)
     if (getUserFollowInfo.length === 0) {
       return (
         <>
@@ -87,7 +91,8 @@ function FollowInfo({ filter }) {
                 getUserFollowInfo.map((f) => (
                   <UserFollowDisplay
                     profileUserId={userData._id}
-                    boolFol={userData._followingId.includes(f._id)}
+                    username={username}
+                    isFollowing={_.includes(userData._followingId, f.id)}
                     {...f}
                   />
                 ))
