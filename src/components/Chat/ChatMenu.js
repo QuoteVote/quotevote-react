@@ -59,7 +59,7 @@ function ChatMenu({ fontSize }) {
   )
 }
 ChatMenu.propTypes = {
-  fontSize: PropTypes.any.isRequired,
+  fontSize: PropTypes.any,
 }
 
 export default ChatMenu

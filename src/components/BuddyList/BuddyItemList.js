@@ -107,7 +107,7 @@ function BuddyItemList({ buddyList }) {
       )}
       <List className={buddyList.length ? classes.root : classNames(classes.root, classes.blur)}>
         {itemList.map((item) => (
-          <React.Fragment key={item.room._id}>
+          <React.Fragment>
             <ListItem onClick={() => handleClickItem(item)}>
               <ListItemAvatar>
                 <Avatar>

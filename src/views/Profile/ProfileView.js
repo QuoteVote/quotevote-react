@@ -63,7 +63,7 @@ ProfileView.propTypes = {
   selectAll: PropTypes.string.isRequired,
   filterState: PropTypes.object.isRequired,
   setOffset: PropTypes.func.isRequired,
-  profileUser: PropTypes.object.isRequired,
+  profileUser: PropTypes.object,
   loading: PropTypes.bool,
 }
 

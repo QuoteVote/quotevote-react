@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import _ from 'lodash'
 
 //  MUI
 import { makeStyles, MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
@@ -54,12 +55,14 @@ export default function ProfileHeader(props) {
   const {
     username,
     _id,
-    _followersId,
     _followingId,
+    _followersId,
     avatar,
   } = profileUser
 
   const sameUser = profileUser._id === loggedInUserId
+
+  const isFollowing = _.includes(_followersId, loggedInUserId)
 
   const { data, loading } = useQuery(GET_CHAT_ROOM, {
     variables: {
@@ -150,8 +153,9 @@ export default function ProfileHeader(props) {
                 <>
                   <Grid item xs={12} sm={3} md={3}>
                     <FollowButton
-                      isFollowing={_followersId ? _followersId.find((id) => loggedInUserId === id) : null}
+                      isFollowing={isFollowing}
                       profileUserId={_id}
+                      username={username}
                       className={classes.button}
                     />
                   </Grid>

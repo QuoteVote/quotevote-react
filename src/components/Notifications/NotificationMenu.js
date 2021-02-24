@@ -87,7 +87,7 @@ function NotificationMenu({ fontSize }) {
   )
 }
 NotificationMenu.propTypes = {
-  fontSize: PropTypes.any.isRequired,
+  fontSize: PropTypes.any,
 }
 
 export default NotificationMenu

@@ -6,7 +6,6 @@ import Tabs from '@material-ui/core/Tabs'
 import { NavLink } from 'react-router-dom'
 import Tab from '@material-ui/core/Tab'
 import SvgIcon from '@material-ui/core/SvgIcon'
-import IconButton from '@material-ui/core/IconButton'
 import { Typography } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import withWidth from '@material-ui/core/withWidth'
@@ -31,7 +30,6 @@ function MainNavBar(props) {
   } = props
   const selectedPage = useSelector((state) => state.ui.selectedPage)
   const avatar = useSelector((state) => state.user.data.avatar)
-  console.log(avatar)
   const name = useSelector((state) => state.user.data.name)
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
