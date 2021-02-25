@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import Tabs from '@material-ui/core/Tabs'
+import Dialog from '@material-ui/core/Dialog'
 import { NavLink } from 'react-router-dom'
 import Tab from '@material-ui/core/Tab'
 import SvgIcon from '@material-ui/core/SvgIcon'
@@ -23,6 +24,7 @@ import AvatarPreview from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
 import NotificationMenu from '../Notifications/NotificationMenu'
 import SettingsMenu from '../Settings/SettingsMenu'
+import SubmitPost from '../SubmitPost/SubmitPost'
 
 function MainNavBar(props) {
   const {
@@ -31,6 +33,7 @@ function MainNavBar(props) {
   const selectedPage = useSelector((state) => state.ui.selectedPage)
   const avatar = useSelector((state) => state.user.data.avatar)
   const name = useSelector((state) => state.user.data.name)
+  const [open, setOpen] = React.useState(false);
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
   const client = useApolloClient()
@@ -108,7 +111,7 @@ function MainNavBar(props) {
                 data-testid="submit-post-button"
                 id="submit-post-button"
                 to="/hhsb/SubmitPost"
-              >
+              > 
                 <Tab
                   icon={(
                     <SvgIcon
@@ -120,10 +123,14 @@ function MainNavBar(props) {
                   aria-label="Post"
                   onClick={() => {
                     handleMenu(2)
+                    setOpen(true)
                   }}
                   value="post"
                 />
-              </NavLink>
+                <Dialog open={open} onClose={() => setOpen(false)}>
+                <SubmitPost />
+                </Dialog>
+             </NavLink> 
             </Grid>
           </Tabs>
         </Grid>
@@ -168,7 +175,6 @@ function MainNavBar(props) {
               <SettingsMenu fontSize={fontSize} />
             </Grid>
           </Grid>
-
         </Grid>
       </Grid>
     </AppBar>

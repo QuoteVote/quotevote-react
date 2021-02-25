@@ -43,8 +43,6 @@ const userSlice = createSlice({
       state.data = action.payload
     },
     UPDATE_FOLLOWING: (state, action) => {
-      console.log(action, action.payload)
-
       state.data._followingId = action.payload
     },
   },
@@ -135,7 +133,6 @@ export function updateAvatar(dispatch, avatar) {
 
 export function updateFollowing(dispatch, following) {
   dispatch(actions.UPDATE_FOLLOWING(following))
-  console.log(following)
 }
 
 export const {

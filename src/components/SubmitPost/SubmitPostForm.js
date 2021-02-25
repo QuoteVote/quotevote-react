@@ -106,11 +106,11 @@ function SubmitPostForm({ options = [], user }) {
   const [value, setValue] = React.useState({ title: '', content: '' })
   const [isPasting, setPasting] = React.useState(false)
 
-  const handleTitleChange = (event) => {
+  const handleTitleChange = () => {
     setValue({ ...value, title: event.target.value })
   }
 
-  const handleContentChange = (event) => {
+  const handleContentChange = () => {
     const contentValue = event.target.value
     const validURL = /^(?:http(s)?:\/\/)([\w.-])+(?:[\w.-]+)+([\w\-._~:/?#[\]@!$&'()*+,;=.])+$/
     setValue({ ...value, content: contentValue })
