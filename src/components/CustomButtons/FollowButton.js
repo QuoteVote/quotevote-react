@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
+import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/react-hooks'
 import { FOLLOW_MUTATION } from 'graphql/mutations'
 import { GET_USER } from 'graphql/query'
 import Button from '@material-ui/core/Button'
 import classNames from 'classnames'
+import { updateFollowing } from 'store/user'
 
 const useStyles = makeStyles((theme) => ({
   followButton: {
@@ -29,7 +32,7 @@ function FollowButton({
   ...otherProps
 }) {
   const classes = useStyles()
-  // TODO handle data object
+  const dispatch = useDispatch()
   const [followMutation] = useMutation(FOLLOW_MUTATION, {
     refetchQueries: [{
       query: GET_USER,
@@ -38,24 +41,41 @@ function FollowButton({
       },
     }],
   })
-  console.log(isFollowing)
+
+  const user = useSelector((state) => state.user)
+  const followingArray = user.data._followingId
+
+  async function handleClick(profileUserId, action) {
+    let newFollowingArray
+    if (action === 'un-follow') {
+      newFollowingArray = _.without(followingArray, profileUserId)
+    } else {
+      newFollowingArray = _.concat(followingArray, profileUserId)
+    }
+    await updateFollowing(dispatch, newFollowingArray)
+    await followMutation({ variables: { user_id: profileUserId, action: action } })
+  }
+
+  // TODO handle data object
   if (isFollowing) {
+    const action = 'un-follow'
     return (
       <Button
         variant="contained"
         className={classNames(classes.followButton, otherProps.className)}
-        onClick={() => followMutation({ variables: { user_id: profileUserId, action: 'un-follow' } })}
+        onClick={() => handleClick(profileUserId, action)}
       >
         Un-Follow
       </Button>
     )
   }
 
+  const action = 'follow'
   return (
     <Button
       variant="contained"
       className={classNames(classes.followButton, otherProps.className)}
-      onClick={() => followMutation({ variables: { user_id: profileUserId, action: 'follow' } })}
+      onClick={() => handleClick(profileUserId, action)}
     >
       Follow
     </Button>

@@ -34,8 +34,6 @@ function FollowInfo({ filter }) {
   })
   const history = useHistory()
 
-  console.log(username)
-
   //  boolFol will equal true if the state user is following the iterated user
 
   if (loading) return <div>Loading</div>
@@ -43,7 +41,6 @@ function FollowInfo({ filter }) {
 
   if (data) {
     const { getUserFollowInfo } = data
-    console.log(getUserFollowInfo)
     if (getUserFollowInfo.length === 0) {
       return (
         <>
@@ -94,6 +91,7 @@ function FollowInfo({ filter }) {
                     username={username}
                     isFollowing={_.includes(userData._followingId, f.id)}
                     {...f}
+                    key={f.id}
                   />
                 ))
               }

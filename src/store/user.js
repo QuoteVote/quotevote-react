@@ -42,6 +42,11 @@ const userSlice = createSlice({
     SET_USER_DATA: (state, action) => {
       state.data = action.payload
     },
+    UPDATE_FOLLOWING: (state, action) => {
+      console.log(action, action.payload)
+
+      state.data._followingId = action.payload
+    },
   },
 })
 
@@ -128,6 +133,11 @@ export function updateAvatar(dispatch, avatar) {
   dispatch(actions.USER_UPDATE_AVATAR(avatar))
 }
 
+export function updateFollowing(dispatch, following) {
+  dispatch(actions.UPDATE_FOLLOWING(following))
+  console.log(following)
+}
+
 export const {
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
@@ -136,6 +146,7 @@ export const {
   USER_TOKEN_VALIDATED,
   USER_TOKEN_VALIDATION,
   USER_UPDATE_AVATAR,
+  UPDATE_FOLLOWING,
 } = userSlice.actions
 
 export default userSlice.reducer

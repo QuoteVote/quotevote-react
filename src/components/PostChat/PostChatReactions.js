@@ -110,9 +110,9 @@ function PostChatReactions(props) {
 
   const emojiElements = []
 
-  Object.keys(groupedReactions).map((emoji) => {
+  Object.keys(groupedReactions).map((emoji, _id) => {
     emojiElements.push(
-      <div className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
+      <div key={_id} className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
         <Emoji symbol={emoji} />
         <span>{groupedReactions[emoji].length}</span>
       </div>
