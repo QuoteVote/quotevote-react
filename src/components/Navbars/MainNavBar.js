@@ -48,6 +48,7 @@ function MainNavBar(props) {
   const handleVoxPop = () => {
     dispatch(SET_SELECTED_PAGE(0))
   }
+
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Grid
@@ -107,30 +108,21 @@ function MainNavBar(props) {
               </NavLink>
             </Grid>
             <Grid item lg={4}>
-              <NavLink
-                data-testid="submit-post-button"
-                id="submit-post-button"
-                to="/hhsb/SubmitPost"
-              > 
-                <Tab
-                  icon={(
-                    <SvgIcon
-                      component={AddPostSvg}
-                      fontSize={fontSize}
-                      viewBox="0 0 32 32"
-                    />
-                  )}
-                  aria-label="Post"
-                  onClick={() => {
-                    handleMenu(2)
-                    setOpen(true)
-                  }}
-                  value="post"
-                />
-                <Dialog open={open} onClose={() => setOpen(false)}>
-                <SubmitPost />
-                </Dialog>
-             </NavLink> 
+              <Tab
+                icon={(
+                  <SvgIcon
+                    component={AddPostSvg}
+                    fontSize={fontSize}
+                    viewBox="0 0 32 32"
+                  />
+                )}
+                aria-label="Post"
+                onClick={() => {
+                  handleMenu(2)
+                  setOpen(true)
+                }}
+                value="post"
+              />
             </Grid>
           </Tabs>
         </Grid>
@@ -177,6 +169,9 @@ function MainNavBar(props) {
           </Grid>
         </Grid>
       </Grid>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <SubmitPost setOpen={setOpen}/>
+      </Dialog>
     </AppBar>
   )
 }

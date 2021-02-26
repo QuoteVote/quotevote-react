@@ -4,7 +4,7 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import { makeStyles } from '@material-ui/core/styles'
 import {
   CircularProgress,
-  Divider, FormControl, Grid, InputBase, Typography,
+  Divider, FormControl, Grid, InputBase, Typography, CardHeader, IconButton,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import Radio from '@material-ui/core/Radio'
@@ -23,26 +23,42 @@ import { SET_SELECTED_POST } from '../../store/ui'
 import { CREATE_GROUP, SUBMIT_POST } from '../../graphql/mutations'
 
 const useStyles = makeStyles({
+  root: {
+    width: 520,
+  },
   title: {
-    fontSize: '25px',
-    font: 'League Spartan',
-    fontWeight: 'bold',
+    color: '#00CF6E',
+    fontSize: 30,
+    textAlign: 'center',
   },
   text: {
     marginTop: 20,
     fontSize: '20px',
   },
+  input: {
+    margin: '20px 0px 0px 0px',
+  },
   group: {
     fontSize: '20px',
+    width: 200,
+    backgroundColor: 'rgb(160, 243, 204, 0.6)',
+    borderRadius: 5,
+    padding: '0px 10px 10px 10px',
+  },
+  groupInput: {
+    color: '#00CF6E',
+    height: 40,
+    fontSize: '5px',
   },
   button: {
-    backgroundColor: '#00CF6E',
+    backgroundColor: '#75E2AF',
+    fontSize: 20,
   },
 })
 
 const filter = createFilterOptions()
 
-function SubmitPostForm({ options = [], user }) {
+function SubmitPostForm({ options = [], user, setOpen }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const {
@@ -57,6 +73,7 @@ function SubmitPostForm({ options = [], user }) {
   const handleVisibilityChange = (event) => {
     setPrivacy(event.target.value)
   }
+
   const onSubmit = async (values) => {
     const { title, text, group } = values
     try {
@@ -106,11 +123,13 @@ function SubmitPostForm({ options = [], user }) {
   const [value, setValue] = React.useState({ title: '', content: '' })
   const [isPasting, setPasting] = React.useState(false)
 
-  const handleTitleChange = () => {
+  const handleTitleChange = (event) => {
+    event.persist()
     setValue({ ...value, title: event.target.value })
   }
 
-  const handleContentChange = () => {
+  const handleContentChange = (event) => {
+    event.persist()
     const contentValue = event.target.value
     const validURL = /^(?:http(s)?:\/\/)([\w.-])+(?:[\w.-]+)+([\w\-._~:/?#[\]@!$&'()*+,;=.])+$/
     setValue({ ...value, content: contentValue })
@@ -141,152 +160,164 @@ function SubmitPostForm({ options = [], user }) {
           error={error}
         />
       )}
-      <Card>
-        <CardBody>
-          <InputBase
-            fullWidth
-            id="title"
-            className={classes.title}
-            placeholder="Enter Title Here"
-            value={value.title}
-            onChange={handleTitleChange}
-            name="title"
-            inputRef={register({
-              required: 'Title is required',
-            })}
-            required
-            error={errors.title}
-            helperText={errors.title && errors.title.message}
-          />
-          <Divider />
-          <InputBase
-            id="text"
-            placeholder="Input text to submit post"
-            value={value.content}
-            onChange={handleContentChange}
-            onPaste={handlePaste}
-            className={classes.text}
-            multiline
-            fullWidth
-            name="text"
-            inputRef={register({
-              required: 'Post is required',
-            })}
-            required
-            error={errors.text}
-          />
-          <Divider />
+      <CardHeader
+        alignText="center"
+        title="Create a Post"
+        className={classes.title}
+        action={
+          <IconButton className={classes.title} onClick={() => setOpen(false)}>
+            X
+          </IconButton>
+        }
+      />
+      <CardBody className={classes.root}>
+        <InputBase
+          className={classes.input}
+          fullWidth
+          id="title"
+          inputProps={{ 'aria-label': 'naked' }}
+          placeholder="Enter Title"
+          value={value.title}
+          onChange={(event) => { handleTitleChange(event) }}
+          name="title"
+          inputRef={register({
+            required: 'Title is required',
+          })}
+          required
+          error={errors.title}
+          helperText={errors.title && errors.title.message}
+        />
+        <Divider />
+        <InputBase
+          className={classes.input}
+          id="text"
+          placeholder="Enter text or URL here"
+          value={value.content}
+          onChange={(event) => { handleContentChange(event) }}
+          onPaste={handlePaste}
+          multiline
+          fullWidth
+          name="text"
+          inputRef={register({
+            required: 'Post is required',
+          })}
+          required
+          error={errors.text}
+        />
+        <Divider />
 
-          <Autocomplete
-            value={selectedGroup}
-            onChange={(event, newValue) => {
-              if (typeof newValue === 'string') {
-                setSelectedGroup({
-                  title: newValue,
-                })
-              } else if (newValue && newValue.inputValue) {
-                // Create a new value from the user input
-                setSelectedGroup({
-                  title: newValue.inputValue,
-                })
-              } else {
-                setSelectedGroup(newValue)
-              }
+        <Typography>
+          Who can see your post
+        </Typography>
 
-              if (newValue) {
-                const checkGroup = (groupOption) => groupOption.title === newValue.title
-                const hidePrivacyOption = options.some(checkGroup)
-                setIsNewGroup(!hidePrivacyOption)
-              }
-            }}
-            filterOptions={(groupOptions, params) => {
-              const filtered = filter(groupOptions, params)
+        <Autocomplete
+          variant="outlined"
+          className={classes.group}
+          value={selectedGroup}
+          onChange={(event, newValue) => {
+            if (typeof newValue === 'string') {
+              setSelectedGroup({
+                title: newValue,
+              })
+            } else if (newValue && newValue.inputValue) {
+              // Create a new value from the user input
+              setSelectedGroup({
+                title: newValue.inputValue,
+              })
+            } else {
+              setSelectedGroup(newValue)
+            }
+
+            if (newValue) {
+              const checkGroup = (groupOption) => groupOption.title === newValue.title
+              const hidePrivacyOption = options.some(checkGroup)
+              setIsNewGroup(!hidePrivacyOption)
+            }
+          }}
+          filterOptions={(groupOptions, params) => {
+            const filtered = filter(groupOptions, params)
 
               // Suggest the creation of a new value
-              if (params.inputValue !== '') {
-                filtered.push({
-                  inputValue: params.inputValue,
-                  title: `Add "${params.inputValue}"`,
-                })
-                setIsNewGroup(true)
-              } else {
-                setIsNewGroup(false)
-              }
+            if (params.inputValue !== '') {
+              filtered.push({
+                inputValue: params.inputValue,
+                title: `Add "${params.inputValue}"`,
+              })
+              setIsNewGroup(true)
+            } else {
+              setIsNewGroup(false)
+            }
 
-              return filtered
-            }}
-            selectOnFocus
-            clearOnBlur
-            handleHomeEndKeys
-            id="group"
-            options={options}
-            getOptionLabel={(option) => {
-              // Value selected with enter, right from the input
-              if (typeof option === 'string') {
-                return option
-              }
-              // Add "xxx" option created dynamically
-              if (option.inputValue) {
-                return option.inputValue
-              }
-              // Regular option
-              return option.title
-            }}
-            renderOption={(option) => option.title}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Select a group"
-                name="group"
-                id="group"
-                inputRef={register({
-                  required: 'Group is required',
-                })}
-              />
-            )}
-            fullWidth
-          />
+            return filtered
+          }}
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
+          id="group"
+          options={options}
+          getOptionLabel={(option) => {
+            // Value selected with enter, right from the input
+            if (typeof option === 'string') {
+              return option
+            }
+            // Add "xxx" option created dynamically
+            if (option.inputValue) {
+              return option.inputValue
+            }
+            // Regular option
+            return option.title
+          }}
+          renderOption={(option) => option.title}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Select a group"
+              name="group"
+              id="group"
+              InputProps={{
+                disableUnderline: true,
+               }}
+              className={classes.groupInput}
+              inputRef={register({
+                required: 'Group is required',
+              })}
+            />
+          )}
+        />
 
-          <Typography>
-            You can create private or public groups of people to shared your information.
-          </Typography>
-
-          {isNewGroup && (
-            <FormControl component="fieldset">
-              <RadioGroup
-                aria-label="Group"
-                name="groupVisibility"
-                value={privacy}
-                onChange={handleVisibilityChange}
-              >
+        {isNewGroup && (
+          <FormControl component="fieldset">
+            <RadioGroup
+              aria-label="Group"
+              name="groupVisibility"
+              value={privacy}
+              onChange={handleVisibilityChange}              >
                 <FormControlLabel value="public" control={<Radio />} label="Public" />
                 <FormControlLabel value="private" control={<Radio />} label="Private" />
               </RadioGroup>
             </FormControl>
           )}
 
-          <Grid
-            container
-            direction="row"
-            justify="flex-end"
-            alignItems="flex-end"
+        <Grid
+          container
+          direction="row"
+          justify="flex-end"
+          alignItems="flex-end"
+        >
+          <Button
+            id="submit-button"
+            type="submit"
+            variant="contained"
+            fullWidth
+            className={classes.button}
+            disabled={loadingGroup || loading}
           >
-            <Button
-              id="submit-button"
-              type="submit"
-              variant="contained"
-              size="lg"
-              className={classes.button}
-              disabled={loadingGroup || loading}
-            >
-              Submit
-              {(loading || loadingGroup) && <CircularProgress size={20} style={{ marginLeft: 5 }} />}
+            POST
+            {(loading || loadingGroup) && <CircularProgress size={20} style={{ marginLeft: 5 }} />}
 
-            </Button>
-          </Grid>
-
-        </CardBody>
-      </Card>
+          </Button>
+        </Grid>
+      </CardBody>
     </form>
   )
 }
