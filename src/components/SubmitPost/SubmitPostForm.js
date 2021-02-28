@@ -29,7 +29,13 @@ const useStyles = makeStyles({
   title: {
     color: '#00CF6E',
     fontSize: 30,
-    textAlign: 'center',
+    margin: 'auto',
+    paddingLeft: 20,
+  },
+  exit: {
+    color: '#00CF6E',
+    fontSize: 30,
+    float: 'right',
   },
   text: {
     marginTop: 20,
@@ -39,16 +45,15 @@ const useStyles = makeStyles({
     margin: '20px 0px 0px 0px',
   },
   group: {
-    fontSize: '20px',
-    width: 200,
-    backgroundColor: 'rgb(160, 243, 204, 0.6)',
-    borderRadius: 5,
-    padding: '0px 10px 10px 10px',
+    margin: '20px 0px'
   },
   groupInput: {
+    backgroundColor: 'rgb(160, 243, 204, 0.6)',
+    width: 180,
+    marginLeft: 20,
+  },
+  label: {
     color: '#00CF6E',
-    height: 40,
-    fontSize: '5px',
   },
   button: {
     backgroundColor: '#75E2AF',
@@ -160,22 +165,18 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           error={error}
         />
       )}
-      <CardHeader
-        alignText="center"
-        title="Create a Post"
-        className={classes.title}
-        action={
-          <IconButton className={classes.title} onClick={() => setOpen(false)}>
-            X
-          </IconButton>
-        }
-      />
       <CardBody className={classes.root}>
+        <Grid
+          container
+          direction="row"
+        >
+          <Typography className={classes.title} variant="body2">Create a Post</Typography>
+          <IconButton className={classes.exit} onClick={() => setOpen(false)}>X</IconButton>
+        </Grid>
         <InputBase
           className={classes.input}
           fullWidth
           id="title"
-          inputProps={{ 'aria-label': 'naked' }}
           placeholder="Enter Title"
           value={value.title}
           onChange={(event) => { handleTitleChange(event) }}
@@ -205,14 +206,21 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           error={errors.text}
         />
         <Divider />
-
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+          className={classes.group}
+        >
         <Typography>
           Who can see your post
         </Typography>
 
         <Autocomplete
           variant="outlined"
-          className={classes.group}
+          size="small"
+          className={classes.groupInput}
           value={selectedGroup}
           onChange={(event, newValue) => {
             if (typeof newValue === 'string') {
@@ -237,7 +245,7 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           filterOptions={(groupOptions, params) => {
             const filtered = filter(groupOptions, params)
 
-              // Suggest the creation of a new value
+            // Suggest the creation of a new value
             if (params.inputValue !== '') {
               filtered.push({
                 inputValue: params.inputValue,
@@ -270,14 +278,12 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           renderOption={(option) => option.title}
           renderInput={(params) => (
             <TextField
+              variant="outlined"
+              className={classes.label}
               {...params}
               label="Select a group"
               name="group"
               id="group"
-              InputProps={{
-                disableUnderline: true,
-               }}
-              className={classes.groupInput}
               inputRef={register({
                 required: 'Group is required',
               })}
@@ -291,13 +297,14 @@ function SubmitPostForm({ options = [], user, setOpen }) {
               aria-label="Group"
               name="groupVisibility"
               value={privacy}
-              onChange={handleVisibilityChange}              >
-                <FormControlLabel value="public" control={<Radio />} label="Public" />
-                <FormControlLabel value="private" control={<Radio />} label="Private" />
-              </RadioGroup>
-            </FormControl>
-          )}
-
+              onChange={handleVisibilityChange}
+            >
+              <FormControlLabel value="public" control={<Radio />} label="Public" />
+              <FormControlLabel value="private" control={<Radio />} label="Private" />
+            </RadioGroup>
+          </FormControl>
+        )}
+        </Grid>
         <Grid
           container
           direction="row"
@@ -322,6 +329,7 @@ function SubmitPostForm({ options = [], user, setOpen }) {
   )
 }
 SubmitPostForm.propTypes = {
+  setOpen: PropTypes.func,
   options: PropTypes.array,
   user: PropTypes.object,
 }
