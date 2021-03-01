@@ -4,7 +4,7 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import { makeStyles } from '@material-ui/core/styles'
 import {
   CircularProgress,
-  Divider, FormControl, Grid, InputBase, Typography, CardHeader, IconButton,
+  Divider, FormControl, Grid, InputBase, Typography, IconButton,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import Radio from '@material-ui/core/Radio'
@@ -16,7 +16,6 @@ import { useMutation } from '@apollo/react-hooks'
 import { useDispatch } from 'react-redux'
 import { isEmpty } from 'lodash'
 import CardBody from '../../mui-pro/Card/CardBody'
-import Card from '../../mui-pro/Card/Card'
 import Button from '../../mui-pro/CustomButtons/Button'
 import SubmitPostAlert from './SubmitPostAlert'
 import { SET_SELECTED_POST } from '../../store/ui'
@@ -45,7 +44,7 @@ const useStyles = makeStyles({
     margin: '20px 0px 0px 0px',
   },
   group: {
-    margin: '20px 0px'
+    margin: '20px 0px',
   },
   groupInput: {
     backgroundColor: 'rgb(160, 243, 204, 0.6)',
@@ -213,97 +212,97 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           alignItems="center"
           className={classes.group}
         >
-        <Typography>
-          Who can see your post
-        </Typography>
+          <Typography>
+            Who can see your post
+          </Typography>
 
-        <Autocomplete
-          variant="outlined"
-          size="small"
-          className={classes.groupInput}
-          value={selectedGroup}
-          onChange={(event, newValue) => {
-            if (typeof newValue === 'string') {
-              setSelectedGroup({
-                title: newValue,
-              })
-            } else if (newValue && newValue.inputValue) {
-              // Create a new value from the user input
-              setSelectedGroup({
-                title: newValue.inputValue,
-              })
-            } else {
-              setSelectedGroup(newValue)
-            }
+          <Autocomplete
+            variant="outlined"
+            size="small"
+            className={classes.groupInput}
+            value={selectedGroup}
+            onChange={(event, newValue) => {
+              if (typeof newValue === 'string') {
+                setSelectedGroup({
+                  title: newValue,
+                })
+              } else if (newValue && newValue.inputValue) {
+                // Create a new value from the user input
+                setSelectedGroup({
+                  title: newValue.inputValue,
+                })
+              } else {
+                setSelectedGroup(newValue)
+              }
 
-            if (newValue) {
-              const checkGroup = (groupOption) => groupOption.title === newValue.title
-              const hidePrivacyOption = options.some(checkGroup)
-              setIsNewGroup(!hidePrivacyOption)
-            }
-          }}
-          filterOptions={(groupOptions, params) => {
-            const filtered = filter(groupOptions, params)
+              if (newValue) {
+                const checkGroup = (groupOption) => groupOption.title === newValue.title
+                const hidePrivacyOption = options.some(checkGroup)
+                setIsNewGroup(!hidePrivacyOption)
+              }
+            }}
+            filterOptions={(groupOptions, params) => {
+              const filtered = filter(groupOptions, params)
 
-            // Suggest the creation of a new value
-            if (params.inputValue !== '') {
-              filtered.push({
-                inputValue: params.inputValue,
-                title: `Add "${params.inputValue}"`,
-              })
-              setIsNewGroup(true)
-            } else {
-              setIsNewGroup(false)
-            }
+              // Suggest the creation of a new value
+              if (params.inputValue !== '') {
+                filtered.push({
+                  inputValue: params.inputValue,
+                  title: `Add "${params.inputValue}"`,
+                })
+                setIsNewGroup(true)
+              } else {
+                setIsNewGroup(false)
+              }
 
-            return filtered
-          }}
-          selectOnFocus
-          clearOnBlur
-          handleHomeEndKeys
-          id="group"
-          options={options}
-          getOptionLabel={(option) => {
-            // Value selected with enter, right from the input
-            if (typeof option === 'string') {
-              return option
-            }
-            // Add "xxx" option created dynamically
-            if (option.inputValue) {
-              return option.inputValue
-            }
-            // Regular option
-            return option.title
-          }}
-          renderOption={(option) => option.title}
-          renderInput={(params) => (
-            <TextField
-              variant="outlined"
-              className={classes.label}
-              {...params}
-              label="Select a group"
-              name="group"
-              id="group"
-              inputRef={register({
-                required: 'Group is required',
-              })}
-            />
+              return filtered
+            }}
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            id="group"
+            options={options}
+            getOptionLabel={(option) => {
+              // Value selected with enter, right from the input
+              if (typeof option === 'string') {
+                return option
+              }
+              // Add "xxx" option created dynamically
+              if (option.inputValue) {
+                return option.inputValue
+              }
+              // Regular option
+              return option.title
+            }}
+            renderOption={(option) => option.title}
+            renderInput={(params) => (
+              <TextField
+                variant="outlined"
+                className={classes.label}
+                {...params}
+                label="Select a group"
+                name="group"
+                id="group"
+                inputRef={register({
+                  required: 'Group is required',
+                })}
+              />
+            )}
+          />
+
+          {isNewGroup && (
+            <FormControl component="fieldset">
+              <RadioGroup
+                aria-label="Group"
+                name="groupVisibility"
+                value={privacy}
+                onChange={handleVisibilityChange}
+              >
+                <FormControlLabel value="public" control={<Radio />} label="Public" />
+                <FormControlLabel value="private" control={<Radio />} label="Private" />
+              </RadioGroup>
+            </FormControl>
           )}
-        />
-
-        {isNewGroup && (
-          <FormControl component="fieldset">
-            <RadioGroup
-              aria-label="Group"
-              name="groupVisibility"
-              value={privacy}
-              onChange={handleVisibilityChange}
-            >
-              <FormControlLabel value="public" control={<Radio />} label="Public" />
-              <FormControlLabel value="private" control={<Radio />} label="Private" />
-            </RadioGroup>
-          </FormControl>
-        )}
         </Grid>
         <Grid
           container

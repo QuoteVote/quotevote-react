@@ -3,23 +3,18 @@
 exports[`SubmitPostForm test - renders correctly 1`] = `
 <form>
   <div
-    aligntext="center"
-    class="MuiCardHeader-root makeStyles-title-2"
+    class="makeStyles-cardBody-10 makeStyles-root-1"
   >
     <div
-      class="MuiCardHeader-content"
+      class="MuiGrid-root MuiGrid-container"
     >
-      <span
-        class="MuiTypography-root MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock"
+      <p
+        class="MuiTypography-root makeStyles-title-2 MuiTypography-body2"
       >
         Create a Post
-      </span>
-    </div>
-    <div
-      class="MuiCardHeader-action"
-    >
+      </p>
       <button
-        class="MuiButtonBase-root MuiIconButton-root makeStyles-title-2"
+        class="MuiButtonBase-root MuiIconButton-root makeStyles-exit-3"
         tabindex="0"
         type="button"
       >
@@ -33,16 +28,11 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
         />
       </button>
     </div>
-  </div>
-  <div
-    class="makeStyles-cardBody-8 makeStyles-root-1"
-  >
     <div
-      class="MuiInputBase-root makeStyles-input-4 MuiInputBase-fullWidth"
+      class="MuiInputBase-root makeStyles-input-5 MuiInputBase-fullWidth"
       required=""
     >
       <input
-        aria-label="naked"
         class="MuiInputBase-input"
         id="title"
         name="title"
@@ -56,7 +46,7 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
       class="MuiDivider-root"
     />
     <div
-      class="MuiInputBase-root makeStyles-input-4 MuiInputBase-fullWidth MuiInputBase-multiline"
+      class="MuiInputBase-root makeStyles-input-5 MuiInputBase-fullWidth MuiInputBase-multiline"
       required=""
     >
       <textarea
@@ -79,43 +69,113 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
     <hr
       class="MuiDivider-root"
     />
-    <p
-      class="MuiTypography-root MuiTypography-body1"
-    >
-      Who can see your post
-    </p>
     <div
-      aria-expanded="false"
-      class="MuiAutocomplete-root makeStyles-group-5 MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
-      role="combobox"
-      variant="outlined"
+      class="MuiGrid-root makeStyles-group-6 MuiGrid-container MuiGrid-align-items-xs-center"
     >
-      <div
-        class="MuiFormControl-root MuiTextField-root makeStyles-groupInput-6 MuiFormControl-fullWidth"
+      <p
+        class="MuiTypography-root MuiTypography-body1"
       >
-        <label
-          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
-          data-shrink="false"
-          for="group"
-          id="group-label"
-        >
-          Select a group
-        </label>
+        Who can see your post
+      </p>
+      <div
+        aria-expanded="false"
+        class="MuiAutocomplete-root makeStyles-groupInput-7 MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+        role="combobox"
+        variant="outlined"
+      >
         <div
-          class="MuiInputBase-root MuiInput-root MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+          class="MuiFormControl-root MuiTextField-root makeStyles-label-8 MuiFormControl-fullWidth"
         >
-          <input
-            aria-autocomplete="list"
-            aria-invalid="false"
-            autocapitalize="none"
-            autocomplete="off"
-            class="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused"
-            id="group"
-            name="group"
-            spellcheck="false"
-            type="text"
-            value=""
-          />
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-marginDense MuiInputLabel-outlined"
+            data-shrink="false"
+            for="group"
+            id="group-label"
+          >
+            Select a group
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+          >
+            <input
+              aria-autocomplete="list"
+              aria-invalid="false"
+              autocapitalize="none"
+              autocomplete="off"
+              class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+              id="group"
+              name="group"
+              spellcheck="false"
+              type="text"
+              value=""
+            />
+            <div
+              class="MuiAutocomplete-endAdornment"
+            >
+              <button
+                aria-label="Clear"
+                class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
+                tabindex="-1"
+                title="Clear"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                aria-label="Open"
+                class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator"
+                tabindex="-1"
+                title="Open"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M7 10l5 5 5-5z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <fieldset
+              aria-hidden="true"
+              class="PrivateNotchedOutline-root-19 MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="PrivateNotchedOutline-legendLabelled-21"
+              >
+                <span>
+                  Select a group
+                </span>
+              </legend>
+            </fieldset>
+          </div>
         </div>
       </div>
     </div>
@@ -123,7 +183,7 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
       class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-flex-end MuiGrid-justify-xs-flex-end"
     >
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-17 makeStyles-fullWidth-18 makeStyles-button-7"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-23 makeStyles-fullWidth-24 makeStyles-button-9"
         id="submit-button"
         tabindex="0"
         type="submit"
