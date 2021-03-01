@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
@@ -19,10 +19,12 @@ const useStyles = makeStyles(() => ({
 
 function PostPage() {
   const classes = useStyles()
+  const [postHeight, setPostHeight] = useState()
 
   // To reset the scroll when the selected post changes
   useEffect(() => {
     window.scrollTo(0, 0)
+    setPostHeight(document.getElementById('post').clientHeight)
   }, [])
 
   const postId = useSelector((state) => state.ui.selectedPost.id)
@@ -94,12 +96,12 @@ function PostPage() {
       className={classes.root}
       style={{ position: 'relative' }}
     >
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} id="post">
         {loadingPost ? <PostSkeleton /> : <Post post={post} loading={loadingPost} user={user} />}
       </Grid>
       <Grid item className={classes.root} xs={12} md={6}>
         <PostChatSend messageRoomId={messageRoomId} title={title} />
-        <PostActionList loading={loadingPost} postActions={postActions} postUrl={url} />
+        <PostActionList loading={loadingPost} postActions={postActions} postUrl={url} postHeight={postHeight} />
       </Grid>
     </Grid>
   )
