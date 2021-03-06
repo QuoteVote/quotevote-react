@@ -45,8 +45,6 @@ const ActionButtons = ({ status, id }) => {
     })
   }
 
-  console.log("IS ANYONE ALIVE OUT THERE")
-
   const handleDecline = async () => {
     await submitData(2)
   }

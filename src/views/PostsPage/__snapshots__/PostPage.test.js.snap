@@ -7,6 +7,7 @@ exports[`Post Page test - renders correctly 1`] = `
 >
   <div
     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6"
+    id="post"
   >
     <div
       class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
