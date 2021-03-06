@@ -1,6 +1,7 @@
 import TrendingPosts from 'views/TrendingPosts/TrendingPosts'
 import HomePage from 'views/Homepage/Homepage'
 import Profile from 'views/Profile'
+import ControlPanel from 'views/ControlPanel/ControlPanel'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import PostPage from 'views/PostsPage/PostPage'
 import LogoutPage from './components/LogoutPage'
@@ -58,6 +59,12 @@ const routes = [
     icon: ExitToAppIcon,
     component: LogoutPage,
     layout: '/logout',
+  },
+  {
+    path: '/ControlPanel',
+    name: 'Control Panel',
+    component: ControlPanel,
+    layout: '/hhsb',
   },
 ]
 export default routes
