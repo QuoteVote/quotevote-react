@@ -15,6 +15,7 @@ import qouteBadgeIcon from 'assets/img/badge/QouteBadge.png'
 import downVoteBadgeIcon from 'assets/img/badge/DownVoteBadge.png'
 import upVoteBadgeIcon from 'assets/img/badge/UpVoteBadge.png'
 import zeroNotificationsImg from 'assets/img/ZeroNotificationsBG.png'
+import PlusSign from 'assets/svg/PlusSign.svg'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
@@ -66,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
 
 const getBadgeIcon = (notificationType) => {
   switch (notificationType) {
+    case 'FOLLOW': 
+      return PlusSign
     case 'UPVOTED':
       return upVoteBadgeIcon
     case 'DOWNVOTED':
