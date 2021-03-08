@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 
 const getBadgeIcon = (notificationType) => {
   switch (notificationType) {
-    case 'FOLLOW': 
+    case 'FOLLOW':
       return PlusSign
     case 'UPVOTED':
       return upVoteBadgeIcon
