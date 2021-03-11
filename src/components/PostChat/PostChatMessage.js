@@ -61,7 +61,7 @@ const useStyles = makeStyles(() => ({
 
 function PostChatMessage(props) {
   const { message } = props
-  const username = message.user.username
+  const { username } = message.user
   const history = useHistory()
   const classes = useStyles()
   const userId = useSelector((state) => state.user.data._id)
@@ -86,14 +86,15 @@ function PostChatMessage(props) {
       alignItems="center"
       className={classes.root}
     >
-      <Grid item sm={2}>
-        <Avatar className={classes.avatar}
+      <Grid item xs={2}>
+        <Avatar
+          className={classes.avatar}
           onClick={() => handleRedirectToProfile()}
         >
           <AvatarDisplay {...message.user.avatar} />
         </Avatar>
       </Grid>
-      <Grid item sm={10}>
+      <Grid item xs={10}>
         <Paper elevation={0} className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
           <Typography className={classes.text}>
             {message.text}

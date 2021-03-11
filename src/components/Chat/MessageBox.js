@@ -78,6 +78,7 @@ function Header() {
   }
 
   const { title, avatar, messageType } = useSelector((state) => state.chat.selectedRoom.room)
+  console.log(avatar)
 
   return (
     <Grid

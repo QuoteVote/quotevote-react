@@ -107,7 +107,7 @@ function BuddyItemList({ buddyList }) {
       )}
       <List className={buddyList.length ? classes.root : classNames(classes.root, classes.blur)}>
         {itemList.map((item) => (
-          <React.Fragment>
+          <>
             <ListItem onClick={() => handleClickItem(item)}>
               <ListItemAvatar>
                 <Avatar>
@@ -132,7 +132,7 @@ function BuddyItemList({ buddyList }) {
               </ListItemSecondaryAction>
             </ListItem>
             <Divider className={classes.divider} />
-          </React.Fragment>
+          </>
         ))}
       </List>
     </>

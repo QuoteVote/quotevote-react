@@ -32,6 +32,7 @@ class SelectionPopover extends Component {
       popoverBox: {
         top: 0,
         left: 0,
+        right: 0,
       },
     }
 
@@ -71,9 +72,8 @@ class SelectionPopover extends Component {
   render() {
     const { showPopover, children, style } = this.props // eslint-disable-line no-unused-vars
     const {
-      popoverBox: { top, left },
+      popoverBox: { top, left, right },
     } = this.state
-
     const visibility = showPopover ? 'visible' : 'hidden'
     const display = showPopover ? 'inline-block' : 'none'
 
@@ -88,6 +88,7 @@ class SelectionPopover extends Component {
           position: 'absolute',
           top,
           left,
+          right,
           zIndex: '1',
           ...style,
         }}
@@ -135,15 +136,27 @@ class SelectionPopover extends Component {
     const targetBox = document
       .querySelector('[data-selectable]')
       .getBoundingClientRect()
-    this.setState({
-      popoverBox: {
-        top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
-        left:
-          selectionBox.width / 2 -
-          popoverBox.width / 2 +
-          (selectionBox.left - targetBox.left),
-      },
-    })
+    if (selectionBox.x < 200) {
+      this.setState({
+        popoverBox: {
+          top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
+          left:
+            selectionBox.width / 2 -
+            popoverBox.width / 2 +
+            (selectionBox.left - targetBox.left),
+        },
+      })
+    } else {
+      this.setState({
+        popoverBox: {
+          top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
+          right:
+            selectionBox.width / 2 -
+            popoverBox.width / 2 +
+            (selectionBox.left - targetBox.left),
+        },
+      })
+    }
   };
 
   handleClickOutside = () => {
@@ -162,6 +175,7 @@ SelectionPopover.propTypes = {
 
 SelectionPopover.defaultProps = {
   topOffset: 30,
+
   // eslint-disable-next-line react/default-props-match-prop-types
   showPopover: false,
 }

@@ -122,10 +122,10 @@ function PostChatSend(props) {
       alignItems="center"
       className={classes.root}
     >
-      <Grid item sm={2}>
+      <Grid item xs={2}>
         <Typography className={classes.chat}>Chat</Typography>
       </Grid>
-      <Grid item sm={10}>
+      <Grid item xs={10}>
         <Paper elevation={0}>
           <InputBase
             placeholder="type a message..."

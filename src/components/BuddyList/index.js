@@ -10,6 +10,7 @@ function BuddyList({ search }) {
   const { loading, error, data } = useQuery(GET_CHAT_ROOMS, {
     fetchPolicy: 'cache-and-network',
   })
+
   const buddyList =
     (!error && !loading && data && !isEmpty(data.messageRooms) &&
       data.messageRooms.map((item) => ({
