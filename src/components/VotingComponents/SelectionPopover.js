@@ -53,12 +53,6 @@ class SelectionPopover extends Component {
     target.addEventListener('selectstart', this.handleMobileSelection)
     target.addEventListener('pointerup', this.handleRemoveInterval)
     target.addEventListener('pointermove', this.selectionChange)
-
-    // if (isMobile) {
-    //   document.oncontextmenu = function(event) {
-    //     return false
-    //   }
-    // }
   }
 
   componentWillUnmount() {
@@ -76,7 +70,7 @@ class SelectionPopover extends Component {
     } = this.state
     const visibility = showPopover ? 'visible' : 'hidden'
     const display = showPopover ? 'inline-block' : 'none'
-
+    
     return (
       <div
         id="selectionPopover"
@@ -109,12 +103,6 @@ class SelectionPopover extends Component {
     this.interval = null
   };
 
-  handleMobileSelection = () => {
-    // if (isMobile) {
-    //   this.interval = setInterval(this.selectionChange, 10)
-    // }
-  };
-
   // eslint-disable-next-line consistent-return
   selectionChange = () => {
     const selection = window.getSelection()
@@ -130,38 +118,45 @@ class SelectionPopover extends Component {
     if (!selectionExists()) {
       return
     }
+    //console.log(window.innerWidth)
     const selectionBox = selection.getRangeAt(0).getBoundingClientRect()
     // eslint-disable-next-line react/no-string-refs
     const popoverBox = this.refs.selectionPopover.getBoundingClientRect()
+    let halfWindowWidth = window.innerWidth / 2
     const targetBox = document
       .querySelector('[data-selectable]')
       .getBoundingClientRect()
-    if (selectionBox.x < 200) {
-      this.setState({
-        popoverBox: {
-          top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
-          left:
-            selectionBox.width / 2 -
-            popoverBox.width / 2 +
-            (selectionBox.left - targetBox.left),
-        },
-      })
-    } else {
-      this.setState({
-        popoverBox: {
-          top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
-          right:
-            selectionBox.width / 2 -
-            popoverBox.width / 2 +
-            (selectionBox.left - targetBox.left),
-        },
-      })
-    }
+
+      if (window.innerWidth > 960) {
+        this.setState({
+          popoverBox: {
+            top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
+            left:
+              selectionBox.width / 2 -
+              popoverBox.width / 2 +
+              (selectionBox.left - targetBox.left),
+           },
+        })
+      } else if (window.innerWidth > 500 && window.innerWidth <= 960 && selectionBox.x > halfWindowWidth) {
+        this.setState({
+          popoverBox: {
+            top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
+            right:
+              (window.innerWidth - selectionBox.x) + 285
+          }
+        })
+      } else {
+        this.setState({
+          popoverBox: {
+            top: selectionBox.top - 80 - targetBox.top - this.props.topOffset,
+          }
+        })
+    } 
   };
 
   handleClickOutside = () => {
     this.props.onDeselect()
-  };
+  }
 }
 
 SelectionPopover.propTypes = {

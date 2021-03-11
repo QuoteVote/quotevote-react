@@ -489,7 +489,7 @@ exports[`Post test - renders correctly 1`] = `
       </div>
       <div
         id="selectionPopover"
-        style="visibility: hidden; display: none; position: absolute; top: 0px; left: 0px; z-index: 1;"
+        style="visibility: hidden; display: none; position: absolute; top: 0px; left: 0px; right: 0px; z-index: 1;"
       />
     </div>
   </div>

@@ -62,6 +62,23 @@ const VotingPopup = ({
   const { user } = useSelector((state) => state)
   const [expand, setExpand] = useState({ open: false, type: '' })
   const [comment, setComment] = useState('')
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [checkWindowWidth, setCheckWindowWidth] = useState(true)
+
+  const handleWindowSizeChange = () => {
+    setWindowWidth(window.innerWidth)
+    if (window.innerWidth < 400) {
+      setCheckWindowWidth(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, []);
+
   let voteOptions = []
 
   if (expand.type === 'up') {
@@ -124,7 +141,7 @@ const VotingPopup = ({
       <Paper
         style={{
           backgroundImage: 'linear-gradient(to top, #1bb5d8, #4066ec)',
-          width: 285,
+          width: checkWindowWidth ? 285 : 240,
           zIndex: 1,
           top: expand.open ? 181 : 170,
           left: 20,
