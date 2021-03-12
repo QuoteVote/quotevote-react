@@ -38,6 +38,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 205,
   },
+  paperExpanedSmall: {
+    margin: theme.spacing(1),
+    backgroundColor: 'white',
+    padding: '33px 15px 10px 15px',
+    width: 270,
+    position: 'absolute',
+    top: 205,
+  },
   icon: { fontSize: 40 },
   input: {
     color: '#3c4858cc',
@@ -62,22 +70,20 @@ const VotingPopup = ({
   const { user } = useSelector((state) => state)
   const [expand, setExpand] = useState({ open: false, type: '' })
   const [comment, setComment] = useState('')
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [checkWindowWidth, setCheckWindowWidth] = useState(true)
 
   const handleWindowSizeChange = () => {
-    setWindowWidth(window.innerWidth)
     if (window.innerWidth < 400) {
       setCheckWindowWidth(false)
     }
   }
 
   useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange);
+    window.addEventListener('resize', handleWindowSizeChange)
     return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
+      window.removeEventListener('resize', handleWindowSizeChange)
     }
-  }, []);
+  }, [])
 
   let voteOptions = []
 
@@ -221,7 +227,7 @@ const VotingPopup = ({
         </Grid>
       </Paper>
       <Zoom in={expand.open}>
-        <Paper id="popButtons" elevation={4} className={classes.paperExpaned}>
+        <Paper id="popButtons" elevation={4} className={checkWindowWidth ? classes.paperExpaned : classes.paperExpanedSmall}>
           {isComment ? (
             <Input
               placeholder="Type comment here"
@@ -249,7 +255,7 @@ const VotingPopup = ({
             />
           ) : (
             <div className={classes.root}>
-              <ButtonGroup variant="text" color="red" size="small">
+              <ButtonGroup variant="text" color="inherit" size="small">
                 {voteOptions.map((option) => <Button key={option} className={classes.btnGroup} onClick={() => handleVote(option)}>{option}</Button>)}
               </ButtonGroup>
             </div>
