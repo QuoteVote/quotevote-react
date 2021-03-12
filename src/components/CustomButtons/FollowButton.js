@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   followButton: {
     color: theme.subHeader.followButton.color,
     backgroundColor: theme.subHeader.followButton.backgroundColor,
+    '&:hover': {
+      backgroundColor: theme.subHeader.followButton.backgroundColor,
+    },
   },
 }))
 
@@ -45,7 +48,7 @@ function FollowButton({
   const user = useSelector((state) => state.user)
   const followingArray = user.data._followingId
 
-  async function handleClick(profileUserId, action) {
+  async function handleClick(action) {
     let newFollowingArray
     if (action === 'un-follow') {
       newFollowingArray = _.without(followingArray, profileUserId)
@@ -63,7 +66,7 @@ function FollowButton({
       <Button
         variant="contained"
         className={classNames(classes.followButton, otherProps.className)}
-        onClick={() => handleClick(profileUserId, action)}
+        onClick={() => handleClick(action)}
       >
         Un-Follow
       </Button>
@@ -75,7 +78,7 @@ function FollowButton({
     <Button
       variant="contained"
       className={classNames(classes.followButton, otherProps.className)}
-      onClick={() => handleClick(profileUserId, action)}
+      onClick={() => handleClick(action)}
     >
       Follow
     </Button>

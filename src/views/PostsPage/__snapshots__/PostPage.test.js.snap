@@ -171,16 +171,7 @@ exports[`Post Page test - renders correctly 1`] = `
       class="MuiGrid-root makeStyles-root-2 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
-      >
-        <p
-          class="MuiTypography-root makeStyles-chat-3 MuiTypography-body1"
-        >
-          Chat
-        </p>
-      </div>
-      <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-10"
       >
         <div
           class="MuiPaper-root MuiPaper-elevation0 MuiPaper-rounded"
