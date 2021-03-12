@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { Grid, InputBase } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
+import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import SendIcon from 'assets/svg/SendIcon.svg'
@@ -122,10 +123,12 @@ function PostChatSend(props) {
       alignItems="center"
       className={classes.root}
     >
-      <Grid item xs={2}>
-        <Typography className={classes.chat}>Chat</Typography>
-      </Grid>
-      <Grid item xs={10}>
+      <Hidden only={['xs']}>
+        <Grid item sm={2}>
+          <Typography className={classes.chat}>Chat</Typography>
+        </Grid>
+      </Hidden>
+      <Grid item sm={10} xs={12}>
         <Paper elevation={0}>
           <InputBase
             placeholder="type a message..."
@@ -142,7 +145,7 @@ function PostChatSend(props) {
           />
           <IconButton
             className={classes.send}
-            onClick={(event) => {
+            onClick={() => {
               handleSubmit()
             }}
           >
