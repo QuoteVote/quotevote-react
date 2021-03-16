@@ -14,13 +14,7 @@ import routes from 'mui-pro/mui-routes'
 
 import styles from 'assets/jss/material-dashboard-pro-react/layouts/authStyle'
 
-import register from 'assets/img/register.jpeg'
-import login from 'assets/img/login.jpeg'
-import lock from 'assets/img/lock.jpeg'
-import error from 'assets/img/clint-mckoy.jpg'
-import pricing from 'assets/img/bg-pricing.jpeg'
-import requestAccess from 'assets/img/RequestAccess/bg.png'
-import buildingsBG from 'assets/img/BuildingsBG.png'
+import Mountain from 'assets/img/Mountain.png'
 import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles(styles)
@@ -53,39 +47,7 @@ export default function Pages(props) {
     }
     return null
   })
-  const getBgImage = () => {
-    if (window.location.pathname.indexOf('/auth/register-page') !== -1) {
-      return register
-    }
-    if (window.location.pathname.indexOf('/auth/login') !== -1) {
-      return login
-    }
-    if (window.location.pathname.indexOf('/auth/pricing-page') !== -1) {
-      return pricing
-    }
-    if (
-      window.location.pathname.indexOf('/auth/lock-screen-page') !== -1
-    ) {
-      return lock
-    }
-    if (isRequestAccess) {
-      return requestAccess
-    }
-    if (
-      window.location.pathname.indexOf('/auth/landing-page') !== -1
-    ) {
-      return buildingsBG
-    }
-    if (
-      window.location.pathname.indexOf('/auth/investor-thanks') !== -1
-    ) {
-      return buildingsBG
-    }
-    if (window.location.pathname.indexOf('/auth/error-page') !== -1) {
-      return error
-    }
-    return buildingsBG
-  }
+
   const getActiveRoute = (routesParameter) => {
     const activeRoute = 'Default Brand Text'
     for (let i = 0; i < routesParameter.length; i++) {
@@ -106,7 +68,7 @@ export default function Pages(props) {
     <div
       className={classes.content}
       style={{
-        backgroundImage: `url(${getBgImage()})`,
+        backgroundImage: `url(${Mountain})`,
       }}
     >
       <Grid

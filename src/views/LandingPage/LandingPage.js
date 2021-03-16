@@ -84,9 +84,9 @@ export default function LandingPage() {
             </div>
           </GridContainer>
         </GridItem>
-        { isPersonal && <PersonalPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
+        {/* { isPersonal && <PersonalPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
         { isBusiness && <BusinessPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
-        { isInvestors && <InvestorPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
+        { isInvestors && <InvestorPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />} */}
       </GridContainer>
     </div>
   )
