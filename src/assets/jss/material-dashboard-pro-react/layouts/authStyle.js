@@ -11,9 +11,6 @@ const pagesStyle = (theme) => ({
     '-moz-background-size': 'cover',
     '-o-background-size': 'cover',
     backgroundPosition: 'center center',
-    '&:before': {
-      backgroundColor: `rgba(${hexToRgb(blackColor)}, 0.65)`,
-    },
     '& footer': {
       position: 'absolute',
       bottom: '0',
