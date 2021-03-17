@@ -181,17 +181,6 @@ const pagesHeaderStyle = (theme) => ({
     position: 'relative',
     whiteSpace: 'nowrap',
   },
-  listItemTextRequestInvite: {
-    textTransform: 'none',
-    backgroundColor: '#00cf6e',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: '#00cf6e',
-    },
-    whiteSpace: 'nowrap',
-    marginLeft: 5,
-    marginRight: 5,
-  },
   listItemTextAccess: {
     flex: 'none',
     padding: '0',

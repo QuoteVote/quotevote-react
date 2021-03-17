@@ -7,6 +7,11 @@ const landingPageStyle = (theme) => ({
   container: {
     ...container,
     zIndex: '4',
+    minWidth: '100%',
+    minHeight: '70vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   cardTitle: {
     ...cardTitle,
@@ -24,6 +29,25 @@ const landingPageStyle = (theme) => ({
     },
     marginLeft: '5px',
     marginRight: '5px',
+  },
+  listItem: {
+    position: 'relative',
+    display: 'block',
+    width: 'auto',
+    marginLeft: 5,
+    padding: '0',
+  },
+  listItemTextRequestInvite: {
+    backgroundColor: '#00cf6e',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#00cf6e',
+    },
+    width: 200,
+    fontSize: 15,
+    whiteSpace: 'nowrap',
+    marginLeft: 5,
+    marginRight: 5,
   },
   inputAdornment: {
     marginRight: '18px',

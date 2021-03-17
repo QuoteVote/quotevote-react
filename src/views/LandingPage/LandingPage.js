@@ -4,11 +4,12 @@ import { tokenValidator } from 'store/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
-import { Typography } from '@material-ui/core'
+import { ListItem } from '@material-ui/core'
 import { SET_SELECTED_PLAN } from 'store/ui'
 import { isMobile } from 'react-device-detect'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
+import Button from '../../mui-pro/CustomButtons/Button'
 import SelectPlansButton from '../../components/CustomButtons/SelectPlansButton'
 import PersonalPlanCarousel from '../../components/Carousel/PersonalPlan/PersonalPlanCarousel'
 import PersonalPlanHeaderText from '../../components/Carousel/PersonalPlan/PersonalPlanHeaderText'
@@ -42,52 +43,34 @@ export default function LandingPage() {
   }
 
   return (
-    <div className={classes.container}>
-      <GridContainer justify="center" style={{ marginRight: 24 }}>
-        <GridItem xs={12}>
-          <Typography
-            align="center"
-            className={classes.share}
+    <GridContainer
+      direction="column"
+      alignItems="center"
+      justify="center"
+      className={classes.container}
+    >
+      <GridItem xs={12}>
+        <ListItem className={classes.listItem}>
+          <Button
+            variant="contained"
+            className={classes.listItemTextRequestInvite}
+            type="submit"
+            onClick={() => history.push('/auth/request-access')}
           >
-            {isPersonal && <PersonalPlanHeaderText classes={classes} index={carouselCurrentIndex} />}
-            {isBusiness && <BusinessHeaderText classes={classes} index={carouselCurrentIndex} />}
-            {isInvestors && <InvestorHeaderText classes={classes} index={carouselCurrentIndex} />}
-          </Typography>
-        </GridItem>
-        <GridItem xs={12}>
-          <GridContainer justify="center">
-            <div className={classes.buttonSpacing}>
-              <SelectPlansButton
-                variant={isPersonal ? 'contained' : 'outlined'}
-                color="secondary"
-                onClick={() => setSelectedPlan('personal')}
-                style={{ background: isPersonal ? '#1D6CE7' : '' }}
-              >
-                Personal
-              </SelectPlansButton>
-              <SelectPlansButton
-                variant={isBusiness ? 'contained' : 'outlined'}
-                color="secondary"
-                onClick={() => setSelectedPlan('business')}
-                style={{ background: isBusiness ? '#791E89' : '' }}
-              >
-                Business
-              </SelectPlansButton>
-              <SelectPlansButton
-                variant={isInvestors ? 'contained' : 'outlined'}
-                color="secondary"
-                onClick={() => setSelectedPlan('investors')}
-                style={{ background: isInvestors ? '#E91E63' : '' }}
-              >
-                Investors
-              </SelectPlansButton>
-            </div>
-          </GridContainer>
-        </GridItem>
-        {/* { isPersonal && <PersonalPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
-        { isBusiness && <BusinessPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />}
-        { isInvestors && <InvestorPlanCarousel classes={classes} setCarouselCurrentIndex={setCarouselCurrentIndex} />} */}
-      </GridContainer>
-    </div>
+            Request Invite
+          </Button>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <Button
+            variant="contained"
+            className={classes.listItemTextRequestInvite}
+            type="submit"
+            onClick={() => history.push('/auth/request-access')}
+          >
+            Learn More
+          </Button>
+        </ListItem>
+      </GridItem>
+    </GridContainer>
   )
 }

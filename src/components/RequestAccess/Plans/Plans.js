@@ -70,14 +70,7 @@ const Plans = (props) => {
     <Grid container justify="center" style={{ marginRight: 24 }}>
       <Grid item xs={12} style={{ marginBottom: '5%' }}>
         <Typography align="center" className={classes.plansHeader}>
-          What is best for you
-          {' '}
-          <span
-            className={classes.plansHeader}
-            style={{ color: '#00cf6e' }}
-          >
-            ?
-          </span>
+          Select to learn more
         </Typography>
       </Grid>
       <Grid item xs={12}>
