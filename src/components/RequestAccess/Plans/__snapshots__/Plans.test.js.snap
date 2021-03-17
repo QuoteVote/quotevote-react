@@ -12,14 +12,7 @@ exports[`Plans test - renders correctly 1`] = `
     <p
       class="MuiTypography-root makeStyles-plansHeader-8 MuiTypography-body1 MuiTypography-alignCenter"
     >
-      What is best for you
-       
-      <span
-        class="makeStyles-plansHeader-8"
-        style="color: rgb(0, 207, 110);"
-      >
-        ?
-      </span>
+      Select to learn more
     </p>
   </div>
   <div

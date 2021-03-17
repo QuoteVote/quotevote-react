@@ -145,7 +145,7 @@ export default function AuthNavbar(props) {
   );
   return (
     <AppBar position="static" className={classes.appBar + appBarClasses}>
-      <Toolbar className={classes.container}>
+      <Toolbar>
         <Hidden smDown>
           <div className={classes.flex}>
             <IconButton color="primary" aria-label="upload picture" component="span">
