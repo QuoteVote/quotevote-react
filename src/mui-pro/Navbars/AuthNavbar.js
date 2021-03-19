@@ -78,19 +78,6 @@ export default function AuthNavbar(props) {
 
       {activeRoute("/auth/landing-page") && (
         <React.Fragment>
-          <Hidden mdDown>
-          <ListItem className={classes.listItem}>
-              <Button
-                variant="contained"
-                className={classes.listItemTextRequestInvite}
-                type="submit"
-                fullWidth
-                onClick={() => history.push('/auth/request-access')}
-              >
-                Request Invite
-              </Button>
-          </ListItem>
-          </Hidden>
           <ListItem className={classes.listItem}>
             <NavLink
               to="/auth/login"
