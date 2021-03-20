@@ -61,6 +61,25 @@ const requestAccessStyles = (theme) => ({
       fontSize: 18,
     },
   },
+  input: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    height: 45,
+    width: 250,
+    marginRight: 20,
+    paddingLeft: 20,
+  },
+  requestAccessBtn: {
+    textTransform: 'none',
+    backgroundColor: '#00cf6e',
+    color: 'white',
+    width: 150,
+    height: 45,
+    fontSize: 16,
+    '&:hover': {
+      backgroundColor: '#00cf6e',
+    },
+  },
   plansHeader: {
     height: '41px',
     objectFit: 'contain',

@@ -6,9 +6,9 @@ import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { SET_SELECTED_PLAN } from 'store/ui'
-import styles from 'assets/jss/material-dashboard-pro-react/views/loginPageStyle'
+import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 
-import PlansPage from 'components/RequestAccess/Plans/Plans'
+import SendRequest from 'components/RequestAccess/SendRequest/SendRequest'
 import PersonalForm from 'components/RequestAccess/PersonalForm/PersonalForm'
 import BusinessForm from 'components/RequestAccess/BusinessForm/BusinessForm'
 import { REQUEST_USER_ACCESS_MUTATION } from 'graphql/mutations'
@@ -159,15 +159,7 @@ export default function RequestAccessPage() {
 
   return (
     <div className={classes.container}>
-      {!selectedPlan || !request ? (
-        <PlansPage
-          selectedPlan={selectedPlan}
-          onPlanSelect={setSelectedPlan}
-          setRequest={setRequest}
-          setCardDetails={setCardDetails}
-          cardDetails={cardDetails}
-        />
-      ) : renderForm()}
+       <SendRequest />
     </div>
   )
 }

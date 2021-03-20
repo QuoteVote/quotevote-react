@@ -25,7 +25,7 @@ export default function Footer(props) {
         <Grid
           container
           direction="row"
-          justify="space-around"
+          justify="space-between"
           alignItems="center"
         >
           <Grid item xs={12} sm={9}>
