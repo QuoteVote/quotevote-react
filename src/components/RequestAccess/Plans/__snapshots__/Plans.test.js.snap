@@ -10,7 +10,7 @@ exports[`Plans test - renders correctly 1`] = `
     style="margin-bottom: 5%;"
   >
     <p
-      class="MuiTypography-root makeStyles-plansHeader-8 MuiTypography-body1 MuiTypography-alignCenter"
+      class="MuiTypography-root makeStyles-plansHeader-10 MuiTypography-body1 MuiTypography-alignCenter"
     >
       Select to learn more
     </p>
@@ -22,11 +22,11 @@ exports[`Plans test - renders correctly 1`] = `
       class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
     >
       <div
-        class="MuiGrid-root makeStyles-gridContent-18 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
+        class="MuiGrid-root makeStyles-gridContent-20 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
       >
         <img
           alt="PersonalPlan.png"
-          class="makeStyles-plansCardImage-9"
+          class="makeStyles-plansCardImage-11"
           height="500"
           src="PersonalPlan.png"
         />
@@ -43,7 +43,7 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardHeader-10 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardHeader-12 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   Personal Plan
                 </p>
@@ -52,11 +52,11 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconPersonal-12 MuiSvgIcon-fontSizeInherit"
+                    class="MuiSvgIcon-root makeStyles-checkIconPersonal-14 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
@@ -72,11 +72,11 @@ exports[`Plans test - renders correctly 1`] = `
                 style="margin-bottom: 20px;"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconPersonal-12 MuiSvgIcon-fontSizeInherit"
+                    class="MuiSvgIcon-root makeStyles-checkIconPersonal-14 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
@@ -91,12 +91,12 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   Full access
                    
                   <span
-                    class="makeStyles-plansCardText-11"
+                    class="makeStyles-plansCardText-13"
                     style="opacity: 0.8; border-radius: 5px; border: 1px solid #157ffb; background-color: rgb(21, 127, 251); color: white;"
                   >
                     for free
@@ -107,23 +107,23 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                   style="color: rgb(21, 127, 251);"
                 >
                   <span
                     aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root Component-root-19"
+                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-23 MuiRadio-root Component-root-21"
                   >
                     <span
                       class="MuiIconButton-label"
                     >
                       <input
-                        class="PrivateSwitchBase-input-24"
+                        class="PrivateSwitchBase-input-26"
                         type="radio"
                         value="personal"
                       />
                       <div
-                        class="PrivateRadioButtonIcon-root-25"
+                        class="PrivateRadioButtonIcon-root-27"
                       >
                         <svg
                           aria-hidden="true"
@@ -137,7 +137,7 @@ exports[`Plans test - renders correctly 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
+                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-28"
                           focusable="false"
                           viewBox="0 0 24 24"
                         >
@@ -161,7 +161,7 @@ exports[`Plans test - renders correctly 1`] = `
                   class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   <button
-                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-14 MuiLink-button MuiTypography-colorPrimary"
+                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-16 MuiLink-button MuiTypography-colorPrimary"
                     href="https://"
                   >
                     I would like to read more
@@ -173,11 +173,11 @@ exports[`Plans test - renders correctly 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root makeStyles-gridContent-18 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
+        class="MuiGrid-root makeStyles-gridContent-20 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
       >
         <img
           alt="Illustration.png"
-          class="makeStyles-plansCardImage-9"
+          class="makeStyles-plansCardImage-11"
           height="500"
           src="Illustration.png"
         />
@@ -194,7 +194,7 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardHeader-10 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardHeader-12 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   Business Plan
                 </p>
@@ -203,11 +203,11 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconBusiness-13 MuiSvgIcon-fontSizeInherit"
+                    class="MuiSvgIcon-root makeStyles-checkIconBusiness-15 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
@@ -223,11 +223,11 @@ exports[`Plans test - renders correctly 1`] = `
                 style="margin-bottom: 20px;"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconBusiness-13 MuiSvgIcon-fontSizeInherit"
+                    class="MuiSvgIcon-root makeStyles-checkIconBusiness-15 MuiSvgIcon-fontSizeInherit"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
@@ -250,10 +250,10 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   <span
-                    class="makeStyles-plansCardText-11"
+                    class="makeStyles-plansCardText-13"
                     style="opacity: 0.8; border-radius: 5px; border: 1px solid #791e89; background-color: rgb(121, 30, 137); color: white;"
                   >
                     $10
@@ -266,23 +266,23 @@ exports[`Plans test - renders correctly 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <p
-                  class="MuiTypography-root makeStyles-plansCardText-11 MuiTypography-body1 MuiTypography-alignCenter"
+                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
                   style="color: rgb(121, 30, 137);"
                 >
                   <span
                     aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiRadio-root Component-root-28"
+                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-23 MuiRadio-root Component-root-30"
                   >
                     <span
                       class="MuiIconButton-label"
                     >
                       <input
-                        class="PrivateSwitchBase-input-24"
+                        class="PrivateSwitchBase-input-26"
                         type="radio"
                         value="business"
                       />
                       <div
-                        class="PrivateRadioButtonIcon-root-25"
+                        class="PrivateRadioButtonIcon-root-27"
                       >
                         <svg
                           aria-hidden="true"
@@ -296,7 +296,7 @@ exports[`Plans test - renders correctly 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-26"
+                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-28"
                           focusable="false"
                           viewBox="0 0 24 24"
                         >
@@ -320,7 +320,7 @@ exports[`Plans test - renders correctly 1`] = `
                   class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
                 >
                   <button
-                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-14 MuiLink-button MuiTypography-colorPrimary"
+                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-16 MuiLink-button MuiTypography-colorPrimary"
                     href="https://"
                   >
                     I would like to read more

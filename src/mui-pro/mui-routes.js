@@ -4,6 +4,7 @@ import RequestAccessPage from "views/RequestAccessPage/RequestAccessPage";
 
 import Image from "@material-ui/icons/Image";
 import LandingPage from "../views/LandingPage/LandingPage";
+import PlanPage from "../views/PlanPage/PlanPage";
 import InvestorThanks from "../views/InvestorThanks/InvestorThanks";
 import ForgotPasswordPage from "../views/ForgotPassword/ForgotPasswordPage";
 import PasswordResetPage from "../views/PasswordResetPage/PasswordResetPage";
@@ -58,6 +59,12 @@ const dashRoutes = [
         path: '/request-access',
         name: 'Request Access Page',
         component: RequestAccessPage,
+        layout: '/auth',
+      },
+      {
+        path: '/learn-more',
+        name: 'Learn More Page',
+        component: PlanPage,
         layout: '/auth',
       },
       {
