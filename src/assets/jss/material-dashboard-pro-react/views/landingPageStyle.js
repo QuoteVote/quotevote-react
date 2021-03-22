@@ -172,6 +172,13 @@ const landingPageStyle = (theme) => ({
       width: ((props) => props.isMobile ? 100 : 200),
     },
   },
+  planAvatar: {
+    height: 300,
+  },
+  planButton: {
+    color: '#FFF',
+    borderColor: '#FFF'
+  },
 })
 
 export default landingPageStyle

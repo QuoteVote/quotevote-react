@@ -1,240 +1,74 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { tokenValidator } from 'store/user'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
+import BusinessPlanAvatar from 'assets/img/BusinessPlanAvatar.png'
+import InvestorPlanAvatar from 'assets/img/InvestorPlanAvatar.png'
+import PersonalPlanAvatar from 'assets/img/PersonalPlanAvatar.png'
+import { Typography, Grid, Button } from '@material-ui/core'
+import { SET_SELECTED_PLAN } from 'store/ui'
+import { isMobile } from 'react-device-detect'
 
-import Grid from '@material-ui/core/Grid'
-import Link from '@material-ui/core/Link'
-import Typography from '@material-ui/core/Typography'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CheckIcon from '@material-ui/icons/Check'
-import Radio from '@material-ui/core/Radio'
-import Button from '@material-ui/core/Button'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+const useStyles = makeStyles(styles)
 
-import reqAccessBusiness from 'assets/img/RequestAccess/Illustration.png'
-import reqAccessPersonal from 'assets/img/RequestAccess/PersonalPlan.png'
-import PropTypes from 'prop-types'
-import requestAccessStyles from '../requestAccessStyles'
+export const MOBILE_IMAGE_WIDTH = 250
 
-const useStyles = makeStyles(requestAccessStyles)
+export default function Plans() {
+  const classes = useStyles({ isMobile })
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const selectedPlan = useSelector((state) => state.ui.selectedPlan)
 
-const PersonalPlanRadio = withStyles({
-  root: {
-    color: '#157ffb',
-    '&$checked': {
-      color: '#157ffb',
-    },
-  },
-  checked: {},
-})((props) => <Radio color="default" {...props} />)
+  React.useEffect(() => {
+    if (tokenValidator(dispatch)) history.push('/hhsb/Home')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-const BusinessPlanRadio = withStyles({
-  root: {
-    color: '#791e89',
-    '&$checked': {
-      color: '#791e89',
-    },
-  },
-  checked: {},
-})((props) => <Radio color="default" {...props} />)
-
-const RequestButton = (props) => {
-  const { classes, onClickRequest } = props
+  const setSelectedPlan = (type) => {
+    dispatch(SET_SELECTED_PLAN(type))
+  }
 
   return (
-    <Button
-      variant="contained"
-      className={classes.requestBtn}
-      onClick={() => onClickRequest(true)}
-    >
-      Request Access
-    </Button>
-  )
-}
-
-RequestButton.propTypes = {
-  classes: PropTypes.object,
-  onClickRequest: PropTypes.func,
-}
-
-const Plans = (props) => {
-  const classes = useStyles()
-  const {
-    onPlanSelect, selectedPlan, setRequest, setCardDetails, cardDetails,
-  } = props
-
-  // selectedPlan can be null
-  const isBusiness = selectedPlan === 'business'
-  const isPersonal = selectedPlan === 'personal'
-
-  return (
-    <Grid container justify="center" style={{ marginRight: 24 }}>
-      <Grid item xs={12} style={{ marginBottom: '5%' }}>
-        <Typography align="center" className={classes.plansHeader}>
-          Select to learn more
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container justify="center">
-          <Grid item xs={7} md={3} className={classes.gridContent}>
-            {isPersonal && <RequestButton classes={classes} onClickRequest={setRequest} />}
-            <img
-              alt={reqAccessPersonal}
-              height={500}
-              src={`${reqAccessPersonal}`}
-              className={classes.plansCardImage}
-            />
-            <Card>
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardHeader}>
-                      Personal Plan
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardText}>
-                      <CheckIcon fontSize="inherit" className={classes.checkIconPersonal} />
-                      Pay what you like
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} style={{ marginBottom: 20 }}>
-                    <Typography align="center" className={classes.plansCardText}>
-                      <CheckIcon fontSize="inherit" className={classes.checkIconPersonal} />
-                      Free for individuals
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardText}>
-                      Full access
-                      {' '}
-                      <span
-                        className={classes.plansCardText}
-                        style={{
-                          opacity: 0.8,
-                          borderRadius: 5,
-                          border: 'solid 1px #157ffb',
-                          backgroundColor: '#157ffb',
-                          color: 'white',
-                        }}
-                      >
-                        for free
-                      </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardText} style={{ color: '#157ffb' }}>
-                      <PersonalPlanRadio
-                        checked={isPersonal}
-                        value="personal"
-                        onChange={(e) => onPlanSelect(e.target.value)}
-                      />
-                      This works for me
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center">
-                      <Link
-                        component="button"
-                        href="https://"
-                        className={classes.link}
-                      >
-                        I would like to read more
-                      </Link>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={7} md={3} className={classes.gridContent}>
-            {isBusiness && <RequestButton classes={classes} onClickRequest={setRequest} />}
-            <img
-              alt={reqAccessBusiness}
-              height={500}
-              src={`${reqAccessBusiness}`}
-              className={classes.plansCardImage}
-            />
-            <Card>
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardHeader}>
-                      Business Plan
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardText}>
-                      <CheckIcon fontSize="inherit" className={classes.checkIconBusiness} />
-                      License for Professionals
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} style={{ marginBottom: 20 }}>
-                    <Typography align="center" className={classes.plansCardText}>
-                      <CheckIcon fontSize="inherit" className={classes.checkIconBusiness} />
-                      &#162;10 per
-                      {' '}
-                      <span style={{ color: '#791e89' }}>POP</span>
-                      {' '}
-                      Prediction
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardText}>
-                      <span
-                        className={classes.plansCardText}
-                        style={{
-                          opacity: 0.8,
-                          borderRadius: 5,
-                          border: 'solid 1px #791e89',
-                          backgroundColor: '#791e89',
-                          color: 'white',
-                        }}
-                      >
-                        $10
-                      </span>
-                      {' '}
-                      / month
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center" className={classes.plansCardText} style={{ color: '#791e89' }}>
-                      <BusinessPlanRadio
-                        checked={isBusiness}
-                        value="business"
-                        onChange={(e) => {
-                          onPlanSelect(e.target.value)
-                          setCardDetails({ ...cardDetails, cost: 10 })
-                        }}
-                      />
-                      This works for me
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography align="center">
-                      <Link
-                        component="button"
-                        href="https://"
-                        className={classes.link}
-                      >
-                        I would like to read more
-                      </Link>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
+    <div className={classes.container}>
+      <Grid container justify="center" style={{ marginRight: 24 }}>
+        <Grid item xs={12}>
+          <Typography>Select to learn more</Typography>
+          <Grid container direction="row" justify="center">
+            <Grid item>
+              <img className={classes.planAvatar} src={PersonalPlanAvatar} alt="personal" />
+              <Button
+                className={classes.planButton}
+                variant="outlined"
+                onClick={() => setSelectedPlan('personal')}
+              >
+                Personal
+              </Button>
+            </Grid>
+            <Grid item>
+              <img className={classes.planAvatar} src={BusinessPlanAvatar} alt="business" />
+              <Button
+                className={classes.planButton}
+                variant="outlined"
+                onClick={() => setSelectedPlan('business')}
+              >
+                Business
+              </Button>
+            </Grid>
+            <Grid item>
+              <img className={classes.planAvatar} src={InvestorPlanAvatar} alt="investor" />
+              <Button
+                className={classes.planButton}
+                variant="outlined"
+                onClick={() => setSelectedPlan('investors')}
+              >
+                Investors
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </div>
   )
 }
-Plans.propTypes = {
-  onPlanSelect: PropTypes.any,
-  selectedPlan: PropTypes.any,
-  setRequest: PropTypes.func,
-  setCardDetails: PropTypes.func,
-  cardDetails: PropTypes.func,
-}
-
-export default Plans

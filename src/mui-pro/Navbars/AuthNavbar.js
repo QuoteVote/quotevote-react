@@ -41,7 +41,7 @@ export default function AuthNavbar(props) {
 
   const list = (
     <List className={classes.list}>
-      {activeRoute("/auth/request-access") && (
+      {(activeRoute("/auth/request-access") || activeRoute("/auth/learn-more")) && (
         <ListItem className={classes.listItem}>
           <NavLink
             to="/auth/landing-page"
