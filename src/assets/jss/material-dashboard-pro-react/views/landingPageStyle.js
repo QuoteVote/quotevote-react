@@ -174,11 +174,18 @@ const landingPageStyle = (theme) => ({
   },
   planAvatar: {
     height: 300,
+    marginBottom: 20,
   },
   planButton: {
     color: '#FFF',
-    borderColor: '#FFF'
+    borderColor: '#FFF',
+    width: 100,
   },
+  select: {
+    fontSize: 25,
+    marginTop: 50,
+    marginBottom: 100,
+  }
 })
 
 export default landingPageStyle

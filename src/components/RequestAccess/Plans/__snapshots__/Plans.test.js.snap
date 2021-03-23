@@ -2,333 +2,91 @@
 
 exports[`Plans test - renders correctly 1`] = `
 <div
-  class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
-  style="margin-right: 24px;"
+  class="makeStyles-container-1"
 >
   <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-    style="margin-bottom: 5%;"
-  >
-    <p
-      class="MuiTypography-root makeStyles-plansHeader-10 MuiTypography-body1 MuiTypography-alignCenter"
-    >
-      Select to learn more
-    </p>
-  </div>
-  <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+    class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
+    style="margin-right: 24px;"
   >
     <div
-      class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
+      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
     >
-      <div
-        class="MuiGrid-root makeStyles-gridContent-20 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
+      <p
+        class="MuiTypography-root MuiTypography-body1"
       >
-        <img
-          alt="PersonalPlan.png"
-          class="makeStyles-plansCardImage-11"
-          height="500"
-          src="PersonalPlan.png"
-        />
+        Select to learn more
+      </p>
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
+      >
         <div
-          class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiGrid-root MuiGrid-item"
         >
-          <div
-            class="MuiCardContent-root"
+          <img
+            alt="personal"
+            class="makeStyles-planAvatar-26"
+            src="PersonalPlanAvatar.png"
+          />
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-27"
+            tabindex="0"
+            type="button"
           >
-            <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+            <span
+              class="MuiButton-label"
             >
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardHeader-12 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  Personal Plan
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconPersonal-14 MuiSvgIcon-fontSizeInherit"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                    />
-                  </svg>
-                  Pay what you like
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                style="margin-bottom: 20px;"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconPersonal-14 MuiSvgIcon-fontSizeInherit"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                    />
-                  </svg>
-                  Free for individuals
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  Full access
-                   
-                  <span
-                    class="makeStyles-plansCardText-13"
-                    style="opacity: 0.8; border-radius: 5px; border: 1px solid #157ffb; background-color: rgb(21, 127, 251); color: white;"
-                  >
-                    for free
-                  </span>
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                  style="color: rgb(21, 127, 251);"
-                >
-                  <span
-                    aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-23 MuiRadio-root Component-root-21"
-                  >
-                    <span
-                      class="MuiIconButton-label"
-                    >
-                      <input
-                        class="PrivateSwitchBase-input-26"
-                        type="radio"
-                        value="personal"
-                      />
-                      <div
-                        class="PrivateRadioButtonIcon-root-27"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                          />
-                        </svg>
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-28"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                    <span
-                      class="MuiTouchRipple-root"
-                    />
-                  </span>
-                  This works for me
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  <button
-                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-16 MuiLink-button MuiTypography-colorPrimary"
-                    href="https://"
-                  >
-                    I would like to read more
-                  </button>
-                </p>
-              </div>
-            </div>
-          </div>
+              Personal
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
         </div>
-      </div>
-      <div
-        class="MuiGrid-root makeStyles-gridContent-20 MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-md-3"
-      >
-        <img
-          alt="Illustration.png"
-          class="makeStyles-plansCardImage-11"
-          height="500"
-          src="Illustration.png"
-        />
         <div
-          class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiGrid-root MuiGrid-item"
         >
-          <div
-            class="MuiCardContent-root"
+          <img
+            alt="business"
+            class="makeStyles-planAvatar-26"
+            src="BusinessPlanAvatar.png"
+          />
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-27"
+            tabindex="0"
+            type="button"
           >
-            <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+            <span
+              class="MuiButton-label"
             >
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardHeader-12 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  Business Plan
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconBusiness-15 MuiSvgIcon-fontSizeInherit"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                    />
-                  </svg>
-                  License for Professionals
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                style="margin-bottom: 20px;"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root makeStyles-checkIconBusiness-15 MuiSvgIcon-fontSizeInherit"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                    />
-                  </svg>
-                  ¢10 per
-                   
-                  <span
-                    style="color: rgb(121, 30, 137);"
-                  >
-                    POP
-                  </span>
-                   
-                  Prediction
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  <span
-                    class="makeStyles-plansCardText-13"
-                    style="opacity: 0.8; border-radius: 5px; border: 1px solid #791e89; background-color: rgb(121, 30, 137); color: white;"
-                  >
-                    $10
-                  </span>
-                   
-                  / month
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root makeStyles-plansCardText-13 MuiTypography-body1 MuiTypography-alignCenter"
-                  style="color: rgb(121, 30, 137);"
-                >
-                  <span
-                    aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-23 MuiRadio-root Component-root-30"
-                  >
-                    <span
-                      class="MuiIconButton-label"
-                    >
-                      <input
-                        class="PrivateSwitchBase-input-26"
-                        type="radio"
-                        value="business"
-                      />
-                      <div
-                        class="PrivateRadioButtonIcon-root-27"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                          />
-                        </svg>
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-28"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                    <span
-                      class="MuiTouchRipple-root"
-                    />
-                  </span>
-                  This works for me
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
-                >
-                  <button
-                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-16 MuiLink-button MuiTypography-colorPrimary"
-                    href="https://"
-                  >
-                    I would like to read more
-                  </button>
-                </p>
-              </div>
-            </div>
-          </div>
+              Business
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <img
+            alt="investor"
+            class="makeStyles-planAvatar-26"
+            src="InvestorPlanAvatar.png"
+          />
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-27"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              Investors
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
         </div>
       </div>
     </div>

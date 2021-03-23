@@ -33,10 +33,11 @@ export default function Plans() {
   return (
     <div className={classes.container}>
       <Grid container justify="center" style={{ marginRight: 24 }}>
-        <Grid item xs={12}>
-          <Typography>Select to learn more</Typography>
-          <Grid container direction="row" justify="center">
+        <Grid item container justify="center" xs={12}>
+          <Typography className={classes.select}>Select To Learn More</Typography>
+          <Grid container direction="row" justify="space-evenly">
             <Grid item>
+            <Grid container direction="column" alignItems="center">
               <img className={classes.planAvatar} src={PersonalPlanAvatar} alt="personal" />
               <Button
                 className={classes.planButton}
@@ -45,8 +46,10 @@ export default function Plans() {
               >
                 Personal
               </Button>
+              </Grid>
             </Grid>
             <Grid item>
+            <Grid container direction="column" alignItems="center">
               <img className={classes.planAvatar} src={BusinessPlanAvatar} alt="business" />
               <Button
                 className={classes.planButton}
@@ -55,8 +58,10 @@ export default function Plans() {
               >
                 Business
               </Button>
+              </Grid>
             </Grid>
             <Grid item>
+            <Grid container direction="column" alignItems="center">
               <img className={classes.planAvatar} src={InvestorPlanAvatar} alt="investor" />
               <Button
                 className={classes.planButton}
@@ -65,6 +70,7 @@ export default function Plans() {
               >
                 Investors
               </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
