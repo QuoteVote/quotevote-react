@@ -12,95 +12,10 @@ exports[`Plans test - renders correctly 1`] = `
       class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-justify-xs-center MuiGrid-grid-xs-12"
     >
       <p
-        class="MuiTypography-root makeStyles-select-26 MuiTypography-body1"
+        class="MuiTypography-root makeStyles-select-26 makeStyles-select-34 MuiTypography-body1"
       >
         Select To Learn More
       </p>
-      <div
-        class="MuiGrid-root makeStyles-plans-27 MuiGrid-container MuiGrid-justify-xs-space-evenly"
-      >
-        <div
-          class="MuiGrid-root MuiGrid-item"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center"
-          >
-            <img
-              alt="personal"
-              class="makeStyles-planAvatar-28"
-              src="PersonalPlanAvatar.png"
-            />
-            <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-29"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="MuiButton-label"
-              >
-                Personal
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </button>
-          </div>
-        </div>
-        <div
-          class="MuiGrid-root MuiGrid-item"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center"
-          >
-            <img
-              alt="business"
-              class="makeStyles-planAvatar-28"
-              src="BusinessPlanAvatar.png"
-            />
-            <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-29"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="MuiButton-label"
-              >
-                Business
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </button>
-          </div>
-        </div>
-        <div
-          class="MuiGrid-root MuiGrid-item"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center"
-          >
-            <img
-              alt="investor"
-              class="makeStyles-planAvatar-28"
-              src="InvestorPlanAvatar.png"
-            />
-            <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-29"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="MuiButton-label"
-              >
-                Investors
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

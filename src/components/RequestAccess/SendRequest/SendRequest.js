@@ -18,15 +18,14 @@ function SendRequest() {
       display="flex"
       justify="center"
       alignItems="center"
+      className={classes.inputContainer}
     >
-      <Grid item>
-        <Input
-          disableUnderline
-          placeholder="Enter Email"
-          className={classes.input}
-        />
-        <Button className={classes.requestAccessBtn}>Request Invite</Button>
-      </Grid>
+      <Input
+        disableUnderline
+        placeholder="Enter Email"
+        className={classes.input}
+      />
+      <Button className={classes.requestAccessBtn}>Request Invite</Button>
     </Grid>
   )
 }

@@ -61,25 +61,6 @@ const requestAccessStyles = (theme) => ({
       fontSize: 18,
     },
   },
-  input: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-    height: 45,
-    width: 250,
-    marginRight: 20,
-    paddingLeft: 20,
-  },
-  requestAccessBtn: {
-    textTransform: 'none',
-    backgroundColor: '#00cf6e',
-    color: 'white',
-    width: 150,
-    height: 45,
-    fontSize: 16,
-    '&:hover': {
-      backgroundColor: '#00cf6e',
-    },
-  },
   plansHeader: {
     height: '41px',
     objectFit: 'contain',
@@ -158,6 +139,37 @@ const requestAccessStyles = (theme) => ({
     position: 'relative',
     [theme.breakpoints.down('sm')]: {
       marginTop: 25,
+    },
+  },
+  inputContainer: {
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+  input: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    height: 45,
+    width: 250,
+    marginRight: 20,
+    paddingLeft: 20,
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 20,
+      marginRight: 0,
+    },
+  },
+  requestAccessBtn: {
+    textTransform: 'none',
+    backgroundColor: '#00cf6e',
+    color: 'white',
+    width: 150,
+    height: 45,
+    fontSize: 16,
+    '&:hover': {
+      backgroundColor: '#00cf6e',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: 250,
     },
   },
 })
