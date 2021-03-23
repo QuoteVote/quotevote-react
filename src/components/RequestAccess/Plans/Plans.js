@@ -7,7 +7,7 @@ import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageSty
 import BusinessPlanAvatar from 'assets/img/BusinessPlanAvatar.png'
 import InvestorPlanAvatar from 'assets/img/InvestorPlanAvatar.png'
 import PersonalPlanAvatar from 'assets/img/PersonalPlanAvatar.png'
-import { Typography, Grid, Button } from '@material-ui/core'
+import { Typography, Grid, Button, Hidden } from '@material-ui/core'
 import { SET_SELECTED_PLAN } from 'store/ui'
 import { isMobile } from 'react-device-detect'
 
@@ -35,7 +35,7 @@ export default function Plans() {
       <Grid container justify="center" style={{ marginRight: 24 }}>
         <Grid item container justify="center" xs={12}>
           <Typography className={classes.select}>Select To Learn More</Typography>
-          <Grid container direction="row" justify="space-evenly">
+          <Grid container direction="row" justify="space-evenly" className={classes.plans}>
             <Grid item>
             <Grid container direction="column" alignItems="center">
               <img className={classes.planAvatar} src={PersonalPlanAvatar} alt="personal" />

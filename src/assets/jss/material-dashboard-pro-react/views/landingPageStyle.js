@@ -172,6 +172,15 @@ const landingPageStyle = (theme) => ({
       width: ((props) => props.isMobile ? 100 : 200),
     },
   },
+  select: {
+    fontSize: 25,
+    marginTop: 50,
+    marginBottom: 100,
+  },
+  plans: {
+    paddingLeft: 50,
+
+  },
   planAvatar: {
     height: 300,
     marginBottom: 20,
@@ -181,11 +190,6 @@ const landingPageStyle = (theme) => ({
     borderColor: '#FFF',
     width: 100,
   },
-  select: {
-    fontSize: 25,
-    marginTop: 50,
-    marginBottom: 100,
-  }
 })
 
 export default landingPageStyle
