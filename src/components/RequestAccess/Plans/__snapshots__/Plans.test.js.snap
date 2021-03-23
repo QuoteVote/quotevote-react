@@ -12,12 +12,12 @@ exports[`Plans test - renders correctly 1`] = `
       class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-justify-xs-center MuiGrid-grid-xs-12"
     >
       <p
-        class="MuiTypography-root makeStyles-select-28 MuiTypography-body1"
+        class="MuiTypography-root makeStyles-select-26 MuiTypography-body1"
       >
         Select To Learn More
       </p>
       <div
-        class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-space-evenly"
+        class="MuiGrid-root makeStyles-plans-27 MuiGrid-container MuiGrid-justify-xs-space-evenly"
       >
         <div
           class="MuiGrid-root MuiGrid-item"
@@ -27,11 +27,11 @@ exports[`Plans test - renders correctly 1`] = `
           >
             <img
               alt="personal"
-              class="makeStyles-planAvatar-26"
+              class="makeStyles-planAvatar-28"
               src="PersonalPlanAvatar.png"
             />
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-27"
+              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-29"
               tabindex="0"
               type="button"
             >
@@ -54,11 +54,11 @@ exports[`Plans test - renders correctly 1`] = `
           >
             <img
               alt="business"
-              class="makeStyles-planAvatar-26"
+              class="makeStyles-planAvatar-28"
               src="BusinessPlanAvatar.png"
             />
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-27"
+              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-29"
               tabindex="0"
               type="button"
             >
@@ -81,11 +81,11 @@ exports[`Plans test - renders correctly 1`] = `
           >
             <img
               alt="investor"
-              class="makeStyles-planAvatar-26"
+              class="makeStyles-planAvatar-28"
               src="InvestorPlanAvatar.png"
             />
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-27"
+              class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-planButton-29"
               tabindex="0"
               type="button"
             >

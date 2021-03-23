@@ -175,7 +175,9 @@ const landingPageStyle = (theme) => ({
   select: {
     fontSize: 25,
     marginTop: 50,
-    marginBottom: 100,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: ((props) => props.isMobile ? 40 : 80),
+    }
   },
   plans: {
     paddingLeft: 50,
@@ -189,6 +191,9 @@ const landingPageStyle = (theme) => ({
     color: '#FFF',
     borderColor: '#FFF',
     width: 100,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: ((props) => props.isMobile ? 20 : 0),
+    }
   },
 })
 
