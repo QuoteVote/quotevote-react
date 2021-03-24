@@ -39,8 +39,6 @@ function LoadActivityCard({ width, activity }) {
       variables: { postId, userId: currentUser._id },
     })
 
-    console.log(avatar)
-
     await createPostMessageRoom({
       variables: { postId },
       refetchQueries: [

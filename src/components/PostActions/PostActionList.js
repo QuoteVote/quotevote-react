@@ -11,7 +11,9 @@ import { useDispatch } from 'react-redux'
 import PostActionCard from './PostActionCard'
 import { SET_FOCUSED_COMMENT, SET_SHARED_COMMENT } from '../../store/ui'
 
-function PostActionList({ postActions, loading, postUrl, postHeight }) {
+function PostActionList({
+  postActions, loading, postUrl, postHeight,
+}) {
   const location = useLocation()
   const { hash } = location
   const dispatch = useDispatch()
@@ -49,7 +51,7 @@ function PostActionList({ postActions, loading, postUrl, postHeight }) {
         <List
           style={{
             height: postHeight > 639 ? postHeight - 100 : '75vh',
-            //height: postActions.length > 2 ? '75vh' : 'auto',
+            // height: postActions.length > 2 ? '75vh' : 'auto',
             marginTop: 5,
             width: '100%',
             position: 'relative',
@@ -81,6 +83,7 @@ PostActionList.propTypes = {
   postActions: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   postUrl: PropTypes.string,
+  postHeight: PropTypes.number,
 }
 
 export default PostActionList
