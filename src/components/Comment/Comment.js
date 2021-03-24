@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react'
 import {
-  Card, CardActions, CardContent, CardHeader, IconButton
+  Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
 import { InsertEmoticon, InsertLink } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
@@ -91,7 +92,7 @@ function Comment({ comment, postUrl, selected }) {
         <p>{content}</p>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton className={classes.expand} onClick={console.log("Hey")}>
+        <IconButton className={classes.expand} onClick={console.log('Hey')}>
           <InsertEmoticon />
         </IconButton>
         <IconButton onClick={handleCopy}>

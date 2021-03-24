@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 import {
