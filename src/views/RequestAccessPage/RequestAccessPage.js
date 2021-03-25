@@ -20,36 +20,19 @@ export default function RequestAccessPage() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const selectedPlan = useSelector((state) => state.ui.selectedPlan)
   const [request, setRequest] = useState(null)
 
-  const defaultValues = {
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    email: '',
-  }
-  const [userDetails, setUserDetails] = useState(defaultValues)
+
+  const [userDetails, setUserDetails] = useState('')
+  console.log(userDetails)
   const {
     register, errors, getValues, handleSubmit, setError,
-  } = useForm({ defaultValues })
+  } = useForm({ userDetails })
   const [requestInviteSuccessful, setRequestInviteSuccessful] = useState(false)
   const [isContinued, setContinued] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
 
-  const cardDefaultValues = {
-    cardNumber: '',
-    expiry: '',
-    cvv: '',
-    cost: selectedPlan === 'business' ? 10 : 0,
-  }
-  const [cardDetails, setCardDetails] = useState(cardDefaultValues)
-
   const client = useApolloClient()
-
-  const setSelectedPlan = (planType) => {
-    dispatch(SET_SELECTED_PLAN(planType))
-  }
 
   const onContinue = async () => {
     const newUserDetails = getValues()
@@ -62,7 +45,7 @@ export default function RequestAccessPage() {
     if (hasDuplicateEmail) {
       setError('email', {
         type: 'manual',
-        message: 'Email already exist!',
+        message: 'Email already exists!',
       })
     }
     if (!hasDuplicateEmail && !Object.keys(errors).length) { // if there are no errors proceed to card number form
@@ -75,25 +58,10 @@ export default function RequestAccessPage() {
   const onSubmit = async () => {
     try {
       // eslint-disable-next-line no-console
-      console.log({ userDetails, cardDetails })
-      const { fullName, ...otherUserDetails } = userDetails
       const requestUserAccessInput = {
-        ...otherUserDetails,
-        firstName: fullName || otherUserDetails.firstName,
+        email: userDetails
       }
-      const {
-        cardNumber, expiry, cvv, cost,
-      } = cardDetails
-      if (cardNumber && expiry && cvv) {
-        const expirySplit = expiry.split('/')
-        requestUserAccessInput.cardDetails = {
-          number: cardNumber.replace(/\s+/g, ''),
-          exp_month: expirySplit[0].replace(/\s+/g, ''),
-          exp_year: `20${expirySplit[1]}`.replace(/\s+/g, ''),
-          cvc: cvv.replace(/\s+/g, ''),
-        }
-        requestUserAccessInput.amount = cost
-      }
+      console.log(requestUserAccessInput)
       await requestUserAccess({ variables: { requestUserAccessInput } })
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -159,7 +127,15 @@ export default function RequestAccessPage() {
 
   return (
     <div className={classes.container}>
-       <SendRequest />
+      <SendRequest 
+        onSubmit={onSubmit}
+        handleSubmit={handleSubmit}
+        register={register}
+        setUserDetails={setUserDetails}
+        requestInviteSuccessful={requestInviteSuccessful}
+        errorMessage={errorMessage}
+        loading={loading}
+      />
     </div>
   )
 }

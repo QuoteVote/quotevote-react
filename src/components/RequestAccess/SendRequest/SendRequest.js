@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Grid from '@material-ui/core/Grid'
 import Input from '@material-ui/core/Input'
@@ -9,7 +9,8 @@ import Button from '../../../mui-pro/CustomButtons/Button'
 
 const useStyles = makeStyles(requestAccessStyles)
 
-function SendRequest() {
+function SendRequest(props) {
+  const { handleSubmit, onSubmit, setUserDetails} = props
   const classes = useStyles()
 
   return (
@@ -24,8 +25,9 @@ function SendRequest() {
         disableUnderline
         placeholder="Enter Email"
         className={classes.input}
+        onChange={(event) => setUserDetails(event.target.value)}
       />
-      <Button className={classes.requestAccessBtn}>Request Invite</Button>
+      <Button className={classes.requestAccessBtn} onClick={() => onSubmit()}>Request Invite</Button>
     </Grid>
   )
 }

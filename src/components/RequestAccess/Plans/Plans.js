@@ -7,7 +7,12 @@ import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageSty
 import BusinessPlanAvatar from 'assets/img/BusinessPlanAvatar.png'
 import InvestorPlanAvatar from 'assets/img/InvestorPlanAvatar.png'
 import PersonalPlanAvatar from 'assets/img/PersonalPlanAvatar.png'
-import { Typography, Grid, Button, Hidden } from '@material-ui/core'
+import {
+  Typography,
+  Grid,
+  Button,
+  Hidden,
+} from '@material-ui/core'
 import { SET_SELECTED_PLAN } from 'store/ui'
 import { isMobile } from 'react-device-detect'
 
@@ -17,7 +22,6 @@ export const MOBILE_IMAGE_WIDTH = 250
 
 export default function Plans() {
   const classes = useStyles({ isMobile })
-  console.log(isMobile)
   const dispatch = useDispatch()
   const history = useHistory()
   const selectedPlan = useSelector((state) => state.ui.selectedPlan)
@@ -30,8 +34,6 @@ export default function Plans() {
   const setSelectedPlan = (type) => {
     dispatch(SET_SELECTED_PLAN(type))
   }
-
-  console.log(selectedPlan)
 
   const buttonList = (
     <Grid container direction="column" justify="space-evenly" alignItems="center">
@@ -67,44 +69,44 @@ export default function Plans() {
             {buttonList}
           </Hidden>
           <Hidden xsDown>
-          <Grid container direction="row" justify="space-evenly" className={classes.plans}>
-            <Grid item>
-            <Grid container direction="column" alignItems="center">
-              <img className={classes.planAvatar} src={PersonalPlanAvatar} alt="personal" />
-              <Button
-                className={classes.planButton}
-                variant="outlined"
-                onClick={() => setSelectedPlan('personal')}
-              >
-                Personal
-              </Button>
+            <Grid container direction="row" justify="space-evenly" className={classes.plans}>
+              <Grid item>
+                <Grid container direction="column" alignItems="center">
+                  <img className={classes.planAvatar} src={PersonalPlanAvatar} alt="personal" />
+                  <Button
+                    className={classes.planButton}
+                    variant="outlined"
+                    onClick={() => setSelectedPlan('personal')}
+                  >
+                    Personal
+                  </Button>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="column" alignItems="center">
+                  <img className={classes.planAvatar} src={BusinessPlanAvatar} alt="business" />
+                  <Button
+                    className={classes.planButton}
+                    variant="outlined"
+                    onClick={() => setSelectedPlan('business')}
+                  >
+                    Business
+                  </Button>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="column" alignItems="center">
+                  <img className={classes.planAvatar} src={InvestorPlanAvatar} alt="investor" />
+                  <Button
+                    className={classes.planButton}
+                    variant="outlined"
+                    onClick={() => setSelectedPlan('investors')}
+                  >
+                    Investors
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-            <Grid container direction="column" alignItems="center">
-              <img className={classes.planAvatar} src={BusinessPlanAvatar} alt="business" />
-              <Button
-                className={classes.planButton}
-                variant="outlined"
-                onClick={() => setSelectedPlan('business')}
-              >
-                Business
-              </Button>
-              </Grid>
-            </Grid>
-            <Grid item>
-            <Grid container direction="column" alignItems="center">
-              <img className={classes.planAvatar} src={InvestorPlanAvatar} alt="investor" />
-              <Button
-                className={classes.planButton}
-                variant="outlined"
-                onClick={() => setSelectedPlan('investors')}
-              >
-                Investors
-              </Button>
-              </Grid>
-            </Grid>
-          </Grid>
           </Hidden>
         </Grid>
       </Grid>

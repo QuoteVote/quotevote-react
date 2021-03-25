@@ -5,37 +5,33 @@ exports[`Request Access Page test - renders correctly 1`] = `
   class="makeStyles-container-1"
 >
   <div
-    class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+    class="MuiGrid-root makeStyles-inputContainer-52 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
     display="flex"
   >
     <div
-      class="MuiGrid-root MuiGrid-item"
+      class="MuiInputBase-root MuiInput-root makeStyles-input-53"
     >
-      <div
-        class="MuiInputBase-root MuiInput-root makeStyles-input-43"
-      >
-        <input
-          class="MuiInputBase-input MuiInput-input"
-          placeholder="Enter Email"
-          type="text"
-          value=""
-        />
-      </div>
-      <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-56 makeStyles-requestAccessBtn-44"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label"
-        >
-          Request Invite
-        </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
-      </button>
+      <input
+        class="MuiInputBase-input MuiInput-input"
+        placeholder="Enter Email"
+        type="text"
+        value=""
+      />
     </div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-55 makeStyles-requestAccessBtn-54"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        Request Invite
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
   </div>
 </div>
 `;

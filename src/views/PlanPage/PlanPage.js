@@ -15,7 +15,6 @@ export default function LandingPage() {
   const classes = useStyles({ isMobile })
   const dispatch = useDispatch()
   const history = useHistory()
-
   React.useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
