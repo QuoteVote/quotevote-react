@@ -5,11 +5,11 @@ exports[`Request Access Page test - renders correctly 1`] = `
   class="makeStyles-container-1"
 >
   <div
-    class="MuiGrid-root makeStyles-inputContainer-52 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+    class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
     display="flex"
   >
     <div
-      class="MuiInputBase-root MuiInput-root makeStyles-input-53"
+      class="MuiInputBase-root MuiInput-root makeStyles-input-30"
     >
       <input
         class="MuiInputBase-input MuiInput-input"
@@ -19,7 +19,7 @@ exports[`Request Access Page test - renders correctly 1`] = `
       />
     </div>
     <button
-      class="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-55 makeStyles-requestAccessBtn-54"
+      class="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-36 makeStyles-requestAccessBtn-31"
       tabindex="0"
       type="button"
     >
