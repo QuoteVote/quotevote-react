@@ -146,32 +146,6 @@ const requestAccessStyles = (theme) => ({
       flexDirection: 'column',
     },
   },
-  input: {
-    backgroundColor: 'white',
-    borderRadius: 5,
-    height: 45,
-    width: 250,
-    marginRight: 20,
-    paddingLeft: 20,
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: 20,
-      marginRight: 0,
-    },
-  },
-  requestAccessBtn: {
-    textTransform: 'none',
-    backgroundColor: '#00cf6e',
-    color: 'white',
-    width: 150,
-    height: 45,
-    fontSize: 16,
-    '&:hover': {
-      backgroundColor: '#00cf6e',
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: 250,
-    },
-  },
 })
 
 export default requestAccessStyles

@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { SET_SELECTED_PLAN } from 'store/ui'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 
-import SendRequest from 'components/RequestAccess/SendRequest/SendRequest'
-import PersonalForm from 'components/RequestAccess/PersonalForm/PersonalForm'
-import BusinessForm from 'components/RequestAccess/BusinessForm/BusinessForm'
 import { REQUEST_USER_ACCESS_MUTATION } from 'graphql/mutations'
 import { GET_CHECK_DUPLICATE_EMAIL } from 'graphql/query'
+
+import Grid from '@material-ui/core/Grid'
+import Input from '@material-ui/core/Input'
+import Button from '../../mui-pro/CustomButtons/Button'
 
 const useStyles = makeStyles(styles)
 
@@ -20,17 +20,12 @@ export default function RequestAccessPage() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const [request, setRequest] = useState(null)
 
 
   const [userDetails, setUserDetails] = useState('')
-  console.log(userDetails)
   const {
-    register, errors, getValues, handleSubmit, setError,
+    errors, getValues, setError,
   } = useForm({ userDetails })
-  const [requestInviteSuccessful, setRequestInviteSuccessful] = useState(false)
-  const [isContinued, setContinued] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
 
   const client = useApolloClient()
 
@@ -61,7 +56,6 @@ export default function RequestAccessPage() {
       const requestUserAccessInput = {
         email: userDetails
       }
-      console.log(requestUserAccessInput)
       await requestUserAccess({ variables: { requestUserAccessInput } })
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -82,43 +76,6 @@ export default function RequestAccessPage() {
     }
   }, [data])
 
-  const renderForm = () => {
-    if (selectedPlan === 'personal') {
-      return (
-        <PersonalForm
-          setCardDetails={setCardDetails}
-          cardDetails={cardDetails}
-          isContinued={isContinued}
-          onSubmit={onSubmit}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          onContinue={onContinue}
-          setContinued={setContinued}
-          register={register}
-          requestInviteSuccessful={requestInviteSuccessful}
-          errorMessage={errorMessage}
-          loading={loading}
-        />
-      )
-    }
-    return (
-      <BusinessForm
-        setCardDetails={setCardDetails}
-        cardDetails={cardDetails}
-        isContinued={isContinued}
-        onSubmit={onSubmit}
-        errors={errors}
-        handleSubmit={handleSubmit}
-        onContinue={onContinue}
-        setContinued={setContinued}
-        register={register}
-        requestInviteSuccessful={requestInviteSuccessful}
-        errorMessage={errorMessage}
-        loading={loading}
-      />
-    )
-  }
-
   // TODO: Abstract validation into custom hook
   React.useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
@@ -127,15 +84,21 @@ export default function RequestAccessPage() {
 
   return (
     <div className={classes.container}>
-      <SendRequest 
-        onSubmit={onSubmit}
-        handleSubmit={handleSubmit}
-        register={register}
-        setUserDetails={setUserDetails}
-        requestInviteSuccessful={requestInviteSuccessful}
-        errorMessage={errorMessage}
-        loading={loading}
-      />
+      <Grid
+        container
+        display="flex"
+        justify="center"
+        alignItems="center"
+        className={classes.inputContainer}
+      >
+        <Input
+          disableUnderline
+          placeholder="Enter Email"
+          className={classes.input}
+          onChange={(event) => setUserDetails(event.target.value)}
+        />
+        <Button className={classes.requestAccessBtn} onClick={() => onSubmit()}>Request Invite</Button>
+      </Grid>
     </div>
   )
 }
