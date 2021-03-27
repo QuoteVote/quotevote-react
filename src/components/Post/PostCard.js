@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography'
 import { CardHeader, IconButton } from '@material-ui/core'
 import Card from 'mui-pro/Card/Card'
 import classNames from 'classnames'
+import { isEmpty } from 'lodash'
+import reactStringReplace from 'react-string-replace'
 import ClearIcon from '@material-ui/icons/Clear'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
@@ -156,8 +158,25 @@ function PostCard(props) {
   const { width } = props
   const {
     _id, text, title, upvotes, downvotes, url, bookmarkedBy, created, onHidePost, creator,
-    activityType, limitText,
+    activityType, limitText, votes,
   } = props
+  let postText = stringLimit(text, limitText ? 20 : 10000)
+
+  if (!isEmpty(votes)) {
+    votes.forEach((vote, index) => {
+      if (index === 0) {
+        const textWithHighlight = postText.slice(vote.startWordIndex, vote.endWordIndex)
+        postText = reactStringReplace(postText, textWithHighlight, (match, i) => (
+          <span
+            key={i}
+            style={{ backgroundColor: `rgba(${vote.type === 'up' ? '255, 0' : '0, 255'}, 0, 0.5)` }}
+          >
+            {match}
+          </span>
+        ))
+      }
+    })
+  }
 
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
@@ -233,7 +252,7 @@ function PostCard(props) {
           </Grid>
           <Grid item xs={12}>
             <Typography className={classes.postContent}>
-              {stringLimit(text, limitText ? 20 : 10000)}
+              {postText}
             </Typography>
           </Grid>
         </Grid>
@@ -275,6 +294,7 @@ PostCard.propTypes = {
   avatar: PropTypes.object,
   width: PropTypes.any,
   limitText: PropTypes.bool,
+  votes: PropTypes.array,
 }
 
 export default withWidth()(PostCard)
