@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
+import PersonalForm from 'components/RequestAccess/PersonalForm/PersonalForm'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 
 import { REQUEST_USER_ACCESS_MUTATION } from 'graphql/mutations'
@@ -23,6 +24,7 @@ export default function RequestAccessPage() {
 
 
   const [userDetails, setUserDetails] = useState('')
+  const [requestInviteSuccessful, setRequestInviteSuccessful] = useState(false)
   const {
     errors, getValues, setError,
   } = useForm({ userDetails })
@@ -74,6 +76,7 @@ export default function RequestAccessPage() {
     if (data) {
       setRequestInviteSuccessful(true)
     }
+    console.log(data)
   }, [data])
 
   // TODO: Abstract validation into custom hook
@@ -81,6 +84,15 @@ export default function RequestAccessPage() {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (requestInviteSuccessful) {
+    console.log(requestInviteSuccessful)
+    return (
+      <PersonalForm 
+        requestInviteSuccessful={requestInviteSuccessful}
+      />
+    )
+  }
 
   return (
     <div className={classes.container}>

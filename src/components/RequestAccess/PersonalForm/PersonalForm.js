@@ -61,13 +61,8 @@ const PersonalForm = (props) => {
             />
           </Grid>
           {requestInviteSuccessful ? (
-            <Grid container itemxs={12} md={6} justify="center" alignItems="center">
+            <Grid container item xs={12} md={6} justify="center" alignItems="center">
               <Typography className={classes.message}>
-                <b>You selected the Personal Plan</b>
-                , and we
-                <br />
-                are excited to talk with you.
-                <br />
                 <br />
                 When an account becomes available, an
                 <br />
