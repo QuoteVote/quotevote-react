@@ -33,6 +33,7 @@ const footerStyle = (theme) => ({
     zIndex: 3,
     ...container,
     position: 'relative',
+    width: '95%!important',
   },
   containerFluid: {
     zIndex: 3,
@@ -63,7 +64,7 @@ const footerStyle = (theme) => ({
     '& > * + *': {
       marginLeft: theme.spacing(2),
     },
-    left: 0,
+    float: 'right',
   },
 })
 export default footerStyle
