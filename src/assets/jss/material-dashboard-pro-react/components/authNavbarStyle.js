@@ -40,6 +40,11 @@ const pagesHeaderStyle = (theme) => ({
     minHeight: '50px',
     display: 'block',
   },
+  buttonSpacing: {
+    '& > *': {
+      margin: ((props) => props.isMobile ? theme.spacing(1) : theme.spacing(2)),
+    },
+  },
   container: {
     ...container,
     minHeight: '50px',

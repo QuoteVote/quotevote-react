@@ -2,6 +2,9 @@ import React from "react";
 import cx from "classnames";
 import PropTypes from "prop-types";
 import { NavLink, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_SELECTED_PLAN } from 'store/ui'
+import GridContainer from '../../mui-pro/Grid/GridContainer'
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,6 +23,7 @@ import Menu from "@material-ui/icons/Menu";
 // core components
 import Button from "mui-pro/CustomButtons/Button";
 
+import SelectPlansButton from '../../components/CustomButtons/SelectPlansButton'
 import styles from "assets/jss/material-dashboard-pro-react/components/authNavbarStyle";
 import voxPopIcon from "../../assets/img/VoxPopLogo.svg";
 
@@ -30,6 +34,8 @@ export default function AuthNavbar(props) {
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
+  const dispatch = useDispatch()
+  const selectedPlan = useSelector((state) => state.ui.selectedPlan)
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => window.location.href.indexOf(routeName) > -1;
   const classes = useStyles();
@@ -39,10 +45,62 @@ export default function AuthNavbar(props) {
   });
   const history = useHistory()
 
+  const isPersonal = selectedPlan === 'personal'
+  const isBusiness = selectedPlan === 'business'
+  const isInvestors = selectedPlan === 'investors'
+
+  const setSelectedPlan = (type) => {
+    dispatch(SET_SELECTED_PLAN(type))
+  }
+
   const list = (
     <List className={classes.list}>
       {(activeRoute("/auth/request-access") || activeRoute("/auth/learn-more")) && (
         <ListItem className={classes.listItem}>
+          <NavLink
+            to="/auth/landing-page"
+            className={cx(classes.navLink, {
+              [classes.navLinkActive]: activeRoute("/auth/login")
+            })}
+          >
+            <ListItemText
+              primary="Go Back"
+              disableTypography
+              className={classes.listItemText}
+            />
+          </NavLink>
+        </ListItem>
+      )}
+      {(activeRoute("/auth/plans")) && (
+        <ListItem className={classes.listItem}>
+          <GridContainer justify="center">
+            <div className={classes.buttonSpacing}>
+              <SelectPlansButton
+                variant={isPersonal ? 'contained' : 'outlined'}
+                color="secondary"
+                onClick={() => setSelectedPlan('personal')}
+                style={{ background: isPersonal ? '#1D6CE7' : '' }}
+              >
+                Personal
+              </SelectPlansButton>
+              <SelectPlansButton
+                variant={isBusiness ? 'contained' : 'outlined'}
+                color="secondary"
+                onClick={() => setSelectedPlan('business')}
+                style={{ background: isBusiness ? '#791E89' : '' }}
+              >
+                Business
+              </SelectPlansButton>
+              <SelectPlansButton
+                variant={isInvestors ? 'contained' : 'outlined'}
+                color="secondary"
+                onClick={() => setSelectedPlan('investors')}
+                style={{ background: isInvestors ? '#E91E63' : '' }}
+              >
+                Investors
+              </SelectPlansButton>
+            </div>
+          </GridContainer>
           <NavLink
             to="/auth/landing-page"
             className={cx(classes.navLink, {
