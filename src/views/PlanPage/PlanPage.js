@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 import { isMobile } from 'react-device-detect'
-import SendRequest from 'components/RequestAccess/Plans/Plans'
+import Plans from 'components/RequestAccess/Plans/Plans'
 
 const useStyles = makeStyles(styles)
 
@@ -22,7 +22,7 @@ export default function LandingPage() {
 
   return (
     <div className={classes.container}>
-      <SendRequest />
+      <Plans />
     </div>
   )
 }

@@ -10,6 +10,7 @@ import ForgotPasswordPage from "../views/ForgotPassword/ForgotPasswordPage";
 import PasswordResetPage from "../views/PasswordResetPage/PasswordResetPage";
 import SignupPage from "../views/SignupPage/SignupPage";
 import AboutPage from "../views/AboutPage";
+import PlanCarouselPage from "../views/PlanCarouselPage/PlanCarouselPage";
 
 const dashRoutes = [
   {
@@ -65,6 +66,12 @@ const dashRoutes = [
         path: '/learn-more',
         name: 'Learn More Page',
         component: PlanPage,
+        layout: '/auth',
+      },
+      {
+        path: '/plans',
+        name: 'Plan Carousel Page',
+        component: PlanCarouselPage,
         layout: '/auth',
       },
       {

@@ -190,8 +190,9 @@ const landingPageStyle = (theme) => ({
     color: '#FFF',
     borderColor: '#FFF',
     width: 100,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       marginTop: 20,
+      width: '80%',
     },
   },
   input: {

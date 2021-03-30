@@ -33,6 +33,7 @@ export default function Plans() {
 
   const setSelectedPlan = (type) => {
     dispatch(SET_SELECTED_PLAN(type))
+    history.push('/auth/plans')
   }
 
   const buttonList = (
@@ -60,6 +61,7 @@ export default function Plans() {
       </Button>
     </Grid>
   )
+
   return (
     <div className={classes.container}>
       <Grid container justify="center" style={{ marginRight: 24 }}>
