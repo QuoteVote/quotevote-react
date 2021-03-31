@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
 import BusinessPlanAvatar from 'assets/img/BusinessPlanAvatar.png'
@@ -24,9 +24,7 @@ export default function Plans() {
   const classes = useStyles({ isMobile })
   const dispatch = useDispatch()
   const history = useHistory()
-  const selectedPlan = useSelector((state) => state.ui.selectedPlan)
-  const [hover, setHover] = useState();
-  console.log(hover)
+  const [hover, setHover] = useState()
 
   React.useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
@@ -46,7 +44,7 @@ export default function Plans() {
         onClick={() => setSelectedPlan('personal')}
         onMouseOver={() => setHover('personal')}
         onMouseOut={() => setHover()}
-        style={{ background: hover === 'personal' && '#1D6CE7', borderColor: hover === 'personal' && '#1D6CE7'}}
+        style={{ background: hover === 'personal' && '#1D6CE7', borderColor: hover === 'personal' && '#1D6CE7' }}
       >
         Personal
       </Button>
@@ -56,7 +54,7 @@ export default function Plans() {
         onClick={() => setSelectedPlan('business')}
         onMouseOver={() => setHover('business')}
         onMouseOut={() => setHover()}
-        style={{ background: hover === 'business' && '#791E89', borderColor: hover === 'business' && '#791E89'}}
+        style={{ background: hover === 'business' && '#791E89', borderColor: hover === 'business' && '#791E89' }}
       >
         Business
       </Button>
@@ -66,7 +64,7 @@ export default function Plans() {
         onClick={() => setSelectedPlan('investors')}
         onMouseOver={() => setHover('investors')}
         onMouseOut={() => setHover()}
-        style={{ background: hover === 'investors' && '#E91E63', borderColor: hover === 'investors' && '#E91E63'}}
+        style={{ background: hover === 'investors' && '#E91E63', borderColor: hover === 'investors' && '#E91E63' }}
       >
         Investors
       </Button>
@@ -92,7 +90,7 @@ export default function Plans() {
                     onClick={() => setSelectedPlan('personal')}
                     onMouseOver={() => setHover('personal')}
                     onMouseOut={() => setHover()}
-                    style={{ background: hover === 'personal' && '#1D6CE7', borderColor: hover === 'personal' && '#1D6CE7'}}
+                    style={{ background: hover === 'personal' && '#1D6CE7', borderColor: hover === 'personal' && '#1D6CE7' }}
                   >
                     Personal
                   </Button>
@@ -107,7 +105,7 @@ export default function Plans() {
                     onClick={() => setSelectedPlan('business')}
                     onMouseOver={() => setHover('business')}
                     onMouseOut={() => setHover()}
-                    style={{ background: hover === 'business' && '#791E89', borderColor: hover === 'business' && '#791E89'}}
+                    style={{ background: hover === 'business' && '#791E89', borderColor: hover === 'business' && '#791E89' }}
                   >
                     Business
                   </Button>
@@ -122,7 +120,7 @@ export default function Plans() {
                     onClick={() => setSelectedPlan('investors')}
                     onMouseOver={() => setHover('investors')}
                     onMouseOut={() => setHover()}
-                    style={{ background: hover === 'investors' && '#E91E63', borderColor: hover === 'investors' && '#E91E63'}}
+                    style={{ background: hover === 'investors' && '#E91E63', borderColor: hover === 'investors' && '#E91E63' }}
                   >
                     Investors
                   </Button>

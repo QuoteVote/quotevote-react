@@ -13,6 +13,8 @@ import { GET_CHECK_DUPLICATE_EMAIL } from 'graphql/query'
 
 import Grid from '@material-ui/core/Grid'
 import Input from '@material-ui/core/Input'
+import { Typography } from '@material-ui/core'
+
 import Button from '../../mui-pro/CustomButtons/Button'
 
 const useStyles = makeStyles(styles)
@@ -22,46 +24,36 @@ export default function RequestAccessPage() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-
   const [userDetails, setUserDetails] = useState('')
+  const [errorMessage, setErrorMessage] = useState()
   const [requestInviteSuccessful, setRequestInviteSuccessful] = useState(false)
   const {
-    errors, getValues, setError,
+    errors,
   } = useForm({ userDetails })
 
   const client = useApolloClient()
 
-  const onContinue = async () => {
-    const newUserDetails = getValues()
-    const { data } = await client.query({
+  const [requestUserAccess, { mutationData: data, error }] = useMutation(REQUEST_USER_ACCESS_MUTATION)
+  const onSubmit = async () => {
+    const checkDuplicate = await client.query({
       query: GET_CHECK_DUPLICATE_EMAIL,
-      variables: { email: newUserDetails.email },
+      variables: { email: userDetails },
       fetchPolicy: 'network-only',
     })
-    const hasDuplicateEmail = data && data.checkDuplicateEmail.length
+    const hasDuplicateEmail = checkDuplicate && checkDuplicate.data.checkDuplicateEmail.length
     if (hasDuplicateEmail) {
-      setError('email', {
-        type: 'manual',
-        message: 'Email already exists!',
-      })
-    }
-    if (!hasDuplicateEmail && !Object.keys(errors).length) { // if there are no errors proceed to card number form
-      setUserDetails(newUserDetails)
-      setContinued(true)
-    }
-  }
-
-  const [requestUserAccess, { data, error, loading }] = useMutation(REQUEST_USER_ACCESS_MUTATION)
-  const onSubmit = async () => {
-    try {
-      // eslint-disable-next-line no-console
-      const requestUserAccessInput = {
-        email: userDetails
+      setErrorMessage('This email already exists')
+    } else if (!hasDuplicateEmail && !Object.keys(errors).length) {
+      try {
+        // eslint-disable-next-line no-console
+        const requestUserAccessInput = {
+          email: userDetails,
+        }
+        await requestUserAccess({ variables: { requestUserAccessInput } })
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log('onSubmit', e)
       }
-      await requestUserAccess({ variables: { requestUserAccessInput } })
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log('onSubmit', e)
     }
   }
 
@@ -76,7 +68,6 @@ export default function RequestAccessPage() {
     if (data) {
       setRequestInviteSuccessful(true)
     }
-    console.log(data)
   }, [data])
 
   // TODO: Abstract validation into custom hook
@@ -86,13 +77,18 @@ export default function RequestAccessPage() {
   }, [])
 
   if (requestInviteSuccessful) {
-    console.log(requestInviteSuccessful)
     return (
-      <PersonalForm 
+      <PersonalForm
         requestInviteSuccessful={requestInviteSuccessful}
-    />
+      />
     )
   }
+
+  const duplicate = (
+    <div>
+      <Typography>{errorMessage}</Typography>
+    </div>
+  )
 
   return (
     <div className={classes.container}>
@@ -110,6 +106,7 @@ export default function RequestAccessPage() {
           onChange={(event) => setUserDetails(event.target.value)}
         />
         <Button className={classes.requestAccessBtn} onClick={() => onSubmit()}>Request Invite</Button>
+        {duplicate}
       </Grid>
     </div>
   )
