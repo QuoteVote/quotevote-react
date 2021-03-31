@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,7 +24,6 @@ export default function Plans() {
   const classes = useStyles({ isMobile })
   const dispatch = useDispatch()
   const history = useHistory()
-  const selectedPlan = useSelector((state) => state.ui.selectedPlan)
 
   React.useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
