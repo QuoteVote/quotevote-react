@@ -69,6 +69,7 @@ const landingPageStyle = (theme) => ({
     objectFit: 'contain',
     font: 'Montserrat',
     fontSize: '34px',
+    marginTop: 30,
     fontWeight: 'bold',
     letterspacing: '0.25px',
     [theme.breakpoints.down('sm')]: {
@@ -193,6 +194,11 @@ const landingPageStyle = (theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: 20,
       width: '80%',
+    },
+  },
+  inputContainer: {
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
     },
   },
   input: {

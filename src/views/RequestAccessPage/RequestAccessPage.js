@@ -90,7 +90,7 @@ export default function RequestAccessPage() {
     return (
       <PersonalForm 
         requestInviteSuccessful={requestInviteSuccessful}
-      />
+    />
     )
   }
 

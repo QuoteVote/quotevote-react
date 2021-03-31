@@ -36,6 +36,10 @@ function InvestorCarouselFirstContent({ classes, setContentIndex, width }) {
       direction="row"
       justify="center"
       alignItems="center"
+      style={{
+        paddingLeft: width === 'xs' ? 20 : 60,
+        paddingRight: width === 'xs' ? 0 : 60,
+      }}
     >
       <Grid item xs={12} sm={12} md={6}>
         <img

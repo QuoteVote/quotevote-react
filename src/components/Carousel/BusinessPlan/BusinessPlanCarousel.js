@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Typography } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
 import Carousel from 'react-material-ui-carousel'
 import withWidth from '@material-ui/core/withWidth'
 import { isMobile } from 'react-device-detect'
@@ -13,8 +14,9 @@ import { MOBILE_IMAGE_WIDTH } from '../../../views/LandingPage/LandingPage'
 
 function BusinessCarouselFirstContent(props) {
   const { width, classes } = props
-  const browserWidth = width === 'xs' ? '400px' : '435.43px'
+  const browserWidth = width === 'xs' ? '400px' : '80%'
   const imageWidth = isMobile ? MOBILE_IMAGE_WIDTH : browserWidth
+  const padding = width === 'xs' ? 20 : 60
 
   return (
     <Grid
@@ -22,9 +24,9 @@ function BusinessCarouselFirstContent(props) {
       direction="row"
       justify="center"
       alignItems="center"
-      style={{ paddingLeft: 50, paddingRight: width === 'xs' ? 10 : 50 }}
+      style={{ paddingLeft: padding, paddingRight: padding }}
     >
-      <Grid item xs={12} md={7}>
+      <Grid item sm={12} md={8} lg={7}>
         <img
           alt="Business"
           src={BusinessContent1Image}
@@ -35,7 +37,7 @@ function BusinessCarouselFirstContent(props) {
           }}
         />
       </Grid>
-      <Grid item xs={12} md={5}>
+      <Grid item sm={12} md={4} lg={5}>
         <Typography>
           <div className={classes.opinionsText}>
             <p>
@@ -61,17 +63,18 @@ BusinessCarouselFirstContent.propTypes = {
 
 function BusinessCarouselSecondContent(props) {
   const { width, classes } = props
-  const browserWidth = width === 'xs' ? '400px' : '435.43px'
+  const browserWidth = width === 'xs' ? '400px' : '80%'
   const imageWidth = isMobile ? 200 : browserWidth
+  const padding = width === 'xs' ? 20 : 60
   return (
     <Grid
       container
       direction="row"
       justify="center"
       alignItems="center"
-      style={{ paddingLeft: 50, paddingRight: width === 'xs' ? 10 : 50 }}
+      style={{ paddingLeft: padding, paddingRight: padding }}
     >
-      <Grid item xs={12} md={6}>
+      <Grid item sm={12} md={8} lg={7}>
         <img
           alt="Business 2"
           src={BusinessContent2Image}
@@ -82,7 +85,7 @@ function BusinessCarouselSecondContent(props) {
           }}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item sm={12} md={4} lg={5}>
         <Typography>
           <div className={classes.opinionsText}>
             <p style={{ marginTop: width === 'xs' ? 0 : 20 }}>
@@ -95,7 +98,15 @@ function BusinessCarouselSecondContent(props) {
           </div>
         </Typography>
       </Grid>
-      <RequestInviteCarouselButton classes={classes} />
+      <Grid
+        item
+        container
+        justify="center"
+        alignItems="center"
+        sm={12}
+      >
+        <RequestInviteCarouselButton classes={classes} />
+      </Grid>
     </Grid>
   )
 }
@@ -107,17 +118,18 @@ BusinessCarouselSecondContent.propTypes = {
 
 function BusinessCarouselThirdContent(props) {
   const { width, classes } = props
-  const browserWidth = width === 'xs' ? '400px' : '380.43px'
+  const browserWidth = width === 'xs' ? '400px' : '70%'
   const imageWidth = isMobile ? 200 : browserWidth
+  const padding = width === 'xs' ? 20 : 60
   return (
     <Grid
       container
       direction="row"
       justify="center"
       alignItems="center"
-      style={{ paddingLeft: 50, paddingRight: width === 'xs' ? 10 : 50 }}
+      style={{ paddingLeft: padding, paddingRight: padding }}
     >
-      <Grid item xs={12} md={6}>
+      <Grid item sm={12} md={8} lg={7}>
         <img
           alt="Business 2"
           src={BusinessContent3Image}
@@ -128,7 +140,7 @@ function BusinessCarouselThirdContent(props) {
           }}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item sm={12} md={4} lg={5}>
         <Typography>
           <div className={classes.opinionsText}>
             <p style={{ marginTop: width === 'xs' ? 0 : 20 }}>
@@ -149,7 +161,15 @@ function BusinessCarouselThirdContent(props) {
           </div>
         </Typography>
       </Grid>
-      <RequestInviteCarouselButton classes={classes} />
+      <Grid
+        item
+        container
+        justify="center"
+        alignItems="center"
+        sm={12}
+      >
+        <RequestInviteCarouselButton classes={classes} />
+      </Grid>
     </Grid>
   )
 }

@@ -113,7 +113,7 @@ const pagesHeaderStyle = (theme) => ({
   listItem: {
     float: 'left',
     position: 'relative',
-    //display: 'block',
+    display: 'block',
     width: 'auto',
     marginLeft: 5,
     padding: '0',
