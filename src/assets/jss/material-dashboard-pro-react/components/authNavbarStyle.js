@@ -38,7 +38,11 @@ const pagesHeaderStyle = (theme) => ({
     padding: '10px 0',
     transition: 'all 150ms ease 0s',
     minHeight: '50px',
-    display: 'block',
+    display: 'flex',
+  },
+  display: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   buttonSpacing: {
     '& > *': {
@@ -50,7 +54,9 @@ const pagesHeaderStyle = (theme) => ({
     minHeight: '50px',
   },
   flex: {
-    flex: 1,
+    [theme.breakpoints.down('sm')]: {
+      flex: 1,
+    },
   },
   title: {
     ...defaultFont,
@@ -107,7 +113,7 @@ const pagesHeaderStyle = (theme) => ({
   listItem: {
     float: 'left',
     position: 'relative',
-    display: 'block',
+    //display: 'block',
     width: 'auto',
     marginLeft: 5,
     padding: '0',

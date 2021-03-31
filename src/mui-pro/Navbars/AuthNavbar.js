@@ -53,6 +53,41 @@ export default function AuthNavbar(props) {
     dispatch(SET_SELECTED_PLAN(type))
   }
 
+  const planButtons = (
+    <div>
+    {(activeRoute("/auth/plans")) && (
+    <Hidden smDown>
+      <div className={classes.buttonSpacing}>
+        <SelectPlansButton
+          variant={isPersonal ? 'contained' : 'outlined'}
+          color="secondary"
+          onClick={() => setSelectedPlan('personal')}
+          style={{ background: isPersonal ? '#1D6CE7' : '' }}
+        >
+          Personal
+        </SelectPlansButton>
+        <SelectPlansButton
+          variant={isBusiness ? 'contained' : 'outlined'}
+          color="secondary"
+          onClick={() => setSelectedPlan('business')}
+          style={{ background: isBusiness ? '#791E89' : '' }}
+        >
+          Business
+        </SelectPlansButton>
+        <SelectPlansButton
+          variant={isInvestors ? 'contained' : 'outlined'}
+          color="secondary"
+          onClick={() => setSelectedPlan('investors')}
+          style={{ background: isInvestors ? '#E91E63' : '' }}
+        >
+          Investors
+        </SelectPlansButton>
+      </div>
+    </Hidden>
+    )}
+    </div>
+  )
+
   const list = (
     <List className={classes.list}>
       {(activeRoute("/auth/request-access") || activeRoute("/auth/learn-more")) && (
@@ -71,36 +106,8 @@ export default function AuthNavbar(props) {
           </NavLink>
         </ListItem>
       )}
-      {(activeRoute("/auth/plans")) && (
+      {(activeRoute("/auth/plans")) && (  
         <ListItem className={classes.listItem}>
-          <GridContainer justify="center">
-            <div className={classes.buttonSpacing}>
-              <SelectPlansButton
-                variant={isPersonal ? 'contained' : 'outlined'}
-                color="secondary"
-                onClick={() => setSelectedPlan('personal')}
-                style={{ background: isPersonal ? '#1D6CE7' : '' }}
-              >
-                Personal
-              </SelectPlansButton>
-              <SelectPlansButton
-                variant={isBusiness ? 'contained' : 'outlined'}
-                color="secondary"
-                onClick={() => setSelectedPlan('business')}
-                style={{ background: isBusiness ? '#791E89' : '' }}
-              >
-                Business
-              </SelectPlansButton>
-              <SelectPlansButton
-                variant={isInvestors ? 'contained' : 'outlined'}
-                color="secondary"
-                onClick={() => setSelectedPlan('investors')}
-                style={{ background: isInvestors ? '#E91E63' : '' }}
-              >
-                Investors
-              </SelectPlansButton>
-            </div>
-          </GridContainer>
           <NavLink
             to="/auth/landing-page"
             className={cx(classes.navLink, {
@@ -190,7 +197,7 @@ export default function AuthNavbar(props) {
   );
   return (
     <AppBar position="static" className={classes.appBar + appBarClasses}>
-      <Toolbar>
+      <Toolbar className={classes.display}>
         <Hidden smDown>
           <div className={classes.flex}>
             <IconButton color="primary" aria-label="upload picture" component="span">
@@ -205,6 +212,7 @@ export default function AuthNavbar(props) {
             </IconButton>
           </div>
         </Hidden>
+        {planButtons}
        {list}
       </Toolbar>
     </AppBar>
