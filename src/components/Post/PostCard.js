@@ -6,7 +6,6 @@ import { CardHeader, IconButton } from '@material-ui/core'
 import Card from 'mui-pro/Card/Card'
 import classNames from 'classnames'
 import { isEmpty } from 'lodash'
-import reactStringReplace from 'react-string-replace'
 import ClearIcon from '@material-ui/icons/Clear'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,6 +19,7 @@ import CardContent from '@material-ui/core/CardContent'
 import stringLimit from 'string-limit'
 import withWidth from '@material-ui/core/withWidth'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
+import getTopPostsVoteHighlights from '../../utils/getTopPostsVoteHighlights'
 
 const useStyles = makeStyles((theme) => ({
   cardRootStyle: {
@@ -163,19 +163,7 @@ function PostCard(props) {
   let postText = stringLimit(text, limitText ? 20 : 10000)
 
   if (!isEmpty(votes)) {
-    votes.forEach((vote, index) => {
-      if (index === 0) {
-        const textWithHighlight = postText.slice(vote.startWordIndex, vote.endWordIndex)
-        postText = reactStringReplace(postText, textWithHighlight, (match, i) => (
-          <span
-            key={i}
-            style={{ backgroundColor: `rgba(${vote.type === 'up' ? '255, 0' : '0, 255'}, 0, 0.5)` }}
-          >
-            {match}
-          </span>
-        ))
-      }
-    })
+    postText = getTopPostsVoteHighlights(votes, postText, text)
   }
 
   const cardBg = getCardBg(activityType)
