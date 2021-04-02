@@ -32,11 +32,9 @@ exports[`Request Access Page test - renders correctly 1`] = `
         class="MuiTouchRipple-root"
       />
     </button>
-    <div>
-      <p
-        class="MuiTypography-root MuiTypography-body1"
-      />
-    </div>
+    <p
+      class="MuiTypography-root MuiTypography-body1"
+    />
   </div>
 </div>
 `;

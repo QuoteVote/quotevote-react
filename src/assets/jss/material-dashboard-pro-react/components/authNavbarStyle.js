@@ -152,6 +152,7 @@ const pagesHeaderStyle = (theme) => ({
     lineHeight: '20px',
     position: 'relative',
     display: 'block',
+    textAlign: 'center',
     padding: '10px 15px',
     textDecoration: 'none',
     '&:hover,&:focus': {
@@ -207,7 +208,6 @@ const pagesHeaderStyle = (theme) => ({
     flex: 'none',
     padding: '0',
     minWidth: '0',
-    marginLeft: 10,
     marginTop: 5,
     width: 45,
     display: 'inline-block',
