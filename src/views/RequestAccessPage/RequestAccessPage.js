@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
 import { useDispatch } from 'react-redux'
@@ -33,7 +33,7 @@ export default function RequestAccessPage() {
 
   const client = useApolloClient()
 
-  const [requestUserAccess, { mutationData: data, error }] = useMutation(REQUEST_USER_ACCESS_MUTATION)
+  const [requestUserAccess] = useMutation(REQUEST_USER_ACCESS_MUTATION)
   const onSubmit = async () => {
     const pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i)
     const isValidEmail = pattern.test(userDetails)
@@ -55,6 +55,7 @@ export default function RequestAccessPage() {
             email: userDetails,
           }
           await requestUserAccess({ variables: { requestUserAccessInput } })
+          setRequestInviteSuccessful(true)
         } catch (e) {
           if (e.message.includes('email: Path `email` is required.')) {
             setErrorMessage('Email is required')
@@ -63,19 +64,6 @@ export default function RequestAccessPage() {
       }
     }
   }
-
-  useMemo(() => {
-    if (error) {
-      setErrorMessage(error.toString())
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error])
-
-  useMemo(() => {
-    if (data) {
-      setRequestInviteSuccessful(true)
-    }
-  }, [data])
 
   // TODO: Abstract validation into custom hook
   useEffect(() => {
