@@ -220,6 +220,7 @@ const landingPageStyle = (theme) => ({
     width: 150,
     height: 45,
     fontSize: 16,
+    marginRight: 5,
     '&:hover': {
       backgroundColor: '#00cf6e',
     },

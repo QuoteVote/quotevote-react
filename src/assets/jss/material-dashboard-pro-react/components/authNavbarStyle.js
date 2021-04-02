@@ -40,9 +40,14 @@ const pagesHeaderStyle = (theme) => ({
     minHeight: '50px',
     display: 'flex',
   },
+  buttonDisplay: {
+    display: 'flex',
+    direction: 'column',
+  },
   display: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   buttonSpacing: {
     '& > *': {
@@ -121,6 +126,19 @@ const pagesHeaderStyle = (theme) => ({
       zIndex: '999',
       width: '100%',
       paddingRight: '15px',
+      marginLeft: 0,
+    },
+  },
+  listItemTextRequestInvite: {
+    backgroundColor: '#00cf6e',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#00cf6e',
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: '35px',
+      width: 100,
+      fontSize: 10,
     },
   },
   navLink: {
@@ -130,6 +148,7 @@ const pagesHeaderStyle = (theme) => ({
     fontSize: '12px',
     // textTransform: 'uppercase',
     borderRadius: '3px',
+    width: 80,
     lineHeight: '20px',
     position: 'relative',
     display: 'block',
@@ -138,6 +157,9 @@ const pagesHeaderStyle = (theme) => ({
     '&:hover,&:focus': {
       color: whiteColor,
       background: `rgba(${hexToRgb(grayColor[17])}, 0.2)`,
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
     },
   },
   navLinkAccess: {

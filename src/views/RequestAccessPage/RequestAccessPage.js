@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { tokenValidator } from 'store/user'
 import { useDispatch } from 'react-redux'
@@ -35,43 +35,50 @@ export default function RequestAccessPage() {
 
   const [requestUserAccess, { mutationData: data, error }] = useMutation(REQUEST_USER_ACCESS_MUTATION)
   const onSubmit = async () => {
-    const checkDuplicate = await client.query({
-      query: GET_CHECK_DUPLICATE_EMAIL,
-      variables: { email: userDetails },
-      fetchPolicy: 'network-only',
-    })
-    const hasDuplicateEmail = checkDuplicate && checkDuplicate.data.checkDuplicateEmail.length
-    if (hasDuplicateEmail) {
-      setErrorMessage('This email already exists')
-    } else if (!hasDuplicateEmail && !Object.keys(errors).length) {
-      try {
-        // eslint-disable-next-line no-console
-        const requestUserAccessInput = {
-          email: userDetails,
+    const pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i)
+    const isValidEmail = pattern.test(userDetails)
+    if (!isValidEmail) {
+      setErrorMessage('This is not a valid email address')
+    } else {
+      const checkDuplicate = await client.query({
+        query: GET_CHECK_DUPLICATE_EMAIL,
+        variables: { email: userDetails },
+        fetchPolicy: 'network-only',
+      })
+      const hasDuplicateEmail = checkDuplicate && checkDuplicate.data.checkDuplicateEmail.length
+      if (hasDuplicateEmail) {
+        setErrorMessage('This email already exists')
+      } else if (!hasDuplicateEmail && !Object.keys(errors).length) {
+        try {
+          // eslint-disable-next-line no-console
+          const requestUserAccessInput = {
+            email: userDetails,
+          }
+          await requestUserAccess({ variables: { requestUserAccessInput } })
+        } catch (e) {
+          if (e.message.includes('email: Path `email` is required.')) {
+            setErrorMessage('Email is required')
+          }
         }
-        await requestUserAccess({ variables: { requestUserAccessInput } })
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log('onSubmit', e)
       }
     }
   }
 
-  React.useEffect(() => {
+  useMemo(() => {
     if (error) {
       setErrorMessage(error.toString())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 
-  React.useEffect(() => {
+  useMemo(() => {
     if (data) {
       setRequestInviteSuccessful(true)
     }
   }, [data])
 
   // TODO: Abstract validation into custom hook
-  React.useEffect(() => {
+  useEffect(() => {
     if (tokenValidator(dispatch)) history.push('/hhsb/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -85,9 +92,7 @@ export default function RequestAccessPage() {
   }
 
   const duplicate = (
-    <div>
-      <Typography>{errorMessage}</Typography>
-    </div>
+    <Typography>{errorMessage}</Typography>
   )
 
   return (

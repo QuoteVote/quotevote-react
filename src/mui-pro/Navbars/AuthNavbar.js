@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SELECTED_PLAN } from 'store/ui'
-import GridContainer from '../../mui-pro/Grid/GridContainer'
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -90,7 +89,7 @@ export default function AuthNavbar(props) {
 
   const list = (
     <List className={classes.list}>
-      {(activeRoute("/auth/request-access") || activeRoute("/auth/learn-more")) && (
+      {(activeRoute("/auth/request-access")) && (
         <ListItem className={classes.listItem}>
           <NavLink
             to="/auth/landing-page"
@@ -106,21 +105,61 @@ export default function AuthNavbar(props) {
           </NavLink>
         </ListItem>
       )}
+      {(activeRoute("/auth/learn-more")) && (  
+        <div className={classes.buttonDisplay}>
+          <ListItem className={classes.listItem}>
+            <Button
+              variant="contained"
+              className={classes.listItemTextRequestInvite}
+              type="submit"
+              onClick={() => history.push('/auth/request-access')}
+            >
+              Request Invite
+            </Button>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <NavLink
+              to="/auth/login"
+              className={cx(classes.navLink, {
+                [classes.navLinkActive]: activeRoute("/auth/login")
+              })}
+            >
+              <ListItemText
+                primary="Login"
+                disableTypography
+                className={classes.listItemText}
+              />
+            </NavLink>
+          </ListItem>
+        </div>
+      )}
       {(activeRoute("/auth/plans")) && (  
-        <ListItem className={classes.listItem}>
-          <NavLink
-            to="/auth/landing-page"
-            className={cx(classes.navLink, {
-              [classes.navLinkActive]: activeRoute("/auth/login")
-            })}
-          >
-            <ListItemText
-              primary="Go Back"
-              disableTypography
-              className={classes.listItemText}
-            />
-          </NavLink>
-        </ListItem>
+        <div className={classes.buttonDisplay}>
+          <ListItem className={classes.listItem}>
+            <Button
+              variant="contained"
+              className={classes.listItemTextRequestInvite}
+              type="submit"
+              onClick={() => history.push('/auth/request-access')}
+            >
+              Request Invite
+            </Button>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <NavLink
+              to="/auth/login"
+              className={cx(classes.navLink, {
+                [classes.navLinkActive]: activeRoute("/auth/login")
+              })}
+            >
+              <ListItemText
+                primary="Login"
+                disableTypography
+                className={classes.listItemText}
+              />
+            </NavLink>
+          </ListItem>
+        </div>
       )}
       {activeRoute("/auth/login") && (
         <React.Fragment>
