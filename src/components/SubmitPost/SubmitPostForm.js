@@ -162,6 +162,8 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           hideAlert={hideAlert}
           shareableLink={shareableLink}
           error={error}
+          setShowAlert={setShowAlert}
+          setOpen={setOpen}
         />
       )}
       <CardBody className={classes.root}>
@@ -185,7 +187,6 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           })}
           required
           error={errors.title}
-          helperText={errors.title && errors.title.message}
         />
         <Divider />
         <InputBase

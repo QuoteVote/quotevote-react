@@ -15,12 +15,18 @@ const useStyles = makeStyles({
   ...buttonStyle,
 })
 
-function SubmitPostAlert({ hideAlert, shareableLink, error }) {
+function SubmitPostAlert({ hideAlert, shareableLink, error, setShowAlert, setOpen }) {
   const classes = useStyles()
   const history = useHistory()
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
   const handleCopy = () => {
     copy(shareableLink)
+  }
+
+  async function goToPost() {
+    await history.push(shareableLink)
+    setShowAlert(false)
+    setOpen(false)
   }
 
   if (error) {
@@ -47,7 +53,7 @@ function SubmitPostAlert({ hideAlert, shareableLink, error }) {
       success
       style={{ display: 'block' }}
       title="You Created a Post!"
-      onConfirm={() => history.push(shareableLink)}
+      onConfirm={() => goToPost()}
       onCancel={() => hideAlert()}
       confirmBtnCssClass={`${classes.button} ${classes.success}`}
       confirmBtnText="Go to Post"
