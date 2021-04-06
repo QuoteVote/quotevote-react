@@ -48,12 +48,14 @@ function PostPage() {
   const {
     loading: loadingMessages, data: messageData, refetch,
   } = useQuery(GET_ROOM_MESSAGES, {
+    skip: !messageRoomId,
     variables: { messageRoomId },
   })
 
   useSubscription(
     NEW_MESSAGE_SUBSCRIPTION,
     {
+      skip: !messageRoomId,
       variables: { messageRoomId },
       onSubscriptionData: async () => {
         await refetch()

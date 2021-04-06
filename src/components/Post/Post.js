@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-  Card, CardActions, CardContent, CardHeader, IconButton, Popover,
+  Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
