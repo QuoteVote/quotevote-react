@@ -261,7 +261,7 @@ function SubmitPostForm({ options = [], user, setOpen }) {
             selectOnFocus
             clearOnBlur
             handleHomeEndKeys
-            id="group"
+            id="hashtag"
             options={options}
             getOptionLabel={(option) => {
               // Value selected with enter, right from the input
@@ -281,11 +281,11 @@ function SubmitPostForm({ options = [], user, setOpen }) {
                 variant="outlined"
                 className={classes.label}
                 {...params}
-                label="Select a group"
-                name="group"
-                id="group"
+                label="Select a hashtag"
+                name="hashtag"
+                id="hashtag"
                 inputRef={register({
-                  required: 'Group is required',
+                  required: 'hashtag is required',
                 })}
               />
             )}
@@ -294,8 +294,8 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           {isNewGroup && (
             <FormControl component="fieldset">
               <RadioGroup
-                aria-label="Group"
-                name="groupVisibility"
+                aria-label="Hashtage"
+                name="hashtagVisibility"
                 value={privacy}
                 onChange={handleVisibilityChange}
               >
