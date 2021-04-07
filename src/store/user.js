@@ -43,7 +43,7 @@ const userSlice = createSlice({
       state.data = action.payload
     },
     UPDATE_FOLLOWING: (state, action) => {
-      state.data._followingId = action.payload
+      state.data._followingId = action.payload /* eslint-disable-line no-underscore-dangle */
     },
   },
 })

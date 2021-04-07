@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-commented-out-tests */
 import '@testing-library/cypress/add-commands'
 
 describe('Post Page', () => {

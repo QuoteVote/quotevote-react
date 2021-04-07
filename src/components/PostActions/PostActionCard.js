@@ -123,7 +123,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
 
   return (
     <Card
-      onClick={(event) => handleClick()}
+      onClick={handleClick}
       className={selected ? classes.selectedRoot : classes.root}
     >
       <IconButton
@@ -143,8 +143,8 @@ function PostActionCard({ postAction, postUrl, selected }) {
           <p>
             {postContent}
           </p>
-          </CardContent>
-        )}
+        </CardContent>
+      )}
       <CardActions disableSpacing>
         <SvgIcon
           component={svgIcon}

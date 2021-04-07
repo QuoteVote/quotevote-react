@@ -47,7 +47,7 @@ function PostChatSend(props) {
   const { messageRoomId, title } = props
   const type = 'POST'
   const [text, setText] = useState('')
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null) // eslint-disable-line no-unused-vars
   const user = useSelector((state) => state.user.data)
   const [createMessage] = useMutation(SEND_MESSAGE, {
     onError: (err) => {

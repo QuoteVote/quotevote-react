@@ -36,7 +36,7 @@ function ChangePhoto() {
   const user = useSelector((state) => state.user.data)
   const [avatarOptionsArray, setAvatarOptionsArray] = useState()
   const [updatedAvatar, setUpdatedAvatar] = useState()
-  const [colorOptions, setColorOptions] = useState()
+  const [colorOptions, setColorOptions] = useState() // eslint-disable-line no-unused-vars
   const [selectedOptions, setSelectedOptions] = useState()
   //  prevent legacy image file avatars from crapping out front end
   let defaultAvatar = {}

@@ -33,7 +33,7 @@ function MainNavBar(props) {
   const selectedPage = useSelector((state) => state.ui.selectedPage)
   const avatar = useSelector((state) => state.user.data.avatar)
   const name = useSelector((state) => state.user.data.name)
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
   const client = useApolloClient()
@@ -170,7 +170,7 @@ function MainNavBar(props) {
         </Grid>
       </Grid>
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <SubmitPost setOpen={setOpen}/>
+        <SubmitPost setOpen={setOpen} />
       </Dialog>
     </AppBar>
   )

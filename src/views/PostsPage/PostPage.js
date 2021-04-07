@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
-import { isEmpty } from 'lodash'
+import { isEmpty, get } from 'lodash'
 import Post from '../../components/Post/Post'
 import PostActionList from '../../components/PostActions/PostActionList'
 import PostSkeleton from '../../components/Post/PostSkeleton'
@@ -36,7 +36,7 @@ function PostPage() {
 
   const user = useSelector((state) => state.user.data)
 
-  const { post } = !loadingPost && postData
+  const post = !loadingPost && get(postData, 'post', false)
 
   let messageRoomId
   let title

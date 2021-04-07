@@ -16,7 +16,6 @@ const ComponentProptNames = {
 }
 
 const componentsPath = path.join(__dirname, '../../../src/ui')
-console.log('components path', componentsPath)
 
 module.exports = {
   description: 'Add an unconnected component',

@@ -46,7 +46,7 @@ function FollowButton({
   })
 
   const user = useSelector((state) => state.user)
-  const followingArray = user.data._followingId
+  const followingArray = _.get(user, 'data._followingId', [])
 
   async function handleClick(action) {
     let newFollowingArray
@@ -56,7 +56,7 @@ function FollowButton({
       newFollowingArray = _.concat(followingArray, profileUserId)
     }
     await updateFollowing(dispatch, newFollowingArray)
-    await followMutation({ variables: { user_id: profileUserId, action: action } })
+    await followMutation({ variables: { user_id: profileUserId, action } })
   }
 
   // TODO handle data object

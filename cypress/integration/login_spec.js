@@ -1,3 +1,5 @@
+/* eslint-disable jest/expect-expect */
+/* eslint-disable jest/no-commented-out-tests */
 import '@testing-library/cypress/add-commands'
 
 describe('Login', () => {

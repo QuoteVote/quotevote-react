@@ -39,7 +39,7 @@ function CommentReactions(props) {
   const { actionId, reactions } = props
   const [addReaction] = useMutation(ADD_ACTION_REACTION, {
     onError: (err) => {
-      console.log(err)
+      console.log(err) // eslint-disable-line
     },
     refetchQueries: [{
       query: GET_ACTION_REACTIONS,
@@ -51,7 +51,7 @@ function CommentReactions(props) {
 
   const [updateReaction] = useMutation(UPDATE_ACTION_REACTION, {
     onError: (err) => {
-      console.log(err)
+      console.log(err) // eslint-disable-line
     },
     refetchQueries: [{
       query: GET_ACTION_REACTIONS,
@@ -63,7 +63,7 @@ function CommentReactions(props) {
 
   const groupedReactions = _.groupBy(reactions, 'emoji')
 
-  const userReaction = _.find(reactions, { userId: userId }) || null
+  const userReaction = _.find(reactions, { userId }) || null
 
   // Handle emoji button interaction
   function handleClick(event) {
@@ -94,14 +94,12 @@ function CommentReactions(props) {
 
   const emojiElements = []
 
-  Object.keys(groupedReactions).map((emoji, _id) => {
-    emojiElements.push(
-      <div className={classes.reactions} key={_id}>
-        <Emoji symbol={emoji} />
-        <span>{groupedReactions[emoji].length}</span>
-      </div>
-    )
-  })
+  Object.keys(groupedReactions).map((emoji, _id) => emojiElements.push(
+    <div className={classes.reactions} key={_id}>
+      <Emoji symbol={emoji} />
+      <span>{groupedReactions[emoji].length}</span>
+    </div>
+  ))
 
   return (
     <div className={classes.container}>
