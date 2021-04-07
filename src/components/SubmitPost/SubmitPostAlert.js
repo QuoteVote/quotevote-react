@@ -15,7 +15,13 @@ const useStyles = makeStyles({
   ...buttonStyle,
 })
 
-function SubmitPostAlert({ hideAlert, shareableLink, error, setShowAlert, setOpen }) {
+function SubmitPostAlert({
+  hideAlert,
+  shareableLink,
+  error,
+  setShowAlert,
+  setOpen,
+}) {
   const classes = useStyles()
   const history = useHistory()
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
@@ -86,6 +92,8 @@ SubmitPostAlert.propTypes = {
   hideAlert: PropTypes.func,
   shareableLink: PropTypes.string,
   error: PropTypes.any,
+  setShowAlert: PropTypes.func,
+  setOpen: PropTypes.func,
 }
 
 export default SubmitPostAlert
