@@ -56,6 +56,7 @@ function PostChatReactions(props) {
   const parsedTime = parseCommentDate(created)
   const [addReaction] = useMutation(ADD_MESSAGE_REACTION, {
     onError: (err) => {
+      // eslint-disable-next-line no-console
       console.log(err)
     },
     refetchQueries: [{
@@ -68,6 +69,7 @@ function PostChatReactions(props) {
 
   const [updateReaction] = useMutation(UPDATE_MESSAGE_REACTION, {
     onError: (err) => {
+      // eslint-disable-next-line no-console
       console.log(err)
     },
     refetchQueries: [{
@@ -78,7 +80,7 @@ function PostChatReactions(props) {
     }],
   })
 
-  const userReaction = _.find(reactions, { userId: userId }) || null
+  const userReaction = _.find(reactions, { userId }) || null
 
   const groupedReactions = _.groupBy(reactions, 'emoji')
 

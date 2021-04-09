@@ -25,6 +25,7 @@ function SubmitPostAlert({
   const classes = useStyles()
   const history = useHistory()
   const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3000'
+  console.log(DOMAIN)
   const handleCopy = () => {
     copy(shareableLink)
   }

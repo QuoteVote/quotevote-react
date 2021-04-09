@@ -89,10 +89,10 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
           <label
             class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-marginDense MuiInputLabel-outlined"
             data-shrink="false"
-            for="group"
-            id="group-label"
+            for="hashtag"
+            id="hashtag-label"
           >
-            Select a group
+            Select a hashtag
           </label>
           <div
             class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd MuiInputBase-marginDense MuiOutlinedInput-marginDense"
@@ -103,8 +103,8 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
               autocapitalize="none"
               autocomplete="off"
               class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
-              id="group"
-              name="group"
+              id="hashtag"
+              name="hashtag"
               spellcheck="false"
               type="text"
               value=""
@@ -171,7 +171,7 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
                 class="PrivateNotchedOutline-legendLabelled-21"
               >
                 <span>
-                  Select a group
+                  Select a hashtag
                 </span>
               </legend>
             </fieldset>

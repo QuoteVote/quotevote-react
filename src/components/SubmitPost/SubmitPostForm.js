@@ -235,7 +235,6 @@ function SubmitPostForm({ options = [], user, setOpen }) {
               } else {
                 setSelectedGroup(newValue)
               }
-
               if (newValue) {
                 const checkGroup = (groupOption) => groupOption.title === newValue.title
                 const hidePrivacyOption = options.some(checkGroup)

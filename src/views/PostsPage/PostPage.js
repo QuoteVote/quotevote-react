@@ -21,18 +21,18 @@ function PostPage() {
   const classes = useStyles()
   const [postHeight, setPostHeight] = useState()
 
-  // To reset the scroll when the selected post changes
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    setPostHeight(document.getElementById('post').clientHeight)
-  }, [])
-
   const postId = useSelector((state) => state.ui.selectedPost.id)
 
   const { loading: loadingPost, error: postError, data: postData } = useQuery(GET_POST, {
     variables: { postId },
     fetchPolicy: 'cache-and-network',
   })
+
+  // To reset the scroll when the selected post changes
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    setPostHeight(document.getElementById('post').clientHeight)
+  }, [])
 
   const user = useSelector((state) => state.user.data)
 
@@ -46,7 +46,7 @@ function PostPage() {
   }
 
   const {
-    loading: loadingMessages, data: messageData, refetch,
+    loading: loadingMessages, data: messageData, refetch: refetchMessages,
   } = useQuery(GET_ROOM_MESSAGES, {
     skip: !messageRoomId,
     variables: { messageRoomId },
@@ -58,7 +58,7 @@ function PostPage() {
       skip: !messageRoomId,
       variables: { messageRoomId },
       onSubscriptionData: async () => {
-        await refetch()
+        await refetchMessages()
       },
     },
   )
