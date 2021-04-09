@@ -39,6 +39,7 @@ function CommentReactions(props) {
   const { actionId, reactions } = props
   const [addReaction] = useMutation(ADD_ACTION_REACTION, {
     onError: (err) => {
+      // eslint-disable-next-line no-console
       console.log(err)
     },
     refetchQueries: [{
@@ -51,6 +52,7 @@ function CommentReactions(props) {
 
   const [updateReaction] = useMutation(UPDATE_ACTION_REACTION, {
     onError: (err) => {
+      // eslint-disable-next-line no-console
       console.log(err)
     },
     refetchQueries: [{
@@ -63,7 +65,7 @@ function CommentReactions(props) {
 
   const groupedReactions = _.groupBy(reactions, 'emoji')
 
-  const userReaction = _.find(reactions, { userId: userId }) || null
+  const userReaction = _.find(reactions, { userId }) || null
 
   // Handle emoji button interaction
   function handleClick(event) {
