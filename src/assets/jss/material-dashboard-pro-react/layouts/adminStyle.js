@@ -47,8 +47,10 @@ const appStyle = (theme) => ({
   avatarRoundedButton: {
     borderRadius: '25px',
   },
-  voxPop: {
-    height: '80px',
+  quote: {
+    padding: '10px 30px',
+    marginBottom: 10,
+    height: 70,
   },
   rightMenuButton: {
     marginLeft: theme.spacing(1),

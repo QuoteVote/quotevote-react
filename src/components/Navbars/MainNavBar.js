@@ -19,7 +19,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
 import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
 import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
-import voxPopIcon from '../../assets/img/voxPopIcon.jpg'
+import QuoteIcon from '../../assets/img/QuoteIcon.png'
 import AvatarPreview from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
 import NotificationMenu from '../Notifications/NotificationMenu'
@@ -60,7 +60,7 @@ function MainNavBar(props) {
       >
         <Grid item>
           <NavLink to="/hhsb/Home" onClick={handleVoxPop}>
-            <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
+            <img alt="Quote" src={QuoteIcon} className={classes.quote} />
           </NavLink>
         </Grid>
         <Grid item>
