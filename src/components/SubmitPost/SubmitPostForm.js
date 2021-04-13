@@ -4,12 +4,9 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import { makeStyles } from '@material-ui/core/styles'
 import {
   CircularProgress,
-  Divider, FormControl, Grid, InputBase, Typography, IconButton,
+  Divider, Grid, InputBase, Typography, IconButton,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import PropTypes from 'prop-types'
 import Mercury from '@postlight/mercury-parser'
 import { useMutation } from '@apollo/react-hooks'
@@ -71,12 +68,8 @@ function SubmitPostForm({ options = [], user, setOpen }) {
   const [submitPost, { loading }] = useMutation(SUBMIT_POST)
   const [createGroup, { loading: loadingGroup }] = useMutation(CREATE_GROUP)
   const [selectedGroup, setSelectedGroup] = React.useState(null)
-  const [privacy, setPrivacy] = React.useState('public')
   const [isNewGroup, setIsNewGroup] = React.useState(false)
   const [error, setError] = React.useState(null)
-  const handleVisibilityChange = (event) => {
-    setPrivacy(event.target.value)
-  }
 
   const onSubmit = async (values) => {
     const { title, text, group } = values
@@ -89,7 +82,7 @@ function SubmitPostForm({ options = [], user, setOpen }) {
               creatorId: user._id,
               title: group,
               description: `Description for: ${group} group`,
-              privacy,
+              privacy: 'public',
             },
           },
         })
@@ -235,11 +228,6 @@ function SubmitPostForm({ options = [], user, setOpen }) {
               } else {
                 setSelectedGroup(newValue)
               }
-              if (newValue) {
-                const checkGroup = (groupOption) => groupOption.title === newValue.title
-                const hidePrivacyOption = options.some(checkGroup)
-                setIsNewGroup(!hidePrivacyOption)
-              }
             }}
             filterOptions={(groupOptions, params) => {
               const filtered = filter(groupOptions, params)
@@ -289,20 +277,6 @@ function SubmitPostForm({ options = [], user, setOpen }) {
               />
             )}
           />
-
-          {isNewGroup && (
-            <FormControl component="fieldset">
-              <RadioGroup
-                aria-label="Hashtage"
-                name="hashtagVisibility"
-                value={privacy}
-                onChange={handleVisibilityChange}
-              >
-                <FormControlLabel value="public" control={<Radio />} label="Public" />
-                <FormControlLabel value="private" control={<Radio />} label="Private" />
-              </RadioGroup>
-            </FormControl>
-          )}
         </Grid>
         <Grid
           container

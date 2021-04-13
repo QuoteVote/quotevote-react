@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
+import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { isEmpty } from 'lodash'
 import Post from '../../components/Post/Post'
@@ -20,13 +21,19 @@ const useStyles = makeStyles(() => ({
 function PostPage() {
   const classes = useStyles()
   const [postHeight, setPostHeight] = useState()
+  const history = useHistory()
+  console.log(history)
 
   const postId = useSelector((state) => state.ui.selectedPost.id)
 
-  const { loading: loadingPost, error: postError, data: postData } = useQuery(GET_POST, {
+  const { loading: loadingPost, error: postError, data: postData, refetch: refetchPost } = useQuery(GET_POST, {
     variables: { postId },
     fetchPolicy: 'cache-and-network',
   })
+
+  useEffect(() => {
+    refetchPost({ postId })
+  }, [postId])
 
   // To reset the scroll when the selected post changes
   useEffect(() => {
@@ -37,6 +44,7 @@ function PostPage() {
   const user = useSelector((state) => state.user.data)
 
   const { post } = !loadingPost && postData
+  console.log(post)
 
   let messageRoomId
   let title
