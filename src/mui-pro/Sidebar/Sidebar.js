@@ -14,7 +14,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sidebarStyle";
-import voxPopIcon from "../../assets/img/voxPopIcon.jpg";
+import QuoteIcon from "../../assets/img/QuoteIcon.png";
 import { SET_SELECTED_PAGE } from "../../store/ui";
 import ChatMenu from "../../components/Chat/ChatMenu";
 import NotificationMenu from "../../components/Notifications/NotificationMenu";
@@ -258,7 +258,7 @@ class MenuSidebar extends React.Component {
               <MenuIcon />
             </IconButton>
             <NavLink to="/hhsb/Home" onClick={handleVoxPop} style={{flexGrow: 1}}>
-              <img alt="voxPOP" src={voxPopIcon} height={50} style={{ marginLeft: -15 }} />
+              <img alt="voxPOP" src={QuoteIcon} height={50} style={{height: 40}} />
             </NavLink>
             <ChatMenu />
             <NotificationMenu />
