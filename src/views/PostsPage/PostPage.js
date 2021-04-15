@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useParams } from 'react-router'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -21,10 +22,14 @@ const useStyles = makeStyles(() => ({
 function PostPage() {
   const classes = useStyles()
   const [postHeight, setPostHeight] = useState()
-  const history = useHistory()
-  console.log(history)
+  const params = useParams()
+  console.log(params)
+
 
   const postId = useSelector((state) => state.ui.selectedPost.id)
+  console.log(postId)
+  const history = useHistory()
+  console.log(history)
 
   const { loading: loadingPost, error: postError, data: postData, refetch: refetchPost } = useQuery(GET_POST, {
     variables: { postId },
