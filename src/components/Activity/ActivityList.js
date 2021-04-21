@@ -23,6 +23,7 @@ function LoadActivityCard({ width, activity }) {
   const {
     post, user, quote, comment, vote, created, activityType,
   } = activity
+  console.log(activity)
   const {
     url, bookmarkedBy, upvotes, downvotes,
   } = post
@@ -38,8 +39,6 @@ function LoadActivityCard({ width, activity }) {
     await updatePostBookmark({
       variables: { postId, userId: currentUser._id },
     })
-
-    console.log(avatar)
 
     await createPostMessageRoom({
       variables: { postId },

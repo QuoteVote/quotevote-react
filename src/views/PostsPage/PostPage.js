@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useParams } from 'react-router'
-import { useQuery, useSubscription } from '@apollo/react-hooks'
+import LoadingSpinner from 'components/LoadingSpinner'
+import { useQuery, useSubscription, useLazyQuery } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { isEmpty } from 'lodash'
@@ -19,43 +20,41 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-function PostPage() {
+function PostPage({ postId }) {
   const classes = useStyles()
   const [postHeight, setPostHeight] = useState()
-  const params = useParams()
-  console.log(params)
-
-
-  const postId = useSelector((state) => state.ui.selectedPost.id)
-  console.log(postId)
-  const history = useHistory()
-  console.log(history)
-
-  const { loading: loadingPost, error: postError, data: postData, refetch: refetchPost } = useQuery(GET_POST, {
-    variables: { postId },
-    fetchPolicy: 'cache-and-network',
-  })
-
-  useEffect(() => {
-    refetchPost({ postId })
-  }, [postId])
+  const selectedPostId = useSelector((state) => state.ui.selectedPost.id)
+  console.log(selectedPostId)
 
   // To reset the scroll when the selected post changes
   useEffect(() => {
     window.scrollTo(0, 0)
-    setPostHeight(document.getElementById('post').clientHeight)
-  }, [])
+    // if (postId) {
+    //   getPost({variables: { postId: postId }})
+    // }
+    if (post) {
+      setPostHeight(document.getElementById('post').clientHeight)
+    }
+  }, [postId])
 
   const user = useSelector((state) => state.user.data)
 
-  const { post } = !loadingPost && postData
-  console.log(post)
+  const { loading: loadingPost, error: postError, data: postData } = useQuery(GET_POST, {
+    variables: { postId: postId || selectedPostId },
+    fetchPolicy: 'cache-and-network',
+  })
+
+  //const [getPost, { loading: loadingPost, error: postError, data: postData }] = useLazyQuery(GET_POST)
+
+  console.log(postData, loadingPost)
+  // const { post } = !loadingPost && postData
+  // console.log(post)
 
   let messageRoomId
   let title
-  if (post) {
-    messageRoomId = post.messageRoom._id
-    title = post.title
+  if (postData) {
+    messageRoomId = postData.post.messageRoom._id
+    title = postData.post.title
   }
 
   const {
@@ -82,7 +81,7 @@ function PostPage() {
 
   const {
     comments, votes, quotes, url,
-  } = post || { comments: [], votes: [], quotes: [] }
+  } = postData || { comments: [], votes: [], quotes: [] }
   let postActions = []
 
   if (!isEmpty(comments)) {
@@ -112,7 +111,7 @@ function PostPage() {
       style={{ position: 'relative' }}
     >
       <Grid item xs={12} md={6} id="post">
-        {loadingPost ? <PostSkeleton /> : <Post post={post} loading={loadingPost} user={user} />}
+        {loadingPost ? <PostSkeleton /> : <Post post={postData.post} loading={loadingPost} user={user} />}
       </Grid>
       <Grid item className={classes.root} xs={12} md={6}>
         <PostChatSend messageRoomId={messageRoomId} title={title} />

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import PostController from 'components/Post/PostController'
-import PostPage from './PostPage'
 
 export default function PostRouter() {
   useEffect(() => {
@@ -9,7 +8,7 @@ export default function PostRouter() {
   }, [])
   return (
     <>
-      <Route path="/hhsb/post/:group/:title/:id">
+      <Route path="/hhsb/post/:group/:title/:postId">
         <PostController />
       </Route>
     </>
