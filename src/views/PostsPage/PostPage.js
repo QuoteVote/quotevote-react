@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useParams } from 'react-router'
-import LoadingSpinner from 'components/LoadingSpinner'
-import { useQuery, useSubscription, useLazyQuery } from '@apollo/react-hooks'
-import { useHistory } from 'react-router-dom'
+import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
 import { isEmpty } from 'lodash'
 import Post from '../../components/Post/Post'
@@ -24,31 +22,23 @@ function PostPage({ postId }) {
   const classes = useStyles()
   const [postHeight, setPostHeight] = useState()
   const selectedPostId = useSelector((state) => state.ui.selectedPost.id)
-  console.log(selectedPostId)
-
-  // To reset the scroll when the selected post changes
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    // if (postId) {
-    //   getPost({variables: { postId: postId }})
-    // }
-    if (post) {
-      setPostHeight(document.getElementById('post').clientHeight)
-    }
-  }, [postId])
 
   const user = useSelector((state) => state.user.data)
 
   const { loading: loadingPost, error: postError, data: postData } = useQuery(GET_POST, {
     variables: { postId: postId || selectedPostId },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'no-cache',
   })
 
-  //const [getPost, { loading: loadingPost, error: postError, data: postData }] = useLazyQuery(GET_POST)
+  const { post } = !loadingPost && postData
 
-  console.log(postData, loadingPost)
-  // const { post } = !loadingPost && postData
-  // console.log(post)
+  // To reset the scroll when the selected post changes
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    if (post) {
+      setPostHeight(document.getElementById('post').clientHeight)
+    }
+  }, [post])
 
   let messageRoomId
   let title
@@ -111,7 +101,7 @@ function PostPage({ postId }) {
       style={{ position: 'relative' }}
     >
       <Grid item xs={12} md={6} id="post">
-        {loadingPost ? <PostSkeleton /> : <Post post={postData.post} loading={loadingPost} user={user} />}
+        {loadingPost ? <PostSkeleton /> : <Post post={post} loading={loadingPost} user={user} />}
       </Grid>
       <Grid item className={classes.root} xs={12} md={6}>
         <PostChatSend messageRoomId={messageRoomId} title={title} />
@@ -119,6 +109,10 @@ function PostPage({ postId }) {
       </Grid>
     </Grid>
   )
+}
+
+PostPage.propTypes = {
+  postId: PropTypes.string,
 }
 
 export default PostPage

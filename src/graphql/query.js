@@ -106,6 +106,11 @@ export const GET_POST = gql`
         messageType
         created
       }
+      postUrl {
+        _id
+        postId
+        url
+      }
     }
   }
 `

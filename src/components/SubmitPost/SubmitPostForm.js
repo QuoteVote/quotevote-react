@@ -99,7 +99,6 @@ function SubmitPostForm({ options = [], user, setOpen }) {
         },
       })
       const { _id, url } = submitResult.data.addPost
-      console.log(submitResult)
       dispatch(SET_SELECTED_POST(_id))
       setShareableLink(url)
       setShowAlert(true)

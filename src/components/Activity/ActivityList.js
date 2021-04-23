@@ -23,7 +23,6 @@ function LoadActivityCard({ width, activity }) {
   const {
     post, user, quote, comment, vote, created, activityType,
   } = activity
-  console.log(activity)
   const {
     url, bookmarkedBy, upvotes, downvotes,
   } = post

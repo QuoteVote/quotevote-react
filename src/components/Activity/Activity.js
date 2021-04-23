@@ -77,8 +77,6 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
     variables,
   })
 
-  console.log(data)
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
