@@ -48,20 +48,27 @@ const useStyles = makeStyles({
   },
 })
 
-function LoginForm({ onSubmit = () => {}, loading, loginError }) {
+function LoginForm({ onSubmit = () => {}, loading }) {
+  // also removed loginError from props
   const classes = useStyles()
   const {
     register, handleSubmit, errors, setError,
   } = useForm()
 
-  useEffect(() => {
-    if (loginError) {
-      setError('password', {
-        type: 'manual',
-        message: loginError,
-      })
-    }
-  }, [loginError, setError])
+  // useEffect(() => {
+  //   if (loginError) {
+  //     setError('password', {
+  //       type: 'manual',
+  //       message: loginError,
+  //     })
+  //   }
+  // }, [loginError, setError])
+
+  // if (loginError) {
+  //   return (
+  //     <div>{loginError.data.message}</div>
+  //   )
+  // }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
