@@ -24,8 +24,9 @@ function LoadActivityCard({ width, activity }) {
     post, user, quote, comment, vote, created, activityType,
   } = activity
   const {
-    url, bookmarkedBy, upvotes, downvotes,
+    postUrl, bookmarkedBy, upvotes, downvotes,
   } = post
+  const { url } = postUrl
   const postId = post._id
   const { username, avatar, name } = user
   const currentUser = useSelector((state) => state.user.data)
@@ -158,6 +159,7 @@ function ActivityList({
 }) {
   if (loading) return <AlertSkeletonLoader cols={1} />
   const newOffset = data && data.activities.entities.length
+
   return (
     <LoadActivityList
       data={data}

@@ -307,6 +307,9 @@ query activities(
           username
           avatar
         }
+        postUrl {
+          url
+        }
       }
       voteId
       vote {
