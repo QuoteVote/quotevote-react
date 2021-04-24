@@ -236,6 +236,12 @@ export const GET_TOP_POSTS = gql`
           avatar
           _id
         }
+        votes {
+          _id
+          startWordIndex
+          endWordIndex
+          type
+        }
       }
       pagination {
         total_count

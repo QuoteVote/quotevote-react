@@ -96,14 +96,12 @@ function CommentReactions(props) {
 
   const emojiElements = []
 
-  Object.keys(groupedReactions).map((emoji, _id) => {
-    emojiElements.push(
-      <div className={classes.reactions} key={_id}>
-        <Emoji symbol={emoji} />
-        <span>{groupedReactions[emoji].length}</span>
-      </div>
-    )
-  })
+  Object.keys(groupedReactions).map((emoji, _id) => emojiElements.push(
+    <div className={classes.reactions} key={_id}>
+      <Emoji symbol={emoji} />
+      <span>{groupedReactions[emoji].length}</span>
+    </div>
+  ))
 
   return (
     <div className={classes.container}>

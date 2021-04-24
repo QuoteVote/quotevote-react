@@ -53,6 +53,7 @@ function PostActionList({
         <List
           style={{
             height: postHeight > 639 ? postHeight - 100 : '75vh',
+            // height: postActions.length > 2 ? '75vh' : 'auto',
             marginTop: 5,
             width: '100%',
             position: 'relative',

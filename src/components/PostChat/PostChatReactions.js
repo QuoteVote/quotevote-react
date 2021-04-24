@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -112,14 +113,12 @@ function PostChatReactions(props) {
 
   const emojiElements = []
 
-  Object.keys(groupedReactions).map((emoji, _id) => {
-    emojiElements.push(
-      <div key={_id} className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
-        <Emoji symbol={emoji} />
-        <span>{groupedReactions[emoji].length}</span>
-      </div>
-    )
-  })
+  Object.keys(groupedReactions).map((emoji, _id) => emojiElements.push(
+    <div key={_id} className={isDefaultDirection ? classes.bubble : classes.bubbleReverse}>
+      <Emoji symbol={emoji} />
+      <span>{groupedReactions[emoji].length}</span>
+    </div>
+  ))
 
   return (
     <Grid
