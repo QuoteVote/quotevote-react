@@ -3,13 +3,11 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 import {
   Grid, IconButton, Tooltip, Typography,
 } from '@material-ui/core'
-import { useQuery } from '@apollo/react-hooks'
 import AssignmentIcon from '@material-ui/icons/Assignment'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import * as copy from 'clipboard-copy'
 import PropTypes from 'prop-types'
-import { GET_POST } from '../../graphql/query'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
 

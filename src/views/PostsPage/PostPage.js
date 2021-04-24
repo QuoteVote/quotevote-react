@@ -21,13 +21,17 @@ const useStyles = makeStyles(() => ({
 function PostPage({ postId }) {
   const classes = useStyles()
   const [postHeight, setPostHeight] = useState()
-  const selectedPostId = useSelector((state) => state.ui.selectedPost.id)
 
   const user = useSelector((state) => state.user.data)
 
-  const { loading: loadingPost, error: postError, data: postData } = useQuery(GET_POST, {
-    variables: { postId: postId || selectedPostId },
-    fetchPolicy: 'no-cache',
+  const {
+    loading: loadingPost,
+    error: postError,
+    data: postData,
+    refetch: refetchPost,
+  } = useQuery(GET_POST, {
+    variables: { postId },
+    fetchPolicy: 'cache-and-network',
   })
 
   const { post } = !loadingPost && postData
@@ -40,9 +44,13 @@ function PostPage({ postId }) {
     }
   }, [post])
 
+  useEffect(() => {
+    refetchPost({ postId })
+  }, [postId])
+
   let messageRoomId
   let title
-  if (postData) {
+  if (post) {
     messageRoomId = postData.post.messageRoom._id
     title = postData.post.title
   }
