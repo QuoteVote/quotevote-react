@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
-import { isEmpty, get } from 'lodash'
+import { isEmpty } from 'lodash'
 import Post from '../../components/Post/Post'
 import PostActionList from '../../components/PostActions/PostActionList'
 import PostSkeleton from '../../components/Post/PostSkeleton'
@@ -78,9 +78,11 @@ function PostPage({ postId }) {
   const { messages } = (!loadingMessages && messageData) || []
 
   const {
-    comments, votes, quotes, url,
-  } = postData || { comments: [], votes: [], quotes: [] }
+    comments, votes, quotes, postUrl,
+  } = post || { comments: [], votes: [], quotes: [] }
   let postActions = []
+
+  const { url } = !loadingPost && postUrl
 
   if (!isEmpty(comments)) {
     postActions = postActions.concat(comments)
