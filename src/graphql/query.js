@@ -107,8 +107,6 @@ export const GET_POST = gql`
         created
       }
       postUrl {
-        _id
-        postId
         url
       }
     }
@@ -230,6 +228,9 @@ export const GET_TOP_POSTS = gql`
         url
         bookmarkedBy
         created
+        postUrl {
+          url
+        }
         creator {
           name
           username
@@ -386,7 +387,9 @@ export const GET_NOTIFICATIONS = gql`
       notificationType
       post {
         _id
-        url
+        postUrl {
+          url
+        }
       }
     }
   }

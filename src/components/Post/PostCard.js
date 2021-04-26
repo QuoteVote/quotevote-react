@@ -151,6 +151,7 @@ const getCardBg = (activityType = 'POSTED') => {
 }
 
 function PostCard(props) {
+  console.log(props)
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector((state) => state.user.data)
@@ -272,7 +273,7 @@ PostCard.propTypes = {
   title: PropTypes.string.isRequired,
   upvotes: PropTypes.number.isRequired,
   downvotes: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
+  postUrl: PropTypes.object.isRequired,
   bookmarkedBy: PropTypes.array.isRequired,
   created: PropTypes.string.isRequired,
   onHidePost: PropTypes.func.isRequired,
