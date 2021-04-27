@@ -90,7 +90,7 @@ function BusinessCarouselSecondContent(props) {
             <p style={{ marginTop: width === 'xs' ? 0 : 20 }}>
               <b>Promote democracy and transparency</b>
               {' '}
-              within your team. VoxPop makes it so the whole team
+              within your team. Quote makes it so the whole team
               can see progress in real time.
             </p>
             <br />
@@ -153,7 +153,7 @@ function BusinessCarouselThirdContent(props) {
             </p>
             <br />
             <p>
-              <span className={classes.greenText}>voxPOP</span>
+              <span className={classes.greenText}>Quote</span>
               {' '}
               is yours to shape.
             </p>

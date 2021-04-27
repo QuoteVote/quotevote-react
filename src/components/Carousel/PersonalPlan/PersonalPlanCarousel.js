@@ -144,7 +144,7 @@ function PersonalCarouselThirdContent({ width, classes, setContentIndex }) {
             <p>
               <b> Join a growing community of more than 11047 people</b>
               {' '}
-              in honest and informed conversations. VoxPop is yours to shape.
+              in honest and informed conversations. Quote is yours to shape.
             </p>
             <br />
             <p>
