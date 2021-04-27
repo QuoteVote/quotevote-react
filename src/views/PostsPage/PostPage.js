@@ -22,6 +22,7 @@ function PostPage({ postId }) {
   const classes = useStyles()
   const [postHeight, setPostHeight] = useState()
 
+  const idSelector = useSelector((state) => state.ui.selectedPost.id)
   const user = useSelector((state) => state.user.data)
 
   const {
@@ -31,7 +32,6 @@ function PostPage({ postId }) {
     refetch: refetchPost,
   } = useQuery(GET_POST, {
     variables: { postId },
-    fetchPolicy: 'cache-and-network',
   })
 
   const { post } = !loadingPost && postData
@@ -45,8 +45,8 @@ function PostPage({ postId }) {
   }, [post])
 
   useEffect(() => {
-    refetchPost({ postId })
-  }, [postId])
+    refetchPost({ postId: idSelector })
+  }, [idSelector, refetchPost])
 
   let messageRoomId
   let title

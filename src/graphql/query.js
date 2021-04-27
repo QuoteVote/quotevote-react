@@ -107,6 +107,7 @@ export const GET_POST = gql`
         created
       }
       postUrl {
+        _id
         url
       }
     }
