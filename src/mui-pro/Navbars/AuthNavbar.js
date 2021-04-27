@@ -24,7 +24,7 @@ import Button from "mui-pro/CustomButtons/Button";
 
 import SelectPlansButton from '../../components/CustomButtons/SelectPlansButton'
 import styles from "assets/jss/material-dashboard-pro-react/components/authNavbarStyle";
-import voxPopIcon from "../../assets/img/VoxPopLogo.svg";
+import Quote from "../../assets/img/QuoteWhite.png";
 
 const useStyles = makeStyles(styles);
 
@@ -240,14 +240,14 @@ export default function AuthNavbar(props) {
         <Hidden smDown>
           <div className={classes.flex}>
             <IconButton color="primary" aria-label="upload picture" component="span">
-              <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
+              <img alt="voxPOP" src={Quote} className={classes.voxPop} />
             </IconButton>
           </div>
         </Hidden>
         <Hidden mdUp>
           <div className={classes.flex}>
             <IconButton color="primary" aria-label="upload picture" component="span" className={classes.title}>
-              <img alt="voxPOP" src={voxPopIcon} className={classes.voxPop} />
+              <img alt="voxPOP" src={Quote} className={classes.voxPop} />
             </IconButton>
           </div>
         </Hidden>
