@@ -53,6 +53,8 @@ function NotificationMenu({ fontSize }) {
 
   const { notifications } = loading ? { notifications: [] } : data
 
+  console.log(data)
+
   return (
     <div className={classes.root}>
       <RichTooltip

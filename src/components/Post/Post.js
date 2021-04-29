@@ -288,6 +288,7 @@ function Post({ post, user }) {
       </IconButton>
     </div>
   )
+
   return (
     <Card>
       <CardHeader

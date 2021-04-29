@@ -69,6 +69,7 @@ export const GET_POST = gql`
         url
         reaction
         user {
+          _id
           username
           name
           avatar
@@ -82,6 +83,7 @@ export const GET_POST = gql`
         type
         tags
         user {
+          _id
           username
           name
           avatar
@@ -94,6 +96,7 @@ export const GET_POST = gql`
         created
         quote
         user {
+          _id
           username
           name
           avatar
@@ -174,6 +177,7 @@ export const GET_ROOM_MESSAGES = gql`
       type
       created
       user {
+        _id
         name
         username
         avatar
@@ -226,10 +230,10 @@ export const GET_TOP_POSTS = gql`
         text
         upvotes
         downvotes
-        url
         bookmarkedBy
         created
         postUrl {
+          _id
           url
         }
         creator {
@@ -306,7 +310,6 @@ query activities(
         text
         upvotes
         downvotes
-        url
         bookmarkedBy
         created
         creator {
@@ -316,6 +319,7 @@ query activities(
           avatar
         }
         postUrl {
+          _id
           url
         }
       }
@@ -379,6 +383,7 @@ export const GET_NOTIFICATIONS = gql`
       userId
       userIdBy
       userBy{
+        _id
         name
         avatar
       }
@@ -389,6 +394,7 @@ export const GET_NOTIFICATIONS = gql`
       post {
         _id
         postUrl {
+          _id
           url
         }
       }
