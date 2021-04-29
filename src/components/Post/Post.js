@@ -58,7 +58,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-function Post({ post, user }) {
+function Post({ post, user, postHeight }) {
   const classes = useStyles()
   const {
     title, creator, upvotes, downvotes, created, _id, userId,
@@ -290,7 +290,12 @@ function Post({ post, user }) {
   )
 
   return (
-    <Card>
+    <Card 
+      style={{
+        height: postHeight >= 742 ? '83vh' : 'auto',
+        overflow: 'auto',
+      }}
+    >
       <CardHeader
         className={classes.header1}
         title={cardTitle}

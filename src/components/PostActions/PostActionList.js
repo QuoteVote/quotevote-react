@@ -15,7 +15,6 @@ function PostActionList({
   postActions,
   loading,
   postUrl,
-  postHeight,
 }) {
   const location = useLocation()
   const { hash } = location
