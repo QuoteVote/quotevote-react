@@ -102,7 +102,7 @@ export const userLogin = async (username, password, dispatch, history) => {
       })
     )
 
-    history.push('/hhsb/Profile/hhsb/avatar')
+    history.push('/Profile/hhsb/avatar')
   }
 }
 

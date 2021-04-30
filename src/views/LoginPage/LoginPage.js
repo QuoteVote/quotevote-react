@@ -12,6 +12,7 @@ const useStyles = makeStyles(styles)
 export default function LoginPage() {
   const dispatch = useDispatch()
   const history = useHistory()
+  console.log(history)
   const [loading, setLoading] = React.useState(false)
 
   // TODO: Abstract validation into custom hook
