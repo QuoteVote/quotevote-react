@@ -3,6 +3,7 @@
 exports[`Post test - renders correctly 1`] = `
 <div
   class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+  style="height: auto; overflow: auto;"
 >
   <div
     class="MuiCardHeader-root"

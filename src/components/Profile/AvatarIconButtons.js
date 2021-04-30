@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
 // MUI
 import { MuiThemeProvider as ThemeProvider, makeStyles } from '@material-ui/core/styles'
@@ -79,6 +80,7 @@ function AvatarIconButton(props) {
   const { defaultAvatar, handleIconClick } = props
   const dispatch = useDispatch()
   const classes = useStyles()
+  const history = useHistory()
 
   const onSubmit = async (avatar) => {
     const newAvatar = await updateUserAvatar({ variables: { user_id: user._id, avatarQualities: avatar } })
@@ -88,6 +90,7 @@ function AvatarIconButton(props) {
       message: 'Avatar has been updated',
       open: true,
     }))
+   history.push('/hhsb/TrendingContent')
   }
 
   const groupedAvatarOptions = _.groupBy(avatarOptions, 'name')
