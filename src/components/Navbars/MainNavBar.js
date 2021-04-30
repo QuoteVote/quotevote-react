@@ -27,7 +27,6 @@ import SettingsMenu from '../Settings/SettingsMenu'
 import SubmitPost from '../SubmitPost/SubmitPost'
 
 function MainNavBar(props) {
-  console.log(props)
   const {
     classes, width,
   } = props
