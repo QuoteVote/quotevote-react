@@ -98,7 +98,7 @@ function SettingsContent({ setOpen }) {
   } = useSelector((state) => state.user.data)
   const handleChangeAvatar = () => {
     setOpen(false)
-    history.push('/hhsb/Profile/hhsb/avatar')
+    history.push('/Profile/hhsb/avatar')
   }
   const defaultValues = {
     username, password: username, name,
@@ -141,7 +141,7 @@ function SettingsContent({ setOpen }) {
   }
 
   const handleInvite = () => {
-    history.push('/hhsb/ControlPanel')
+    history.push('/ControlPanel')
     setOpen(false)
   }
   const hasChange = Object.keys(formState.dirtyFields).length

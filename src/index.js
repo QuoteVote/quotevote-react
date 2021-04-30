@@ -61,7 +61,7 @@ ReactDOM.render(
             <Router history={hist}>
               <Switch>
                 <Route path="/auth" component={AuthLayout} />
-                <Route path="/hhsb" component={Scoreboard} />
+                <Route path="/" component={Scoreboard} />
                 <Route path="/unauth" component={TokenExpired} />
                 <Route path="/logout" component={LogoutPage} />
                 <Route path="/error" component={ErrorPage} />

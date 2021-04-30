@@ -115,7 +115,7 @@ export default function ProfileHeader(props) {
                     {username}
                   </Typography>
                   <Typography
-                    onClick={() => history.push(`/hhsb/Profile/${username}/followers`)}
+                    onClick={() => history.push(`/Profile/${username}/followers`)}
                     variant="overline"
                     noWrap
                   >
@@ -124,7 +124,7 @@ export default function ProfileHeader(props) {
                     </span>
                   </Typography>
                   <Typography
-                    onClick={() => history.push(`/hhsb/Profile/${username}/following`)}
+                    onClick={() => history.push(`/Profile/${username}/following`)}
                     variant="overline"
                     noWrap
                   >
@@ -143,7 +143,7 @@ export default function ProfileHeader(props) {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => history.push(`/hhsb/Profile/${username}/avatar`)}
+                    onClick={() => history.push(`/Profile/${username}/avatar`)}
                     className={classes.button}
                   >
                     Change Photo

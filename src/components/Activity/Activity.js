@@ -81,6 +81,8 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
     window.scrollTo(0, 0)
   }, [])
 
+  console.log(data)
+
   const filterState = useSelector((state) => state.filter)
   return (
     <ErrorBoundary>

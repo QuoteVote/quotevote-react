@@ -39,7 +39,7 @@ export default function CustomAccordion({ collapses, active: activeProp }) {
         const {
           text, /* _id, */ title, upvotes, downvotes, url,
         } = prop
-        // const postURL = `/hhsb/post/${title}/${_id}`
+        // const postURL = `/post/${title}/${_id}`
         return (
           <ExpansionPanel
             expanded={active === key}

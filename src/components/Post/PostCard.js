@@ -170,7 +170,7 @@ function PostCard(props) {
   const cardBg = getCardBg(activityType)
   const postTitleStringLimit = width === 'xs' ? 25 : 50
   const handleRedirectToProfile = (username) => {
-    history.push(`/hhsb/Profile/${username}`)
+    history.push(`/Profile/${username}`)
   }
   return (
     <Card className={classNames(classes.cardRootStyle, classes[cardBg], classes.fontColor)}>

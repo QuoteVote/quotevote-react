@@ -71,7 +71,7 @@ function LoadActivityCard({ width, activity }) {
   }
   const history = useHistory()
   const handleRedirectToProfile = () => {
-    history.push(`/hhsb/Profile/${username}`)
+    history.push(`/Profile/${username}`)
   }
   const isLiked = bookmarkedBy.includes(currentUser._id)
   const dispatch = useDispatch()

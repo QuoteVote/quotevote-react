@@ -10,7 +10,7 @@ export default function PostRouter() {
 
   return (
     <>
-      <Route path="/hhsb/post/:group/:title/:postId">
+      <Route path="/post/:group/:title/:postId">
         <PostController />
       </Route>
     </>

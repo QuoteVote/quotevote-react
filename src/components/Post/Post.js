@@ -262,7 +262,7 @@ function Post({ post, user, postHeight }) {
   }
 
   const handleRedirectToProfile = (username) => {
-    history.push(`/hhsb/Profile/${username}`)
+    history.push(`/Profile/${username}`)
   }
   const pointsHeader = (
     <div className={classes.points}>
@@ -290,7 +290,7 @@ function Post({ post, user, postHeight }) {
   )
 
   return (
-    <Card 
+    <Card
       style={{
         height: postHeight >= 742 ? '83vh' : 'auto',
         overflow: 'auto',
@@ -347,6 +347,7 @@ function Post({ post, user, postHeight }) {
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  postHeight: PropTypes.number,
 }
 
 export default Post

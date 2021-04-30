@@ -97,7 +97,7 @@ function SignupForm({
 
   useEffect(() => {
     if (!loading && data) {
-      history.push('/hhsb/Home')
+      history.push('/Home')
     }
   }, [data, loading, history])
 

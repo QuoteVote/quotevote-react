@@ -27,7 +27,7 @@ export default function Plans() {
   const [hover, setHover] = useState()
 
   React.useEffect(() => {
-    if (tokenValidator(dispatch)) history.push('/hhsb/Home')
+    if (tokenValidator(dispatch)) history.push('/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

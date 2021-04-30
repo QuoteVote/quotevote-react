@@ -75,7 +75,7 @@ function PostChatMessage(props) {
   const { messageReactions } = (!loading && data) || []
 
   const handleRedirectToProfile = () => {
-    history.push(`/hhsb/Profile/${username}`)
+    history.push(`/Profile/${username}`)
   }
 
   return (

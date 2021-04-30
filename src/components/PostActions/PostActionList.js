@@ -83,7 +83,6 @@ PostActionList.propTypes = {
   postActions: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   postUrl: PropTypes.string,
-  postHeight: PropTypes.number,
 }
 
 export default PostActionList

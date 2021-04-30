@@ -55,6 +55,7 @@ function Comment({ comment, postUrl, selected }) {
     setOpen(false)
   }
   const baseUrl = window.location.origin
+  console.log(baseUrl)
   const handleCopy = async () => {
     await copy(`${baseUrl}${postUrl}/comment#${_id}`)
     setOpen(true)
@@ -76,7 +77,7 @@ function Comment({ comment, postUrl, selected }) {
         avatar={(
           <IconButton
             size="small"
-            onClick={() => history.push(`/hhsb/Profile/${username}`)}
+            onClick={() => history.push(`/Profile/${username}`)}
           >
             <AvatarDisplay height={40} width={40} {...avatar} />
           </IconButton>

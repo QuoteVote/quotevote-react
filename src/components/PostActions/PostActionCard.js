@@ -70,6 +70,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
   const { actionReactions } = (!loading && data) || []
 
   const baseUrl = window.location.origin
+  console.log(baseUrl)
   const handleCopy = async () => {
     await copy(`${baseUrl}${postUrl}/comment#${_id}`)
     setOpen(true)
@@ -94,7 +95,7 @@ function PostActionCard({ postAction, postUrl, selected }) {
   }
 
   const handleRedirectToProfile = () => {
-    history.push(`/hhsb/Profile/${username}`)
+    history.push(`/Profile/${username}`)
   }
 
   if (voteType) {

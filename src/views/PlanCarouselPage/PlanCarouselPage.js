@@ -27,7 +27,7 @@ export default function PlanCarouselPage() {
   const [carouselCurrentIndex, setCarouselCurrentIndex] = useState(0)
 
   React.useEffect(() => {
-    if (tokenValidator(dispatch)) history.push('/hhsb/Home')
+    if (tokenValidator(dispatch)) history.push('/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

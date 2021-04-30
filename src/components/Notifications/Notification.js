@@ -41,7 +41,7 @@ function Notification({
   const history = useHistory()
   const handleClick = () => {
     setOpenPopUp(false)
-    history.push('/hhsb/Notifications')
+    history.push('/Notifications')
   }
 
   return (
