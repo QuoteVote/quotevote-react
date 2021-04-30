@@ -48,6 +48,8 @@ export default function TrendingPosts() {
   })
   const filterState = useSelector((state) => state.filter)
 
+  console.log(loading, data, error)
+
   if (error) return `Something went wrong: ${error}`
 
   return (
