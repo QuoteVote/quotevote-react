@@ -87,12 +87,12 @@ function LoginForm({ onSubmit = () => {}, loading }) {
             message: 'Username should be more than 4 characters',
           },
           maxLength: {
-            value: 20,
-            message: 'Username should be less than twenty characters',
+            value: 30,
+            message: 'Username should be less than thirty characters',
           },
         })}
         className={classes.textfield}
-        placeholder="Username"
+        placeholder="Email/Username"
         fullWidth
         name="username"
         id="username"
