@@ -12,7 +12,7 @@ describe('Login', () => {
   })
 
   it('has username and password field', () => {
-    cy.findByPlaceholderText('Username').should('exist')
+    cy.findByPlaceholderText('Email/Username').should('exist')
     cy.findByPlaceholderText('Password').should('exist')
   })
 
