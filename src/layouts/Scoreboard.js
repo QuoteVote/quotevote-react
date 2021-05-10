@@ -75,7 +75,7 @@ function Scoreboard(props) {
 
   // TODO: Abstract validation into custom hook
   useEffect(() => {
-    if (!tokenValidator(dispatch)) history.push('/unauth')
+    if (!tokenValidator(dispatch)) history.push('/auth')
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -96,7 +96,10 @@ function Scoreboard(props) {
       )
     }
 
-    setPage(currentPage[0].name)
+    if (currentPage && currentPage.length) {
+      console.log({ currentPage })
+      setPage(currentPage[0].name)
+    }
   }, [props])
 
   const currentRoute = () => {
