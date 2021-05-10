@@ -11,6 +11,7 @@ function BuddyList({ search }) {
     fetchPolicy: 'cache-and-network',
   })
 
+  console.log(data)
   const buddyList =
     (!error && !loading && data && !isEmpty(data.messageRooms) &&
       data.messageRooms.map((item) => ({

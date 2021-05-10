@@ -5,7 +5,6 @@ import ControlPanel from 'views/ControlPanel/ControlPanel'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import PostPage from 'views/PostsPage'
 import LogoutPage from './components/LogoutPage'
-import TokenExpired from 'layouts/TokenExpired'
 import { ReactComponent as HomeSvg } from './assets/svg/Home.svg'
 import ProfileAvatar from './components/Profile/ProfileAvatar'
 import { ReactComponent as TrendingSvg } from './assets/svg/TrendingIcon.svg'
@@ -19,7 +18,7 @@ const routes = [
     rtlName: 'لوحة القيادة',
     icon: HomeSvg,
     component: HomePage,
-    layout: '/',
+    layout: '/quote',
   },
   {
     path: 'TrendingContent',
@@ -27,13 +26,13 @@ const routes = [
     rtlName: 'التقويم',
     icon: TrendingSvg,
     component: TrendingPosts,
-    layout: '/',
+    layout: '/quote',
   },
   {
     path: 'post',
     name: 'Posts',
     component: PostPage,
-    layout: '/',
+    layout: '/quote',
   },
   {
     path: 'Notifications',
@@ -41,7 +40,7 @@ const routes = [
     rtlName: 'التقويم',
     icon: NotificationsActiveSvg,
     component: NotificationMobileView,
-    layout: '/',
+    layout: '/quote',
   },
   {
     path: 'Profile',
@@ -49,7 +48,7 @@ const routes = [
     rtlName: 'الحاجيات',
     icon: ProfileAvatar,
     component: Profile,
-    layout: '/',
+    layout: '/quote',
   },
   {
     path: 'logout',
@@ -65,7 +64,7 @@ const routes = [
     path: 'ControlPanel',
     name: 'Control Panel',
     component: ControlPanel,
-    layout: '/',
+    layout: '/quote',
   },
 ]
 export default routes

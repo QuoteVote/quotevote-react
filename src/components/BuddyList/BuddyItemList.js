@@ -87,6 +87,7 @@ const emptyData = [
 ]
 
 function BuddyItemList({ buddyList }) {
+  console.log(buddyList)
   const classes = useStyles()
   const dispatch = useDispatch()
   const itemList = buddyList.length ? buddyList : emptyData
