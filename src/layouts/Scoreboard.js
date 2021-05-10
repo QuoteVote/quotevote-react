@@ -76,6 +76,7 @@ function Scoreboard(props) {
   // TODO: Abstract validation into custom hook
   useEffect(() => {
     if (!tokenValidator(dispatch)) history.push('/unauth')
+    console.log(history)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -85,8 +86,8 @@ function Scoreboard(props) {
     } = props
     const currLocation = pathname.split('/')
     let currentPage
-
-    if (pathname.includes('auth') || pathname.includes('logout') || pathname.includes('unauth') || pathname.includes('error')) {
+    console.log(pathname)
+    if (pathname.includes('/auth') || pathname.includes('/logout') || pathname.includes('/error')) {
       currentPage = appRoutes.filter(
         (appRoute) => appRoute.layout === `/${currLocation[1]}` && appRoute.path === `/${currLocation[2]}`,
       )
