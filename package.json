@@ -103,7 +103,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "cypress:open": "cypress open",
-    "chromatic": "npx chromatic --project-token rh6bhnfp28a",
+    "chromatic": "npx chromatic --project-token rh6bhnfp28a --allow-console-errors",
     "generate": "plop --plopfile internals/generators/plopfile.js",
     "prettify": "prettier --write"
   },
