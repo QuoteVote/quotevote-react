@@ -35,12 +35,6 @@ const routes = [
     component: PostPage,
     layout: '/',
   },
-  // {
-  //   path: 'unauth',
-  //   name: 'Unauth',
-  //   component: TokenExpired,
-  //   layout: '/',
-  // },
   {
     path: 'Notifications',
     name: 'Notifications',
