@@ -20,7 +20,7 @@ export default function LandingPage() {
   const history = useHistory()
 
   React.useEffect(() => {
-    if (tokenValidator(dispatch)) history.push('/Home')
+    if (tokenValidator(dispatch)) history.push('/quote/Home')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

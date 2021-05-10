@@ -13,7 +13,7 @@ import NotificationMobileView from './components/Notifications/NotificationMobil
 
 const routes = [
   {
-    path: 'Home',
+    path: '/Home',
     name: 'Home Page',
     rtlName: 'لوحة القيادة',
     icon: HomeSvg,
@@ -21,7 +21,7 @@ const routes = [
     layout: '/quote',
   },
   {
-    path: 'TrendingContent',
+    path: '/TrendingContent',
     name: 'Trending Content',
     rtlName: 'التقويم',
     icon: TrendingSvg,
@@ -29,13 +29,13 @@ const routes = [
     layout: '/quote',
   },
   {
-    path: 'post',
+    path: '/post',
     name: 'Posts',
     component: PostPage,
     layout: '/quote',
   },
   {
-    path: 'Notifications',
+    path: '/Notifications',
     name: 'Notifications',
     rtlName: 'التقويم',
     icon: NotificationsActiveSvg,
@@ -43,7 +43,7 @@ const routes = [
     layout: '/quote',
   },
   {
-    path: 'Profile',
+    path: '/Profile',
     name: 'My Profile',
     rtlName: 'الحاجيات',
     icon: ProfileAvatar,
@@ -51,7 +51,7 @@ const routes = [
     layout: '/quote',
   },
   {
-    path: 'logout',
+    path: '/logout',
     name: 'Logout',
     rtlName: 'هعذاتسجيل الدخول',
     mini: 'L',
@@ -61,7 +61,7 @@ const routes = [
     layout: '/logout',
   },
   {
-    path: 'ControlPanel',
+    path: '/ControlPanel',
     name: 'Control Panel',
     component: ControlPanel,
     layout: '/quote',

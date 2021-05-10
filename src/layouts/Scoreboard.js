@@ -84,8 +84,9 @@ function Scoreboard(props) {
       location: { pathname },
     } = props
     const currLocation = pathname.split('/')
+    console.log(currLocation)
 
-    const currentPage = currentPage = appRoutes.filter(
+    const currentPage = appRoutes.filter(
           (appRoute) => appRoute.layout === `/${currLocation[1]}` && appRoute.path === `/${currLocation[2]}`,
         )
     // let currentPage
