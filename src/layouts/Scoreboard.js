@@ -85,18 +85,23 @@ function Scoreboard(props) {
       location: { pathname },
     } = props
     const currLocation = pathname.split('/')
+    console.log(currLocation)
     let currentPage
     console.log(pathname)
-    if (pathname.includes('/auth') || pathname.includes('/logout') || pathname.includes('/error')) {
-      currentPage = appRoutes.filter(
-        (appRoute) => appRoute.layout === `/${currLocation[1]}` && appRoute.path === `/${currLocation[2]}`,
-      )
-    } else {
-      currentPage = appRoutes.filter(
-        (appRoute) => appRoute.layout === '/' && appRoute.path === `${currLocation[1]}`,
-      )
-    }
-
+      if (pathname.includes('/auth') || pathname.includes('/logout') || pathname.includes('/error')) {
+        console.log("HIT")
+        currentPage = appRoutes.filter(
+          (appRoute) => appRoute.layout === `/${currLocation[1]}` && appRoute.path === `/${currLocation[2]}`,
+        )
+      } else {
+        console.log("THIS IS HAPPENING")
+        currentPage = appRoutes.filter(
+          (appRoute) => appRoute.layout === '/' && appRoute.path === `${currLocation[1]}`,
+        )
+      }
+    
+   
+    console.log(currentPage)
     setPage(currentPage[0].name)
   }, [props])
 

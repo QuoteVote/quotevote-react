@@ -5,6 +5,7 @@ import ControlPanel from 'views/ControlPanel/ControlPanel'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import PostPage from 'views/PostsPage'
 import LogoutPage from './components/LogoutPage'
+import TokenExpired from 'layouts/TokenExpired'
 import { ReactComponent as HomeSvg } from './assets/svg/Home.svg'
 import ProfileAvatar from './components/Profile/ProfileAvatar'
 import { ReactComponent as TrendingSvg } from './assets/svg/TrendingIcon.svg'
@@ -34,6 +35,12 @@ const routes = [
     component: PostPage,
     layout: '/',
   },
+  // {
+  //   path: 'unauth',
+  //   name: 'Unauth',
+  //   component: TokenExpired,
+  //   layout: '/',
+  // },
   {
     path: 'Notifications',
     name: 'Notifications',
