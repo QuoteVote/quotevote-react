@@ -20,7 +20,7 @@ import { Grid } from '@material-ui/core'
 const useStyles = makeStyles(styles)
 
 export default function Pages(props) {
-  //const isRequestAccess = window.location.pathname.indexOf('/auth/request-access') !== -1
+  // const isRequestAccess = window.location.pathname.indexOf('/auth/request-access') !== -1
   const { ...rest } = props
   // ref for the wrapper div
   const wrapper = React.createRef()

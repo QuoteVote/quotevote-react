@@ -97,7 +97,6 @@ function Scoreboard(props) {
     }
 
     if (currentPage && currentPage.length) {
-      console.log({ currentPage })
       setPage(currentPage[0].name)
     }
   }, [props])

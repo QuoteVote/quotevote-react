@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 
@@ -52,7 +52,7 @@ function LoginForm({ onSubmit = () => {}, loading }) {
   // also removed loginError from props
   const classes = useStyles()
   const {
-    register, handleSubmit, errors, setError,
+    register, handleSubmit, errors,
   } = useForm()
 
   // useEffect(() => {
@@ -148,7 +148,6 @@ function LoginForm({ onSubmit = () => {}, loading }) {
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  loginError: PropTypes.any,
 }
 
 function Login({ onSubmit = () => {}, loading = false }) {
