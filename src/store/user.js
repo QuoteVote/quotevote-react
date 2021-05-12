@@ -101,7 +101,6 @@ export const userLogin = async (username, password, dispatch, history) => {
         loginError: null,
       })
     )
-      console.log(username)
     history.push(`/Profile/${username}/avatar`)
   }
 }
