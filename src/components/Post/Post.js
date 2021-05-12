@@ -277,10 +277,15 @@ function Post({ post, user, postHeight }) {
       </span>
     </div>
   )
+
+  function copyToClipBoard() {
+    navigator.clipboard.writeText(`www.quote.vote${history.location.pathname}`)
+  }
+
   const cardTitle = (
     <div>
       <span className={classes.title}>{title}</span>
-      <IconButton size="small">
+      <IconButton size="small" id="copyBtn" onClick={copyToClipBoard}>
         <LinkIcon />
       </IconButton>
       <IconButton size="small">
