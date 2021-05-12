@@ -85,9 +85,6 @@ function Scoreboard(props) {
     } = props
     const currLocation = pathname.split('/')
 
-    // const currentPage = appRoutes.filter(
-    //   (appRoute) => appRoute.layout === `/${currLocation[1]}` && appRoute.path === `/${currLocation[2]}`,
-    // )
     let currentPage
     if (pathname.includes('/auth') || pathname.includes('/logout') || pathname.includes('/error')) {
       currentPage = appRoutes.filter(
@@ -98,8 +95,6 @@ function Scoreboard(props) {
         (appRoute) => appRoute.layout === '/' && appRoute.path === `${currLocation[1]}`,
       )
     }
-
-    console.log(currentPage)
 
     setPage(currentPage[0].name)
   }, [props])

@@ -98,7 +98,7 @@ function SettingsContent({ setOpen }) {
   } = useSelector((state) => state.user.data)
   const handleChangeAvatar = () => {
     setOpen(false)
-    history.push('/Profile/hhsb/avatar')
+    history.push(`/Profile/${username}/avatar`)
   }
   const defaultValues = {
     username, password: username, name,
