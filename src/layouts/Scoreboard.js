@@ -138,11 +138,13 @@ function Scoreboard(props) {
             <Switch>
               {routes}
               <Redirect from="/admin" to="/admin/dashboard" />
+              <Redirect from="/" to="/Home" />
             </Switch>
           ) : (
             <Switch>
               {routes}
               <Redirect from="/admin" to="/admin/dashboard" />
+              <Redirect from="/" to="/Home" />
             </Switch>
           )}
           {

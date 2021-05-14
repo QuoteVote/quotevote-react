@@ -80,6 +80,7 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
       <div
         aria-expanded="false"
         class="MuiAutocomplete-root makeStyles-groupInput-7 MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+        name="group"
         role="combobox"
         variant="outlined"
       >
@@ -114,7 +115,7 @@ exports[`SubmitPostForm test - renders correctly 1`] = `
             >
               <button
                 aria-label="Clear"
-                class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
+                class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
                 tabindex="-1"
                 title="Clear"
                 type="button"

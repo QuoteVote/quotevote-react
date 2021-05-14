@@ -77,7 +77,7 @@ function LoadActivityCard({ width, activity }) {
   const dispatch = useDispatch()
   const handleCardClick = () => {
     dispatch(SET_SELECTED_POST(postId))
-    history.push(url)
+    history.push(url.replace(/\?/g, ''))
   }
 
   return (
