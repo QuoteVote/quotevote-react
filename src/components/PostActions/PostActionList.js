@@ -29,6 +29,7 @@ function PostActionList({
       element.scrollIntoView({ behavior: 'smooth' })
     }
   }, [hash, loading, postActions, dispatch])
+
   return (
     <>
       <Grid

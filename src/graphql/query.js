@@ -248,6 +248,18 @@ export const GET_TOP_POSTS = gql`
           endWordIndex
           type
         }
+        comments {
+          _id
+        }
+        quotes {
+          _id
+        }
+        messageRoom {
+          _id
+          messages {
+            _id
+          }
+        }
       }
       pagination {
         total_count

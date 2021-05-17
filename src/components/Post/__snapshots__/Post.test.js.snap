@@ -22,6 +22,7 @@ exports[`Post test - renders correctly 1`] = `
           </span>
           <button
             class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+            id="copyBtn"
             tabindex="0"
             type="button"
           >
