@@ -17,6 +17,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import moment from 'moment'
+import { isEmpty } from 'lodash'
 import stringLimit from 'string-limit'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
@@ -153,12 +154,12 @@ ActivityContent.propTypes = {
 }
 
 function ActivityActions({
-  upvotes, downvotes, liked, onLike,
+  liked, onLike, interactions,
 }) {
   const classes = useStyles()
   return (
     <>
-      <Typography variant="caption">{`+${upvotes} / -${downvotes}`}</Typography>
+      <Typography variant="caption" style={{ paddingLeft: 5 }}>{interactions.length}</Typography>
       <IconButton
         onClick={(e) => onLike(liked, e)}
         className={classes.expand}
@@ -166,16 +167,15 @@ function ActivityActions({
         {liked ? (
           <BookmarkIcon />
         ) : (
-          <BookmarkBorderIcon />
-        )}
+            <BookmarkBorderIcon />
+          )}
       </IconButton>
     </>
   )
 }
 
 ActivityActions.propTypes = {
-  upvotes: PropTypes.number,
-  downvotes: PropTypes.number,
+  interactions: PropTypes.array,
   liked: PropTypes.bool,
   onLike: PropTypes.func,
 }
@@ -187,13 +187,15 @@ export const ActivityCard = memo(
     name = 'Username',
     date = 'Today @ 3:35PM',
     content = '',
-    upvotes = 0,
-    downvotes = 0,
+    comments,
+    quotes,
+    messages,
+    votes,
     liked = false,
     width,
-    onLike = () => {},
-    onCardClick = () => {},
-    handleRedirectToProfile = () => {},
+    onLike = () => { },
+    onCardClick = () => { },
+    handleRedirectToProfile = () => { },
     username,
     post = {},
     activityType = '',
@@ -208,6 +210,24 @@ export const ActivityCard = memo(
         node.parentNode.removeChild(node)
       }
     }, [])
+
+    let interactions = []
+
+    if (!isEmpty(comments)) {
+      interactions = interactions.concat(comments)
+    }
+
+    if (!isEmpty(votes)) {
+      interactions = interactions.concat(votes)
+    }
+
+    if (!isEmpty(quotes)) {
+      interactions = interactions.concat(quotes)
+    }
+
+    if (!isEmpty(messages)) {
+      interactions = interactions.concat(messages)
+    }
 
     const classes = useStyles({ cardColor, width })
     return (
@@ -227,8 +247,7 @@ export const ActivityCard = memo(
         </CardContent>
         <CardActions disableSpacing>
           <ActivityActions
-            upvotes={upvotes}
-            downvotes={downvotes}
+            interactions={interactions}
             liked={liked}
             onLike={onLike}
           />
@@ -240,13 +259,15 @@ export const ActivityCard = memo(
 
 ActivityCard.propTypes = {
   avatar: PropTypes.any,
+  comments: PropTypes.array,
+  messages: PropTypes.array,
+  votes: PropTypes.array,
+  quotes: PropTypes.array,
   content: PropTypes.string,
   cardColor: PropTypes.string,
   name: PropTypes.string,
   username: PropTypes.string,
   date: PropTypes.string,
-  upvotes: PropTypes.number,
-  downvotes: PropTypes.number,
   liked: PropTypes.bool,
   width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']),
   onLike: PropTypes.func,

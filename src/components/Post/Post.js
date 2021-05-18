@@ -273,7 +273,7 @@ function Post({
   const pointsHeader = (
     <div className={classes.points}>
       <span className={classes.votes}>
-        {postActions.length}
+        {postActions ? postActions.length : '0'}
       </span>
     </div>
   )

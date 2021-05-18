@@ -24,8 +24,9 @@ function LoadActivityCard({ width, activity }) {
     post, user, quote, comment, vote, created, activityType,
   } = activity
   const {
-    postUrl, bookmarkedBy, upvotes, downvotes,
+    postUrl, bookmarkedBy, upvotes, downvotes, comments, votes, quotes, messageRoom,
   } = post
+  const { messages } = messageRoom
   const { url } = postUrl
   const postId = post._id
   const { username, avatar, name } = user
@@ -89,6 +90,10 @@ function LoadActivityCard({ width, activity }) {
       date={created}
       upvotes={upvotes}
       downvotes={downvotes}
+      comments={comments}
+      messages={messages}
+      votes={votes}
+      quotes={quotes}
       liked={isLiked}
       post={post}
       content={content}

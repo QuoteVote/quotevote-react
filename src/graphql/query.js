@@ -322,6 +322,21 @@ query activities(
         text
         upvotes
         downvotes
+        votes {
+          _id
+        }
+        quotes {
+          _id
+        }
+        comments {
+          _id
+        }
+        messageRoom {
+          _id
+          messages {
+            _id
+          }
+        }
         bookmarkedBy
         created
         creator {
