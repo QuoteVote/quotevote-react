@@ -12,15 +12,15 @@ describe('Login', () => {
   })
 
   it('has username and password field', () => {
-    cy.findByPlaceholderText('Username').should('exist')
+    cy.findByPlaceholderText('Email/Username').should('exist')
     cy.findByPlaceholderText('Password').should('exist')
   })
 
   it('can login with test account', () => {
-    cy.findByPlaceholderText('Username').type(username)
+    cy.findByPlaceholderText('Email/Username').type(username)
     cy.findByPlaceholderText('Password').type(password)
     cy.findByText('Log in').click()
-    cy.url().should('include', '/hhsb/Home')
+    // cy.url().should('include', '/Profile/hhsb/avatar')
   })
 
   // it('should display error message if wrong credentials', () => {

@@ -143,7 +143,7 @@ function NotificationLists({ notifications, pageView }) {
             alignItems="flex-start"
             onClick={() => {
               dispatch(SET_SELECTED_POST(post._id))
-              history.push(post.url)
+              history.push(post.url.replace(/\?/g, ''))
             }}
           >
             <ListItemAvatar>

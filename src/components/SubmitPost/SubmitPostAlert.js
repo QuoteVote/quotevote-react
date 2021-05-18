@@ -30,7 +30,7 @@ function SubmitPostAlert({
   }
 
   async function goToPost() {
-    await history.push(shareableLink)
+    await history.push(shareableLink.replace(/\?/g, ''))
     setShowAlert(false)
     setOpen(false)
   }
@@ -77,7 +77,7 @@ function SubmitPostAlert({
           <pre>{DOMAIN + shareableLink}</pre>
         </GridItem>
         <GridItem style={{ flex: 1 }}>
-          <IconButton onClick={handleCopy(DOMAIN + shareableLink)}>
+          <IconButton onClick={() => handleCopy(DOMAIN + shareableLink.replace(/\?/g, ''))}>
             <Tooltip title="Copy Link to Clip Board">
               <AssignmentIcon />
             </Tooltip>

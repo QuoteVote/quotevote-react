@@ -3,10 +3,9 @@ import TextField from '@material-ui/core/TextField'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import {
-  CircularProgress,
-  Divider, Grid, InputBase, Typography, IconButton,
+  CircularProgress, Divider, Grid, IconButton, InputBase, Typography,
 } from '@material-ui/core'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 import Mercury from '@postlight/mercury-parser'
 import { useMutation } from '@apollo/react-hooks'
@@ -63,31 +62,30 @@ function SubmitPostForm({ options = [], user, setOpen }) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const {
-    register, handleSubmit, errors, reset,
+    register, handleSubmit, errors, reset, control,
   } = useForm()
   const [submitPost, { loading }] = useMutation(SUBMIT_POST)
   const [createGroup, { loading: loadingGroup }] = useMutation(CREATE_GROUP)
-  const [selectedGroup, setSelectedGroup] = React.useState(null)
-  const [isNewGroup, setIsNewGroup] = React.useState(false)
   const [error, setError] = React.useState(null)
 
   const onSubmit = async (values) => {
     const { title, text, group } = values
     try {
       let newGroup
+      const isNewGroup = group && !('_id' in group)
       if (isNewGroup) {
         newGroup = await createGroup({
           variables: {
             group: {
               creatorId: user._id,
-              title: group,
-              description: `Description for: ${group} group`,
+              title: group.title,
+              description: `Description for: ${group.title} group`,
               privacy: 'public',
             },
           },
         })
       }
-      const postGroupId = isNewGroup ? newGroup.data.createGroup._id : selectedGroup._id
+      const postGroupId = isNewGroup ? newGroup.data.createGroup._id : group._id
       const submitResult = await submitPost({
         variables: {
           post: {
@@ -113,8 +111,6 @@ function SubmitPostForm({ options = [], user, setOpen }) {
   const hideAlert = () => {
     setShowAlert(false)
     setShareableLink('')
-    setIsNewGroup(false)
-    setSelectedGroup(null)
     reset()
   }
   const [value, setValue] = React.useState({ title: '', content: '' })
@@ -173,7 +169,9 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           id="title"
           placeholder="Enter Title"
           value={value.title}
-          onChange={(event) => { handleTitleChange(event) }}
+          onChange={(event) => {
+            handleTitleChange(event)
+          }}
           name="title"
           inputRef={register({
             required: 'Title is required',
@@ -187,7 +185,9 @@ function SubmitPostForm({ options = [], user, setOpen }) {
           id="text"
           placeholder="Enter text or URL here"
           value={value.content}
-          onChange={(event) => { handleContentChange(event) }}
+          onChange={(event) => {
+            handleContentChange(event)
+          }}
           onPaste={handlePaste}
           multiline
           fullWidth
@@ -210,72 +210,82 @@ function SubmitPostForm({ options = [], user, setOpen }) {
             Who can see your post
           </Typography>
 
-          <Autocomplete
-            variant="outlined"
-            size="small"
-            className={classes.groupInput}
-            value={selectedGroup}
-            onChange={(event, newValue) => {
-              if (typeof newValue === 'string') {
-                setSelectedGroup({
-                  title: newValue,
-                })
-              } else if (newValue && newValue.inputValue) {
-                // Create a new value from the user input
-                setSelectedGroup({
-                  title: newValue.inputValue,
-                })
-              } else {
-                setSelectedGroup(newValue)
-              }
-            }}
-            filterOptions={(groupOptions, params) => {
-              const filtered = filter(groupOptions, params)
-
-              // Suggest the creation of a new value
-              if (params.inputValue !== '') {
-                filtered.push({
-                  inputValue: params.inputValue,
-                  title: `Add "${params.inputValue}"`,
-                })
-                setIsNewGroup(true)
-              } else {
-                setIsNewGroup(false)
-              }
-
-              return filtered
-            }}
-            selectOnFocus
-            clearOnBlur
-            handleHomeEndKeys
-            id="hashtag"
-            options={options}
-            getOptionLabel={(option) => {
-              // Value selected with enter, right from the input
-              if (typeof option === 'string') {
-                return option
-              }
-              // Add "xxx" option created dynamically
-              if (option.inputValue) {
-                return option.inputValue
-              }
-              // Regular option
-              return option.title
-            }}
-            renderOption={(option) => option.title}
-            renderInput={(params) => (
-              <TextField
+          <Controller
+            render={({ onChange, ...props }) => (
+              <Autocomplete
+                {...props}
                 variant="outlined"
-                className={classes.label}
-                {...params}
-                label="Select a hashtag"
-                name="hashtag"
+                size="small"
+                className={classes.groupInput}
+                onChange={(event, newValue) => {
+                  let data
+                  if (typeof newValue === 'string') {
+                    data = {
+                      title: newValue,
+                    }
+                  } else if (newValue && newValue.inputValue) {
+                    // Create a new value from the user input
+                    data = {
+                      title: newValue.inputValue,
+                    }
+                  } else {
+                    data = newValue
+                  }
+                  onChange(data)
+                }}
+                filterOptions={(groupOptions, params) => {
+                  const filtered = filter(groupOptions, params)
+
+                  // Suggest the creation of a new value
+                  if (params.inputValue !== '') {
+                    filtered.push({
+                      inputValue: params.inputValue,
+                      title: `Add "${params.inputValue}"`,
+                    })
+                  }
+
+                  return filtered
+                }}
+                selectOnFocus
+                clearOnBlur
+                handleHomeEndKeys
                 id="hashtag"
+                options={options}
+                getOptionLabel={(option) => {
+                  // Value selected with enter, right from the input
+                  if (typeof option === 'string') {
+                    return option
+                  }
+                  // Add "xxx" option created dynamically
+                  if (option.inputValue) {
+                    return option.inputValue
+                  }
+                  // Regular option
+                  return option.title
+                }}
+                renderOption={(option) => option.title}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    className={classes.label}
+                    {...params}
+                    label="Select a hashtag"
+                    name="hashtag"
+                    id="hashtag"
+                    inputRef={register({
+                      required: 'hashtag is required',
+                    })}
+                  />
+                )}
                 inputRef={register({
-                  required: 'hashtag is required',
+                  required: 'Hashtag is required',
                 })}
               />
             )}
+            onChange={([, data]) => data}
+            name="group"
+            control={control}
+            defaultValue=""
           />
         </Grid>
         <Grid
@@ -301,6 +311,7 @@ function SubmitPostForm({ options = [], user, setOpen }) {
     </form>
   )
 }
+
 SubmitPostForm.propTypes = {
   setOpen: PropTypes.func,
   options: PropTypes.array,

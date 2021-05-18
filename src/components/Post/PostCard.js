@@ -250,7 +250,7 @@ function PostCard(props) {
               onClick={() => {
                 // add post id to redux state
                 dispatch(SET_SELECTED_POST(_id))
-                history.push(url)
+                history.push(url.replace(/\?/g, ''))
               }}
             >
               {stringLimit(title, limitText ? 20 : postTitleStringLimit)}

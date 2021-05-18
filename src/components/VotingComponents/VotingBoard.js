@@ -44,6 +44,10 @@ const VotingBoard = ({
   }
   const findChunksAtBeginningOfWords = () => ([{ start: startWordIndex > 0 ? startWordIndex : 0, end: endWordIndex }])
 
+  const disableContextMenu = (e) => {
+    e.preventDefault()
+    e.nativeEvent.stopImmediatePropagation()
+  }
   const renderHighlights = () => {
     if (highlights) {
       if (endWordIndex > startWordIndex) {
@@ -56,6 +60,7 @@ const VotingBoard = ({
             textToHighlight={content}
             findChunks={findChunksAtBeginningOfWords}
             autoEscape
+            onContextMenu={disableContextMenu}
           />
         )
       }
@@ -70,6 +75,7 @@ const VotingBoard = ({
           textToHighlight={content}
           autoEscape
           caseSensitive
+          onContextMenu={disableContextMenu}
         />
       )
     }
@@ -87,7 +93,12 @@ const VotingBoard = ({
   return (
     <Container>
       <div data-selectable>
-        <p className="voting_board-content">{renderHighlights()}</p>
+        <p
+          className="voting_board-content"
+          onContextMenu={disableContextMenu}
+        >
+          {renderHighlights()}
+        </p>
       </div>
       <SelectionPopover
         showPopover={open}
