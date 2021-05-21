@@ -51,6 +51,8 @@ export default function TrendingPosts() {
 
   if (error) return `Something went wrong: ${error}`
 
+  console.log(data)
+
   return (
     <ErrorBoundary>
       <Grid

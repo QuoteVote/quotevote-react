@@ -226,6 +226,7 @@ export const GET_TOP_POSTS = gql`
         text
         upvotes
         downvotes
+        interactions
         bookmarkedBy
         created
         url

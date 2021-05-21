@@ -31,6 +31,12 @@ export function LoadPostsList({
     .map((post, index) => ({ ...post, rank: index + 1 }))
     .filter((post) => !hiddenPosts.includes(post._id))
 
+  console.log(rankedPosts)
+
+  const reordered = _.orderBy(rankedPosts, 'created', 'desc')
+
+  console.log(reordered)
+
   const hasMore = data.posts.pagination.total_count > rankedPosts.length
   return (
 
