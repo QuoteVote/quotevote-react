@@ -41,6 +41,7 @@ export default function TrendingPosts() {
     startDateRange: dateRangeFilter.startDate,
     endDateRange: dateRangeFilter.endDate,
   }
+
   const {
     loading, error, data, fetchMore,
   } = useQuery(GET_TOP_POSTS, {
@@ -49,6 +50,8 @@ export default function TrendingPosts() {
   const filterState = useSelector((state) => state.filter)
 
   if (error) return `Something went wrong: ${error}`
+
+  console.log(data)
 
   return (
     <ErrorBoundary>
