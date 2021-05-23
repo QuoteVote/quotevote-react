@@ -12,6 +12,8 @@ import { Grid } from '@material-ui/core'
 import FilterInputs from '../../components/Filter/FilterInputs'
 import ErrorBoundary from '../../components/ErrorBoundary'
 
+import useSearch from '../../hooks/useSearch'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -41,14 +43,38 @@ export default function TrendingPosts() {
     startDateRange: dateRangeFilter.startDate,
     endDateRange: dateRangeFilter.endDate,
   }
+
+  const { loading: isLoading, error: hasError, data: msData} = useSearch(searchKey)
+  // At this point, you have loading, error, and data from the search results.
+  // The data looks like this.:
+  // [
+  //   {
+  //     "title": "test",
+  //     "id": "5f1973f2d6ba4800229a484d",
+  //     "text_preview": "test test test test test test test test test test test test test test test test test test test test t"
+  //   },
+  //   {
+  //     "title": "test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 ",
+  //     "id": "5f609626107f060022184ac6",
+  //     "text_preview": "test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 test 2 tes"
+  //   },
+  //   ... ]
+  // We can either use this info to render cards directly or we can 
+  // (1) use the ids to get the posts, or 
+  // (2) make the backend return data in the same format as the graphql query
+  // (3) update https://github.com/micahshute/voxpop-search/blob/main/api/app/controllers/posts_controller.rb
+  // to return different data (NOTE: this controller should be updated to include pagination eventually anyway)
+
+  // We can use an if statement based on if searchKey is '' or not to determine which loading, error, data to use
+
   const {
     loading, error, data, fetchMore,
   } = useQuery(GET_TOP_POSTS, {
     variables,
   })
   const filterState = useSelector((state) => state.filter)
-
   if (error) return `Something went wrong: ${error}`
+
 
   return (
     <ErrorBoundary>
