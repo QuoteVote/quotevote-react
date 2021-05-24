@@ -75,8 +75,8 @@ export default function TrendingPosts() {
                 filterState={filterState}
                 setOffset={setOffset}
                 selectAll={null}
-                handleSelectAll={() => {}}
-                handleActivityEvent={() => {}}
+                handleSelectAll={() => { }}
+                handleActivityEvent={() => { }}
                 selectedEvent={null}
                 showFilterIconButton={false}
                 setDateRangeFilter={setDateRangeFilter}

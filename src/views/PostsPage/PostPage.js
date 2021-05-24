@@ -111,7 +111,7 @@ function PostPage({ postId }) {
       style={{ position: 'relative' }}
     >
       <Grid item xs={12} md={6} id="post">
-        {loadingPost ? <PostSkeleton /> : <Post post={post} loading={loadingPost} user={user} postHeight={postHeight} />}
+        {loadingPost ? <PostSkeleton /> : <Post post={post} loading={loadingPost} user={user} postHeight={postHeight} postActions={postActions} />}
       </Grid>
       <Grid item className={classes.root} xs={12} md={6}>
         <PostChatSend messageRoomId={messageRoomId} title={title} />

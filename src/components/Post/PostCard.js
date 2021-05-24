@@ -121,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 10,
     fontWeight: 500,
     color: '#000000',
+    paddingLeft: 10,
   },
   bookmark: {
     paddingTop: 0,
@@ -157,14 +158,30 @@ function PostCard(props) {
   const classes = useStyles(props)
   const { width } = props
   const {
-    _id, text, title, upvotes, downvotes, postUrl, bookmarkedBy, created, onHidePost, creator,
-    activityType, limitText, votes,
+    _id, text, title, postUrl, bookmarkedBy, created, onHidePost, creator,
+    activityType, limitText, votes, comments, quotes, messageRoom,
   } = props
+  const { messages } = messageRoom
   const { url } = postUrl
   let postText = stringLimit(text, limitText ? 20 : 10000)
 
+  let interactions = []
+
+  if (!isEmpty(comments)) {
+    interactions = interactions.concat(comments)
+  }
+
   if (!isEmpty(votes)) {
+    interactions = interactions.concat(votes)
     postText = getTopPostsVoteHighlights(votes, postText, text)
+  }
+
+  if (!isEmpty(quotes)) {
+    interactions = interactions.concat(quotes)
+  }
+
+  if (!isEmpty(messages)) {
+    interactions = interactions.concat(messages)
   }
 
   const cardBg = getCardBg(activityType)
@@ -250,9 +267,7 @@ function PostCard(props) {
         <Grid container justify="space-between">
           <Grid item>
             <Typography className={classes.votes}>
-              {`+${upvotes}  `}
-              |
-              {` -${downvotes}`}
+              {interactions.length}
             </Typography>
           </Grid>
           <Grid item>
@@ -271,8 +286,10 @@ PostCard.propTypes = {
   _id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  upvotes: PropTypes.number.isRequired,
-  downvotes: PropTypes.number.isRequired,
+  votes: PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
+  quotes: PropTypes.array.isRequired,
+  messageRoom: PropTypes.array.isRequired,
   postUrl: PropTypes.object.isRequired,
   bookmarkedBy: PropTypes.array.isRequired,
   created: PropTypes.string.isRequired,
@@ -283,7 +300,6 @@ PostCard.propTypes = {
   avatar: PropTypes.object,
   width: PropTypes.any,
   limitText: PropTypes.bool,
-  votes: PropTypes.array,
 }
 
 export default withWidth()(PostCard)

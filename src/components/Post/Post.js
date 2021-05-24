@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   avatar: {
     marginLeft: 20,
   },
-  upVote: {
+  votes: {
     color: '#00cf6e',
   },
   downVote: {
@@ -58,10 +58,15 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-function Post({ post, user, postHeight }) {
+function Post({
+  post,
+  user,
+  postHeight,
+  postActions,
+}) {
   const classes = useStyles()
   const {
-    title, creator, upvotes, downvotes, created, _id, userId,
+    title, creator, created, _id, userId,
   } = post
   const { name, avatar } = creator
   const dispatch = useDispatch()
@@ -264,23 +269,23 @@ function Post({ post, user, postHeight }) {
   const handleRedirectToProfile = (username) => {
     history.push(`/Profile/${username}`)
   }
+
   const pointsHeader = (
     <div className={classes.points}>
-      <span className={classes.upVote}>
-        +
-        {upvotes}
-      </span>
-      <span> / </span>
-      <span className={classes.downVote}>
-        -
-        {downvotes}
+      <span className={classes.votes}>
+        {postActions ? postActions.length : '0'}
       </span>
     </div>
   )
+
+  function copyToClipBoard() {
+    navigator.clipboard.writeText(`www.quote.vote${history.location.pathname}`)
+  }
+
   const cardTitle = (
     <div>
       <span className={classes.title}>{title}</span>
-      <IconButton size="small">
+      <IconButton size="small" id="copyBtn" onClick={copyToClipBoard}>
         <LinkIcon />
       </IconButton>
       <IconButton size="small">
@@ -345,6 +350,7 @@ function Post({ post, user, postHeight }) {
 }
 
 Post.propTypes = {
+  postActions: PropTypes.array,
   post: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   postHeight: PropTypes.number,

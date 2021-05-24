@@ -22,6 +22,7 @@ exports[`Post test - renders correctly 1`] = `
           </span>
           <button
             class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+            id="copyBtn"
             tabindex="0"
             type="button"
           >
@@ -76,19 +77,9 @@ exports[`Post test - renders correctly 1`] = `
         class="makeStyles-points-7"
       >
         <span
-          class="makeStyles-upVote-5"
+          class="makeStyles-votes-5"
         >
-          +
-          100
-        </span>
-        <span>
-           / 
-        </span>
-        <span
-          class="makeStyles-downVote-6"
-        >
-          -
-          200
+          0
         </span>
       </div>
     </div>
