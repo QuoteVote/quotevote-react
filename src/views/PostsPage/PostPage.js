@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Grid } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
 import { isEmpty } from 'lodash'
+import Link from '@material-ui/core/Link'
 import Post from '../../components/Post/Post'
 import PostActionList from '../../components/PostActions/PostActionList'
 import PostSkeleton from '../../components/Post/PostSkeleton'
@@ -15,6 +16,9 @@ import PostChatSend from '../../components/PostChat/PostChatSend'
 const useStyles = makeStyles(() => ({
   root: {
     marginTop: 10,
+  },
+  link: {
+    color: '#00bcd4',
   },
 }))
 
@@ -79,7 +83,9 @@ function PostPage({ postId }) {
 
   const {
     comments, votes, quotes, postUrl,
-  } = post || { comments: [], votes: [], quotes: [] }
+  } = post || {
+    comments: [], votes: [], quotes: [], postUrl: '',
+  }
   let postActions = []
 
   const { url } = !loadingPost && postUrl
@@ -98,6 +104,30 @@ function PostPage({ postId }) {
 
   if (!isEmpty(messages)) {
     postActions = postActions.concat(messages)
+  }
+
+  if (!loadingPost && !post) {
+    return (
+      <Grid
+        container
+        direction="row"
+        justify="space-around"
+        alignItems="flex-start"
+        spacing={4}
+        className={classes.root}
+        style={{ position: 'relative' }}
+      >
+        <Grid item xs={12}>
+          <Typography>
+            Invalid post.
+            {' '}
+            <Link href="/home" className={classes.link}>
+              Return to homepage.
+            </Link>
+          </Typography>
+        </Grid>
+      </Grid>
+    )
   }
 
   return (
