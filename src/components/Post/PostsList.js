@@ -31,11 +31,7 @@ export function LoadPostsList({
     .map((post, index) => ({ ...post, rank: index + 1 }))
     .filter((post) => !hiddenPosts.includes(post._id))
 
-  console.log(rankedPosts)
-
-  const reordered = _.orderBy(rankedPosts, 'created', 'desc')
-
-  console.log(reordered)
+  const trendingPosts = _.orderBy(rankedPosts, ['interactions', 'created'], ['asc', 'desc'])
 
   const hasMore = data.posts.pagination.total_count > rankedPosts.length
   return (
@@ -53,7 +49,7 @@ export function LoadPostsList({
         alignItems="stretch"
         spacing={0}
       >
-        {rankedPosts.map((prop) => (
+        {trendingPosts.map((prop) => (
           <Grid item style={{ marginBottom: -25 }} key={prop._id}>
             <PostCard
               {...prop}
