@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { useQuery } from '@apollo/react-hooks'
+import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { GET_SEARCH_KEY } from 'components/SearchBar'
 import PostsList from 'components/Post/PostsList'
@@ -50,8 +51,6 @@ export default function TrendingPosts() {
   const filterState = useSelector((state) => state.filter)
 
   if (error) return `Something went wrong: ${error}`
-
-  console.log(data)
 
   return (
     <ErrorBoundary>
