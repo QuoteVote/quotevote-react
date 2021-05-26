@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useQuery } from '@apollo/react-hooks'
 import moment from 'moment'
@@ -42,6 +42,15 @@ export default function TrendingPosts() {
     startDateRange: dateRangeFilter.startDate,
     endDateRange: dateRangeFilter.endDate,
   }
+
+  useEffect(() => {
+    var now = new Date()
+    var isoString = now.toISOString()
+    console.log(isoString)
+  
+    setDateRangeFilter({ endDate: isoString })
+    console.log(dateRangeFilter)
+  }, [])
 
   const {
     loading, error, data, fetchMore,
