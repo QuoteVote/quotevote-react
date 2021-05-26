@@ -184,7 +184,7 @@ function Post({
       startWordIndex: startIndex,
       endWordIndex: endIndex,
       postId: _id,
-      url: post.postUrl.url,
+      url: post.url,
       // hashtags,
       quote: commentWithQuote ? quoteText : '',
     }
