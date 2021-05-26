@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useQuery } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'

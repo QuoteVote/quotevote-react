@@ -230,7 +230,6 @@ export const GET_TOP_POSTS = gql`
         text
         upvotes
         downvotes
-        interactions
         bookmarkedBy
         created
         postUrl {
@@ -414,6 +413,7 @@ export const GET_NOTIFICATIONS = gql`
         _id
         name
         avatar
+        username
       }
       label
       status

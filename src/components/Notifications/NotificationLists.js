@@ -83,6 +83,7 @@ const getBadgeIcon = (notificationType) => {
 }
 
 function NotificationLists({ notifications, pageView }) {
+  console.log(notifications)
   const classes = useStyles({ pageView })
   const client = useApolloClient()
   const dispatch = useDispatch()
@@ -142,8 +143,12 @@ function NotificationLists({ notifications, pageView }) {
             button
             alignItems="flex-start"
             onClick={() => {
-              dispatch(SET_SELECTED_POST(post._id))
-              history.push(post.postUrl.url.replace(/\?/g, ''))
+              if (notificationType === "FOLLOW") {
+                history.push(`/Profile/${userBy.username}`)
+              } else {
+                dispatch(SET_SELECTED_POST(post._id))
+                history.push(post.postUrl.url.replace(/\?/g, ''))
+              }
             }}
           >
             <ListItemAvatar>
