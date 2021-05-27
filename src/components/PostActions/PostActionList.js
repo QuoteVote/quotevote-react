@@ -59,7 +59,7 @@ function PostActionList({
             overflow: 'auto',
           }}
         >
-          {postActions.sort((a, b) => moment(b.created).diff(moment(a.created))).map((action) => (
+          {postActions.sort((a, b) => moment(a.created).diff(moment(b.created))).map((action) => (
             <ListItem
               id={`#${action._id}`}
               key={action._id}
