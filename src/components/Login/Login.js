@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 
@@ -48,27 +48,26 @@ const useStyles = makeStyles({
   },
 })
 
-function LoginForm({ onSubmit = () => {}, loading }) {
-  // also removed loginError from props
+function LoginForm({ onSubmit = () => {}, loading, loginError }) {
   const classes = useStyles()
   const {
-    register, handleSubmit, errors,
+    register, handleSubmit, errors, setError,
   } = useForm()
 
-  // useEffect(() => {
-  //   if (loginError) {
-  //     setError('password', {
-  //       type: 'manual',
-  //       message: loginError,
-  //     })
-  //   }
-  // }, [loginError, setError])
+  useEffect(() => {
+    if (loginError) {
+      setError('password', {
+        type: 'manual',
+        message: loginError,
+      })
+    }
+  }, [loginError, setError])
 
-  // if (loginError) {
-  //   return (
-  //     <div>{loginError.data.message}</div>
-  //   )
-  // }
+  if (loginError) {
+    return (
+      <div>{loginError.data.message}</div>
+    )
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

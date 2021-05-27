@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useQuery } from '@apollo/react-hooks'
-import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { GET_SEARCH_KEY } from 'components/SearchBar'
 import PostsList from 'components/Post/PostsList'
@@ -42,15 +41,6 @@ export default function TrendingPosts() {
     startDateRange: dateRangeFilter.startDate,
     endDateRange: dateRangeFilter.endDate,
   }
-
-  useEffect(() => {
-    var now = new Date()
-    var isoString = now.toISOString()
-    console.log(isoString)
-  
-    setDateRangeFilter({ endDate: isoString })
-    console.log(dateRangeFilter)
-  }, [])
 
   const {
     loading, error, data, fetchMore,
