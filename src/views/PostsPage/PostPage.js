@@ -142,8 +142,8 @@ function PostPage({ postId }) {
         {loadingPost ? <PostSkeleton /> : <Post post={post} loading={loadingPost} user={user} postHeight={postHeight} postActions={postActions} />}
       </Grid>
       <Grid item className={classes.root} xs={12} md={6}>
-        <PostChatSend messageRoomId={messageRoomId} title={title} />
         <PostActionList loading={loadingPost} postActions={postActions} postUrl={url} />
+        <PostChatSend messageRoomId={messageRoomId} title={title} />
       </Grid>
     </Grid>
   )
