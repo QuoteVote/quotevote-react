@@ -42,7 +42,6 @@ function PostPage({ postId }) {
 
   // To reset the scroll when the selected post changes
   useEffect(() => {
-    window.scrollTo(0, 0)
     if (post) {
       setPostHeight(document.getElementById('post').clientHeight)
     }
