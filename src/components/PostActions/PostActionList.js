@@ -30,15 +30,15 @@ function PostActionList({
     }
   }, [hash, loading, postActions, dispatch])
 
-  const containerRef = React.useRef(null);
+  const containerRef = React.useRef(null)
 
   React.useEffect(() => {
-    if(containerRef && containerRef.current) {
-      const element = containerRef.current;
+    if (containerRef && containerRef.current) {
+      const element = containerRef.current
       element.scroll({
         top: element.scrollHeight,
         left: 0,
-        behavior: "smooth"
+        behavior: 'smooth',
       })
     }
   }, [postActions])
