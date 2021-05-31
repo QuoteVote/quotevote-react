@@ -82,13 +82,11 @@ function PostPage({ postId }) {
   const { messages } = (!loadingMessages && messageData) || []
 
   const {
-    comments, votes, quotes, postUrl,
-  } = post || {
-    comments: [], votes: [], quotes: [], postUrl: '',
-  }
+    comments, votes, quotes,
+  } = post || { comments: [], votes: [], quotes: [] }
   let postActions = []
 
-  const { url } = !loadingPost && postUrl
+  const { url } = !loadingPost && post
 
   if (!isEmpty(comments)) {
     postActions = postActions.concat(comments)

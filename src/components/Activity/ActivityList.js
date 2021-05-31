@@ -24,10 +24,9 @@ function LoadActivityCard({ width, activity }) {
     post, user, quote, comment, vote, created, activityType,
   } = activity
   const {
-    postUrl, bookmarkedBy, upvotes, downvotes, comments, votes, quotes, messageRoom,
+    url, bookmarkedBy, upvotes, downvotes, comments, votes, quotes, messageRoom,
   } = post
   const { messages } = messageRoom
-  const { url } = postUrl
   const postId = post._id
   const { username, avatar, name } = user
   const currentUser = useSelector((state) => state.user.data)
