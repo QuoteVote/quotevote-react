@@ -158,11 +158,10 @@ function PostCard(props) {
   const classes = useStyles(props)
   const { width } = props
   const {
-    _id, text, title, postUrl, bookmarkedBy, created, onHidePost, creator,
+    _id, text, title, url, bookmarkedBy, created, onHidePost, creator,
     activityType, limitText, votes, comments, quotes, messageRoom,
   } = props
   const { messages } = messageRoom
-  const { url } = postUrl
   let postText = stringLimit(text, limitText ? 20 : 10000)
 
   let interactions = []
@@ -290,7 +289,7 @@ PostCard.propTypes = {
   comments: PropTypes.array.isRequired,
   quotes: PropTypes.array.isRequired,
   messageRoom: PropTypes.array.isRequired,
-  postUrl: PropTypes.object.isRequired,
+  url: PropTypes.string.isRequired,
   bookmarkedBy: PropTypes.array.isRequired,
   created: PropTypes.string.isRequired,
   onHidePost: PropTypes.func.isRequired,

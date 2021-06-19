@@ -109,10 +109,6 @@ export const GET_POST = gql`
         messageType
         created
       }
-      postUrl {
-        _id
-        url
-      }
     }
   }
 `
@@ -232,10 +228,7 @@ export const GET_TOP_POSTS = gql`
         downvotes
         bookmarkedBy
         created
-        postUrl {
-          _id
-          url
-        }
+        url
         creator {
           name
           username
@@ -320,6 +313,7 @@ query activities(
         _id
         title
         text
+        url
         upvotes
         downvotes
         votes {
@@ -344,10 +338,6 @@ query activities(
           name
           username
           avatar
-        }
-        postUrl {
-          _id
-          url
         }
       }
       voteId
@@ -413,6 +403,7 @@ export const GET_NOTIFICATIONS = gql`
         _id
         name
         avatar
+        username
       }
       label
       status
@@ -420,10 +411,7 @@ export const GET_NOTIFICATIONS = gql`
       notificationType
       post {
         _id
-        postUrl {
-          _id
-          url
-        }
+        url
       }
     }
   }

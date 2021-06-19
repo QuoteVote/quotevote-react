@@ -28,9 +28,9 @@ above.
 3. Create a `.env` file and add the following:
     ```
     NODE_ENV=dev
-    REACT_APP_SERVER=https://api.scoreboard.vote
-    REACT_APP_SERVER_WS=wss://api.scoreboard.vote
-    REACT_APP_DOMAIN=https://dev.scoreboard.vote
+    REACT_APP_SERVER=https://api.quote.vote
+    REACT_APP_SERVER_WS=wss://api.quote.vote
+    REACT_APP_DOMAIN=https://dev.quote.vote
     ```
 
 3. Install dependencies
