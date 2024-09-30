@@ -11,7 +11,9 @@ import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
 import { cloneDeep, findIndex } from 'lodash'
+import copy from 'clipboard-copy'
 import moment from 'moment'
+import SweetAlert from 'react-bootstrap-sweetalert'
 import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
@@ -19,6 +21,7 @@ import { ADD_COMMENT, ADD_QUOTE, VOTE } from '../../graphql/mutations'
 import { GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY } from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
+import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
 
 const useStyles = makeStyles(() => ({
   header2: {
@@ -56,6 +59,7 @@ const useStyles = makeStyles(() => ({
   button: {
     margin: 10,
   },
+  ...buttonStyle,
 }))
 
 function Post({
@@ -73,6 +77,7 @@ function Post({
   const history = useHistory()
   const parsedCreated = moment(created).format('LLL')
   const [selectedText, setSelectedText] = useState('')
+  const [open, setOpen] = useState(false)
   const [addVote] = useMutation(VOTE, {
     update(
       cache,
@@ -278,8 +283,15 @@ function Post({
     </div>
   )
 
-  function copyToClipBoard() {
-    navigator.clipboard.writeText(`www.quote.vote${history.location.pathname}`)
+  const copyToClipBoard = async () => {
+    const baseUrl = window.location.origin
+    await copy(`${baseUrl}${history.location.pathname}`)
+    setOpen(true)
+    // navigator.clipboard.writeText(`www.quote.vote${history.location.pathname}`)
+  }
+
+  const hideAlert = () => {
+    setOpen(false)
   }
 
   const cardTitle = (
@@ -345,6 +357,16 @@ function Post({
         </IconButton>
         <BookmarkIconButton post={post} user={user} />
       </CardActions>
+      {open && (
+        <SweetAlert
+          confirmBtnCssClass={`${classes.button} ${classes.success}`}
+          success
+          onConfirm={hideAlert}
+          onCancel={hideAlert}
+          title="Post URL copied!"
+          timeout={1000}
+        />
+      )}
     </Card>
   )
 }
