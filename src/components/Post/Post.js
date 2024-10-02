@@ -17,7 +17,7 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
-import { ADD_COMMENT, ADD_QUOTE, VOTE } from '../../graphql/mutations'
+import { ADD_COMMENT, ADD_QUOTE, REPORT_POST, VOTE } from '../../graphql/mutations'
 import { GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY } from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
@@ -169,6 +169,42 @@ function Post({
     ],
   })
 
+  const [reportPost] = useMutation(REPORT_POST, {
+    refetchQueries: [
+      {
+        query: GET_TOP_POSTS,
+        variables: { limit: 5, offset: 0, searchKey: '' },
+      },
+      {
+        query: GET_POST,
+        variables: { postId: _id },
+      },
+    ],
+  });
+
+  const handleReportPost = async () => {
+    try {
+      const res = await reportPost({ variables: { postId: _id, userId: user._id } })
+      const { reportedBy } = res.data.reportPost
+      const reported = reportedBy.length
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: `Post Reported. Total Reports: ${reported}`,
+          type: 'success',
+        }),
+      )
+    } catch (err) {
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: `${err.message}`,
+          type: 'danger',
+        }),
+      )
+    }
+  }
+
   const handleAddComment = async (comment, commentWithQuote = false) => {
     let startIndex
     let endIndex
@@ -300,7 +336,7 @@ function Post({
       <IconButton size="small" id="copyBtn" onClick={copyToClipBoard}>
         <LinkIcon />
       </IconButton>
-      <IconButton size="small">
+      <IconButton size="small" onClick={handleReportPost}>
         <BlockIcon className={classes.blockIcon} />
       </IconButton>
     </div>

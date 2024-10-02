@@ -230,3 +230,12 @@ export const UPDATE_ACTION_REACTION = gql`
     }
   }
 `
+
+export const REPORT_POST = gql`
+  mutation reportPost($postId: String!, $userId: String!) {
+    reportPost(postId: $postId, userId: $userId) {
+      _id
+      reportedBy
+    }
+  }
+`
