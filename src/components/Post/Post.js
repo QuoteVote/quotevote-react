@@ -5,15 +5,15 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
-import { PersonAdd } from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
-import { cloneDeep, findIndex } from 'lodash'
+import { cloneDeep, findIndex, includes } from 'lodash'
 import copy from 'clipboard-copy'
 import moment from 'moment'
 import SweetAlert from 'react-bootstrap-sweetalert'
+import FollowButton from 'components/CustomButtons/FollowButton'
 import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
@@ -72,12 +72,15 @@ function Post({
   const {
     title, creator, created, _id, userId,
   } = post
-  const { name, avatar } = creator
+  const { name, avatar, username } = creator
+  const { _followingId } = user
   const dispatch = useDispatch()
   const history = useHistory()
   const parsedCreated = moment(created).format('LLL')
   const [selectedText, setSelectedText] = useState('')
   const [open, setOpen] = useState(false)
+  const isFollowing = includes(_followingId, userId)
+
   const [addVote] = useMutation(VOTE, {
     update(
       cache,
@@ -388,9 +391,12 @@ function Post({
       </CardContent>
 
       <CardActions disableSpacing style={{ marginLeft: 20 }}>
-        <IconButton>
-          <PersonAdd />
-        </IconButton>
+        <FollowButton
+          isFollowing={isFollowing}
+          profileUserId={userId}
+          username={username}
+          showIcon
+        />
         <BookmarkIconButton post={post} user={user} />
       </CardActions>
       {open && (
