@@ -19,7 +19,8 @@ function BookmarkIconButton(props) {
 
   const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK)
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.stopPropagation()
     await updatePostBookmark({
       variables: { postId: _id, userId: user._id },
     })
