@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { CHAT_SUBMITTING } from 'store/chat'
@@ -44,6 +44,7 @@ const useStyles = makeStyles(() => ({
 function PostChatSend(props) {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const commentInputRef = useRef(null)
   const { messageRoomId, title } = props
   const type = 'POST'
   const [text, setText] = useState('')
@@ -101,7 +102,11 @@ function PostChatSend(props) {
         // Read the data from our cache for this query.
         const data = proxy.readQuery({ query: GET_ROOM_MESSAGES, variables: { messageRoomId } })
         if (data) {
-        // Write our data back to the cache with the new message in it
+          if (commentInputRef && commentInputRef.current) {
+            // clear the input field
+            commentInputRef.current.children[0].value = ''
+          }
+          // Write our data back to the cache with the new message in it
           proxy.writeQuery({
             query: GET_ROOM_MESSAGES,
             variables: { messageRoomId },
@@ -131,6 +136,7 @@ function PostChatSend(props) {
       <Grid item sm={10} xs={12}>
         <Paper elevation={0}>
           <InputBase
+            ref={commentInputRef}
             placeholder="type a message..."
             className={classes.input}
             onChange={(event) => {
