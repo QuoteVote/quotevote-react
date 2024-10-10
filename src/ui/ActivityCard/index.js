@@ -109,7 +109,7 @@ function ActivityContent({
         />
       </Avatar>
       <Box flexGrow={1} onClick={onCardClick}>
-        <ActivityHeader name={name} date={date} />
+        <ActivityHeader name={username} date={date} />
         {isPosted && (
           <Typography className={classes.activityBody} variant="body1">
             <b>
