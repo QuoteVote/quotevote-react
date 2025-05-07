@@ -1,0 +1,62 @@
+quotevote-nextjs/
+├── frontend/                 # Root for the Next.js frontend application
+│   ├── public/               # Static assets (images, fonts, etc.)
+│   ├── src/                  # Main source code directory
+│   │   ├── app/              # Next.js App Router directory
+│   │   │   ├── (auth)/       # Route group for auth pages (login, signup)
+│   │   │   │   ├── login/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── signup/
+│   │   │   │       └── page.tsx
+│   │   │   ├── (main)/       # Route group for main app layout
+│   │   │   │   ├── layout.tsx  # Main layout with nav, header etc.
+│   │   │   │   ├── feed/
+│   │   │   │   │   └── page.tsx  # Activity Feed page
+│   │   │   │   ├── post/
+│   │   │   │   │   └── [postId]/
+│   │   │   │   │       └── page.tsx  # Single Post page / Chatroom
+│   │   │   │   ├── profile/
+│   │   │   │   │   └── [userId]/
+│   │   │   │   │       └── page.tsx  # User Profile page
+│   │   │   │   ├── buddies/
+│   │   │   │   │   └── page.tsx  # Buddy List page
+│   │   │   │   ├── messages/
+│   │   │   │   │   └── [roomId]/ # Optional specific DM room route
+│   │   │   │   │       └── page.tsx
+│   │   │   │   ├── notifications/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── trending/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── settings/ # Example settings page
+│   │   │   │       └── page.tsx
+│   │   │   ├── api/            # Next.js API routes (if needed, though GraphQL is primary)
+│   │   │   ├── layout.tsx      # Root layout (html, body tags)
+│   │   │   ├── page.tsx        # Root page (e.g., landing page if not logged in)
+│   │   │   └── globals.css     # Global styles
+│   │   ├── components/         # Reusable UI components
+│   │   │   ├── ui/             # Atomic UI elements (Button, Input, Modal, Avatar etc.)
+│   │   │   ├── feed/           # Components specific to the Feed feature
+│   │   │   ├── post/           # Components specific to Post display/creation
+│   │   │   ├── chat/           # Components specific to Chatrooms/DMs
+│   │   │   ├── profile/        # Components specific to Profiles
+│   │   │   ├── notifications/  # Components specific to Notifications
+│   │   │   └── layout/         # Components for main layout (Navbar, Sidebar, Header)
+│   │   ├── lib/                # Shared utilities, helpers, constants
+│   │   │   ├── apollo.ts       # Apollo Client setup / GraphQL helpers
+│   │   │   ├── auth.ts         # Authentication helpers/hooks
+│   │   │   ├── hooks.ts        # Custom React hooks
+│   │   │   └── utils.ts        # General utility functions
+│   │   ├── contexts/           # React Context providers (e.g., ThemeContext, AuthContext)
+│   │   ├── styles/             # Additional styling files if needed
+│   │   └── types/              # TypeScript type definitions (e.g., generated GraphQL types)
+│   ├── .env.local            # Environment variables
+│   ├── .eslintrc.json
+│   ├── .gitignore
+│   ├── next.config.js
+│   ├── package.json
+│   ├── postcss.config.js     # For Tailwind CSS
+│   ├── tailwind.config.ts
+│   └── tsconfig.json
+├── backend/                  # Existing backend folder
+│   └── voxpop-api/
+└── memory-bank/              # Your planning documents
