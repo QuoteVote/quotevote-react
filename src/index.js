@@ -30,7 +30,7 @@ import TokenExpired from 'layouts/TokenExpired'
 import store, { persistor } from 'store/store'
 import Bugsnag from '@bugsnag/js'
 import BugsnagPluginReact from '@bugsnag/plugin-react'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import customTheme from './theme'
 import 'assets/scss/material-dashboard-pro-react.scss'
 import LogoutPage from './components/LogoutPage'
@@ -50,7 +50,7 @@ hist.listen(() => {
   window.scrollTo(0, 0)
 })
 
-const theme = createMuiTheme(customTheme)
+const theme = createTheme(customTheme)
 
 ReactDOM.render(
   <ErrorBoundary>

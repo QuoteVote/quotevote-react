@@ -1,5 +1,5 @@
 import React from 'react'
-import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
+import { createTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -7,7 +7,7 @@ import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import ActivityFindSvg from '../../assets/svg/ActivityFind.svg'
 import { SET_SELECTED_PAGE } from '../../store/ui'
-const customTheme = createMuiTheme({
+const customTheme = createTheme({
   palette: {
     primary: {
       main: '#00CF6E',

@@ -9,7 +9,7 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import logoWhite from 'assets/img/logo-white.svg'
 
 import Hidden from '@material-ui/core/Hidden'
-import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
+import { createTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import appRoutes from 'routes'
@@ -22,7 +22,7 @@ import MainNavBar from '../components/Navbars/MainNavBar'
 import Sidebar from '../mui-pro/Sidebar/Sidebar'
 import withUser from '../hoc/withUser'
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#fff',
