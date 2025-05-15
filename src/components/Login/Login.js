@@ -68,18 +68,6 @@ function LoginForm({ onSubmit = () => {}, loading, loginError }) {
     }
   }, [loginError, setError])
 
-  if (loginError && loginError.data && loginError.data.message) {
-    return (
-      <div>{loginError.data.message}</div>
-    )
-  }
-
-  if (typeof loginError === 'string') {
-    return (
-      <div>{loginError}</div>
-    )
-  }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
