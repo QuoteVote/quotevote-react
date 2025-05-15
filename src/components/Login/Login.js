@@ -55,7 +55,12 @@ function LoginForm({ onSubmit = () => {}, loading, loginError }) {
   } = useForm()
 
   useEffect(() => {
-    if (loginError) {
+    if (loginError && loginError.data && loginError.data.message) {
+      setError('password', {
+        type: 'manual',
+        message: loginError.data.message,
+      })
+    } else if (typeof loginError === 'string') {
       setError('password', {
         type: 'manual',
         message: loginError,
@@ -63,9 +68,15 @@ function LoginForm({ onSubmit = () => {}, loading, loginError }) {
     }
   }, [loginError, setError])
 
-  if (loginError) {
+  if (loginError && loginError.data && loginError.data.message) {
     return (
       <div>{loginError.data.message}</div>
+    )
+  }
+
+  if (typeof loginError === 'string') {
+    return (
+      <div>{loginError}</div>
     )
   }
 
@@ -147,6 +158,14 @@ function LoginForm({ onSubmit = () => {}, loading, loginError }) {
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  loginError: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      data: PropTypes.shape({
+        message: PropTypes.string,
+      }),
+    }),
+  ]),
 }
 
 function Login({ onSubmit = () => {}, loading = false }) {

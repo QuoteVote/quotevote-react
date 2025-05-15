@@ -7,11 +7,11 @@ import { SET_USER_DATA } from '../store/user'
 const withUser = (Component) => (props) => {
   const dispatch = useDispatch()
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-  
+
   const { data, loading, error } = useQuery(VERIFY_PASSWORD_RESET_TOKEN, {
     variables: { token },
     skip: !token,
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   })
 
   React.useEffect(() => {
@@ -22,7 +22,7 @@ const withUser = (Component) => (props) => {
 
   if (loading) return null
   if (error) {
-    console.error('Error verifying token:', error)
+    // console.error('Error verifying token:', error) // Commenting out console.error
     return <Component {...props} />
   }
 

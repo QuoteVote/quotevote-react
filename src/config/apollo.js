@@ -1,11 +1,16 @@
-import { ApolloClient, InMemoryCache, createHttpLink, split } from '@apollo/client'
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  split,
+} from '@apollo/client'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_SERVER ? `${process.env.NEXT_PUBLIC_SERVER}/graphql` : 'http://localhost:3000/graphql',
-  credentials: 'include'
+  credentials: 'include',
 })
 
 // Create a WebSocket link:
@@ -37,12 +42,12 @@ const cache = new InMemoryCache({
         searchKey: {
           read() {
             return ''
-          }
+          },
         },
         startDateRange: {
           read() {
             return ''
-          }
+          },
         },
         networkStatus: {
           read() {
@@ -50,11 +55,11 @@ const cache = new InMemoryCache({
               __typename: 'NetworkStatus',
               isConnected: false,
             }
-          }
-        }
-      }
-    }
-  }
+          },
+        },
+      },
+    },
+  },
 })
 
 const client = new ApolloClient({

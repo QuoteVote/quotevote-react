@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   Grid, Typography, IconButton, Popover,
@@ -85,12 +85,16 @@ function PostChatReactions(props) {
 
   const groupedReactions = _.groupBy(reactions, 'emoji')
 
-  function handleClick(event) {
+  const handleClick = useCallback((event) => {
     setAnchorEl(event.target)
     setOpen(true)
-  }
+  }, [])
 
-  async function handleEmojiSelect(emoji) {
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  }, [])
+
+  const handleEmojiSelect = useCallback(async (emoji) => {
     const newEmoji = emoji.native
     const reaction = {
       userId,
@@ -109,7 +113,7 @@ function PostChatReactions(props) {
     }
 
     setOpen(false)
-  }
+  }, [userId, messageId, userReaction, updateReaction, addReaction])
 
   const emojiElements = []
 
@@ -134,7 +138,7 @@ function PostChatReactions(props) {
         <div className={classes.emoji}>
           {emojiElements}
         </div>
-        <IconButton onClick={(event) => { handleClick(event) }}>
+        <IconButton onClick={handleClick}>
           <InsertEmoticon />
         </IconButton>
         <Popover
@@ -148,7 +152,7 @@ function PostChatReactions(props) {
             vertical: 'bottom',
             horizontal: 'center',
           }}
-          onClose={() => setOpen(false)}
+          onClose={handleClose}
         >
           <div className="reactions">
             <Picker showPreview={false} showSkinTones={false} onSelect={handleEmojiSelect} />

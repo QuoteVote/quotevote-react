@@ -6,7 +6,6 @@ import { CardHeader, IconButton } from '@material-ui/core'
 import Card from 'mui-pro/Card/Card'
 import classNames from 'classnames'
 import { isEmpty } from 'lodash'
-import ClearIcon from '@material-ui/icons/Clear'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SELECTED_POST } from 'store/ui'
@@ -158,7 +157,7 @@ function PostCard(props) {
   const classes = useStyles(props)
   const { width } = props
   const {
-    _id, text, title, url, bookmarkedBy, created, onHidePost, creator,
+    _id, text, title, url, bookmarkedBy, created, creator,
     activityType, limitText, votes, comments, quotes, messageRoom,
   } = props
   const { messages } = messageRoom
@@ -216,15 +215,6 @@ function PostCard(props) {
             </Avatar>
           </IconButton>
         )}
-        // action={(
-        //   <IconButton
-        //     onClick={() => onHidePost(props)}
-        //     classes={{ root: classes.iconButton }}
-        //     style={{ paddingLeft: 0 }}
-        //   >
-        //     <ClearIcon />
-        //   </IconButton>
-        // )}
         title={(
           <IconButton
             disableFocusRipple
@@ -306,7 +296,6 @@ PostCard.propTypes = {
   url: PropTypes.string.isRequired,
   bookmarkedBy: PropTypes.array.isRequired,
   created: PropTypes.string.isRequired,
-  onHidePost: PropTypes.func.isRequired,
   onBookmark: PropTypes.func,
   creator: PropTypes.any,
   activityType: PropTypes.string,

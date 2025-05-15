@@ -79,7 +79,6 @@ export const userLogin = async (username, password, dispatch, history) => {
     actions.USER_LOGIN_FAILURE({ loginError: null, loading: true })
   )
   const result = await getToken(username, password)
-  console.log({result})
   if ('error' in result) {
     const serverConnectionRefuseError = {
       data: { message: 'Connection refuse' },
@@ -112,10 +111,8 @@ export function tokenValidator(dispatch) {
     if (err) {
       localStorage.removeItem('token')
       dispatch(actions.USER_LOGOUT())
-      // console.log("Error", err);
       return false
     }
-    // console.log(decoded);
     dispatch(actions.USER_TOKEN_VALIDATED())
     return true
   })

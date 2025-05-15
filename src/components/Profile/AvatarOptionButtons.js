@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 
@@ -99,20 +99,19 @@ function AvatarOptionButtons(props) {
     facialHairColor, clotheColor, hairColor, hatColor,
   } = groupedAvatarOptions
 
-  const displayColorOptions = []
-
-  function handleBackButtonClick() {
+  const handleBackButtonClick = useCallback(() => {
     if (colorOptions) {
       setColorOptions(null)
     }
     if (!colorOptions) {
       setSelectedOptions(null)
     }
-  }
+  }, [colorOptions, setColorOptions, setSelectedOptions])
 
-  function handleSelectAvatarOption(option) {
+  const handleSelectAvatarOption = useCallback((option) => {
     setUpdatedAvatar(option)
     let colors
+    const displayColorOptions = []
     switch (selectedOptions) {
       case 'topType':
         if (option.topType.includes('WinterHat') || option.topType === 'Hijab' || option.topType === 'Turban') {
@@ -167,7 +166,7 @@ function AvatarOptionButtons(props) {
         setColorOptions(null)
         setSelectedOptions(null)
     }
-  }
+  }, [selectedOptions, setUpdatedAvatar, setColorOptions, setSelectedOptions, hatColor, hairColor, facialHairColor, clotheColor])
 
   return (
     <ThemeProvider theme={theme}>
@@ -176,7 +175,7 @@ function AvatarOptionButtons(props) {
           {colorOptions ? <ArticleColorOptions colorOptions={colorOptions} setUpdatedAvatar={setUpdatedAvatar} setSelectedOptions={setSelectedOptions} /> : <ArticleOptions avatarOptionsArray={avatarOptionsArray} handleSelectAvatarOption={handleSelectAvatarOption} setUpdatedAvatar={setUpdatedAvatar} />}
         </Grid>
         <Grid item>
-          <Button type="submit" class={classes.backbtn} onClick={() => handleBackButtonClick()}>Back</Button>
+          <Button type="submit" className={classes.backbtn} onClick={handleBackButtonClick}>Back</Button>
         </Grid>
       </Grid>
     </ThemeProvider>

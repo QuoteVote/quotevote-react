@@ -5,7 +5,7 @@ import { useLocation } from 'react-router'
 import SubmitPost from '../../components/SubmitPost/SubmitPost'
 
 export default function PostRouter() {
-  const [open, setOpen] = React.useState(true)
+  const [, setOpen] = React.useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0)

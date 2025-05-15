@@ -14,7 +14,7 @@ import { isMobile } from 'react-device-detect'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import Button from '../../mui-pro/CustomButtons/Button'
-import Quote from '../../assets/img/QuoteVoteLogo.png';
+import Quote from '../../assets/img/QuoteVoteLogo.png'
 
 const useStyles = makeStyles(styles)
 
@@ -67,7 +67,7 @@ export default function LandingPage() {
               Welcome to Quote.Vote
             </Typography>
             <Typography className={classes.listItemText}>
-              Quote Vote is a non-for-profit project, and encourages users to donate their money or time, to be an active part of the change we’d all like to see in the world.
+              Quote Vote is a non-for-profit project, and encourages users to donate their money or time, to be an active part of the change we&apos;d all like to see in the world.
             </Typography>
             <Typography className={classes.listItemText}>
               We understand the delicate balance between fostering freedom of expression and curbing harmful behavior.

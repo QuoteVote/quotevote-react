@@ -17,8 +17,17 @@ import FollowButton from 'components/CustomButtons/FollowButton'
 import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
-import { ADD_COMMENT, ADD_QUOTE, REPORT_POST, VOTE } from '../../graphql/mutations'
-import { GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY } from '../../graphql/query'
+import {
+  ADD_COMMENT,
+  ADD_QUOTE,
+  REPORT_POST,
+  VOTE,
+} from '../../graphql/mutations'
+import {
+  GET_POST,
+  GET_TOP_POSTS,
+  GET_USER_ACTIVITY,
+} from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
@@ -86,7 +95,7 @@ function Post({
       cache,
       {
         // eslint-disable-next-line no-shadow
-        data: { addVote },
+        data: { addVote: voteData },
       },
     ) {
       const data = cache.readQuery({
@@ -100,19 +109,19 @@ function Post({
         (vote) => vote.userId === user._id,
       )
       if (index !== -1) {
-        clonedPost.post.votedBy[index].type = addVote.type
+        clonedPost.post.votedBy[index].type = voteData.type
         clonedPost.post.upvotes =
-          addVote.type === 'up' ?
+          voteData.type === 'up' ?
             clonedPost.post.upvotes + 1 :
             clonedPost.post.upvotes - 1
 
         clonedPost.post.downvotes =
-          addVote.type === 'down' ?
+          voteData.type === 'down' ?
             clonedPost.post.downvotes + 1 :
             clonedPost.post.downvotes - 1
       } else {
-        clonedPost.post.votedBy.push({ type: addVote.type, userId: user._id })
-        if (addVote.type === 'up') {
+        clonedPost.post.votedBy.push({ type: voteData.type, userId: user._id })
+        if (voteData.type === 'up') {
           clonedPost.post.upvotes++
         } else {
           clonedPost.post.downvotes++
@@ -183,7 +192,7 @@ function Post({
         variables: { postId: _id },
       },
     ],
-  });
+  })
 
   const handleReportPost = async () => {
     try {
@@ -310,8 +319,8 @@ function Post({
     }
   }
 
-  const handleRedirectToProfile = (username) => {
-    history.push(`/Profile/${username}`)
+  const handleRedirectToProfile = (profileUsername) => {
+    history.push(`/Profile/${profileUsername}`)
   }
 
   const pointsHeader = (

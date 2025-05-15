@@ -113,10 +113,9 @@ function PostPage({ postId }) {
     return (
       <Grid
         container
-        direction="row" 
+        direction="row"
         justify="space-around"
         alignItems="flex-start"
-        // spacing={4}
         className={classes.root}
         style={{ position: 'relative' }}
       >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
   IconButton, Popover,
@@ -68,12 +68,16 @@ function CommentReactions(props) {
   const userReaction = _.find(reactions, { userId }) || null
 
   // Handle emoji button interaction
-  function handleClick(event) {
+  const handleClick = useCallback((event) => {
     setAnchorEl(event.target)
     setOpen(true)
-  }
+  }, [])
 
-  async function handleEmojiSelect(emoji) {
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  }, [])
+
+  const handleEmojiSelect = useCallback(async (emoji) => {
     const newEmoji = emoji.native
     const reaction = {
       userId,
@@ -92,7 +96,7 @@ function CommentReactions(props) {
     }
 
     setOpen(false)
-  }
+  }, [userId, actionId, userReaction, addReaction, updateReaction])
 
   const emojiElements = []
 
@@ -108,7 +112,7 @@ function CommentReactions(props) {
       <div className={classes.emoji}>
         {emojiElements}
       </div>
-      <IconButton onClick={(event) => { handleClick(event) }}>
+      <IconButton onClick={handleClick}>
         <InsertEmoticon />
       </IconButton>
       <Popover
@@ -122,7 +126,7 @@ function CommentReactions(props) {
           vertical: 'bottom',
           horizontal: 'center',
         }}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
       >
         <div className="reactions">
           <Picker showPreview={false} showSkinTones={false} onSelect={handleEmojiSelect} />
