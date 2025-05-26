@@ -42,7 +42,7 @@ and democratic technologists alike.
     NODE_ENV=dev
     REACT_APP_SERVER=https://api.quote.vote
     REACT_APP_SERVER_WS=wss://api.quote.vote
-    REACT_APP_DOMAIN=https://dev.quote.vote
+    REACT_APP_DOMAIN=https://quote.vote
     ```
 
 3. Install dependencies
@@ -51,7 +51,7 @@ and democratic technologists alike.
 
 3. Run the application
 
-    `npm start`
+    `npm run start:dev`
 
 ## Features
 
