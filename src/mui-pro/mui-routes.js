@@ -28,6 +28,7 @@ const dashRoutes = [
         rtlMini: 'هعذا',
         component: LandingPage,
         layout: '/auth',
+        hideNavbar: true,
       },
       {
         path: '/about',

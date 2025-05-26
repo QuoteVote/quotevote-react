@@ -5,20 +5,23 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
-import { PersonAdd } from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
-import { cloneDeep, findIndex } from 'lodash'
+import { cloneDeep, findIndex, includes } from 'lodash'
+import copy from 'clipboard-copy'
 import moment from 'moment'
+import SweetAlert from 'react-bootstrap-sweetalert'
+import FollowButton from 'components/CustomButtons/FollowButton'
 import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
-import { ADD_COMMENT, ADD_QUOTE, VOTE } from '../../graphql/mutations'
+import { ADD_COMMENT, ADD_QUOTE, REPORT_POST, VOTE } from '../../graphql/mutations'
 import { GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY } from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
+import buttonStyle from '../../assets/jss/material-dashboard-pro-react/components/buttonStyle'
 
 const useStyles = makeStyles(() => ({
   header2: {
@@ -56,6 +59,7 @@ const useStyles = makeStyles(() => ({
   button: {
     margin: 10,
   },
+  ...buttonStyle,
 }))
 
 function Post({
@@ -68,11 +72,15 @@ function Post({
   const {
     title, creator, created, _id, userId,
   } = post
-  const { name, avatar } = creator
+  const { name, avatar, username } = creator
+  const { _followingId } = user
   const dispatch = useDispatch()
   const history = useHistory()
   const parsedCreated = moment(created).format('LLL')
   const [selectedText, setSelectedText] = useState('')
+  const [open, setOpen] = useState(false)
+  const isFollowing = includes(_followingId, userId)
+
   const [addVote] = useMutation(VOTE, {
     update(
       cache,
@@ -163,6 +171,42 @@ function Post({
       },
     ],
   })
+
+  const [reportPost] = useMutation(REPORT_POST, {
+    refetchQueries: [
+      {
+        query: GET_TOP_POSTS,
+        variables: { limit: 5, offset: 0, searchKey: '' },
+      },
+      {
+        query: GET_POST,
+        variables: { postId: _id },
+      },
+    ],
+  });
+
+  const handleReportPost = async () => {
+    try {
+      const res = await reportPost({ variables: { postId: _id, userId: user._id } })
+      const { reportedBy } = res.data.reportPost
+      const reported = reportedBy.length
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: `Post Reported. Total Reports: ${reported}`,
+          type: 'success',
+        }),
+      )
+    } catch (err) {
+      dispatch(
+        SET_SNACKBAR({
+          open: true,
+          message: `${err.message}`,
+          type: 'danger',
+        }),
+      )
+    }
+  }
 
   const handleAddComment = async (comment, commentWithQuote = false) => {
     let startIndex
@@ -278,8 +322,15 @@ function Post({
     </div>
   )
 
-  function copyToClipBoard() {
-    navigator.clipboard.writeText(`www.quote.vote${history.location.pathname}`)
+  const copyToClipBoard = async () => {
+    const baseUrl = window.location.origin
+    await copy(`${baseUrl}${history.location.pathname}`)
+    setOpen(true)
+    // navigator.clipboard.writeText(`www.quote.vote${history.location.pathname}`)
+  }
+
+  const hideAlert = () => {
+    setOpen(false)
   }
 
   const cardTitle = (
@@ -288,7 +339,7 @@ function Post({
       <IconButton size="small" id="copyBtn" onClick={copyToClipBoard}>
         <LinkIcon />
       </IconButton>
-      <IconButton size="small">
+      <IconButton size="small" onClick={handleReportPost}>
         <BlockIcon className={classes.blockIcon} />
       </IconButton>
     </div>
@@ -340,11 +391,24 @@ function Post({
       </CardContent>
 
       <CardActions disableSpacing style={{ marginLeft: 20 }}>
-        <IconButton>
-          <PersonAdd />
-        </IconButton>
+        <FollowButton
+          isFollowing={isFollowing}
+          profileUserId={userId}
+          username={username}
+          showIcon
+        />
         <BookmarkIconButton post={post} user={user} />
       </CardActions>
+      {open && (
+        <SweetAlert
+          confirmBtnCssClass={`${classes.button} ${classes.success}`}
+          success
+          onConfirm={hideAlert}
+          onCancel={hideAlert}
+          title="Post URL copied!"
+          timeout={1000}
+        />
+      )}
     </Card>
   )
 }

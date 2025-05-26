@@ -49,7 +49,7 @@ export default function Pages(props) {
   })
 
   const getActiveRoute = (routesParameter) => {
-    const activeRoute = 'Default Brand Text'
+    const activeRoute = { name: 'Default Brand Text' }
     for (let i = 0; i < routesParameter.length; i++) {
       if (routesParameter[i].collapse) {
         const collapseActiveRoute = getActiveRoute(routesParameter[i].views)
@@ -59,7 +59,7 @@ export default function Pages(props) {
       } else if (
         window.location.href.indexOf(routesParameter[i].layout + routesParameter[i].path) !== -1
       ) {
-        return routesParameter[i].name
+        return routesParameter[i]
       }
     }
     return activeRoute
@@ -69,6 +69,7 @@ export default function Pages(props) {
       className={classes.content}
       style={{
         backgroundImage: `url(${Mountain})`,
+        backgroundPosition: 'left',
       }}
     >
       <Grid
@@ -77,9 +78,11 @@ export default function Pages(props) {
         justify="space-between"
         alignItems="stretch"
       >
-        <Grid item>
-          <AuthNavbar brandText={getActiveRoute(routes)} {...rest} />
-        </Grid>
+        {getActiveRoute(routes)?.hideNavbar ? null : (
+          <Grid item>
+            <AuthNavbar brandText={getActiveRoute(routes)?.name} {...rest} />
+          </Grid>
+        )}
         <Grid item>
           <div className={classes.wrapper} ref={wrapper}>
             <div
@@ -92,9 +95,11 @@ export default function Pages(props) {
             </div>
           </div>
         </Grid>
-        <Grid item>
-          <Footer white />
-        </Grid>
+        {getActiveRoute(routes)?.hideNavbar ? null : (
+          <Grid item>
+            <Footer white />
+          </Grid>
+        )}
       </Grid>
     </div>
   )

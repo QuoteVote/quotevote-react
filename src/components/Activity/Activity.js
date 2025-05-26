@@ -36,7 +36,8 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
   const classes = useStyles()
   const limit = 15
   const [offset, setOffset] = useState(0)
-  const conditions = ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED', 'LIKED']
+  // const conditions = ['POSTED', 'VOTED', 'COMMENTED', 'QUOTED', 'LIKED']
+  const conditions = ['POSTED']
   const [selectedEvent, setSelectedEvent] = useState(conditions)
   const [dateRangeFilter, setDateRangeFilter] = useState({ startDate: '', endDate: '' })
   const [selectAll, setSelectAll] = useState('ALL')
@@ -97,6 +98,7 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
         {showSubHeader && (
           <Grid item xs={12}>
             <SubHeader
+              showFilterIconButton={false}
               headerName="Activity Feed"
               setOffset={setOffset}
               showSubHeader={showSubHeader}

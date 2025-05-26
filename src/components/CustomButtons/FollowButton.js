@@ -9,6 +9,8 @@ import { GET_USER } from 'graphql/query'
 import Button from '@material-ui/core/Button'
 import classNames from 'classnames'
 import { updateFollowing } from 'store/user'
+import { PersonAdd, PersonAddDisabled } from '@material-ui/icons'
+import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles((theme) => ({
   followButton: {
@@ -32,6 +34,7 @@ function FollowButton({
   isFollowing,
   username,
   profileUserId,
+  showIcon = false,
   ...otherProps
 }) {
   const classes = useStyles()
@@ -63,25 +66,41 @@ function FollowButton({
   if (isFollowing) {
     const action = 'un-follow'
     return (
-      <Button
-        variant="contained"
-        className={classNames(classes.followButton, otherProps.className)}
-        onClick={() => handleClick(action)}
-      >
-        Un-Follow
-      </Button>
+      showIcon ? (
+        <IconButton
+          onClick={() => handleClick(action)}
+        >
+          <PersonAddDisabled />
+        </IconButton>
+      ) : (
+        <Button
+          variant="contained"
+          className={classNames(classes.followButton, otherProps.className)}
+          onClick={() => handleClick(action)}
+        >
+          Un-Follow
+        </Button>
+      )
     )
   }
 
   const action = 'follow'
   return (
-    <Button
-      variant="contained"
-      className={classNames(classes.followButton, otherProps.className)}
-      onClick={() => handleClick(action)}
-    >
-      Follow
-    </Button>
+    showIcon ? (
+      <IconButton
+        onClick={() => handleClick(action)}
+      >
+        <PersonAdd />
+      </IconButton>
+    ) : (
+      <Button
+        variant="contained"
+        className={classNames(classes.followButton, otherProps.className)}
+        onClick={() => handleClick(action)}
+      >
+        Follow
+      </Button>
+    )
   )
 }
 
@@ -89,6 +108,7 @@ FollowButton.propTypes = {
   username: PropTypes.string,
   isFollowing: PropTypes.any.isRequired,
   profileUserId: PropTypes.string.isRequired,
+  showIcon: PropTypes.bool,
 }
 
 export default FollowButton

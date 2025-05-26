@@ -58,15 +58,27 @@ const useStyles = makeStyles((theme) => ({
   content: {
     minHeight: theme.typography.pxToRem(130),
   },
+  iconButton: {
+    backgroundColor: 'transparent !important',
+    padding: 0,
+  },
 }))
 
-function ActivityHeader({ name, date }) {
+function ActivityHeader({ name, date, handleRedirectToProfile = null }) {
   const classes = useStyles()
   return (
     <div className={classes.activityHeader}>
-      <Typography color="textPrimary" variant="subtitle2">
-        {name}
-      </Typography>
+      <IconButton
+        className={classes.iconButton}
+        onClick={(e) => {
+          e.stopPropagation()
+          handleRedirectToProfile(name)
+        }}
+      >
+        <Typography color="textPrimary" variant="subtitle2">
+          {name}
+        </Typography>
+      </IconButton>
       <Typography color="textPrimary" variant="caption">
         {moment(date).calendar(null, {
           sameDay: '[Today]',
@@ -85,10 +97,11 @@ function ActivityHeader({ name, date }) {
 ActivityHeader.propTypes = {
   name: PropTypes.string,
   date: PropTypes.string,
+  handleRedirectToProfile: PropTypes.func,
 }
 
 function ActivityContent({
-  name, date, content, avatar, width, handleRedirectToProfile, username, onCardClick,
+  date, content, avatar, width, handleRedirectToProfile, username,
   post, activityType,
 }) {
   const classes = useStyles()
@@ -98,7 +111,10 @@ function ActivityContent({
   return (
     <Box display="flex" className={classes.content}>
       <Avatar
-        onClick={() => handleRedirectToProfile(username)}
+        onClick={(e) => {
+          e.stopPropagation()
+          handleRedirectToProfile(username)
+        }}
         className={classes.avatar}
       >
         <AvatarDisplay
@@ -108,8 +124,8 @@ function ActivityContent({
           {...avatar}
         />
       </Avatar>
-      <Box flexGrow={1} onClick={onCardClick}>
-        <ActivityHeader name={name} date={date} />
+      <Box flexGrow={1}>
+        <ActivityHeader name={username} date={date} handleRedirectToProfile={handleRedirectToProfile} />
         {isPosted && (
           <Typography className={classes.activityBody} variant="body1">
             <b>
@@ -141,14 +157,14 @@ function ActivityContent({
 }
 
 ActivityContent.propTypes = {
-  name: PropTypes.string,
+  // name: PropTypes.string,
   username: PropTypes.string,
   date: PropTypes.string,
   content: PropTypes.string,
   avatar: PropTypes.any,
   width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']),
   handleRedirectToProfile: PropTypes.func,
-  onCardClick: PropTypes.func,
+  // onCardClick: PropTypes.func,
   post: PropTypes.object,
   activityType: PropTypes.string,
 }
@@ -161,14 +177,17 @@ function ActivityActions({
     <>
       <Typography variant="caption" style={{ paddingLeft: 5 }}>{interactions.length}</Typography>
       <IconButton
-        onClick={(e) => onLike(liked, e)}
+        onClick={(e) => {
+          e.stopPropagation()
+          onLike(liked, e)
+        }}
         className={classes.expand}
       >
         {liked ? (
           <BookmarkIcon />
         ) : (
-            <BookmarkBorderIcon />
-          )}
+          <BookmarkBorderIcon />
+        )}
       </IconButton>
     </>
   )
@@ -231,7 +250,7 @@ export const ActivityCard = memo(
 
     const classes = useStyles({ cardColor, width })
     return (
-      <Card className={classes.root}>
+      <Card className={classes.root} onClick={onCardClick}>
         <CardContent>
           <ActivityContent
             name={name}
@@ -240,7 +259,7 @@ export const ActivityCard = memo(
             avatar={avatar}
             username={username}
             handleRedirectToProfile={handleRedirectToProfile}
-            onCardClick={onCardClick}
+            // onCardClick={onCardClick}
             post={post}
             activityType={activityType}
           />

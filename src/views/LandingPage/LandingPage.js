@@ -4,11 +4,17 @@ import { tokenValidator } from 'store/user'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styles from 'assets/jss/material-dashboard-pro-react/views/landingPageStyle'
-import { ListItem } from '@material-ui/core'
+import {
+  Card,
+  Link,
+  ListItem,
+  Typography,
+} from '@material-ui/core'
 import { isMobile } from 'react-device-detect'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
 import Button from '../../mui-pro/CustomButtons/Button'
+import Quote from '../../assets/img/QuoteVoteLogo.png';
 
 const useStyles = makeStyles(styles)
 
@@ -31,8 +37,19 @@ export default function LandingPage() {
       justify="center"
       className={classes.container}
     >
-      <GridItem xs={12}>
+      <GridItem xs={12} className={classes.listContainer}>
         <ListItem className={classes.listItem}>
+          <img alt="voxPOP" src={Quote} className={classes.voxPop} />
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <Button
+            variant="outlined"
+            className={classes.listItemTextLogin}
+            type="submit"
+            onClick={() => history.push('/auth/login')}
+          >
+            Login
+          </Button>
           <Button
             variant="contained"
             className={classes.listItemTextRequestInvite}
@@ -42,15 +59,49 @@ export default function LandingPage() {
             Request Invite
           </Button>
         </ListItem>
+        {/* <ListItem className={classes.listItem}>
+        </ListItem> */}
+        <ListItem className={classes.listItem}>
+          <Card className={classes.card}>
+            <Typography variant="h4" className={classes.listItemHeaderText}>
+              Welcome to Quote.Vote
+            </Typography>
+            <Typography className={classes.listItemText}>
+              Quote Vote is a non-for-profit project, and encourages users to donate their money or time, to be an active part of the change we’d all like to see in the world.
+            </Typography>
+            <Typography className={classes.listItemText}>
+              We understand the delicate balance between fostering freedom of expression and curbing harmful behavior.
+            </Typography>
+            <Typography className={classes.listItemText}>
+              Our moderation policies aim to maximize the benefits of free speech while minimizing the potential for harm.
+            </Typography>
+            <Typography className={classes.listItemText}>
+              We believe that thoughtful, respectful discourse leads to stronger communities and richer dialogue.
+            </Typography>
+          </Card>
+        </ListItem>
         <ListItem className={classes.listItem}>
           <Button
             variant="contained"
-            className={classes.listItemTextRequestInvite}
+            className={classes.listItemTextDonate}
             type="submit"
-            onClick={() => history.push('/auth/learn-more')}
           >
-            Learn More
+            Donate
           </Button>
+        </ListItem>
+        <ListItem className={classes.contact}>
+          Contact
+          {' '}
+          <Link target="_black" rel="noreferrer" href="mailto:admin@quote.vote">admin@quote.vote</Link>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <Typography className={classes.listItemMakeWithLove}>
+            Made with
+            {' '}
+            <span>&#9829;</span>
+            {' '}
+            on Earth
+          </Typography>
         </ListItem>
       </GridItem>
     </GridContainer>

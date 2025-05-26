@@ -189,12 +189,22 @@ function PostCard(props) {
     history.push(`/Profile/${username}`)
   }
   return (
-    <Card className={classNames(classes.cardRootStyle, classes[cardBg], classes.fontColor)}>
+    <Card
+      className={classNames(classes.cardRootStyle, classes[cardBg], classes.fontColor)}
+      onClick={() => {
+        // add post id to redux state
+        dispatch(SET_SELECTED_POST(_id))
+        history.push(url.replace(/\?/g, ''))
+      }}
+    >
       <CardHeader
         avatar={(
           <IconButton
             size="small"
-            onClick={() => handleRedirectToProfile(creator.username)}
+            onClick={(e) => {
+              e.stopPropagation()
+              handleRedirectToProfile(creator.username)
+            }}
           >
             <Avatar>
               <AvatarDisplay
@@ -206,19 +216,28 @@ function PostCard(props) {
             </Avatar>
           </IconButton>
         )}
-        action={(
-          <IconButton
-            onClick={() => onHidePost(props)}
-            classes={{ root: classes.iconButton }}
-            style={{ paddingLeft: 0 }}
-          >
-            <ClearIcon />
-          </IconButton>
-        )}
+        // action={(
+        //   <IconButton
+        //     onClick={() => onHidePost(props)}
+        //     classes={{ root: classes.iconButton }}
+        //     style={{ paddingLeft: 0 }}
+        //   >
+        //     <ClearIcon />
+        //   </IconButton>
+        // )}
         title={(
-          <Typography className={classes.username}>
-            {creator ? creator.name : 'Anonymous'}
-          </Typography>
+          <IconButton
+            disableFocusRipple
+            size="small"
+            onClick={(e) => {
+              e.stopPropagation()
+              handleRedirectToProfile(creator.username)
+            }}
+          >
+            <Typography className={classes.username}>
+              {creator ? creator.username : 'Anonymous'}
+            </Typography>
+          </IconButton>
         )}
         subheader={(
           <Typography className={classes.dateTime}>
@@ -246,11 +265,6 @@ function PostCard(props) {
           <Grid item xs={12}>
             <Typography
               className={classes.postTitle}
-              onClick={() => {
-                // add post id to redux state
-                dispatch(SET_SELECTED_POST(_id))
-                history.push(url.replace(/\?/g, ''))
-              }}
             >
               {stringLimit(title, limitText ? 20 : postTitleStringLimit)}
             </Typography>

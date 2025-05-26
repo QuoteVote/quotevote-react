@@ -17,6 +17,13 @@ const useStyles = makeStyles(() => ({
   root: {
     marginTop: 10,
   },
+  emptyPost: {
+    marginTop: 100,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   link: {
     color: '#00bcd4',
   },
@@ -86,8 +93,6 @@ function PostPage({ postId }) {
   } = post || { comments: [], votes: [], quotes: [] }
   let postActions = []
 
-  const { url } = !loadingPost && post
-
   if (!isEmpty(comments)) {
     postActions = postActions.concat(comments)
   }
@@ -108,25 +113,26 @@ function PostPage({ postId }) {
     return (
       <Grid
         container
-        direction="row"
+        direction="row" 
         justify="space-around"
         alignItems="flex-start"
-        spacing={4}
+        // spacing={4}
         className={classes.root}
         style={{ position: 'relative' }}
       >
-        <Grid item xs={12}>
-          <Typography>
-            Invalid post.
-            {' '}
-            <Link href="/home" className={classes.link}>
-              Return to homepage.
-            </Link>
+        <Grid item xs={12} className={classes.emptyPost}>
+          <Typography variant="h6" align="center">
+            Invalid post
           </Typography>
+          <Link href="/home" className={classes.link}>
+            Return to homepage.
+          </Link>
         </Grid>
       </Grid>
     )
   }
+
+  const { url } = !loadingPost && post
 
   return (
     <Grid
