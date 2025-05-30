@@ -25,6 +25,7 @@ and democratic technologists alike.
   - [Activity Feed Page](#6-activity-feed-page)
 - [GraphQL API Documentation](#graphql-api-documentation)
 - [Feature Development](#feature-development)
+- [Storybook Guide](docs/storybook-guide.md)
 - [Contributing](#contributing)
 
 ## Requirements
