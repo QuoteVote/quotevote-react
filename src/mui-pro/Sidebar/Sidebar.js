@@ -52,7 +52,7 @@ class MenuSidebar extends React.Component {
     };
   }
 
-  // this creates the intial state of this component based on the collapse routes
+  // this creates the initial state of this component based on the collapse routes
   // that it gets through this.props.routes
   getCollapseStates = (routes) => {
     let initialState = {};

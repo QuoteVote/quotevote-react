@@ -1,9 +1,4 @@
 {
-  "license": "AGPL-3.0-or-later"
-}
-
-
-{
   "name": "quotevote-react",
   "version": "1.0.0",
   "private": true,

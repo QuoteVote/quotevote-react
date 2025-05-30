@@ -56,7 +56,7 @@ export default function RegisterPage() {
     setPassword(passwordValue)
   }
   const handleSubmit = (event) => {
-    event.preventDeafult()
+    event.preventDefault()
     // THIS IS UNSAFE
     // WIP
     // eslint-disable-next-line no-console

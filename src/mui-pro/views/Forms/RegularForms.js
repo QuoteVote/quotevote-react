@@ -64,8 +64,8 @@ export default function RegularForms() {
           <CardBody>
             <form>
               <CustomInput
-                labelText="Email adress"
-                id="email_adress"
+                labelText="Email address"
+                id="email_address"
                 formControlProps={{
                   fullWidth: true,
                 }}
@@ -128,7 +128,7 @@ export default function RegularForms() {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={9}>
                   <CustomInput
-                    id="email_adress2"
+                    id="email_address2"
                     formControlProps={{
                       fullWidth: true,
                     }}

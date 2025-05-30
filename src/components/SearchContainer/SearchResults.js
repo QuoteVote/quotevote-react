@@ -18,7 +18,7 @@ export default function SearchResultsView({ searchResults, isLoading, isError })
   if (isError) {
     return (
       <Card className={classes.progress}>
-        An error has occured.c
+        An error has occurred.
       </Card>
     )
   }
@@ -37,14 +37,14 @@ export default function SearchResultsView({ searchResults, isLoading, isError })
       ) : (
         <>
           {/* searchResults has more than one query.
-            *  Interate over the object to check each query's results
+            *  Iterate over the object to check each query's results
             */
           }
           {Object.keys(searchResults).map((resultCategory, id) => {
             // searchresult is an object, using resultCategory as a key
             // returning the name of the query being ran by searchResults
             const category = searchResults[resultCategory]
-            // If the query is empty, display the the approiate header, and "No Results"
+            // If the query is empty, display the appropriate header, and "No Results"
             if (category.length === 0) {
               let typename
               switch (resultCategory) {
@@ -113,7 +113,7 @@ export default function SearchResultsView({ searchResults, isLoading, isError })
               </Card>
             )
           })}
-          {/* Adds additional spacing so the bottom of the list cna be seen */}
+          {/* Adds additional spacing so the bottom of the list can be seen */}
           <div style={{ margin: '64px 0', zIndex: 10 }}>End of Results</div>
         </>
       )}

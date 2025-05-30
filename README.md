@@ -691,7 +691,7 @@ Rest of git message
 8. Create your pull request with a descriptive title.  
 See the deployed version on the netlify preview build. Wait for code review, feedback, or approval.
 
-  To see the preview build from Netlify, and scroll down to the bottom. Next to where it says "Deploy preivew", it says Details. If it's still building, it'll direct you to the netlify log of the build process. Once complete it will show a green check like the example below.
+  To see the preview build from Netlify, and scroll down to the bottom. Next to where it says "Deploy preview", it says Details. If it's still building, it'll direct you to the netlify log of the build process. Once complete it will show a green check like the example below.
 
   ![Netlify Deploy Preview](https://i.imgur.com/oPYdnvc.png)
 
@@ -700,7 +700,7 @@ See the deployed version on the netlify preview build. Wait for code review, fee
 <!-- ## File Structure -->
 <!-- Work in Progress -->
 
-### Addditional Notes on Contributions
+### Additional Notes on Contributions
 
 ### React Hooks + GraphQL
 - Use @apollo/react-hooks <!-- if you want to use hooks. -->
