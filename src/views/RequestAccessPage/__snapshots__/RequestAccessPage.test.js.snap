@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Request Access Page test - renders correctly 1`] = `
+<div
+  class="makeStyles-container-1"
+>
+  <div
+    class="MuiGrid-root makeStyles-inputContainer-30 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+    display="flex"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root makeStyles-input-31"
+    >
+      <input
+        class="MuiInputBase-input MuiInput-input"
+        placeholder="Enter Email"
+        type="text"
+        value=""
+      />
+    </div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-37 makeStyles-requestAccessBtn-32"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        Request Invite
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <p
+      class="MuiTypography-root MuiTypography-body1"
+    />
+  </div>
+</div>
+`;

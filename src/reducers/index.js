@@ -1,7 +1,0 @@
-export { default as artist } from "./artistReducer"
-export { default as author } from "./authorReducer"
-export { default as login } from "./loginReducer"
-export { default as signup } from "./signupReducer"
-export { default as routing } from "./routing.reducer"
-export { default as filterContent } from "./filterContentReducer"
-export { default as chat } from "./chatReducer"

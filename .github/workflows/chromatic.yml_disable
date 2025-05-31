@@ -1,0 +1,16 @@
+#name: 'Chromatic'
+#on: push
+#
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v1
+#      - run: |
+#          yarn install && yarn run test:generate-output && yarn run build-storybook
+#      - uses: chromaui/action@v1
+#        env:
+#          SKIP_PREFLIGHT_CHECK: true
+#        with:
+#          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+#          token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,274 +1,163 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React, { useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import {
-  Message,
-  MessageMedia,
-  MessageText,
-  MessageTitle
-} from "@livechat/ui-kit"
-import { Button } from "semantic-ui-react"
-import moment from "moment"
-import { connect } from "react-redux"
-import { chatReaction } from "../../actions/creators/chatCreator"
-import ReactionEmojiPortal from "./ReactionEmojiPortal"
-import { Query, Subscription } from "react-apollo"
-import EmojiIcon from "./EmojiIcon"
-import ReactTooltip from "react-tooltip"
-import {
-  CREATE_USER_MESSAGE_REACTION_MUTATION,
-  DELETE_USER_MESSAGE_REACTION_MUTATION,
-  MESSAGE_REACTIONS_QUERY,
-  MESSAGE_REACTIONS_USER_TOOLTIP_QUERY,
-  USER_REACTION_SUBSCRIPTION
-} from "./ChatGraphQL"
+  Avatar, Grid, IconButton, Typography,
+} from '@material-ui/core'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { useDispatch, useSelector } from 'react-redux'
+import { useMutation } from '@apollo/react-hooks'
+import MessageSend from './MessageSend'
+import MessageItemList from './MessageItemList'
+import { SELECTED_CHAT_ROOM } from '../../store/chat'
+import AvatarDisplay from '../Avatar'
+import { READ_MESSAGES } from '../../graphql/mutations'
+import { GET_CHAT_ROOMS } from '../../graphql/query'
 
-class MessageBox extends React.PureComponent {
-  state = {
-    thumbsUp: false,
-    thumbsUpId: "",
-    thumbsDown: false,
-    thumbsDownId: ""
-  }
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  })
 
-  render = () => {
-    const { message } = this.props
-    const variables = { messageId: message._id }
-    return (
-      <div onMouseEnter={this.toggleReactionVisibility}>
-        <Query
-          query={MESSAGE_REACTIONS_QUERY}
-          variables={variables}
-          onCompleted={data => {
-            const { userMessageReactions } = data
-            const hasThumbsUp = userMessageReactions.filter(
-              userMessageReaction => userMessageReaction.reaction === "👍"
-            )
-            const hasThumbsDown = userMessageReactions.filter(
-              userMessageReaction => userMessageReaction.reaction === "👎"
-            )
-
-            const thumbsUp = hasThumbsUp && hasThumbsUp.length
-            let thumbsUpId = ""
-            if (thumbsUp) {
-              thumbsUpId = hasThumbsUp[0]._id
-            }
-
-            const thumbsDown = hasThumbsUp && hasThumbsDown.length
-            let thumbsDownId = ""
-            if (thumbsDown) {
-              thumbsDownId = hasThumbsDown[0]._id
-            }
-
-            this.setState({
-              thumbsUp,
-              thumbsUpId,
-              thumbsDown,
-              thumbsDownId
-            })
-          }}
-        >
-          {({ loading, error, client, data }) => {
-            if (loading || error) return null
-            return (
-              <React.Fragment>
-                {this.renderMessage()}
-                {this.renderReaction(client, data)}
-              </React.Fragment>
-            )
-          }}
-        </Query>
-      </div>
-    )
-  }
-
-  toggleReactionVisibility = () => {
-    const { message } = this.props
-    this.props.toggleChatReaction(message._id)
-  }
-
-  renderMessage = () => {
-    const { message } = this.props
-    return (
-      <Message
-        authorName={message.userName}
-        date={moment(message.date).format("MMM D, h:mm a")}
-        isOwn={false}
-        key={message._id}
-        avatar={message.userAvatar}
-      >
-        {message.title && <MessageTitle title={message.title} />}
-        {message.text && <MessageText>{message.text}</MessageText>}
-        {message.imageUrl && (
-          <MessageMedia>
-            <img src={message.imageUrl} alt="" />
-          </MessageMedia>
-        )}
-      </Message>
-    )
-  }
-
-  handleDeleteUserReaction = async (reactionId, client) => {
-    const { messageId } = this.props
-    client.mutate({
-      mutation: DELETE_USER_MESSAGE_REACTION_MUTATION,
-      variables: { reactionId },
-      refetchQueries: [
-        {
-          query: MESSAGE_REACTIONS_QUERY,
-          variables: { messageId }
-        }
-      ]
-    })
-  }
-
-  handleThumbsUpDown = async (client, key, symbol) => {
-    const { messageId } = this.props
-    if (!this.state[key]) {
-      client.mutate({
-        mutation: CREATE_USER_MESSAGE_REACTION_MUTATION,
-        variables: { messageId, reaction: symbol },
-        refetchQueries: [
-          {
-            query: MESSAGE_REACTIONS_QUERY,
-            variables: { messageId }
-          }
-        ]
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
       })
-    } else {
-      await this.handleDeleteUserReaction(this.state[`${key}Id`], client)
-    }
-  }
-
-  renderReactUserTooltip = (messageId, reactionId) => {
-    if (!reactionId || reactionId === "") {
-      return null
     }
 
-    return (
-      <Query
-        query={MESSAGE_REACTIONS_USER_TOOLTIP_QUERY}
-        variables={{ messageId, reactionId }}
-      >
-        {({ loading, error, data }) => {
-          if (loading || error) return null
-          return (
-            <React.Fragment>
-              <ReactTooltip id={reactionId}>
-                {data.userMessageReactionToolTip.map(userMessageReaction => (
-                  <span key={`span-${userMessageReaction.id}`}>{`${
-                    userMessageReaction.user.name
-                  } reacted`}</span>
-                ))}
-              </ReactTooltip>
-            </React.Fragment>
-          )
-        }}
-      </Query>
-    )
-  }
+    // Add event listener
+    window.addEventListener('resize', handleResize)
 
-  renderReactButtons = (client, data) => {
-    const { userMessageReactions } = data
-    const newUserMessageReactions = userMessageReactions.filter(
-      userMessageReaction =>
-        userMessageReaction.reaction !== "👍" &&
-        userMessageReaction.reaction !== "👎"
-    )
+    // Call handler right away so state gets updated with initial window size
+    handleResize()
 
-    const { message } = this.props
-    return (
-      <React.Fragment>
-        <Subscription
-          subscription={USER_REACTION_SUBSCRIPTION}
-          variables={{ messageId: message._id }}
-          onSubscriptionData={({ client, subscriptionData }) => {
-            console.log("User reaction update", subscriptionData)
-            const variables = { messageId: message._id }
-            client.query({
-              query: MESSAGE_REACTIONS_QUERY,
-              variables,
-              fetchPolicy: "network-only"
-            })
-          }}
-        />
-        {newUserMessageReactions.map(userMessageReaction => (
-          <Button
-            size="mini"
-            circular
-            color="blue"
-            key={userMessageReaction._id}
-            data-tip=""
-            data-for={userMessageReaction._id}
-            onClick={e =>
-              this.handleDeleteUserReaction(userMessageReaction._id, client)
-            }
-          >
-            {this.renderReactUserTooltip(message._id, userMessageReaction._id)}
-            <EmojiIcon symbol={userMessageReaction.reaction} />
-          </Button>
-        ))}
-      </React.Fragment>
-    )
-  }
+    // Remove event listener on cleanup
+    return () => window.removeEventListener('resize', handleResize)
+  }, []) // Empty array ensures that effect is only run on mount
 
-  renderReaction = (client, data) => {
-    const { messageId, message } = this.props
-    const { thumbsUp, thumbsDown, thumbsUpId, thumbsDownId } = this.state
-    const showAll = messageId === message._id
-    return (
-      <div style={{ float: "left" }}>
-        {this.renderReactButtons(client, data)}
-        {this.renderReactUserTooltip(message._id, thumbsUpId)}
-        {this.renderReactUserTooltip(message._id, thumbsDownId)}
-        {showAll || thumbsUp ? (
-          <Button
-            circular
-            icon="thumbs up"
-            color={thumbsUp ? "blue" : "grey"}
-            onClick={() => this.handleThumbsUpDown(client, "thumbsUp", "👍")}
-            data-tip=""
-            data-for={thumbsUpId}
-          />
-        ) : (
-          ""
-        )}
-        {showAll || thumbsDown ? (
-          <Button
-            circular
-            icon="thumbs down"
-            onClick={() => this.handleThumbsUpDown(client, "thumbsDown", "👎")}
-            color={thumbsDown ? "blue" : "grey"}
-            data-tip=""
-            data-for={thumbsDownId}
-          />
-        ) : (
-          ""
-        )}
-        {showAll ? (
-          <ReactionEmojiPortal messageId={messageId} client={client} />
-        ) : (
-          ""
-        )}
-      </div>
-    )
-  }
+  return windowSize
 }
 
-MessageBox.propTypes = {
-  message: PropTypes.object.isRequired
-}
+const useStyles = makeStyles(() => ({
+  header: {
+    backgroundColor: '#FFFFFF',
+    width: 380,
+    padding: 5,
+  },
+  content: {
+    backgroundColor: '#F1F1F1',
+    width: 380,
+    padding: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'nowrap',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    alignContent: 'stretch',
+    height: '90%',
+  },
+  sendMessage: {
+    flexGrow: 1,
+    width: '95%',
+    position: 'fixed',
+    bottom: 0,
+    padding: 10,
+  },
+}))
 
-const mapStateToProps = ({ chat }) => {
-  return chat
-}
-
-const mapDispatchToProps = dispatch => ({
-  toggleChatReaction: messageId => {
-    dispatch(chatReaction(messageId))
+function Header() {
+  const dispatch = useDispatch()
+  const handleBack = () => {
+    dispatch(SELECTED_CHAT_ROOM(null))
   }
-})
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MessageBox)
+  const { title, avatar, messageType } = useSelector((state) => state.chat.selectedRoom.room)
+
+  return (
+    <Grid
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="center"
+      spacing={1}
+    >
+      <Grid item>
+        <IconButton onClick={handleBack}>
+          <ArrowBackIcon />
+        </IconButton>
+      </Grid>
+      <Grid item>
+        <Avatar>
+          {messageType === 'USER' ?
+            <AvatarDisplay height={40} width={40} {...avatar} /> :
+            title[0]}
+        </Avatar>
+      </Grid>
+      <Grid item>
+        <Typography>{title}</Typography>
+      </Grid>
+
+    </Grid>
+  )
+}
+
+function Content() {
+  const classes = useStyles()
+  const { _id: messageRoomId, title, messageType } = useSelector((state) => state.chat.selectedRoom.room)
+
+  return (
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="stretch"
+    >
+      <Grid item>
+        <MessageItemList />
+      </Grid>
+      <Grid item className={classes.sendMessage}>
+        <MessageSend messageRoomId={messageRoomId} type={messageType} title={title} />
+      </Grid>
+    </Grid>
+  )
+}
+
+function MessageBox() {
+  const classes = useStyles()
+  const size = useWindowSize()
+  const maxHeight = size.height - 100
+  const { _id: messageRoomId } = useSelector((state) => state.chat.selectedRoom.room)
+  const [updateMessageReadBy] = useMutation(READ_MESSAGES)
+
+  useEffect(() => {
+    updateMessageReadBy({
+      variables: { messageRoomId },
+      refetchQueries: [{ query: GET_CHAT_ROOMS }],
+    })
+  }, [messageRoomId, updateMessageReadBy])
+
+  return (
+    <Grid
+      container
+      direction="column"
+      justify="flex-start"
+      alignItems="stretch"
+      style={{ height: maxHeight }}
+    >
+      <Grid item className={classes.header}>
+        <Header />
+      </Grid>
+      <Grid item className={classes.content}>
+        <Content />
+      </Grid>
+    </Grid>
+  )
+}
+
+export default MessageBox
