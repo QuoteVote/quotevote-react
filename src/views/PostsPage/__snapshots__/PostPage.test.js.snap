@@ -168,6 +168,23 @@ exports[`Post Page test - renders correctly 1`] = `
     class="MuiGrid-root makeStyles-root-1 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6"
   >
     <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-flex-start MuiGrid-justify-xs-space-between"
+    />
+    <span
+      class="MuiSkeleton-root MuiSkeleton-rect MuiSkeleton-pulse"
+      style="height: 118px;"
+    />
+    <br />
+    <span
+      class="MuiSkeleton-root MuiSkeleton-rect MuiSkeleton-pulse"
+      style="height: 118px;"
+    />
+    <br />
+    <span
+      class="MuiSkeleton-root MuiSkeleton-rect MuiSkeleton-pulse"
+      style="height: 118px;"
+    />
+    <div
       class="MuiGrid-root makeStyles-root-3 MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
     >
       <div
@@ -206,23 +223,6 @@ exports[`Post Page test - renders correctly 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-flex-start MuiGrid-justify-xs-space-between"
-    />
-    <span
-      class="MuiSkeleton-root MuiSkeleton-rect MuiSkeleton-pulse"
-      style="height: 118px;"
-    />
-    <br />
-    <span
-      class="MuiSkeleton-root MuiSkeleton-rect MuiSkeleton-pulse"
-      style="height: 118px;"
-    />
-    <br />
-    <span
-      class="MuiSkeleton-root MuiSkeleton-rect MuiSkeleton-pulse"
-      style="height: 118px;"
-    />
   </div>
 </div>
 `;

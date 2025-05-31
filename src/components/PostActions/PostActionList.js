@@ -30,6 +30,19 @@ function PostActionList({
     }
   }, [hash, loading, postActions, dispatch])
 
+  const containerRef = React.useRef(null)
+
+  React.useEffect(() => {
+    if (containerRef && containerRef.current) {
+      const element = containerRef.current
+      element.scroll({
+        top: element.scrollHeight,
+        left: 0,
+        behavior: 'smooth',
+      })
+    }
+  }, [postActions])
+
   return (
     <>
       <Grid
@@ -58,8 +71,9 @@ function PostActionList({
             position: 'relative',
             overflow: 'auto',
           }}
+          ref={containerRef}
         >
-          {postActions.sort((a, b) => moment(b.created).diff(moment(a.created))).map((action) => (
+          {postActions.sort((a, b) => moment(a.created).diff(moment(b.created))).map((action) => (
             <ListItem
               id={`#${action._id}`}
               key={action._id}

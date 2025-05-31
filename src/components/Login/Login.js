@@ -147,6 +147,7 @@ function LoginForm({ onSubmit = () => {}, loading, loginError }) {
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  loginError: PropTypes.object,
 }
 
 function Login({ onSubmit = () => {}, loading = false }) {
