@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { IconButton, SvgIcon } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import RichTooltip from '../Chat/RichToolTip'
 import NotificationContent from './Notification'
 import { ReactComponent as NotificationsSvg } from '../../assets/svg/Notifications.svg'
-import { ReactComponent as NotificationsActiveSvg } from '../../assets/svg/NotificationsActive.svg'
+import NotificationsActiveSvg from '../../assets/svg/NotificationsActive.svg'
 import { GET_NOTIFICATIONS } from '../../graphql/query'
 import { NEW_NOTIFICATION_SUBSCRIPTION } from '../../graphql/subscription'
 
@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#F1F1F1',
   },
 }))
+
 function NotificationMenu({ fontSize }) {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
   const selectedRoom = useSelector((state) => state.chat.selectedRoom)
   const tipColor = classes.tipColor.backgroundColor
   const tipBackgroundImage = classes.tipColor.backgroundColor
-  const [svgIcon, setSvgIcon] = useState(NotificationsSvg)
+  const [isHovered, setIsHovered] = useState(false)
 
   const { loading, data, refetch } = useQuery(GET_NOTIFICATIONS)
   const userId = useSelector((state) => state.user.data._id)
@@ -67,19 +68,25 @@ function NotificationMenu({ fontSize }) {
         <StyledBadge
           color="error"
           badgeContent={notifications.length}
-          onMouseEnter={() => setSvgIcon(NotificationsActiveSvg)}
-          onMouseLeave={() => setSvgIcon(NotificationsSvg)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <IconButton
             aria-label="Chat"
             color="inherit"
             onClick={() => setOpen(!open)}
           >
-            <SvgIcon
-              component={svgIcon}
-              fontSize={fontSize}
-              viewBox="0 0 49 46"
-            />
+            {isHovered ? (
+              <img 
+                src={NotificationsActiveSvg} 
+                alt="notifications active" 
+                style={{width: fontSize === 'large' ? '49px' : '32px', height: fontSize === 'large' ? '46px' : '30px'}} 
+              />
+            ) : (
+              <NotificationsSvg 
+                style={{fontSize: fontSize, width: fontSize === 'large' ? '49px' : '32px', height: fontSize === 'large' ? '46px' : '30px'}} 
+              />
+            )}
           </IconButton>
         </StyledBadge>
       </RichTooltip>

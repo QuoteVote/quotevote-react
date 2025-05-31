@@ -17,8 +17,8 @@ import Button from '@material-ui/core/Button'
 import Hidden from '@material-ui/core/Hidden'
 import Avatar from '@material-ui/core/Avatar'
 import { ReactComponent as HomeSvg } from '../../assets/svg/Home.svg'
-import { ReactComponent as TrendingSvg } from '../../assets/svg/TrendingIcon.svg'
-import { ReactComponent as AddPostSvg } from '../../assets/svg/AddPost.svg'
+import TrendingSvg from '../../assets/svg/TrendingIcon.svg'
+import AddPostSvg from '../../assets/svg/AddPost.svg'
 import QuoteIcon from '../../assets/img/QuoteIcon.png'
 import AvatarPreview from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
@@ -93,10 +93,10 @@ function MainNavBar(props) {
               <NavLink to="/TrendingContent">
                 <Tab
                   icon={(
-                    <SvgIcon
-                      component={TrendingSvg}
-                      fontSize={fontSize}
-                      viewBox="0 0 50 50"
+                    <img 
+                      src={TrendingSvg} 
+                      alt="Trending" 
+                      style={{width: fontSize === 'large' ? '50px' : '38px', height: fontSize === 'large' ? '50px' : '38px'}} 
                     />
                   )}
                   aria-label="Trending"
@@ -110,10 +110,10 @@ function MainNavBar(props) {
             <Grid item lg={4}>
               <Tab
                 icon={(
-                  <SvgIcon
-                    component={AddPostSvg}
-                    fontSize={fontSize}
-                    viewBox="0 0 32 32"
+                  <img 
+                    src={AddPostSvg} 
+                    alt="Add Post" 
+                    style={{width: fontSize === 'large' ? '32px' : '24px', height: fontSize === 'large' ? '32px' : '24px'}} 
                   />
                 )}
                 aria-label="Post"

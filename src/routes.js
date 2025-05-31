@@ -7,9 +7,9 @@ import PostPage from 'views/PostsPage'
 import LogoutPage from './components/LogoutPage'
 import { ReactComponent as HomeSvg } from './assets/svg/Home.svg'
 import ProfileAvatar from './components/Profile/ProfileAvatar'
-import { ReactComponent as TrendingSvg } from './assets/svg/TrendingIcon.svg'
-import { ReactComponent as AddPostSvg } from './assets/svg/AddPost.svg'
-import { ReactComponent as NotificationsActiveSvg } from './assets/svg/NotificationsActive.svg'
+import TrendingSvg from './assets/svg/TrendingIcon.svg'
+import AddPostSvg from './assets/svg/AddPost.svg'
+import NotificationsActiveSvg from './assets/svg/NotificationsActive.svg'
 import NotificationMobileView from './components/Notifications/NotificationMobileView'
 
 const routes = [
@@ -25,14 +25,14 @@ const routes = [
     path: 'TrendingContent',
     name: 'Trending Content',
     rtlName: 'التقويم',
-    icon: TrendingSvg,
+    icon: () => <img src={TrendingSvg} alt="Trending" style={{width: '100%', height: '100%'}} />,
     component: TrendingPosts,
     layout: '/',
   },
   {
     path: 'post',
     name: 'Posts',
-    icon: AddPostSvg,
+    icon: () => <img src={AddPostSvg} alt="Add Post" style={{width: '100%', height: '100%'}} />,
     component: PostPage,
     layout: '/',
   },
@@ -40,7 +40,7 @@ const routes = [
     path: 'Notifications',
     name: 'Notifications',
     rtlName: 'التقويم',
-    icon: NotificationsActiveSvg,
+    icon: () => <img src={NotificationsActiveSvg} alt="Notifications" style={{width: '100%', height: '100%'}} />,
     component: NotificationMobileView,
     layout: '/',
   },
