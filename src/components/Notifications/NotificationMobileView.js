@@ -1,4 +1,3 @@
-import React from 'react'
 import { Grid } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 function NotificationMobileView() {
   const classes = useStyles()
-  const { loading, data, refetch } = useQuery(GET_NOTIFICATIONS)
+  const { loading, data, refetch, error } = useQuery(GET_NOTIFICATIONS)
   const userId = useSelector((state) => state.user.data._id)
   useSubscription(
     NEW_NOTIFICATION_SUBSCRIPTION,
@@ -27,7 +26,7 @@ function NotificationMobileView() {
     },
   )
 
-  const { notifications } = loading ? { notifications: [] } : data
+  const { notifications } = loading || error || !data ? { notifications: [] } : data
 
   return (
     <Grid className={classes.root}>

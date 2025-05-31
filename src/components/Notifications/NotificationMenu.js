@@ -40,7 +40,7 @@ function NotificationMenu({ fontSize }) {
   const tipBackgroundImage = classes.tipColor.backgroundColor
   const [isHovered, setIsHovered] = useState(false)
 
-  const { loading, data, refetch } = useQuery(GET_NOTIFICATIONS)
+  const { loading, data, refetch, error } = useQuery(GET_NOTIFICATIONS)
   const userId = useSelector((state) => state.user.data._id)
   useSubscription(
     NEW_NOTIFICATION_SUBSCRIPTION,
@@ -52,7 +52,7 @@ function NotificationMenu({ fontSize }) {
     },
   )
 
-  const { notifications } = loading ? { notifications: [] } : data
+  const { notifications } = loading || error || !data ? { notifications: [] } : data
 
   return (
     <div className={classes.root}>
