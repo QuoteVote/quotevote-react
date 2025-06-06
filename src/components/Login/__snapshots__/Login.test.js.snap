@@ -131,13 +131,29 @@ exports[`Login test - renders correctly 1`] = `
           />
           <a
             class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-7 MuiTypography-colorPrimary"
-            href="/auth/request-access"
-          >
-            Request Access
-          </a>
-        </p>
-      </div>
+          href="/auth/request-access"
+        >
+          Request Access
+        </a>
+      </p>
     </div>
+    <div
+      class="MuiGrid-root MuiGrid-item"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body1"
+      >
+        <a
+          class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-link-7 MuiTypography-colorPrimary"
+          href="https://github.com/QuoteVote/quotevote-react"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source Code
+        </a>
+      </p>
+    </div>
+  </div>
   </div>
 </div>
 `;

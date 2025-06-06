@@ -187,6 +187,18 @@ function Login({ onSubmit = () => {}, loading = false }) {
               </Link>
             </Typography>
           </Grid>
+          <Grid item>
+            <Typography variant="body1">
+              <Link
+                className={classes.link}
+                href="https://github.com/QuoteVote/quotevote-react"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source Code
+              </Link>
+            </Typography>
+          </Grid>
         </Grid>
       </CardBody>
     </Card>
