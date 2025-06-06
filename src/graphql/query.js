@@ -205,43 +205,35 @@ export const GET_ACTION_REACTIONS = gql`
 `
 
 export const GET_TOP_POSTS = gql`
-  query topPosts(
-    $limit: Int!
-    $offset: Int!
-    $searchKey: String!
-    $startDateRange: String
-    $endDateRange: String
-  ) {
-    posts(
-      limit: $limit
-      offset: $offset
-      searchKey: $searchKey
-      startDateRange: $startDateRange
-      endDateRange: $endDateRange
-    ) {
+  query posts($limit: Int!, $offset: Int!, $searchKey: String, $startDateRange: String, $endDateRange: String) {
+    posts(limit: $limit, offset: $offset, searchKey: $searchKey, startDateRange: $startDateRange, endDateRange: $endDateRange) {
       entities {
         _id
         userId
+        created
+        groupId
         title
         text
+        url
         upvotes
         downvotes
+        reportedBy
+        approvedBy
+        rejectedBy
+        votedBy
         bookmarkedBy
-        created
-        url
+        dayPoints
+        pointTimestamp
         creator {
+          _id
           name
           username
           avatar
+        }
+        comments {
           _id
         }
         votes {
-          _id
-          startWordIndex
-          endWordIndex
-          type
-        }
-        comments {
           _id
         }
         quotes {
@@ -249,9 +241,6 @@ export const GET_TOP_POSTS = gql`
         }
         messageRoom {
           _id
-          messages {
-            _id
-          }
         }
       }
       pagination {
@@ -280,13 +269,13 @@ export const GET_USER = gql`
 
 export const GET_USER_ACTIVITY = gql`
 query activities(
-  $user_id: String!
-  $limit: Int!
-  $offset: Int!
-  $searchKey: String!
+  $user_id: String
+  $limit: Int
+  $offset: Int
+  $searchKey: String
   $startDateRange: String
   $endDateRange: String
-  $activityEvent: JSON!
+  $activityEvent: JSON
 ) {
   activities(
     user_id: $user_id

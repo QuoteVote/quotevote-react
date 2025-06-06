@@ -69,7 +69,7 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
     limit,
     offset,
     searchKey,
-    activityEvent: selectedEvent,
+    activityEvent: JSON.stringify(selectedEvent),
     user_id: userId,
     startDateRange: dateRangeFilter.startDate,
     endDateRange: dateRangeFilter.endDate,

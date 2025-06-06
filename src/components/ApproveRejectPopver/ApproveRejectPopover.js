@@ -27,35 +27,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const MAX_DISPLAY = 5;
 const ApproveRejectPopover = (props) => {
   const classes = useStyles()
   const { loading, data } = useQuery(GET_USERS)
   const {
-    anchorEl, handlePopoverClose, type, approvedBy, rejectedBy,
+    anchorEl, handlePopoverClose, type, approvedBy, rejectedBy, onViewAll,
   } = props
-  const list = []
   const typeArray = type === 'approved' ? approvedBy : rejectedBy
-
+  const typeLabel = type === 'approved' ? 'approved' : type === 'rejected' ? 'rejected' : '';
+  let userList = []
   if (data) {
-    data.users.forEach((user) => {
-      if (typeArray.includes(user._id)) {
-        list.push(user.name)
-      }
-    })
+    userList = data.users.filter((user) => typeArray.includes(user._id))
   }
-
+  const displayList = userList.slice(0, MAX_DISPLAY)
   const renderListItems = () => {
-    if (list.length > 0) {
-      return list.map((user) => (
-        <ListItem button className={classes.nested}>
-          <ListItemText primary={user} />
+    if (displayList.length > 0) {
+      return displayList.map((user) => (
+        <ListItem button className={classes.nested} key={user._id}>
+          {user.avatar && <img src={user.avatar} alt={user.username} style={{ width: 24, height: 24, borderRadius: '50%', marginRight: 8 }} />}
+          <ListItemText primary={`@${user.username}`} secondary={user.name} />
         </ListItem>
       ))
     }
 
     return (
       <ListItem className={classes.nested}>
-        <ListItemText primary={`No user ${type} this post yet.`} />
+        <ListItemText primary={`No users ${typeLabel} this post.`} />
       </ListItem>
     )
   }
@@ -79,17 +77,23 @@ const ApproveRejectPopover = (props) => {
       }}
       onClose={handlePopoverClose}
       disableRestoreFocus
+      onMouseLeave={handlePopoverClose}
     >
       <List
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
         <ListItem>
-          <ListItemText primary={`Users who ${type} this post:`} />
+          <ListItemText primary={`Users who ${typeLabel} this post:`} />
         </ListItem>
         <Collapse in timeout="auto" unmountOnExit>
           <List component="div" disablePadding className={classes.root}>
             {loading ? <LinearProgress /> : renderListItems()}
+            {userList.length > MAX_DISPLAY && (
+              <ListItem button onClick={onViewAll} className={classes.nested}>
+                <ListItemText primary="View All" />
+              </ListItem>
+            )}
           </List>
         </Collapse>
       </List>
@@ -103,6 +107,7 @@ ApproveRejectPopover.propTypes = {
   type: PropTypes.string,
   approvedBy: PropTypes.array,
   rejectedBy: PropTypes.array,
+  onViewAll: PropTypes.func,
 }
 
 export default ApproveRejectPopover

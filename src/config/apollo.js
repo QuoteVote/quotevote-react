@@ -9,13 +9,16 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
 
 const httpLink = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_SERVER ? `${process.env.NEXT_PUBLIC_SERVER}/graphql` : 'http://localhost:3000/graphql',
+  uri: process.env.REACT_APP_SERVER ? `${process.env.REACT_APP_SERVER}/graphql` : 'http://localhost:5000/graphql',
   credentials: 'include',
+  headers: {
+    authorization: localStorage.getItem('token') || '',
+  },
 })
 
 // Create a WebSocket link:
 const wsLink = typeof window !== 'undefined' ? new GraphQLWsLink(createClient({
-  url: process.env.NEXT_PUBLIC_SERVER_WS ? `${process.env.NEXT_PUBLIC_SERVER_WS}/graphql` : 'ws://localhost:3000/graphql',
+  url: process.env.REACT_APP_SERVER_WS ? `${process.env.REACT_APP_SERVER_WS}/graphql` : 'ws://localhost:5000/graphql',
   connectionParams: () => ({
     authToken: localStorage.getItem('token'),
   }),

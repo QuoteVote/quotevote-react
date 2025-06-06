@@ -21,16 +21,16 @@ export const SUBMIT_POST = gql`
 `
 
 export const APPROVE_POST = gql`
-  mutation approvePost($postId: String!, $userId: String!) {
-    approvePost(postId: $postId, userId: $userId) {
+  mutation approvePost($postId: String!, $userId: String!, $remove: Boolean) {
+    approvePost(postId: $postId, userId: $userId, remove: $remove) {
       _id
     }
   }
 `
 
 export const REJECT_POST = gql`
-  mutation rejectPost($postId: String!, $userId: String!) {
-    rejectPost(postId: $postId, userId: $userId) {
+  mutation rejectPost($postId: String!, $userId: String!, $remove: Boolean) {
+    rejectPost(postId: $postId, userId: $userId, remove: $remove) {
       _id
     }
   }

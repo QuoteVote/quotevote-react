@@ -46,10 +46,29 @@ export default function TrendingPosts() {
     loading, error, data, fetchMore,
   } = useQuery(GET_TOP_POSTS, {
     variables,
+    fetchPolicy: 'network-only',
   })
   const filterState = useSelector((state) => state.filter)
 
-  if (error) return `Something went wrong: ${error}`
+  if (error) {
+    console.error('GraphQL Error:', error);
+    return (
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <h3>Error loading posts</h3>
+        <p>{error.message}</p>
+        <pre style={{ textAlign: 'left', overflow: 'auto' }}>
+          {JSON.stringify(error, null, 2)}
+        </pre>
+      </div>
+    );
+  }
+
+  if (!data || !data.posts) {
+    return <div>Loading...</div>;
+  }
+
+  const posts = data?.posts?.entities || []
+  const pagination = data?.posts?.pagination || { total_count: 0, limit, offset }
 
   return (
     <ErrorBoundary>
@@ -94,6 +113,7 @@ export default function TrendingPosts() {
             limit={limit}
             fetchMore={fetchMore}
             variables={variables}
+            cols={1}
           />
         </Grid>
       </Grid>
