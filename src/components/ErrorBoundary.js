@@ -1,24 +1,33 @@
-import React, { Component } from "react"
-import { Message } from "semantic-ui-react"
+import React from 'react'
 
-class ErrorBoundary extends Component {
-  state = { hasError: false }
-
-  componentDidCatch = (error, info) => {
-    this.setState({ hasError: true })
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
   }
 
-  render = () => {
-    if (this.state.hasError) {
-      return (
-        <Message negative>
-          <Message.Header>
-            Something went wrong in the server, try refreshing the page
-          </Message.Header>
-        </Message>
-      )
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: !!error }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // You can also log the error to an error reporting service
+    // eslint-disable-next-line no-console
+    console.log('Something went wrong!', { error, errorInfo })
+  }
+
+  render() {
+    // eslint-disable-next-line react/prop-types
+    const { children } = this.props
+    const { hasError } = this.state
+    if (hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong. Please refresh the page.</h1>
     }
-    return this.props.children
+
+    // eslint-disable-next-line react/prop-types
+    return children
   }
 }
 

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentMethod test - renders correctly 1`] = `
+<form>
+  <div
+    class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardHeader-root"
+    >
+      <div
+        class="MuiCardHeader-avatar"
+      >
+        <p
+          class="MuiTypography-root makeStyles-stepNumber-4 MuiTypography-body1"
+        >
+          2
+        </p>
+      </div>
+      <div
+        class="MuiCardHeader-content"
+      >
+        <p
+          class="MuiTypography-root makeStyles-stepName-5 MuiTypography-body1"
+        >
+          Would you like to support this app?
+        </p>
+      </div>
+    </div>
+    <input
+      name="cardNumber"
+      type="hidden"
+    />
+    <input
+      name="expiry"
+      type="hidden"
+    />
+    <input
+      name="cvv"
+      type="hidden"
+    />
+  </div>
+</form>
+`;

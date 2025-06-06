@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationLists test - renders correctly 1`] = `
+<div
+  class="MuiGrid-root makeStyles-rootNoNotification-3 makeStyles-rootNoNotification-9 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    <img
+      alt=""
+      src="ZeroNotificationsBG.png"
+    />
+  </div>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    <span
+      class="MuiTypography-root MuiTypography-body2"
+    >
+      Relax, you don’t have any alerts right now.
+    </span>
+  </div>
+</div>
+`;

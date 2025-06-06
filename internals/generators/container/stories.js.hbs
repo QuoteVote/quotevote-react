@@ -1,0 +1,30 @@
+import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import { Provider } from "react-redux";
+
+import { configureAppStore } from 'store/configureStore';
+import { {{ properCase ComponentName }} } from './index';
+
+const store = configureAppStore();
+
+export default {
+  title: 'Container/{{ properCase ComponentName }}',
+  component: {{ properCase ComponentName }},
+  argTypes: {
+    backgroundColor: { control: 'color' },
+  },
+};
+
+const Template = (args) => (
+  <Provider store={store}>
+    <HelmetProvider>
+      <{{ properCase ComponentName }} {...args} />
+    </HelmetProvider>
+  </Provider>
+);
+
+export const Default = Template.bind({});
+Default.args = {};
+
+export const Primary = Template.bind({});
+Primary.args = {};

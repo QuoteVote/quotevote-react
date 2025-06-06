@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage test - renders correctly 1`] = `
+<div
+  class="MuiGrid-root makeStyles-grid-37 makeStyles-container-1 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+>
+  <div
+    class="MuiGrid-root makeStyles-grid-38  MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <li
+      class="MuiListItem-root makeStyles-listItem-6 MuiListItem-gutters"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-39 makeStyles-listItemTextRequestInvite-7"
+        tabindex="0"
+        type="submit"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Request Invite
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </li>
+    <li
+      class="MuiListItem-root makeStyles-listItem-6 MuiListItem-gutters"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-39 makeStyles-listItemTextRequestInvite-7"
+        tabindex="0"
+        type="submit"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Learn More
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </li>
+  </div>
+</div>
+`;

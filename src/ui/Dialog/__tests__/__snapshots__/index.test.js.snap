@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dialog  /> should match snapshot 1`] = `
+<div
+  class="MuiPaper-root MuiCard-root makeStyles-root-1 makeStyles-root-3 MuiPaper-elevation1 MuiPaper-rounded"
+>
+  <div
+    class="MuiCardContent-root"
+  >
+    <h5
+      class="MuiTypography-root MuiTypography-h5 MuiTypography-colorPrimary"
+    >
+      Title
+    </h5>
+    <p
+      class="MuiTypography-root MuiTypography-body1"
+    >
+      Body
+    </p>
+  </div>
+  <div
+    class="MuiCardActions-root makeStyles-actions-2 MuiCardActions-spacing"
+  >
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text"
+      style="color: rgb(86, 179, 255);"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        Cancel
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        Discard
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</div>
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Plans test - renders correctly 1`] = `
+<div
+  class="makeStyles-container-1"
+>
+  <div
+    class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
+    style="margin-right: 24px;"
+  >
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-justify-xs-center MuiGrid-grid-xs-12"
+    >
+      <p
+        class="MuiTypography-root makeStyles-select-26 MuiTypography-body1"
+      >
+        Select To Learn More
+      </p>
+    </div>
+  </div>
+</div>
+`;
