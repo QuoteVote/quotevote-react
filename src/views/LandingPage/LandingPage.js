@@ -10,6 +10,7 @@ import {
   ListItem,
   Typography,
 } from '@material-ui/core'
+import ControlPanel from '../ControlPanel/ControlPanel'
 import { isMobile } from 'react-device-detect'
 import GridContainer from '../../mui-pro/Grid/GridContainer'
 import GridItem from '../../mui-pro/Grid/GridItem'
@@ -88,6 +89,21 @@ export default function LandingPage() {
           >
             Donate
           </Button>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <Typography variant="body1">
+            <Link
+              style={{ color: '#00bcd4' }}
+              href="https://github.com/QuoteVote/quotevote-react"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Source Code
+            </Link>
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ControlPanel />
         </ListItem>
         <ListItem className={classes.contact}>
           Contact
