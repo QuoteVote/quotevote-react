@@ -294,3 +294,17 @@ git branch -d hotfix/fix_some_things
 git co release/v2.0.2
 git merge release/v2.0.1
 ```
+#### 🐳 Local Development with Docker
+
+To spin up a local MongoDB instance and run the app using Docker:
+
+```bash
+# 1. Build the Docker image
+docker build -t quotevote-react .
+
+# 2. Start the container
+docker run -p 5000:5000 -d quotevote-react
+
+# 3. Use Docker Compose (React + MongoDB + others)
+docker-compose up --build
+```

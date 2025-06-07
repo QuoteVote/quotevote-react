@@ -702,6 +702,20 @@ See the deployed version on the netlify preview build. Wait for code review, fee
 <!-- Work in Progress -->
 
 ### Additional Notes on Contributions
+## 🐳 Docker Run
+
+To spin up a local MongoDB instance and run the app using Docker:
+
+```bash
+# 1. Build the Docker image
+docker build -t quotevote-react .
+
+# 2. Start the container
+docker run -p 5000:5000 -d quotevote-react
+
+# 3. Use Docker Compose (React + MongoDB + others)
+docker-compose up --build
+```
 
 ### React Hooks + GraphQL
 - Use @apollo/react-hooks <!-- if you want to use hooks. -->
