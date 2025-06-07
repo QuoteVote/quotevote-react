@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  mongo_db:
+    container_name: ${SERVER_HOST}
+    image: mongo:6.0
+    restart: always
+    env_file: .env
+    volumes:
+      - mongo_db:/data/db
+    networks:
+      - app_network
+  
+  app:
+    build: .
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    environment:
+      MONGO_PORT: ${MONGO_PORT}
+      MONGO_DB_NAME: ${MONGO_DB_NAME}
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+    env_file: .env
+    depends_on:
+      - mongo_db
+    networks:
+      - app_network
+
+volumes:
+  mongo_db: {}
+
+networks:
+  app_network:
+    driver: bridge
+
