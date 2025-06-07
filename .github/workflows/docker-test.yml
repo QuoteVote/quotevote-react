@@ -1,39 +1,23 @@
-name: CI
+name: Docker Test CI
 
 on:
   push:
+  pull_request:
 
 jobs:
-  build-test:
+  test:
     runs-on: ubuntu-latest
-
-    services:
-      mongo:
-        image: mongo:6
-        ports:
-          - 27017:27017
-        env:
-          MONGO_INITDB_DATABASE: testdb
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: example
-        options: >-
-          --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'" 
-          --health-interval 10s 
-          --health-timeout 5s 
-          --health-retries 5
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: [22.x]
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
+      - name: Build and start services
+        run: docker-compose up -d --build
 
-      - name: Wait for MongoDB
+      - name: Wait for services to be ready
         run: |
           for i in {1..30}; do
             nc -z localhost 27017 && echo "Mongo is up" && break
@@ -41,8 +25,9 @@ jobs:
             sleep 2
           done
 
-      - name: Run migrations/seeds (optional)
-        run: node scripts/seed.js
+      - name: Run tests inside API container
+        run: docker-compose exec -T api npm test
 
-      - name: Run tests
-        run: npm test
+      - name: Tear down
+        if: always()
+        run: docker-compose down
