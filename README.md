@@ -703,6 +703,25 @@ See the deployed version on the netlify preview build. Wait for code review, fee
 
 ### Additional Notes on Contributions
 
+
+## 🚀 Local Development with Docker
+
+To get started quickly:
+
+```bash
+# Start all service
+npm run docker:up
+
+# or
+make docker:up
+
+# Services stop
+npm run docker:down
+```
+
+> **MongoDB veri klasörü** It is created automatically and data will not be lost unless deleted.
+> **Seed script'i** adds sample data on first run.
+
 ### React Hooks + GraphQL
 - Use @apollo/react-hooks <!-- if you want to use hooks. -->
 <!-- Use @apollo/react-components if you want to use components / render props -->
