@@ -19,6 +19,19 @@ import stringLimit from 'string-limit'
 import withWidth from '@material-ui/core/withWidth'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 import getTopPostsVoteHighlights from '../../utils/getTopPostsVoteHighlights'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
+
+const GET_GROUP = gql`
+  query getGroup($groupId: String!) {
+    group(groupId: $groupId) {
+      _id
+      title
+    }
+  }
+`
 
 const useStyles = makeStyles((theme) => ({
   cardRootStyle: {
@@ -26,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
     },
     borderRadius: 7,
+    border: '1px solid',
+    borderBottom: '10px solid',
     '&:hover': {
       animationName: 'post',
       animationDuration: '0.25s',
@@ -33,28 +48,22 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   postedBg: {
-    backgroundColor: theme.activityCards.posted.color,
-    color: theme.activityCards.posted.fontColor,
+    borderColor: '#56b3ff',
   },
   commentedBg: {
-    backgroundColor: theme.activityCards.commented.color,
-    color: theme.activityCards.commented.fontColor,
+    borderColor: '#fdd835',
   },
   upVotedBg: {
-    backgroundColor: theme.activityCards.upvote.color,
-    color: theme.activityCards.upvote.fontColor,
+    borderColor: '#00cf6e',
   },
   downVotedBg: {
-    backgroundColor: theme.activityCards.downvote.color,
-    color: theme.activityCards.downvote.fontColor,
+    borderColor: '#ff6060',
   },
   likedPostBg: {
-    backgroundColor: theme.activityCards.hearted.color,
-    color: theme.activityCards.hearted.fontColor,
+    borderColor: '#56b3ff',
   },
   quotedPostBg: {
-    backgroundColor: theme.activityCards.quoted.color,
-    color: theme.activityCards.quoted.fontColor,
+    borderColor: '#e36dfa',
   },
   cardHeaderStyle: {
     paddingBottom: 0,
@@ -64,18 +73,74 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cardBodyStyle: {
-    marginLeft: 65,
+    marginLeft: 0,
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
     color: '#000000',
+    position: 'relative',
+    paddingTop: '5px',
   },
-  iconButton: {
-    color: '#000000',
+  interactions: {
+    fontSize: '14px',
+    color: '#666',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+  },
+  bottomInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '8px 16px',
+  },
+  profileSection: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+  voteCounts: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '16px',
+    padding: '8px 0',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+  },
+  voteSection: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+  },
+  voteItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+  },
+  voteIcon: {
+    fontSize: '18px',
+  },
+  voteNumber: {
+    fontSize: '14px',
+    fontWeight: 500,
+  },
+  upvoteIcon: {
+    color: '#00cf6e',
+  },
+  downvoteIcon: {
+    color: '#ff6060',
+  },
+  divider: {
+    margin: '0 8px',
+    color: 'rgba(0, 0, 0, 0.38)',
   },
   username: {
     font: 'Roboto',
-    fontSize: '10px',
+    fontSize: '14px',
     fontWeight: 'bold',
     color: '#000000',
     whiteSpace: 'nowrap',
@@ -113,6 +178,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 300,
     color: '#000000',
+    display: '-webkit-box',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    lineHeight: '1.5',
+    maxHeight: '72px',
   },
   votes: {
     height: 12,
@@ -128,6 +200,17 @@ const useStyles = makeStyles((theme) => ({
   },
   fontColor: {
     color: '#000000',
+  },
+  groupName: {
+    fontSize: '14px',
+    color: '#666',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+    '&:before': {
+      content: '"•"',
+      marginRight: '4px',
+    }
   },
 }))
 
@@ -159,6 +242,7 @@ function PostCard(props) {
   const {
     _id, text, title, url, bookmarkedBy, created, creator,
     activityType, limitText, votes, comments, quotes, messageRoom,
+    groupId,
   } = props
   const { messages } = messageRoom
   let postText = stringLimit(text, limitText ? 20 : 10000)
@@ -187,64 +271,44 @@ function PostCard(props) {
   const handleRedirectToProfile = (username) => {
     history.push(`/Profile/${username}`)
   }
+
+  const upvotes = votes.filter(vote => vote.type === 'UPVOTE').length
+  const downvotes = votes.filter(vote => vote.type === 'DOWNVOTE').length
+
+  const { data: groupData } = useQuery(GET_GROUP, {
+    variables: { groupId },
+    skip: !groupId,
+  })
+
   return (
     <Card
       className={classNames(classes.cardRootStyle, classes[cardBg], classes.fontColor)}
       onClick={() => {
-        // add post id to redux state
         dispatch(SET_SELECTED_POST(_id))
         history.push(url.replace(/\?/g, ''))
       }}
     >
-      <CardHeader
-        avatar={(
-          <IconButton
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation()
-              handleRedirectToProfile(creator.username)
-            }}
-          >
-            <Avatar>
-              <AvatarDisplay
-                height="40"
-                width="40"
-                className={classes.avatarStyle}
-                {...creator.avatar}
-              />
-            </Avatar>
-          </IconButton>
-        )}
-        title={(
-          <IconButton
-            disableFocusRipple
-            size="small"
-            onClick={(e) => {
-              e.stopPropagation()
-              handleRedirectToProfile(creator.username)
-            }}
-          >
-            <Typography className={classes.username}>
-              {creator ? creator.username : 'Anonymous'}
-            </Typography>
-          </IconButton>
-        )}
-        subheader={(
-          <Typography className={classes.dateTime}>
-            {moment(created).calendar(null, {
-              sameDay: '[Today]',
-              nextDay: '[Tomorrow]',
-              nextWeek: 'dddd',
-              lastDay: '[Yesterday]',
-              lastWeek: '[Last] dddd',
-              sameElse: 'MMM DD, YYYY',
-            })}
-            {` @ ${moment(created).format('h:mm A')}`}
-          </Typography>
-        )}
-        className={classes.cardHeaderStyle}
-      />
       <CardContent className={classes.cardBodyStyle}>
+        <div className={classes.voteCounts}>
+          <div className={classes.voteSection}>
+            <div className={classes.voteItem}>
+              <ArrowUpwardIcon className={classNames(classes.voteIcon, classes.upvoteIcon)} />
+              <Typography className={classes.voteNumber}>{upvotes}</Typography>
+            </div>
+            <div className={classes.voteItem}>
+              <ArrowDownwardIcon className={classNames(classes.voteIcon, classes.downvoteIcon)} />
+              <Typography className={classes.voteNumber}>{downvotes}</Typography>
+            </div>
+            {groupData?.group && (
+              <Typography className={classes.groupName}>
+                {groupData.group.title}
+              </Typography>
+            )}
+          </div>
+          <div className={classes.interactions}>
+            <Typography>{interactions.length} interactions</Typography>
+          </div>
+        </div>
         <Grid
           container
           direction="column"
@@ -266,18 +330,41 @@ function PostCard(props) {
           </Grid>
         </Grid>
       </CardContent>
-      <CardActions>
-        <Grid container justify="space-between">
-          <Grid item>
-            <Typography className={classes.votes}>
-              {interactions.length}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <BookmarkIconButton size="small" post={{ _id, bookmarkedBy }} user={user} />
-          </Grid>
-        </Grid>
-      </CardActions>
+      <div className={classes.bottomInfo}>
+        <div className={classes.profileSection}>
+          <IconButton
+            size="small"
+            onClick={(e) => {
+              e.stopPropagation()
+              handleRedirectToProfile(creator.username)
+            }}
+          >
+            <Avatar>
+              <AvatarDisplay
+                height="64"
+                width="64"
+                className={classes.avatarStyle}
+                {...creator.avatar}
+              />
+            </Avatar>
+          </IconButton>
+          <Typography className={classes.username}>
+            {creator ? creator.username : 'Anonymous'}
+          </Typography>
+        </div>
+        <Typography className={classes.divider}>|</Typography>
+        <Typography className={classes.dateTime}>
+          {moment(created).calendar(null, {
+            sameDay: '[Today]',
+            nextDay: '[Tomorrow]',
+            nextWeek: 'dddd',
+            lastDay: '[Yesterday]',
+            lastWeek: '[Last] dddd',
+            sameElse: 'MMM DD, YYYY',
+          })}
+          {` @ ${moment(created).format('h:mm A')}`}
+        </Typography>
+      </div>
     </Card>
   )
 }
@@ -302,6 +389,7 @@ PostCard.propTypes = {
   avatar: PropTypes.object,
   width: PropTypes.any,
   limitText: PropTypes.bool,
+  groupId: PropTypes.string,
 }
 
 export default withWidth()(PostCard)
