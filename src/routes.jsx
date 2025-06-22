@@ -5,7 +5,7 @@ import ControlPanel from 'views/ControlPanel/ControlPanel'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import PostPage from 'views/PostsPage'
 import LogoutPage from './components/LogoutPage'
-import HomeSvg from './assets/svg/Home.jsx'
+import HomeSvg from './assets/svg/Home'
 import ProfileAvatar from './components/Profile/ProfileAvatar'
 import NotificationMobileView from './components/Notifications/NotificationMobileView'
 
