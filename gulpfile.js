@@ -1,5 +1,5 @@
-const gulp = require('gulp')
-const gap = require('gulp-append-prepend')
+import gulp from 'gulp'
+import gap from 'gulp-append-prepend'
 
 gulp.task('licenses', async () => {
   // this is to add Creative Tim licenses in the production mode for the minified js
