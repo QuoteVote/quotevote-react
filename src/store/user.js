@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import jwt from 'jsonwebtoken'
+import { jwtDecode } from 'jwt-decode'
 
 const userSlice = createSlice({
   name: 'user',
@@ -107,15 +107,31 @@ export const userLogin = async (username, password, dispatch, history) => {
 export function tokenValidator(dispatch) {
   dispatch(actions.USER_TOKEN_VALIDATION())
   const storedToken = localStorage.getItem('token')
-  return jwt.verify(storedToken, 'HHSB', (err) => {
-    if (err) {
+  
+  if (!storedToken) {
+    dispatch(actions.USER_LOGOUT())
+    return false
+  }
+
+  try {
+    const decoded = jwtDecode(storedToken)
+    const currentTime = Date.now() / 1000
+    
+    // Check if token is expired
+    if (decoded.exp && decoded.exp < currentTime) {
       localStorage.removeItem('token')
       dispatch(actions.USER_LOGOUT())
       return false
     }
+    
     dispatch(actions.USER_TOKEN_VALIDATED())
     return true
-  })
+  } catch (err) {
+    // If token is invalid or can't be decoded
+    localStorage.removeItem('token')
+    dispatch(actions.USER_LOGOUT())
+    return false
+  }
 }
 
 export function clearToken(dispatch) {

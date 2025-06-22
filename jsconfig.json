@@ -1,8 +1,20 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "*": ["src/*"]
+      "@/*": ["src/*"],
+      "layouts/*": ["src/layouts/*"],
+      "components/*": ["src/components/*"],
+      "config/*": ["src/config/*"],
+      "store/*": ["src/store/*"],
+      "assets/*": ["src/assets/*"],
+      "utils/*": ["src/utils/*"],
+      "views/*": ["src/views/*"],
+      "mui-pro/*": ["src/mui-pro/*"],
+      "hoc/*": ["src/hoc/*"],
+      "themes/*": ["src/themes/*"]
     }
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build"]
 }

@@ -1,9 +1,9 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-OldLandingPage.js
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
-.DS_Store
+/.pnp
+.pnp.js
 
 # testing
 /coverage
@@ -12,20 +12,28 @@ OldLandingPage.js
 /build
 
 # misc
+.DS_Store
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-webstorm.config.js
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-build-storybook.log*
-yarn.lock
-.storybook/.jest-test-results.json
-.vscode/
-.idea/
 
-.eslintcache
+# Vite
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

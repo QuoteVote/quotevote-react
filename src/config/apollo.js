@@ -3,14 +3,19 @@ import {
   InMemoryCache,
   createHttpLink,
   split,
+  ApolloLink,
 } from '@apollo/client'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
+import { serializeObjectIds } from '../utils/objectIdSerializer'
+
+// Determine if we're using a local server
+const isLocalServer = process.env.REACT_APP_SERVER && process.env.REACT_APP_SERVER.includes('localhost')
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_SERVER ? `${process.env.REACT_APP_SERVER}/graphql` : 'http://localhost:5000/graphql',
-  credentials: 'include',
+  credentials: isLocalServer ? 'include' : 'omit', // Only include credentials for local server
   headers: {
     authorization: localStorage.getItem('token') || '',
   },
@@ -26,6 +31,17 @@ const wsLink = typeof window !== 'undefined' ? new GraphQLWsLink(createClient({
   shouldRetry: () => true,
 })) : null
 
+// Custom link to handle ObjectID serialization
+const objectIdSerializationLink = new ApolloLink((operation, forward) => {
+  return forward(operation).map((response) => {
+    if (response.data) {
+      // Recursively serialize ObjectIDs in the response
+      response.data = serializeObjectIds(response.data);
+    }
+    return response;
+  });
+});
+
 // using the ability to split links, you can send data to each link
 // depending on what kind of operation is being sent
 const link = typeof window !== 'undefined' ? split(
@@ -35,8 +51,8 @@ const link = typeof window !== 'undefined' ? split(
     return kind === 'OperationDefinition' && operation === 'subscription'
   },
   wsLink,
-  httpLink
-) : httpLink
+  objectIdSerializationLink.concat(httpLink)
+) : objectIdSerializationLink.concat(httpLink)
 
 const cache = new InMemoryCache({
   typePolicies: {

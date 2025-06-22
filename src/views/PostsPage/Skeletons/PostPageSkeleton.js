@@ -1,4 +1,3 @@
-import React from 'react'
 import Card from 'mui-pro/Card/Card'
 import CardBody from 'mui-pro/Card/CardBody'
 import CardFooter from 'mui-pro/Card/CardFooter'
@@ -8,9 +7,6 @@ import GridContainer from 'mui-pro/Grid/GridContainer'
 import GridItem from 'mui-pro/Grid/GridItem'
 
 // import Content from "../components/ContentList";
-import Chat from 'assets/img/Chat.svg'
-import Heart from 'assets/img/Heart.svg'
-import Send from 'assets/img/Send.svg'
 
 // import styles from "assets/jss/material-dashboard-pro-react/views/dashboardStyle";
 
@@ -59,7 +55,7 @@ const PostPageSkeleton = () => (
                   </p>
                   <img
                     alt="chat"
-                    src={Chat}
+                    src="/assets/Chat.svg"
                     style={{ height: '20px', paddingLeft: '10px' }}
                   />
                 </div>
@@ -76,7 +72,7 @@ const PostPageSkeleton = () => (
                   </p>
                   <img
                     alt="share"
-                    src={Send}
+                    src="/assets/Send.svg"
                     style={{
                       height: '15px',
                       paddingLeft: '15px',
@@ -85,7 +81,7 @@ const PostPageSkeleton = () => (
                   />
                   <img
                     alt="bookmark"
-                    src={Heart}
+                    src="/assets/Heart.svg"
                     style={{
                       height: '15px',
                       paddingLeft: '15px',
@@ -107,7 +103,7 @@ const PostPageSkeleton = () => (
                 </p>
                 <img
                   alt="share"
-                  src={Send}
+                  src="/assets/Send.svg"
                   style={{
                     height: '15px',
                     paddingLeft: '15px',
@@ -116,7 +112,7 @@ const PostPageSkeleton = () => (
                 />
                 <img
                   alt="favorite"
-                  src={Heart}
+                  src="/assets/Heart.svg"
                   style={{
                     height: '15px',
                     paddingLeft: '15px',
