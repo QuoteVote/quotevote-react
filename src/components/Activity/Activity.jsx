@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GET_SEARCH_KEY } from 'components/SearchBar'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'

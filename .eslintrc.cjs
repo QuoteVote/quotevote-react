@@ -105,6 +105,9 @@ module.exports = {
     'cypress/assertion-before-screenshot': 'warn',
     'cypress/no-force': 'warn',
     'cypress/no-async-tests': 'error',
+    // Preserve React import
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   settings: {
     'import/resolver': {

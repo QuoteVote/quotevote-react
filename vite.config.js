@@ -12,9 +12,7 @@ export default defineConfig(({ mode }) => {
   
   return {
     plugins: [
-      react({
-      jsxRuntime: 'classic'
-      }),
+      react(),
       svgr({
         svgrOptions: {
           icon: true,
