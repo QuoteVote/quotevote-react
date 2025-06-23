@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import {
-    Grid, Typography, InputBase, Paper,
+  Grid, Typography, InputBase, Paper,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
-    color: theme.palette.text.secondary,
   },
   iconButton: {
     padding: 10,
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TrendingPosts() {
+export default function SearchPage() {
   const classes = useStyles();
 
   return (
@@ -80,4 +79,4 @@ export default function TrendingPosts() {
       </Grid>
     </div>
   );
-}
+} 
