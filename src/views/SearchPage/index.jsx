@@ -89,13 +89,56 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.dark,
     },
   },
-  datePickerPopover: {
-    padding: theme.spacing(2),
+  datePickerContainer: {
+    '& .DateRangePickerInput': {
+      display: 'none',
+    },
+    '& .DateRangePicker_picker': {
+      position: 'static',
+      boxShadow: 'none',
+    },
+    '& .DayPicker_weekHeader_li': {
+      fontWeight: 'bold',
+      color: theme.palette.text.primary,
+    },
+    '& .CalendarDay__default': {
+      border: 'none',
+      color: theme.palette.text.primary,
+      fontWeight: '500',
+    },
+    '& .CalendarDay__default:hover': {
+      background: theme.palette.action.hover,
+      border: 'none',
+      borderRadius: '50%',
+    },
+    '& .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover': {
+      background: '#28a745', // A green color to match the mockup
+      color: 'white',
+      borderRadius: '50%',
+    },
+    '& .CalendarDay__selected_span': {
+      background: '#e9ecef', // Light gray for the range
+      color: theme.palette.text.primary,
+    },
+    '& .CalendarDay__hovered_span, .CalendarDay__hovered_span:hover': {
+      background: '#e9ecef',
+      color: theme.palette.text.primary,
+      borderRadius: '0',
+    },
+    '& .CalendarDay__selected_start.CalendarDay__selected_span, & .CalendarDay__selected_end.CalendarDay__selected_span': {
+      background: '#28a745',
+      color: 'white',
+    },
+    '& .DateInput_input, & .DateInput_input__focused': {
+      borderBottom: 'none',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
   },
   filterButton: {
     margin: theme.spacing(1),
   },
-}))
+}));
 
 export default function SearchPage() {
   const classes = useStyles()
@@ -112,8 +155,8 @@ export default function SearchPage() {
   
   // New state for filter modes
   const [filterMode, setFilterMode] = useState('all') // 'all', 'friends', 'interactions'
-  const [datePickerAnchor, setDatePickerAnchor] = useState(null)
-  const [datePickerFocus, setDatePickerFocus] = useState(null)
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const [focusedInput, setFocusedInput] = useState(null);
   
   // Add a query key that changes when filters change to force refetch
   const [queryKey, setQueryKey] = useState(0)
@@ -124,6 +167,7 @@ export default function SearchPage() {
     searchKey,
     startDateRange: dateRangeFilter.startDate ? dateRangeFilter.startDate.format('YYYY-MM-DD') : '',
     endDateRange: dateRangeFilter.endDate ? dateRangeFilter.endDate.format('YYYY-MM-DD') : '',
+    friendsOnly: filterMode === 'friends',
     // Add a dummy variable that changes when filters change to force refetch
     filterKey: `${filterMode}-${dateRangeFilter.startDate ? dateRangeFilter.startDate.format('YYYY-MM-DD') : ''}-${dateRangeFilter.endDate ? dateRangeFilter.endDate.format('YYYY-MM-DD') : ''}`,
   }
@@ -187,14 +231,11 @@ export default function SearchPage() {
     triggerQueryRefetch()
   }
 
-  const handleDateFilter = (event) => {
-    console.log('Date filter clicked')
-    setDatePickerAnchor(event.currentTarget)
-  }
-
-  const handleDatePickerClose = () => {
-    setDatePickerAnchor(null)
-  }
+  const handleDateFilterToggle = () => {
+    const willBeVisible = !isCalendarVisible;
+    setIsCalendarVisible(willBeVisible);
+    setFocusedInput(willBeVisible ? 'startDate' : null);
+  };
 
   const handleDateChange = ({ startDate, endDate }) => {
     console.log('Date range changed:', { startDate, endDate })
@@ -204,6 +245,11 @@ export default function SearchPage() {
     setTimeout(() => {
       triggerQueryRefetch()
     }, 100)
+
+    if (startDate && endDate) {
+      setIsCalendarVisible(false);
+      setFocusedInput(null);
+    }
   }
 
   const clearDateFilter = () => {
@@ -213,6 +259,12 @@ export default function SearchPage() {
     setTimeout(() => {
       triggerQueryRefetch()
     }, 100)
+  }
+
+  const clearDateFilterAndClose = () => {
+    clearDateFilter();
+    setIsCalendarVisible(false);
+    setFocusedInput(null);
   }
 
   // Sort posts by interactions if interactions filter is active
@@ -254,18 +306,6 @@ export default function SearchPage() {
         title: p.title,
         total: (p.comments?.length || 0) + (p.votes?.length || 0) + (p.quotes?.length || 0)
       })))
-    }
-
-    // If friends filter is active but backend doesn't support it, filter client-side
-    if (filterMode === 'friends' && user && user._followingId) {
-      console.log('Filtering by friends, user following:', user._followingId)
-      const originalCount = processedData.posts.entities.length
-      processedData.posts.entities = processedData.posts.entities.filter(post => {
-        const isFollowing = user._followingId.includes(post.creator._id)
-        console.log(`Post ${post._id} by ${post.creator._id}: following = ${isFollowing}`)
-        return isFollowing
-      })
-      console.log(`Filtered from ${originalCount} to ${processedData.posts.entities.length} posts`)
     }
 
     return processedData
@@ -364,56 +404,48 @@ export default function SearchPage() {
             </IconButton>
             <IconButton 
               aria-label="calendar" 
-              className={`${classes.icon} ${(dateRangeFilter.startDate || dateRangeFilter.endDate) ? classes.activeFilter : ''}`}
-              onClick={handleDateFilter}
+              className={`${classes.icon} ${(dateRangeFilter.startDate || dateRangeFilter.endDate || isCalendarVisible) ? classes.activeFilter : ''}`}
+              onClick={handleDateFilterToggle}
               title="Filter by date range"
             >
               📅
             </IconButton>
           </Grid>
           
-          {/* Date Range Picker Popover */}
-          <Popover
-            open={Boolean(datePickerAnchor)}
-            anchorEl={datePickerAnchor}
-            onClose={handleDatePickerClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <div className={classes.datePickerPopover}>
-              <DateRangePicker
-                startDatePlaceholderText="Start Date"
-                startDate={dateRangeFilter.startDate}
-                onDatesChange={handleDateChange}
-                endDatePlaceholderText="End Date"
-                endDate={dateRangeFilter.endDate}
-                numberOfMonths={1}
-                displayFormat="MMM D, YYYY"
-                showClearDates
-                focusedInput={datePickerFocus}
-                onFocusChange={(focusArg) => setDatePickerFocus(focusArg)}
-                startDateId="startDateSearch"
-                endDateId="endDateSearch"
-                minimumNights={0}
-                isOutsideRange={() => false}
-              />
-              <div style={{ marginTop: 16, textAlign: 'center' }}>
-                <Button 
-                  variant="outlined" 
-                  onClick={clearDateFilter}
-                  size="small"
-                >
-                  Clear Dates
-                </Button>
-              </div>
-            </div>
-          </Popover>
+          {/* Date Range Picker Inline */}
+          {isCalendarVisible && (
+            <Grid item style={{ width: '100%', marginTop: 16 }}>
+              <Paper className={classes.datePickerContainer} style={{ padding: 16 }}>
+                <DateRangePicker
+                  startDatePlaceholderText="Start Date"
+                  startDate={dateRangeFilter.startDate}
+                  onDatesChange={handleDateChange}
+                  endDatePlaceholderText="End Date"
+                  endDate={dateRangeFilter.endDate}
+                  numberOfMonths={2}
+                  displayFormat="MMM D, YYYY"
+                  showClearDates
+                  focusedInput={focusedInput || (isCalendarVisible ? 'startDate' : null)}
+                  onFocusChange={(input) => setFocusedInput(input)}
+                  startDateId="startDateSearch"
+                  endDateId="endDateSearch"
+                  minimumNights={0}
+                  isOutsideRange={() => false}
+                  noBorder
+                  hideKeyboardShortcutsPanel
+                />
+                <div style={{ marginTop: 16, textAlign: 'center' }}>
+                  <Button 
+                    variant="outlined" 
+                    onClick={clearDateFilterAndClose}
+                    size="small"
+                  >
+                    Clear and Close
+                  </Button>
+                </div>
+              </Paper>
+            </Grid>
+          )}
 
           {/* Filter Status Display */}
           {showResults && (filterMode !== 'all' || dateRangeFilter.startDate || dateRangeFilter.endDate) && (

@@ -211,6 +211,7 @@ export const GET_TOP_POSTS = gql`
     $searchKey: String!
     $startDateRange: String
     $endDateRange: String
+    $friendsOnly: Boolean
   ) {
     posts(
       limit: $limit
@@ -218,6 +219,7 @@ export const GET_TOP_POSTS = gql`
       searchKey: $searchKey
       startDateRange: $startDateRange
       endDateRange: $endDateRange
+      friendsOnly: $friendsOnly
     ) {
       entities {
         _id
