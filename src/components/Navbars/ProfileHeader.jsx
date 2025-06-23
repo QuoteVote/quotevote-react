@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,7 +15,6 @@ import FollowButton from 'components/CustomButtons/FollowButton'
 import { Avatar } from '@material-ui/core'
 import { useQuery } from '@apollo/react-hooks'
 import mainTheme from '../../themes/MainTheme'
-import FilterIconButtons from '../Filter/FilterIconButtons'
 import AvatarDisplay from '../Avatar'
 import { GET_CHAT_ROOM } from '../../graphql/query'
 import { SELECTED_CHAT_ROOM, SET_CHAT_OPEN } from '../../store/chat'
@@ -175,9 +173,6 @@ export default function ProfileHeader(props) {
               )
             }
           </Grid>
-        </Grid>
-        <Grid item>
-          <FilterIconButtons showFilterIconButton />
         </Grid>
       </Grid>
     </ThemeProvider>

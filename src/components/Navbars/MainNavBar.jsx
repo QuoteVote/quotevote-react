@@ -22,6 +22,7 @@ import ChatMenu from '../Chat/ChatMenu'
 import NotificationMenu from '../Notifications/NotificationMenu'
 import SettingsMenu from '../Settings/SettingsMenu'
 import SubmitPost from '../SubmitPost/SubmitPost'
+import SearchIcon from '@material-ui/icons/Search'
 
 function MainNavBar(props) {
   const {
@@ -87,15 +88,9 @@ function MainNavBar(props) {
               </NavLink>
             </Grid>
             <Grid item lg={4}>
-              <NavLink to="/TrendingContent">
+              <NavLink to="/search">
                 <Tab
-                  icon={(
-                    <img 
-                      src="/assets/TrendingIcon.svg" 
-                      alt="Trending" 
-                      style={{width: fontSize === 'large' ? '50px' : '38px', height: fontSize === 'large' ? '50px' : '38px'}} 
-                    />
-                  )}
+                  icon={<SearchIcon />}
                   aria-label="Trending"
                   onClick={() => {
                     handleMenu(1)

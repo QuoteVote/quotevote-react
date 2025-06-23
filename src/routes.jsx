@@ -1,4 +1,3 @@
-import TrendingPosts from 'views/TrendingPosts/TrendingPosts'
 import HomePage from 'views/Homepage/Homepage'
 import Profile from 'views/Profile'
 import ControlPanel from 'views/ControlPanel/ControlPanel'
@@ -8,6 +7,7 @@ import LogoutPage from './components/LogoutPage'
 import HomeSvg from './assets/svg/Home'
 import ProfileAvatar from './components/Profile/ProfileAvatar'
 import NotificationMobileView from './components/Notifications/NotificationMobileView'
+import SearchPage from 'views/SearchPage'
 
 const routes = [
   {
@@ -19,11 +19,11 @@ const routes = [
     layout: '/',
   },
   {
-    path: 'TrendingContent',
-    name: 'Trending Content',
+    path: 'search',
+    name: 'Search',
     rtlName: 'التقويم',
     icon: () => <img src="/assets/TrendingIcon.svg" alt="Trending" style={{width: '100%', height: '100%'}} />,
-    component: TrendingPosts,
+    component: SearchPage,
     layout: '/',
   },
   {

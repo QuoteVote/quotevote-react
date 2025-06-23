@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { GET_SEARCH_KEY } from 'components/SearchBar'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { makeStyles } from '@material-ui/core/styles'
@@ -8,7 +7,6 @@ import { Grid } from '@material-ui/core'
 import SubHeader from '../SubHeader'
 import ActivityList from './ActivityList'
 import { GET_USER_ACTIVITY } from '../../graphql/query'
-import FilterInputs from '../Filter/FilterInputs'
 import { FILTER_VALUE } from '../../store/filter'
 import ErrorBoundary from '../ErrorBoundary'
 
@@ -64,7 +62,7 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
     }
   }
 
-  const { data: { searchKey } } = useQuery(GET_SEARCH_KEY)
+  const searchKey = ''
   const variables = {
     limit,
     offset,
@@ -103,25 +101,6 @@ export default function Activity({ showSubHeader = true, userId = '' }) {
             />
           </Grid>
         )}
-
-        {
-          filterState.filter.visibility || filterState.date.visibility || filterState.search.visibility ? (
-            <Grid item xs={12}>
-              <FilterInputs
-                classes={classes}
-                filterState={filterState}
-                setOffset={setOffset}
-                selectAll={selectAll}
-                handleSelectAll={handleSelectAll}
-                handleActivityEvent={handleActivityEvent}
-                selectedEvent={selectedEvent}
-                setDateRangeFilter={setDateRangeFilter}
-                dateRangeFilter={dateRangeFilter}
-                showFilterIconButton
-              />
-            </Grid>
-          ) : null
-        }
 
         <Grid item xs={12} className={classes.list}>
           <ActivityList

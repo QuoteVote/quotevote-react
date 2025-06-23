@@ -2,8 +2,6 @@ import GridContainer from 'mui-pro/Grid/GridContainer'
 import Slider from '@material-ui/core/Slider'
 import Box from '@material-ui/core/Box'
 
-import CustomizedInputBase from './SearchBar'
-
 export default function CompleteSearch() {
   return (
     <GridContainer
@@ -36,7 +34,7 @@ export default function CompleteSearch() {
           </h3>
 
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-            <CustomizedInputBase />
+            <div />
             <img alt="Calender Icon" src="/assets/Calendar.svg" style={{ height: '40px', paddingLeft: '15px' }} />
             <img alt="Filter icon" src="/assets/Filter.svg" style={{ height: '40px', paddingLeft: '15px' }} />
             <img alt="Emoji icon" src="/assets/FollowingEmoji.svg" style={{ height: '40px', paddingLeft: '15px' }} />

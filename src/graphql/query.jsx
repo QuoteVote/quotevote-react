@@ -263,6 +263,67 @@ export const GET_TOP_POSTS = gql`
   }
 `
 
+export const GET_FRIENDS_POSTS = gql`
+  query friendsPosts(
+    $limit: Int!
+    $offset: Int!
+    $searchKey: String!
+    $startDateRange: String
+    $endDateRange: String
+    $friendsOnly: Boolean
+  ) {
+    posts(
+      limit: $limit
+      offset: $offset
+      searchKey: $searchKey
+      startDateRange: $startDateRange
+      endDateRange: $endDateRange
+      friendsOnly: $friendsOnly
+    ) {
+      entities {
+        _id
+        userId
+        title
+        text
+        upvotes
+        downvotes
+        bookmarkedBy
+        created
+        url
+        creator {
+          name
+          username
+          avatar
+          _id
+        }
+        votes {
+          _id
+          startWordIndex
+          endWordIndex
+          type
+        }
+        comments {
+          _id
+        }
+        quotes {
+          _id
+        }
+        messageRoom {
+          _id
+          messages {
+            _id
+          }
+        }
+      }
+      pagination {
+        total_count
+        limit
+        offset
+      }
+    }
+  }
+`
+
 export const GET_USER = gql`
   query user($username: String!) {
     user(username: $username) {

@@ -1,10 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from '@material-ui/core/Tooltip'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
-import FilterIconButtons from './Filter/FilterIconButtons'
-import CustomizedInputBase from './SearchBar'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -65,12 +62,8 @@ export default function SubHeader({ headerName, showFilterIconButton = true, set
           {headerName}
         </Typography>
       </Grid>
-      <Grid item xs={8} sm={5} md={6}>
-        <CustomizedInputBase setOffset={setOffset} />
-      </Grid>
-      <Grid item xs={4} sm={3} md={3}>
-        <FilterIconButtons showFilterIconButton={showFilterIconButton} />
-      </Grid>
+      <Grid item xs={8} sm={5} md={6} />
+      <Grid item xs={4} sm={3} md={3} />
     </Grid>
   )
 }
