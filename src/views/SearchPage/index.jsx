@@ -12,6 +12,78 @@ import { serializePost } from '../../utils/objectIdSerializer';
 import PostsList from '../../components/Post/PostsList';
 import ErrorBoundary from '../../components/ErrorBoundary';
 
+// Add custom styles for the date range picker to match the screenshot
+const datePickerStyles = `
+  .DateRangePicker_picker {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10) !important;
+    padding: 16px 8px 8px 8px !important;
+    border: 1px solid #eee !important;
+    background: #fff !important;
+    min-width: 520px;
+  }
+  .DateRangePickerInput {
+    display: none !important;
+  }
+  .DayPicker {
+    font-family: 'Montserrat', 'Roboto', 'Arial', sans-serif !important;
+    font-size: 1rem !important;
+    background: #fff !important;
+  }
+  .CalendarMonth_caption {
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    color: #444 !important;
+    margin-bottom: 8px !important;
+  }
+  .DayPicker_weekHeader_li {
+    color: #888 !important;
+    font-weight: 500 !important;
+    font-size: 0.95em !important;
+  }
+  .CalendarDay__default {
+    border: none !important;
+    color: #222 !important;
+    font-weight: 500 !important;
+    background: none !important;
+    border-radius: 50% !important;
+    transition: background 0.2s;
+  }
+  .CalendarDay__default:hover {
+    background: #f0f2f5 !important;
+    color: #111 !important;
+  }
+  .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+    background: #1ec773 !important; /* Green */
+    color: #fff !important;
+    border-radius: 50% !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(30,199,115,0.10);
+  }
+  .CalendarDay__selected_span {
+    background: #e9ecef !important; /* Light gray for the range */
+    color: #222 !important;
+    border-radius: 0 !important;
+  }
+  .CalendarDay__hovered_span, .CalendarDay__hovered_span:hover {
+    background: #e9ecef !important;
+    color: #222 !important;
+    border-radius: 0 !important;
+  }
+  .CalendarDay__selected_start.CalendarDay__selected_span, .CalendarDay__selected_end.CalendarDay__selected_span {
+    background: #1ec773 !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+  }
+`;
+
+if (typeof document !== 'undefined' && !document.getElementById('custom-date-picker-styles')) {
+  const style = document.createElement('style');
+  style.id = 'custom-date-picker-styles';
+  style.textContent = datePickerStyles;
+  document.head.appendChild(style);
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: '2rem',
@@ -82,21 +154,55 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   datePickerContainer: {
+    padding: '16px',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
     '& .DateRangePickerInput': {
-      display: 'none',
+      display: 'none !important',
     },
     '& .DateRangePicker_picker': {
-      position: 'static',
-      boxShadow: 'none',
+      position: 'static !important',
+      boxShadow: 'none !important',
+      border: 'none !important',
+      display: 'block !important',
+      visibility: 'visible !important',
+      opacity: '1 !important',
+    },
+    '& .DayPicker': {
+      background: 'white !important',
+      display: 'block !important',
+      visibility: 'visible !important',
+      opacity: '1 !important',
+    },
+    '& .DayPicker_weekHeader': {
+      background: 'white !important',
+      display: 'table-row !important',
+    },
+    '& .DayPicker_weekHeader_ul': {
+      background: 'white !important',
+      display: 'table-row !important',
+    },
+    '& .DayPicker_transitionContainer': {
+      background: 'white !important',
+      display: 'block !important',
+      visibility: 'visible !important',
+      opacity: '1 !important',
+    },
+    '& .DayPicker_focusRegion': {
+      background: 'white !important',
+      display: 'block !important',
     },
     '& .DayPicker_weekHeader_li': {
       fontWeight: 'bold',
       color: theme.palette.text.primary,
+      display: 'table-cell !important',
     },
     '& .CalendarDay__default': {
       border: 'none',
       color: theme.palette.text.primary,
       fontWeight: '500',
+      display: 'table-cell !important',
     },
     '& .CalendarDay__default:hover': {
       background: theme.palette.action.hover,
@@ -104,22 +210,22 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '50%',
     },
     '& .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover': {
-      background: '#28a745', // A green color to match the mockup
-      color: 'white',
-      borderRadius: '50%',
+      background: '#28a745 !important',
+      color: 'white !important',
+      borderRadius: '50% !important',
     },
     '& .CalendarDay__selected_span': {
-      background: '#e9ecef', // Light gray for the range
+      background: '#e9ecef !important',
       color: theme.palette.text.primary,
     },
     '& .CalendarDay__hovered_span, .CalendarDay__hovered_span:hover': {
-      background: '#e9ecef',
+      background: '#e9ecef !important',
       color: theme.palette.text.primary,
       borderRadius: '0',
     },
     '& .CalendarDay__selected_start.CalendarDay__selected_span, & .CalendarDay__selected_end.CalendarDay__selected_span': {
-      background: '#28a745',
-      color: 'white',
+      background: '#28a745 !important',
+      color: 'white !important',
     },
     '& .DateInput_input, & .DateInput_input__focused': {
       borderBottom: 'none',
@@ -225,14 +331,13 @@ export default function SearchPage() {
     setShowResults(true)
   }
 
-  const handleDateFilterToggle = () => {
+  const handleDateFilterToggle = (event) => {
     const willBeVisible = !isCalendarVisible;
     setIsCalendarVisible(willBeVisible);
     setFocusedInput(willBeVisible ? 'startDate' : null);
   };
 
   const handleDateChange = ({ startDate, endDate }) => {
-    console.log('Date range changed:', { startDate, endDate })
     setDateRangeFilter({ startDate, endDate })
     setOffset(0)
     // Trigger refetch after a short delay to ensure state is updated
@@ -248,7 +353,6 @@ export default function SearchPage() {
   }
 
   const clearDateFilter = () => {
-    console.log('Clearing date filter')
     setDateRangeFilter({ startDate: null, endDate: null })
     setOffset(0)
     setTimeout(() => {
@@ -400,48 +504,43 @@ export default function SearchPage() {
             <IconButton 
               aria-label="calendar" 
               className={`${classes.icon} ${(dateRangeFilter.startDate || dateRangeFilter.endDate || isCalendarVisible) ? classes.activeFilter : ''}`}
-              onClick={handleDateFilterToggle}
+              onClick={e => handleDateFilterToggle(e)}
               title="Filter by date range"
             >
               📅
             </IconButton>
           </Grid>
           
-          {/* Date Range Picker Inline */}
           {isCalendarVisible && (
-            <Grid item style={{ width: '100%', marginTop: 16 }}>
-              <Paper className={classes.datePickerContainer} style={{ padding: 16 }}>
-                <DateRangePicker
-                  startDatePlaceholderText="Start Date"
-                  startDate={dateRangeFilter.startDate}
-                  onDatesChange={handleDateChange}
-                  endDatePlaceholderText="End Date"
-                  endDate={dateRangeFilter.endDate}
-                  numberOfMonths={2}
-                  displayFormat="MMM D, YYYY"
-                  showClearDates
-                  focusedInput={focusedInput || (isCalendarVisible ? 'startDate' : null)}
-                  onFocusChange={(input) => setFocusedInput(input)}
-                  startDateId="startDateSearch"
-                  endDateId="endDateSearch"
-                  minimumNights={0}
-                  isOutsideRange={() => false}
-                  noBorder
-                  hideKeyboardShortcutsPanel
-                />
-                <div style={{ marginTop: 16, textAlign: 'center' }}>
-                  <Button 
-                    variant="outlined" 
-                    onClick={clearDateFilterAndClose}
-                    size="small"
-                  >
-                    Clear and Close
-                  </Button>
-                </div>
-              </Paper>
+            <Grid item xs={12} style={{ marginTop: '20px', padding: '20px', borderRadius: '12px', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', background: '#fff', border: '1px solid #eee', maxWidth: 600 }}>
+              <DateRangePicker
+                startDatePlaceholderText="Start Date"
+                startDate={dateRangeFilter.startDate}
+                onDatesChange={handleDateChange}
+                endDatePlaceholderText="End Date"
+                endDate={dateRangeFilter.endDate}
+                numberOfMonths={2}
+                displayFormat="MMM D, YYYY"
+                showClearDates
+                focusedInput={focusedInput || 'startDate'}
+                onFocusChange={(input) => setFocusedInput(input)}
+                startDateId="startDateSearch"
+                endDateId="endDateSearch"
+                minimumNights={0}
+                isOutsideRange={() => false}
+              />
+              <div style={{ marginTop: 16, textAlign: 'center' }}>
+                <Button 
+                  variant="outlined" 
+                  onClick={clearDateFilterAndClose}
+                  size="small"
+                >
+                  Clear and Close
+                </Button>
+              </div>
             </Grid>
           )}
-
+          
           {/* Filter Status Display */}
           {showResults && (filterMode !== 'all' || dateRangeFilter.startDate || dateRangeFilter.endDate) && (
             <Grid item style={{ width: '100%', marginTop: 16 }}>

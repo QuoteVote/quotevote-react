@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  Card, CardActions, CardContent, CardHeader, IconButton,
+    Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
@@ -20,17 +20,17 @@ import { SET_SNACKBAR } from '../../store/ui'
 import useGuestGuard from 'utils/useGuestGuard'
 import RequestInviteDialog from '../RequestInviteDialog'
 import {
-  ADD_COMMENT,
-  ADD_QUOTE,
-  REPORT_POST,
-  VOTE,
-  APPROVE_POST,
-  REJECT_POST,
+    ADD_COMMENT,
+    ADD_QUOTE,
+    REPORT_POST,
+    VOTE,
+    APPROVE_POST,
+    REJECT_POST,
 } from '../../graphql/mutations'
 import {
-  GET_POST,
-  GET_TOP_POSTS,
-  GET_USER_ACTIVITY,
+    GET_POST,
+    GET_TOP_POSTS,
+    GET_USER_ACTIVITY,
 } from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
@@ -475,93 +475,95 @@ function Post({
   };
 
   return (
-    <Card
-      style={{
-        height: postHeight >= 742 ? '83vh' : 'auto',
-        overflow: 'auto',
-      }}
-    >
-      <CardHeader
-        className={classes.header1}
-        title={cardTitle}
-        action={pointsHeader}
-      />
-      <CardHeader
-        className={classes.header2}
-        avatar={(
-          <IconButton
-            size="small"
-            onClick={() => handleRedirectToProfile(creator.username)}
-          >
-            <AvatarDisplay height={40} width={40} {...avatar} />
-          </IconButton>
-        )}
-        title={name}
-        subheader={parsedCreated}
-      />
-      <CardContent>
-        <VotingBoard
-          content={post.text}
-          onSelect={setSelectedText}
-          selectedText={selectedText}
-          highlights
-        >
-          {({ text }) => (
-            <VotingPopup
-              onVote={handleVoting}
-              onAddComment={handleAddComment}
-              onAddQuote={handleAddQuote}
-              text={text}
-              selectedText={selectedText}
-              votedBy={serializeVotedBy(post.votedBy)}
-            />
-          )}
-        </VotingBoard>
-      </CardContent>
-
-      <CardActions disableSpacing style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: 20 }}>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <RejectButton
-            onMouseOver={(e) => handlePopoverOpen(e, 'rejected')}
-            onClick={handleRejectPost}
-            selected={hasRejected}
-          />
-          <ApproveButton
-            onMouseOver={(e) => handlePopoverOpen(e, 'approved')}
-            onClick={handleApprovePost}
-            selected={hasApproved}
-          />
-          <ApproveRejectPopover
-            anchorEl={anchorEl}
-            handlePopoverClose={handlePopoverClose}
-            type={popoverType}
-            approvedBy={post.approvedBy}
-            rejectedBy={post.rejectedBy}
-          />
-        </div>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <FollowButton
-            isFollowing={isFollowing}
-            profileUserId={userId}
-            username={username}
-            showIcon
-          />
-          <BookmarkIconButton post={post} user={user} />
-          {/* Add chat, person, and heart icons here as needed */}
-        </div>
-      </CardActions>
-      {open && (
-        <SweetAlert
-          confirmBtnCssClass={`${classes.button} ${classes.success}`}
-          success
-          onConfirm={hideAlert}
-          onCancel={hideAlert}
-          title="Post URL copied!"
-          timeout={1000}
+    <>
+      <Card
+        style={{
+          height: postHeight >= 742 ? '83vh' : 'auto',
+          overflow: 'auto',
+        }}
+      >
+        <CardHeader
+          className={classes.header1}
+          title={cardTitle}
+          action={pointsHeader}
         />
-      )}
-    </Card>
-    <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
+        <CardHeader
+          className={classes.header2}
+          avatar={(
+            <IconButton
+              size="small"
+              onClick={() => handleRedirectToProfile(creator.username)}
+            >
+              <AvatarDisplay height={40} width={40} {...avatar} />
+            </IconButton>
+          )}
+          title={name}
+          subheader={parsedCreated}
+        />
+        <CardContent>
+          <VotingBoard
+            content={post.text}
+            onSelect={setSelectedText}
+            selectedText={selectedText}
+            highlights
+          >
+            {({ text }) => (
+              <VotingPopup
+                onVote={handleVoting}
+                onAddComment={handleAddComment}
+                onAddQuote={handleAddQuote}
+                text={text}
+                selectedText={selectedText}
+                votedBy={serializeVotedBy(post.votedBy)}
+              />
+            )}
+          </VotingBoard>
+        </CardContent>
+
+        <CardActions disableSpacing style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: 20 }}>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <RejectButton
+              onMouseOver={(e) => handlePopoverOpen(e, 'rejected')}
+              onClick={handleRejectPost}
+              selected={hasRejected}
+            />
+            <ApproveButton
+              onMouseOver={(e) => handlePopoverOpen(e, 'approved')}
+              onClick={handleApprovePost}
+              selected={hasApproved}
+            />
+            <ApproveRejectPopover
+              anchorEl={anchorEl}
+              handlePopoverClose={handlePopoverClose}
+              type={popoverType}
+              approvedBy={post.approvedBy}
+              rejectedBy={post.rejectedBy}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <FollowButton
+              isFollowing={isFollowing}
+              profileUserId={userId}
+              username={username}
+              showIcon
+            />
+            <BookmarkIconButton post={post} user={user} />
+            {/* Add chat, person, and heart icons here as needed */}
+          </div>
+        </CardActions>
+        {open && (
+          <SweetAlert
+            confirmBtnCssClass={`${classes.button} ${classes.success}`}
+            success
+            onConfirm={hideAlert}
+            onCancel={hideAlert}
+            title="Post URL copied!"
+            timeout={1000}
+          />
+        )}
+      </Card>
+      <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
+    </>
   )
 }
 
