@@ -92,8 +92,12 @@ function MainNavBar(props) {
                 )}
                 aria-label="Post"
                 onClick={() => {
-                  handleMenu(2)
-                  setOpen(true)
+                  if (loggedIn) {
+                    handleMenu(2)
+                    setOpen(true)
+                  } else {
+                    history.push('/auth/request-access')
+                  }
                 }}
                 value="post"
               />
