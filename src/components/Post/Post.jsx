@@ -5,6 +5,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
+import DeleteIcon from '@material-ui/icons/Delete'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
@@ -24,6 +25,7 @@ import {
   VOTE,
   APPROVE_POST,
   REJECT_POST,
+  DELETE_POST,
 } from '../../graphql/mutations'
 import {
   GET_POST,
@@ -248,6 +250,12 @@ function Post({
     ],
   });
 
+  const [deletePost] = useMutation(DELETE_POST, {
+    refetchQueries: [
+      { query: GET_TOP_POSTS, variables: { limit: 5, offset: 0, searchKey: '' } },
+    ],
+  });
+
   const handleReportPost = async () => {
     try {
       const res = await reportPost({ variables: { postId: _id, userId: user._id } })
@@ -464,6 +472,20 @@ function Post({
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await deletePost({ variables: { postId: _id } });
+      dispatch(
+        SET_SNACKBAR({ open: true, message: 'Post deleted', type: 'success' }),
+      );
+      history.push('/home');
+    } catch (err) {
+      dispatch(
+        SET_SNACKBAR({ open: true, message: `Delete Error: ${err.message}`, type: 'danger' }),
+      );
+    }
+  };
+
   return (
     <Card
       style={{
@@ -537,6 +559,11 @@ function Post({
             showIcon
           />
           <BookmarkIconButton post={post} user={user} />
+          {(user._id === userId || user.admin) && (
+            <IconButton onClick={handleDelete} size="small">
+              <DeleteIcon />
+            </IconButton>
+          )}
           {/* Add chat, person, and heart icons here as needed */}
         </div>
       </CardActions>

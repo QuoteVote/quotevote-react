@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
 import { isEmpty } from 'lodash'
-import Link from '@material-ui/core/Link'
+import { Redirect } from 'react-router-dom'
 import Post from '../../components/Post/Post'
 import PostActionList from '../../components/PostActions/PostActionList'
 import PostSkeleton from '../../components/Post/PostSkeleton'
@@ -84,7 +84,7 @@ function PostPage({ postId }) {
     },
   )
 
-  if (postError) return 'Something went wrong!'
+  if (postError) return <Redirect to="/error" />
 
   const { messages } = (!loadingMessages && messageData) || []
 
@@ -110,25 +110,7 @@ function PostPage({ postId }) {
   }
 
   if (!loadingPost && !post) {
-    return (
-      <Grid
-        container
-        direction="row"
-        justify="space-around"
-        alignItems="flex-start"
-        className={classes.root}
-        style={{ position: 'relative' }}
-      >
-        <Grid item xs={12} className={classes.emptyPost}>
-          <Typography variant="h6" align="center">
-            Invalid post
-          </Typography>
-          <Link href="/home" className={classes.link}>
-            Return to homepage.
-          </Link>
-        </Grid>
-      </Grid>
-    )
+    return <Redirect to="/error" />
   }
 
   const { url } = !loadingPost && post
