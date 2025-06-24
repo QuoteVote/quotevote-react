@@ -6,7 +6,6 @@ import Tabs from '@material-ui/core/Tabs'
 import Dialog from '@material-ui/core/Dialog'
 import { NavLink, useHistory } from 'react-router-dom'
 import Tab from '@material-ui/core/Tab'
-import SvgIcon from '@material-ui/core/SvgIcon'
 import { Typography } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import withWidth from '@material-ui/core/withWidth'
@@ -90,7 +89,7 @@ function MainNavBar(props) {
                     alt="Add Post" 
                     style={{width: fontSize === 'large' ? '32px' : '24px', height: fontSize === 'large' ? '32px' : '24px'}} 
                   />
-                )
+                )}
                 aria-label="Post"
                 onClick={() => {
                   handleMenu(2)
@@ -155,7 +154,7 @@ function MainNavBar(props) {
               Request Invite
             </Button>
           </Grid>
-        )
+        )}
       </Grid>
       <Dialog open={open} onClose={() => setOpen(false)}>
         <SubmitPost setOpen={setOpen} />

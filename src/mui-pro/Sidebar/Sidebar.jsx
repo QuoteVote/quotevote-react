@@ -286,7 +286,7 @@ class MenuSidebar extends React.Component {
               >
                 Request Invite
               </Button>
-            )
+            )}
           </Toolbar>
         </AppBar>
         <Drawer
