@@ -1,8 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { CardHeader, IconButton } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import Card from 'mui-pro/Card/Card'
 import classNames from 'classnames'
 import { isEmpty } from 'lodash'
@@ -13,16 +12,15 @@ import { useHistory } from 'react-router-dom'
 import AvatarDisplay from 'components/Avatar'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
-import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import stringLimit from 'string-limit'
 import withWidth from '@material-ui/core/withWidth'
-import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
 import getTopPostsVoteHighlights from '../../utils/getTopPostsVoteHighlights'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
+import { tokenValidator } from 'store/user'
 
 const GET_GROUP = gql`
   query getGroup($groupId: String!) {
@@ -280,13 +278,23 @@ function PostCard(props) {
     skip: !groupId,
   })
 
+  const handleCardClick = () => {
+    // Check if user is in guest mode (no valid token)
+    if (!tokenValidator(dispatch)) {
+      // Redirect to invite page for guest users
+      history.push('/auth/request-access')
+      return
+    }
+    
+    // For authenticated users, proceed with normal post navigation
+    dispatch(SET_SELECTED_POST(_id))
+    history.push(url.replace(/\?/g, ''))
+  }
+
   return (
     <Card
       className={classNames(classes.cardRootStyle, classes[cardBg], classes.fontColor)}
-      onClick={() => {
-        dispatch(SET_SELECTED_POST(_id))
-        history.push(url.replace(/\?/g, ''))
-      }}
+      onClick={handleCardClick}
     >
       <CardContent className={classes.cardBodyStyle}>
         <div className={classes.voteCounts}>

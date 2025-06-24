@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroller'
@@ -14,10 +13,11 @@ import { ActivityCard } from '../../ui/ActivityCard'
 import getCardBackgroundColor from '../../utils/getCardBackgroundColor'
 import { CREATE_POST_MESSAGE_ROOM, UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
 import {
-  GET_CHAT_ROOMS, GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY,
+    GET_CHAT_ROOMS, GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY,
 } from '../../graphql/query'
 import { SET_SELECTED_POST } from '../../store/ui'
 import getActivityContent from '../../utils/getActivityContent'
+import { tokenValidator } from 'store/user'
 
 function LoadActivityCard({ width, activity }) {
   const {
@@ -76,6 +76,14 @@ function LoadActivityCard({ width, activity }) {
   const isLiked = bookmarkedBy.includes(currentUser._id)
   const dispatch = useDispatch()
   const handleCardClick = () => {
+    // Check if user is in guest mode (no valid token)
+    if (!tokenValidator(dispatch)) {
+      // Redirect to invite page for guest users
+      history.push('/auth/request-access')
+      return
+    }
+    
+    // For authenticated users, proceed with normal post navigation
     dispatch(SET_SELECTED_POST(postId))
     history.push(url.replace(/\?/g, ''))
   }

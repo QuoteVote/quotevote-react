@@ -20,6 +20,7 @@ import DisplayAvatar from '../Avatar'
 import { DELETE_NOTIFICATION } from '../../graphql/mutations'
 import { GET_NOTIFICATIONS } from '../../graphql/query'
 import { SET_SELECTED_POST } from '../../store/ui'
+import { tokenValidator } from 'store/user'
 
 const NotificationBadge = withStyles(() => ({
   badge: {
@@ -101,6 +102,23 @@ function NotificationLists({ notifications, pageView }) {
     })
   }
 
+  const handleNotificationClick = (notificationType, userBy, post) => {
+    if (notificationType === 'FOLLOW') {
+      history.push(`/Profile/${userBy.username}`)
+    } else {
+      // Check if user is in guest mode (no valid token)
+      if (!tokenValidator(dispatch)) {
+        // Redirect to invite page for guest users
+        history.push('/auth/request-access')
+        return
+      }
+      
+      // For authenticated users, proceed with normal post navigation
+      dispatch(SET_SELECTED_POST(post._id))
+      history.push(post.url.replace(/\?/g, ''))
+    }
+  }
+
   if (!notifications || !notifications.length) {
     return (
       <Grid
@@ -134,14 +152,7 @@ function NotificationLists({ notifications, pageView }) {
           <ListItem
             button
             alignItems="flex-start"
-            onClick={() => {
-              if (notificationType === 'FOLLOW') {
-                history.push(`/Profile/${userBy.username}`)
-              } else {
-                dispatch(SET_SELECTED_POST(post._id))
-                history.push(post.url.replace(/\?/g, ''))
-              }
-            }}
+            onClick={() => handleNotificationClick(notificationType, userBy, post)}
           >
             <ListItemAvatar>
               <NotificationBadge

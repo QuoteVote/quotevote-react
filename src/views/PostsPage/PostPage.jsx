@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -45,7 +45,7 @@ function PostPage({ postId }) {
     variables: { postId },
   })
 
-  const { post } = !loadingPost && postData
+  const { post } = (!loadingPost && postData) || {}
 
   // To reset the scroll when the selected post changes
   useEffect(() => {
@@ -131,7 +131,7 @@ function PostPage({ postId }) {
     )
   }
 
-  const { url } = !loadingPost && post
+  const { url } = (!loadingPost && post) || {}
 
   return (
     <Grid
