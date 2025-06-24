@@ -16,7 +16,6 @@ import { useApolloClient } from '@apollo/react-hooks'
 import Button from '@material-ui/core/Button'
 import Hidden from '@material-ui/core/Hidden'
 import Avatar from '@material-ui/core/Avatar'
-import HomeSvg from '../../assets/svg/Home'
 import AvatarPreview from '../Avatar'
 import ChatMenu from '../Chat/ChatMenu'
 import NotificationMenu from '../Notifications/NotificationMenu'
@@ -70,27 +69,7 @@ function MainNavBar(props) {
             indicatorColor={selectedPage === null ? 'primary' : 'secondary'}
             textColor="secondary"
           >
-            {loggedIn && (
-              <Grid item lg={4}>
-                <NavLink to="/Home">
-                  <Tab
-                    icon={(
-                      <SvgIcon
-                        component={HomeSvg}
-                        fontSize={fontSize}
-                        viewBox="0 0 37 37"
-                      />
-                    )
-                    aria-label="Home"
-                    onClick={() => {
-                      handleMenu(0)
-                    }}
-                    wrapped
-                    value="home"
-                  />
-                </NavLink>
-              </Grid>
-            )
+            {/* Home tab removed for all users */}
             <Grid item lg={4}>
               <NavLink to="/search">
                 <Tab

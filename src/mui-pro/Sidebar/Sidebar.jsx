@@ -94,7 +94,7 @@ class MenuSidebar extends React.Component {
     const loggedIn = !!localStorage.getItem('token');
     return routes.map((prop, key) => {
       if (prop.path === "/post") return null;
-      if (!loggedIn && prop.path === 'Home') return null;
+      if (prop.path === 'Home') return null;
       if (prop.redirect) {
         return null;
       }
