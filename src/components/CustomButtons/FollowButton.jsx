@@ -11,7 +11,6 @@ import { updateFollowing } from 'store/user'
 import { PersonAdd, PersonAddDisabled } from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton'
 import useGuestGuard from 'utils/useGuestGuard'
-import RequestInviteDialog from '../RequestInviteDialog'
 
 const useStyles = makeStyles((theme) => ({
   followButton: {
@@ -40,8 +39,7 @@ function FollowButton({
 }) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const [openInvite, setOpenInvite] = React.useState(false)
-  const ensureAuth = useGuestGuard(setOpenInvite)
+  const ensureAuth = useGuestGuard()
   const [followMutation] = useMutation(FOLLOW_MUTATION, {
     refetchQueries: [{
       query: GET_USER,
@@ -104,7 +102,6 @@ function FollowButton({
           Follow
         </Button>
       )}
-      <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
     </>
   )
 }

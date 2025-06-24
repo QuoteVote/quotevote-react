@@ -5,11 +5,10 @@ import { useLocation } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { tokenValidator } from 'store/user'
 import SubmitPost from '../../components/SubmitPost/SubmitPost'
-import RequestInviteDialog from '../../components/RequestInviteDialog'
+import { Redirect } from 'react-router-dom'
 
 export default function PostRouter() {
   const [, setOpen] = useState(true)
-  const [openInvite, setOpenInvite] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -19,15 +18,13 @@ export default function PostRouter() {
 
   useEffect(() => {
     if (location.pathname === '/post' && !tokenValidator(dispatch)) {
-      setOpenInvite(true)
+      // trigger redirect below
     }
   }, [location.pathname, dispatch])
 
   if (location.pathname === '/post') {
     if (!tokenValidator(dispatch)) {
-      return (
-        <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
-      )
+      return <Redirect to="/auth/request-access" />
     }
     return <SubmitPost setOpen={setOpen} />
   }

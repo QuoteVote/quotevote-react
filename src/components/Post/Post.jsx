@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-    Card, CardActions, CardContent, CardHeader, IconButton,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
@@ -93,8 +92,7 @@ function Post({
   const { _followingId } = user
   const dispatch = useDispatch()
   const history = useHistory()
-  const [openInvite, setOpenInvite] = useState(false)
-  const ensureAuth = useGuestGuard(setOpenInvite)
+  const ensureAuth = useGuestGuard()
   const parsedCreated = moment(created).format('LLL')
   
   // State declarations
@@ -536,7 +534,6 @@ function Post({
               anchorEl={anchorEl}
               handlePopoverClose={handlePopoverClose}
               type={popoverType}
-              approvedBy={post.approvedBy}
               rejectedBy={post.rejectedBy}
             />
           </div>

@@ -1,12 +1,14 @@
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { tokenValidator } from 'store/user'
 
-export default function useGuestGuard(openInvite) {
+export default function useGuestGuard() {
   const dispatch = useDispatch()
+  const history = useHistory()
 
   return () => {
     if (!tokenValidator(dispatch)) {
-      if (openInvite) openInvite(true)
+      history.push('/auth/request-access')
       return false
     }
     return true

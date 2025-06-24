@@ -5,7 +5,6 @@ import { IconButton } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
 import useGuestGuard from 'utils/useGuestGuard'
-import RequestInviteDialog from '../RequestInviteDialog'
 import { CREATE_POST_MESSAGE_ROOM, UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
 import {
   GET_CHAT_ROOMS, GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY,
@@ -20,8 +19,7 @@ function BookmarkIconButton(props) {
   const [createPostMessageRoom] = useMutation(CREATE_POST_MESSAGE_ROOM)
 
   const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK)
-  const [openInvite, setOpenInvite] = React.useState(false)
-  const ensureAuth = useGuestGuard(setOpenInvite)
+  const ensureAuth = useGuestGuard()
 
   const handleClick = async (e) => {
     e.stopPropagation()
@@ -66,7 +64,6 @@ function BookmarkIconButton(props) {
       <IconButton {...props} onClick={handleClick}>
         {isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
       </IconButton>
-      <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
     </>
   )
 }
