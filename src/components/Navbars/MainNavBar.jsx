@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import Tabs from '@material-ui/core/Tabs'
 import Dialog from '@material-ui/core/Dialog'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import Tab from '@material-ui/core/Tab'
 import SvgIcon from '@material-ui/core/SvgIcon'
 import { Typography } from '@material-ui/core'
@@ -35,6 +35,8 @@ function MainNavBar(props) {
   const fontSize = width === 'md' ? 'medium' : 'large'
   const dispatch = useDispatch()
   const client = useApolloClient()
+  const history = useHistory()
+  const loggedIn = useSelector((state) => !!state.user.data._id)
   const handleMenu = (newSelectedMenu) => {
     client.stop()
     dispatch(SET_SELECTED_PAGE(newSelectedMenu))
@@ -68,25 +70,27 @@ function MainNavBar(props) {
             indicatorColor={selectedPage === null ? 'primary' : 'secondary'}
             textColor="secondary"
           >
-            <Grid item lg={4}>
-              <NavLink to="/Home">
-                <Tab
-                  icon={(
-                    <SvgIcon
-                      component={HomeSvg}
-                      fontSize={fontSize}
-                      viewBox="0 0 37 37"
-                    />
-                  )}
-                  aria-label="Home"
-                  onClick={() => {
-                    handleMenu(0)
-                  }}
-                  wrapped
-                  value="home"
-                />
-              </NavLink>
-            </Grid>
+            {loggedIn && (
+              <Grid item lg={4}>
+                <NavLink to="/Home">
+                  <Tab
+                    icon={(
+                      <SvgIcon
+                        component={HomeSvg}
+                        fontSize={fontSize}
+                        viewBox="0 0 37 37"
+                      />
+                    )
+                    aria-label="Home"
+                    onClick={() => {
+                      handleMenu(0)
+                    }}
+                    wrapped
+                    value="home"
+                  />
+                </NavLink>
+              </Grid>
+            )
             <Grid item lg={4}>
               <NavLink to="/search">
                 <Tab
@@ -107,7 +111,7 @@ function MainNavBar(props) {
                     alt="Add Post" 
                     style={{width: fontSize === 'large' ? '32px' : '24px', height: fontSize === 'large' ? '32px' : '24px'}} 
                   />
-                )}
+                )
                 aria-label="Post"
                 onClick={() => {
                   handleMenu(2)
@@ -118,48 +122,61 @@ function MainNavBar(props) {
             </Grid>
           </Tabs>
         </Grid>
-        <Grid item>
-          <Grid
-            container
-            direction="row"
-            justify="space-around"
-            alignItems="center"
-          >
-            <Grid item>
-              <NavLink to="/Profile">
-                <Hidden mdDown>
-                  <Button
-                    aria-label="Profile"
-                    color="inherit"
-                    onClick={handleProfileClick}
-                    className={classes.avatarRoundedButton}
-                  >
-                    <Avatar>
-                      <AvatarPreview height="50" width="50" {...avatar} />
+        {loggedIn ? (
+          <Grid item>
+            <Grid
+              container
+              direction="row"
+              justify="space-around"
+              alignItems="center"
+            >
+              <Grid item>
+                <NavLink to="/Profile">
+                  <Hidden mdDown>
+                    <Button
+                      aria-label="Profile"
+                      color="inherit"
+                      onClick={handleProfileClick}
+                      className={classes.avatarRoundedButton}
+                    >
+                      <Avatar>
+                        <AvatarPreview height="50" width="50" {...avatar} />
+                      </Avatar>
+                      <Typography variant="h6" className={classes.profileBlockName}>
+                        {name}
+                      </Typography>
+                    </Button>
+                  </Hidden>
+                  <Hidden lgUp>
+                    <Avatar height="35" width="35">
+                      <AvatarPreview {...avatar} />
                     </Avatar>
-                    <Typography variant="h6" className={classes.profileBlockName}>
-                      {name}
-                    </Typography>
-                  </Button>
-                </Hidden>
-                <Hidden lgUp>
-                  <Avatar height="35" width="35">
-                    <AvatarPreview {...avatar} />
-                  </Avatar>
-                </Hidden>
-              </NavLink>
-            </Grid>
-            <Grid item>
-              <ChatMenu fontSize={fontSize} />
-            </Grid>
-            <Grid item>
-              <NotificationMenu fontSize={fontSize} />
-            </Grid>
-            <Grid item>
-              <SettingsMenu fontSize={fontSize} />
+                  </Hidden>
+                </NavLink>
+              </Grid>
+              <Grid item>
+                <ChatMenu fontSize={fontSize} />
+              </Grid>
+              <Grid item>
+                <NotificationMenu fontSize={fontSize} />
+              </Grid>
+              <Grid item>
+                <SettingsMenu fontSize={fontSize} />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => history.push('/auth/request-access')}
+              className={classes.rightMenuButton}
+            >
+              Request Invite
+            </Button>
+          </Grid>
+        )
       </Grid>
       <Dialog open={open} onClose={() => setOpen(false)}>
         <SubmitPost setOpen={setOpen} />

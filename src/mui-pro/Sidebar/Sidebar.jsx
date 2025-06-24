@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import MenuIcon from "@material-ui/icons/Menu";
 import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sidebarStyle";
 import { SET_SELECTED_PAGE } from "../../store/ui";
@@ -90,8 +91,10 @@ class MenuSidebar extends React.Component {
   // this function creates the links and collapses that appear in the sidebar (left menu)
   createLinks = (routes) => {
     const { classes, color, rtlActive } = this.props;
+    const loggedIn = !!localStorage.getItem('token');
     return routes.map((prop, key) => {
       if (prop.path === "/post") return null;
+      if (!loggedIn && prop.path === 'Home') return null;
       if (prop.redirect) {
         return null;
       }
@@ -242,6 +245,8 @@ class MenuSidebar extends React.Component {
       dispatch(SET_SELECTED_PAGE(0))
     }
 
+    const loggedIn = !!localStorage.getItem('token')
+
     return (
       <>
         <AppBar
@@ -267,9 +272,21 @@ class MenuSidebar extends React.Component {
                 </div>
               </a>
             </div>
-            <ChatMenu />
-            <NotificationMenu />
-            <SettingsMenu />
+            {loggedIn ? (
+              <>
+                <ChatMenu />
+                <NotificationMenu />
+                <SettingsMenu />
+              </>
+            ) : (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => this.props.history.push('/auth/request-access')}
+              >
+                Request Invite
+              </Button>
+            )
           </Toolbar>
         </AppBar>
         <Drawer
