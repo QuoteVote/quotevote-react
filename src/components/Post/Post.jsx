@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import {
-} from '@material-ui/core'
+import { } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
@@ -29,9 +28,9 @@ import {
   DELETE_POST
 } from '../../graphql/mutations'
 import {
-    GET_POST,
-    GET_TOP_POSTS,
-    GET_USER_ACTIVITY,
+  GET_POST,
+  GET_TOP_POSTS,
+  GET_USER_ACTIVITY,
 } from '../../graphql/query'
 import AvatarDisplay from '../Avatar'
 import BookmarkIconButton from '../CustomButtons/BookmarkIconButton'
@@ -567,6 +566,11 @@ function Post({
               showIcon
             />
             <BookmarkIconButton post={post} user={user} />
+            {(user._id === userId || user.admin) && (
+              <IconButton onClick={handleDelete} size="small">
+                <DeleteIcon />
+              </IconButton>
+            )}
             {/* Add chat, person, and heart icons here as needed */}
           </div>
         </CardActions>
@@ -579,27 +583,10 @@ function Post({
             title="Post URL copied!"
             timeout={1000}
           />
-          <BookmarkIconButton post={post} user={user} />
-          {(user._id === userId || user.admin) && (
-            <IconButton onClick={handleDelete} size="small">
-              <DeleteIcon />
-            </IconButton>
-          )}
-          {/* Add chat, person, and heart icons here as needed */}
-        </div>
-      </CardActions>
-      {open && (
-        <SweetAlert
-          confirmBtnCssClass={`${classes.button} ${classes.success}`}
-          success
-          onConfirm={hideAlert}
-          onCancel={hideAlert}
-          title="Post URL copied!"
-          timeout={1000}
-        />
-      )}
-    </Card>
-    <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
+        )}
+      </Card>
+      <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
+    </>
   )
 }
 
