@@ -9,18 +9,60 @@ import 'react-dates/lib/css/_datepicker.css'
 import { DateRangePicker } from 'react-dates'
 import { GET_TOP_POSTS } from '../../graphql/query'
 import { serializePost } from '../../utils/objectIdSerializer'
-import PostsList from '../../components/Post/PostsList'
 import ErrorBoundary from '../../components/ErrorBoundary'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Post from '../../components/Post/Post'
+
+export const MOBILE_IMAGE_WIDTH = 250
 
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: '2rem',
-    height: '100%',
+    height: '100vh',
     display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     textAlign: 'center',
-    backgroundColor: '#f0f2f5',
+    background: 'none',
+  },
+  headerSection: {
+    width: '100%',
+    maxWidth: 800,
+    margin: '0 auto',
+    textAlign: 'center',
+    marginBottom: theme.spacing(4),
+  },
+  headerLogo: {
+    width: 320,
+    maxWidth: '90vw',
+    margin: '0 auto',
+    display: 'block',
+  },
+  headerTagline: {
+    fontWeight: 600,
+    fontSize: 18,
+    margin: theme.spacing(2, 0),
+  },
+  headerButtons: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+    flexWrap: 'wrap',
+  },
+  headerButton: {
+    minWidth: 140,
+    fontWeight: 500,
+  },
+  headerDivider: {
+    margin: `${theme.spacing(3)}px auto`,
+    border: 0,
+    borderTop: '2px solid #222',
+    width: '90%',
+    maxWidth: 700,
   },
   container: {
     maxWidth: 600,
@@ -44,11 +86,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     padding: theme.spacing(1, 2),
     marginBottom: theme.spacing(2),
-    border: '1px solid #ddd',
+    border: '2px solid #ddd',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    '&:hover': {
+      borderColor: theme.palette.primary.main,
+      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+    },
   },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
+    fontSize: '16px',
+    '&::placeholder': {
+      color: theme.palette.text.secondary,
+      opacity: 0.7,
+    },
   },
   iconButton: {
     padding: 10,
@@ -237,6 +289,10 @@ export default function LandingPage() {
   }
 
   const processAndSortData = (rawData) => {
+    if (!rawData || !rawData.posts) {
+      return null
+    }
+
     console.log('Raw data:', rawData)
 
     let processedData = {
@@ -294,11 +350,29 @@ export default function LandingPage() {
     )
   }
 
-  const processedData = processAndSortData(data)
+  const processedData = data ? processAndSortData(data) : null
 
   return (
     <ErrorBoundary>
       <div className={classes.root}>
+        {/* Header Section */}
+        <div className={classes.headerSection}>
+          <img
+            src="/assets/QuoteVoteLogo.png"
+            alt="QUOTE.VOTE"
+            className={classes.headerLogo}
+          />
+          <Typography className={classes.headerTagline}>
+            No algorithms. No ads. Just conversations.
+          </Typography>
+          <div className={classes.headerButtons}>
+            <Button variant="outlined" className={classes.headerButton}>Request Invite</Button>
+            <Button variant="outlined" className={classes.headerButton}>Donate</Button>
+            <Button variant="outlined" className={classes.headerButton}>Volunteer</Button>
+            <Button variant="outlined" className={classes.headerButton}>GitHub</Button>
+          </div>
+          <hr className={classes.headerDivider} />
+        </div>
         <Grid
           container
           direction="column"
@@ -309,9 +383,13 @@ export default function LandingPage() {
             <Grid item>
               <div className={classes.logoContainer}>
                 <img
-                  src="/assets/search-quote-vote.png"
-                  alt="logo"
+                  src="/assets/QuoteVoteLogo.png"
+                  alt="Quote.Vote Logo"
                   className={classes.logoImage}
+                  onError={(e) => {
+                    console.log('Logo image failed to load, using fallback');
+                    e.target.style.display = 'none';
+                  }}
                 />
               </div>
             </Grid>
@@ -321,18 +399,21 @@ export default function LandingPage() {
               component="form"
               className={classes.searchBar}
               onSubmit={handleSearch}
+              style={{ minHeight: '50px' }}
             >
               <InputBase
                 className={classes.input}
-                placeholder="Search..."
+                placeholder="Search for posts..."
                 inputProps={{ 'aria-label': 'search' }}
                 value={searchKey}
                 onChange={(e) => setSearchKey(e.target.value)}
+                style={{ fontSize: '16px', padding: '8px 0' }}
               />
               <IconButton
                 type="submit"
                 className={classes.iconButton}
                 aria-label="search"
+                style={{ color: '#666' }}
               >
                 <SearchIcon />
               </IconButton>
@@ -432,24 +513,23 @@ export default function LandingPage() {
             </Grid>
           )}
 
-          {showResults && (
+          {showResults && processedData && (
             <Grid item xs={12} className={classes.list}>
-              {loading && !processedData && <div>Loading...</div>}
-              {loading && processedData && (
-                <div style={{ textAlign: 'center', padding: '10px', color: '#666' }}>
-                  Refreshing results...
-                </div>
-              )}
-              {processedData && (
-                <PostsList
-                  data={processedData}
-                  loading={loading}
-                  limit={limit}
-                  fetchMore={fetchMore}
-                  variables={variables}
-                  cols={1}
-                />
-              )}
+              <Slider
+                dots={true}
+                infinite={processedData.posts.entities.length > 1}
+                speed={500}
+                slidesToShow={1}
+                slidesToScroll={1}
+                arrows={true}
+                adaptiveHeight={true}
+              >
+                {processedData.posts.entities.map((post) => (
+                  <div key={post._id}>
+                    <Post post={post} />
+                  </div>
+                ))}
+              </Slider>
             </Grid>
           )}
         </Grid>

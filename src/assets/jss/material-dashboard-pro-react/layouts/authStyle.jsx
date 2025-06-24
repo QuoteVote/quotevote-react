@@ -1,10 +1,9 @@
-import React from 'react';
 
 import {
   whiteColor,
   blackColor,
   hexToRgb,
-} from 'assets/jss/material-dashboard-pro-react'
+} from 'assets/jss/material-dashboard-pro-react';
 
 const pagesStyle = (theme) => ({
   content: {
@@ -47,8 +46,9 @@ const pagesStyle = (theme) => ({
     margin: '0',
     border: '0',
     color: whiteColor,
-    top: 80,
     alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
     [theme.breakpoints.down('sm')]: {
       minHeight: 'fit-content!important',
     },

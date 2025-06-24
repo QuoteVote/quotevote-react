@@ -134,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchPage() {
   const classes = useStyles()
-  const [showResults, setShowResults] = useState(false)
+  const [showResults, setShowResults] = useState(true)
   const [searchKey, setSearchKey] = useState('')
   const hiddenPosts = useSelector((state) => state.ui.hiddenPosts) || []
   const user = useSelector((state) => state.user.data)

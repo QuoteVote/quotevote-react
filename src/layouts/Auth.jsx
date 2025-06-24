@@ -28,24 +28,24 @@ export default function Pages(props) {
   React.useEffect(() => {
     document.body.style.overflow = 'unset'
     // Specify how to clean up after this effect:
-    return function cleanup() {
-    }
+    return function cleanup() {}
   })
-  const getRoutes = (routesParameter) => routesParameter.map((prop, key) => {
-    if (prop.collapse) {
-      return getRoutes(prop.views)
-    }
-    if (prop.layout === '/auth') {
-      return (
-        <Route
-          path={prop.layout + prop.path}
-          component={prop.component}
-          key={key}
-        />
-      )
-    }
-    return null
-  })
+  const getRoutes = (routesParameter) =>
+    routesParameter.map((prop, key) => {
+      if (prop.collapse) {
+        return getRoutes(prop.views)
+      }
+      if (prop.layout === '/auth') {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        )
+      }
+      return null
+    })
 
   const getActiveRoute = (routesParameter) => {
     const activeRoute = { name: 'Default Brand Text' }
@@ -56,7 +56,9 @@ export default function Pages(props) {
           return collapseActiveRoute
         }
       } else if (
-        window.location.href.indexOf(routesParameter[i].layout + routesParameter[i].path) !== -1
+        window.location.href.indexOf(
+          routesParameter[i].layout + routesParameter[i].path,
+        ) !== -1
       ) {
         return routesParameter[i]
       }
@@ -64,13 +66,7 @@ export default function Pages(props) {
     return activeRoute
   }
   return (
-    <div
-      className={classes.content}
-      style={{
-        backgroundImage: `url('/assets/Mountain.png')`,
-        backgroundPosition: 'left',
-      }}
-    >
+    <div>
       <Grid
         container
         direction="column"
@@ -84,9 +80,7 @@ export default function Pages(props) {
         )}
         <Grid item>
           <div className={classes.wrapper} ref={wrapper}>
-            <div
-              className={classes.fullPage}
-            >
+            <div className={classes.fullPage}>
               <Switch>
                 {getRoutes(routes)}
                 <Redirect from="/auth" to="/auth/landing-page" />
