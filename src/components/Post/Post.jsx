@@ -4,6 +4,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
+import DeleteIcon from '@material-ui/icons/Delete'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
@@ -19,12 +20,13 @@ import { SET_SNACKBAR } from '../../store/ui'
 import useGuestGuard from 'utils/useGuestGuard'
 import RequestInviteDialog from '../RequestInviteDialog'
 import {
-    ADD_COMMENT,
-    ADD_QUOTE,
-    REPORT_POST,
-    VOTE,
-    APPROVE_POST,
-    REJECT_POST,
+  ADD_COMMENT,
+  ADD_QUOTE,
+  REPORT_POST,
+  VOTE,
+  APPROVE_POST,
+  REJECT_POST,
+  DELETE_POST
 } from '../../graphql/mutations'
 import {
     GET_POST,
@@ -246,6 +248,12 @@ function Post({
     variables: { postId: _id, userId: user._id },
     refetchQueries: [
       { query: GET_POST, variables: { postId: _id } },
+      { query: GET_TOP_POSTS, variables: { limit: 5, offset: 0, searchKey: '' } },
+    ],
+  });
+
+  const [deletePost] = useMutation(DELETE_POST, {
+    refetchQueries: [
       { query: GET_TOP_POSTS, variables: { limit: 5, offset: 0, searchKey: '' } },
     ],
   });
@@ -472,6 +480,20 @@ function Post({
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await deletePost({ variables: { postId: _id } });
+      dispatch(
+        SET_SNACKBAR({ open: true, message: 'Post deleted', type: 'success' }),
+      );
+      history.push('/home');
+    } catch (err) {
+      dispatch(
+        SET_SNACKBAR({ open: true, message: `Delete Error: ${err.message}`, type: 'danger' }),
+      );
+    }
+  };
+
   return (
     <>
       <Card
@@ -557,10 +579,27 @@ function Post({
             title="Post URL copied!"
             timeout={1000}
           />
-        )}
-      </Card>
-      <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
-    </>
+          <BookmarkIconButton post={post} user={user} />
+          {(user._id === userId || user.admin) && (
+            <IconButton onClick={handleDelete} size="small">
+              <DeleteIcon />
+            </IconButton>
+          )}
+          {/* Add chat, person, and heart icons here as needed */}
+        </div>
+      </CardActions>
+      {open && (
+        <SweetAlert
+          confirmBtnCssClass={`${classes.button} ${classes.success}`}
+          success
+          onConfirm={hideAlert}
+          onCancel={hideAlert}
+          title="Post URL copied!"
+          timeout={1000}
+        />
+      )}
+    </Card>
+    <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
   )
 }
 
