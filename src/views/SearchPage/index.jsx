@@ -4,85 +4,13 @@ import { useQuery } from '@apollo/react-hooks';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import { DateRangePicker } from 'react-dates';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import format from 'date-fns/format';
 import { GET_TOP_POSTS } from '../../graphql/query';
 import { serializePost } from '../../utils/objectIdSerializer';
 import PostsList from '../../components/Post/PostsList';
 import ErrorBoundary from '../../components/ErrorBoundary';
-
-// Add custom styles for the date range picker to match the screenshot
-const datePickerStyles = `
-  .DateRangePicker_picker {
-    border-radius: 12px !important;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.10) !important;
-    padding: 16px 8px 8px 8px !important;
-    border: 1px solid #eee !important;
-    background: #fff !important;
-    min-width: 520px;
-  }
-  .DateRangePickerInput {
-    display: none !important;
-  }
-  .DayPicker {
-    font-family: 'Montserrat', 'Roboto', 'Arial', sans-serif !important;
-    font-size: 1rem !important;
-    background: #fff !important;
-  }
-  .CalendarMonth_caption {
-    font-weight: 600 !important;
-    font-size: 1.1rem !important;
-    color: #444 !important;
-    margin-bottom: 8px !important;
-  }
-  .DayPicker_weekHeader_li {
-    color: #888 !important;
-    font-weight: 500 !important;
-    font-size: 0.95em !important;
-  }
-  .CalendarDay__default {
-    border: none !important;
-    color: #222 !important;
-    font-weight: 500 !important;
-    background: none !important;
-    border-radius: 50% !important;
-    transition: background 0.2s;
-  }
-  .CalendarDay__default:hover {
-    background: #f0f2f5 !important;
-    color: #111 !important;
-  }
-  .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
-    background: #1ec773 !important; /* Green */
-    color: #fff !important;
-    border-radius: 50% !important;
-    font-weight: 700 !important;
-    box-shadow: 0 2px 8px rgba(30,199,115,0.10);
-  }
-  .CalendarDay__selected_span {
-    background: #e9ecef !important; /* Light gray for the range */
-    color: #222 !important;
-    border-radius: 0 !important;
-  }
-  .CalendarDay__hovered_span, .CalendarDay__hovered_span:hover {
-    background: #e9ecef !important;
-    color: #222 !important;
-    border-radius: 0 !important;
-  }
-  .CalendarDay__selected_start.CalendarDay__selected_span, .CalendarDay__selected_end.CalendarDay__selected_span {
-    background: #1ec773 !important;
-    color: #fff !important;
-    border-radius: 50% !important;
-  }
-`;
-
-if (typeof document !== 'undefined' && !document.getElementById('custom-date-picker-styles')) {
-  const style = document.createElement('style');
-  style.id = 'custom-date-picker-styles';
-  style.textContent = datePickerStyles;
-  document.head.appendChild(style);
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -236,6 +164,65 @@ const useStyles = makeStyles((theme) => ({
   filterButton: {
     margin: theme.spacing(1),
   },
+  datePickerInput: {
+    '& .react-datepicker-wrapper': {
+      width: '100%',
+    },
+    '& .react-datepicker__input-container input': {
+      width: '100%',
+      padding: '12px 16px',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
+      fontSize: '14px',
+      fontFamily: theme.typography.fontFamily,
+      '&:focus': {
+        outline: 'none',
+        borderColor: theme.palette.primary.main,
+        boxShadow: `0 0 0 2px ${theme.palette.primary.main}20`,
+      },
+    },
+    '& .react-datepicker': {
+      fontFamily: theme.typography.fontFamily,
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+    },
+    '& .react-datepicker__header': {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      borderBottom: '1px solid #ddd',
+      borderTopLeftRadius: '8px',
+      borderTopRightRadius: '8px',
+    },
+    '& .react-datepicker__current-month': {
+      color: theme.palette.primary.contrastText,
+      fontWeight: 'bold',
+    },
+    '& .react-datepicker__day-name': {
+      color: theme.palette.primary.contrastText,
+    },
+    '& .react-datepicker__day': {
+      color: theme.palette.text.primary,
+      '&:hover': {
+        backgroundColor: theme.palette.action.hover,
+        borderRadius: '50%',
+      },
+    },
+    '& .react-datepicker__day--selected': {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      borderRadius: '50%',
+    },
+    '& .react-datepicker__day--in-range': {
+      backgroundColor: theme.palette.primary.light,
+      color: theme.palette.primary.contrastText,
+    },
+    '& .react-datepicker__day--keyboard-selected': {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      borderRadius: '50%',
+    },
+  },
 }));
 
 export default function SearchPage() {
@@ -263,11 +250,11 @@ export default function SearchPage() {
     limit,
     offset,
     searchKey,
-    startDateRange: dateRangeFilter.startDate ? dateRangeFilter.startDate.format('YYYY-MM-DD') : '',
-    endDateRange: dateRangeFilter.endDate ? dateRangeFilter.endDate.format('YYYY-MM-DD') : '',
+    startDateRange: dateRangeFilter.startDate ? format(dateRangeFilter.startDate, 'yyyy-MM-dd') : '',
+    endDateRange: dateRangeFilter.endDate ? format(dateRangeFilter.endDate, 'yyyy-MM-dd') : '',
     friendsOnly: filterMode === 'friends',
     // Add a dummy variable that changes when filters change to force refetch
-    filterKey: `${filterMode}-${dateRangeFilter.startDate ? dateRangeFilter.startDate.format('YYYY-MM-DD') : ''}-${dateRangeFilter.endDate ? dateRangeFilter.endDate.format('YYYY-MM-DD') : ''}`,
+    filterKey: `${filterMode}-${dateRangeFilter.startDate ? format(dateRangeFilter.startDate, 'yyyy-MM-dd') : ''}-${dateRangeFilter.endDate ? format(dateRangeFilter.endDate, 'yyyy-MM-dd') : ''}`,
   }
 
   const { loading, error, data, fetchMore, refetch } = useQuery(GET_TOP_POSTS, {
@@ -337,34 +324,33 @@ export default function SearchPage() {
     setFocusedInput(willBeVisible ? 'startDate' : null);
   };
 
-  const handleDateChange = ({ startDate, endDate }) => {
-    setDateRangeFilter({ startDate, endDate })
-    setOffset(0)
-    // Trigger refetch after a short delay to ensure state is updated
+  const handleDateChange = (dateRange) => {
+    const [startDate, endDate] = dateRange;
+    setDateRangeFilter({ startDate, endDate });
+    setOffset(0);
     setTimeout(() => {
-      triggerQueryRefetch()
-    }, 100)
-
+      triggerQueryRefetch();
+    }, 100);
     if (startDate && endDate) {
       setIsCalendarVisible(false);
       setFocusedInput(null);
     }
-    setShowResults(true)
-  }
+    setShowResults(true);
+  };
 
   const clearDateFilter = () => {
-    setDateRangeFilter({ startDate: null, endDate: null })
-    setOffset(0)
+    setDateRangeFilter({ startDate: null, endDate: null });
+    setOffset(0);
     setTimeout(() => {
-      triggerQueryRefetch()
-    }, 100)
-  }
+      triggerQueryRefetch();
+    }, 100);
+  };
 
   const clearDateFilterAndClose = () => {
     clearDateFilter();
     setIsCalendarVisible(false);
     setFocusedInput(null);
-  }
+  };
 
   // Sort posts by interactions if interactions filter is active
   const processAndSortData = (rawData) => {
@@ -513,22 +499,43 @@ export default function SearchPage() {
           
           {isCalendarVisible && (
             <Grid item xs={12} style={{ marginTop: '20px', padding: '20px', borderRadius: '12px', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', background: '#fff', border: '1px solid #eee', maxWidth: 600 }}>
-              <DateRangePicker
-                startDatePlaceholderText="Start Date"
-                startDate={dateRangeFilter.startDate}
-                onDatesChange={handleDateChange}
-                endDatePlaceholderText="End Date"
-                endDate={dateRangeFilter.endDate}
-                numberOfMonths={2}
-                displayFormat="MMM D, YYYY"
-                showClearDates
-                focusedInput={focusedInput || 'startDate'}
-                onFocusChange={(input) => setFocusedInput(input)}
-                startDateId="startDateSearch"
-                endDateId="endDateSearch"
-                minimumNights={0}
-                isOutsideRange={() => false}
-              />
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 16 }}>
+                <div style={{ flex: 1 }}>
+                  <Typography variant="subtitle2" style={{ marginBottom: 8, textAlign: 'center' }}>
+                    Start Date
+                  </Typography>
+                  <div className={classes.datePickerInput}>
+                    <DatePicker
+                      selected={dateRangeFilter.startDate}
+                      onChange={date => handleDateChange([date, dateRangeFilter.endDate])}
+                      selectsStart
+                      startDate={dateRangeFilter.startDate}
+                      endDate={dateRangeFilter.endDate}
+                      maxDate={dateRangeFilter.endDate || new Date()}
+                      dateFormat="MMM d, yyyy"
+                      placeholderText="Select start date"
+                    />
+                  </div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <Typography variant="subtitle2" style={{ marginBottom: 8, textAlign: 'center' }}>
+                    End Date
+                  </Typography>
+                  <div className={classes.datePickerInput}>
+                    <DatePicker
+                      selected={dateRangeFilter.endDate}
+                      onChange={date => handleDateChange([dateRangeFilter.startDate, date])}
+                      selectsEnd
+                      startDate={dateRangeFilter.startDate}
+                      endDate={dateRangeFilter.endDate}
+                      minDate={dateRangeFilter.startDate}
+                      maxDate={new Date()}
+                      dateFormat="MMM d, yyyy"
+                      placeholderText="Select end date"
+                    />
+                  </div>
+                </div>
+              </div>
               <div style={{ marginTop: 16, textAlign: 'center' }}>
                 <Button 
                   variant="outlined" 
@@ -549,8 +556,8 @@ export default function SearchPage() {
                   Active Filters:
                   {filterMode === 'friends' && ' 👥 Friends only'}
                   {filterMode === 'interactions' && ' 🔥 Sorted by interactions'}
-                  {dateRangeFilter.startDate && ` 📅 From ${dateRangeFilter.startDate.format('MMM D, YYYY')}`}
-                  {dateRangeFilter.endDate && ` to ${dateRangeFilter.endDate.format('MMM D, YYYY')}`}
+                  {dateRangeFilter.startDate && ` 📅 From ${format(dateRangeFilter.startDate, 'MMM d, yyyy')}`}
+                  {dateRangeFilter.endDate && ` to ${format(dateRangeFilter.endDate, 'MMM d, yyyy')}`}
                 </Typography>
                 {filterMode === 'friends' && (
                   <Typography variant="caption" color="textSecondary" style={{ display: 'block', marginTop: 8 }}>
