@@ -281,8 +281,8 @@ function PostCard(props) {
   const handleCardClick = () => {
     // Check if user is in guest mode (no valid token)
     if (!tokenValidator(dispatch)) {
-      // Redirect to invite page for guest users
-      history.push('/auth/request-access')
+      // Redirect to search page for guest users
+      history.push('/search')
       return
     }
     

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Route } from 'react-router-dom'
 import PostController from 'components/Post/PostController'
 import { useLocation } from 'react-router'
@@ -24,7 +24,7 @@ export default function PostRouter() {
 
   if (location.pathname === '/post') {
     if (!tokenValidator(dispatch)) {
-      return <Redirect to="/auth/request-access" />
+      return <Redirect to="/search" />
     }
     return <SubmitPost setOpen={setOpen} />
   }

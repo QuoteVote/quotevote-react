@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import {
-  Redirect, Switch, useHistory,
+    Redirect, Switch, useHistory,
 } from 'react-router-dom'
 import PrivateRoute from '../components/PrivateRoute'
 // creates a beautiful scrollbar
@@ -139,13 +139,13 @@ function Scoreboard(props) {
             <Switch>
               {routes}
               <Redirect from="/admin" to="/admin/dashboard" />
-              <Redirect from="/" to="/Home" />
+              <Redirect from="/" to="/search" />
             </Switch>
           ) : (
             <Switch>
               {routes}
               <Redirect from="/admin" to="/admin/dashboard" />
-              <Redirect from="/" to="/Home" />
+              <Redirect from="/" to="/search" />
             </Switch>
           )}
           {
