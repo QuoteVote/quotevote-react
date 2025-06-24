@@ -294,7 +294,7 @@ class MenuSidebar extends React.Component {
           anchor={rtlActive ? "left" : "right"}
           open={open}
           classes={{
-            paper: `${drawerPaper} ${classes[`${bgColor}Background`]}`
+            paper: `${drawerPaper} ${classes[bgColor + 'Background']}`
           }}
           onClose={handleDrawerToggle}
           ModalProps={{
