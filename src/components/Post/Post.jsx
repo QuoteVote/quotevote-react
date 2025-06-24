@@ -17,6 +17,7 @@ import FollowButton from 'components/CustomButtons/FollowButton'
 import VotingBoard from '../VotingComponents/VotingBoard'
 import VotingPopup from '../VotingComponents/VotingPopup'
 import { SET_SNACKBAR } from '../../store/ui'
+import useGuestGuard from 'utils/useGuestGuard'
 import {
   ADD_COMMENT,
   ADD_QUOTE,
@@ -91,6 +92,7 @@ function Post({
   const { _followingId } = user
   const dispatch = useDispatch()
   const history = useHistory()
+  const ensureAuth = useGuestGuard()
   const parsedCreated = moment(created).format('LLL')
   
   // State declarations
@@ -249,6 +251,7 @@ function Post({
   });
 
   const handleReportPost = async () => {
+    if (!ensureAuth()) return
     try {
       const res = await reportPost({ variables: { postId: _id, userId: user._id } })
       const { reportedBy } = res.data.reportPost
@@ -272,6 +275,7 @@ function Post({
   }
 
   const handleAddComment = async (comment, commentWithQuote = false) => {
+    if (!ensureAuth()) return
     let startIndex
     let endIndex
     let quoteText
@@ -316,6 +320,7 @@ function Post({
     }
   }
   const handleVoting = async (obj) => {
+    if (!ensureAuth()) return
     const vote = {
       content: selectedText.text,
       postId: post._id,
@@ -345,6 +350,7 @@ function Post({
     }
   }
   const handleAddQuote = async () => {
+    if (!ensureAuth()) return
     const quote = {
       quote: selectedText.text,
       postId: post._id,
@@ -409,6 +415,7 @@ function Post({
   )
 
   const handleApprovePost = async () => {
+    if (!ensureAuth()) return
     if (hasApproved) {
       // Remove approval (toggle off)
       try {
@@ -437,6 +444,7 @@ function Post({
   };
 
   const handleRejectPost = async () => {
+    if (!ensureAuth()) return
     if (hasRejected) {
       // Remove rejection (toggle off)
       try {

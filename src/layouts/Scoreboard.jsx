@@ -2,8 +2,9 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import {
-  Redirect, Route, Switch, useHistory,
+  Redirect, Switch, useHistory,
 } from 'react-router-dom'
+import PrivateRoute from '../components/PrivateRoute'
 // creates a beautiful scrollbar
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
@@ -60,9 +61,10 @@ function Scoreboard(props) {
     }
     if (prop.layout) {
       return (
-        <Route
+        <PrivateRoute
           path={prop.layout + prop.path}
           component={prop.component}
+          requiresAuth={prop.requiresAuth}
           key={key}
         />
       )
@@ -74,7 +76,7 @@ function Scoreboard(props) {
 
   // TODO: Abstract validation into custom hook
   useEffect(() => {
-    if (!tokenValidator(dispatch)) history.push('/auth')
+    tokenValidator(dispatch)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

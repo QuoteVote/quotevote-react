@@ -10,6 +10,7 @@ import classNames from 'classnames'
 import { updateFollowing } from 'store/user'
 import { PersonAdd, PersonAddDisabled } from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton'
+import useGuestGuard from 'utils/useGuestGuard'
 
 const useStyles = makeStyles((theme) => ({
   followButton: {
@@ -38,6 +39,7 @@ function FollowButton({
 }) {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const ensureAuth = useGuestGuard()
   const [followMutation] = useMutation(FOLLOW_MUTATION, {
     refetchQueries: [{
       query: GET_USER,
@@ -51,6 +53,7 @@ function FollowButton({
   const followingArray = _.get(user, 'data._followingId', [])
 
   async function handleClick(action) {
+    if (!ensureAuth()) return
     let newFollowingArray
     if (action === 'un-follow') {
       newFollowingArray = _.without(followingArray, profileUserId)

@@ -40,6 +40,7 @@ const routes = [
     icon: () => <img src="/assets/NotificationsActive.svg" alt="Notifications" style={{width: '100%', height: '100%'}} />,
     component: NotificationMobileView,
     layout: '/',
+    requiresAuth: true,
   },
   {
     path: 'Profile',
@@ -48,6 +49,7 @@ const routes = [
     icon: ProfileAvatar,
     component: Profile,
     layout: '/',
+    requiresAuth: true,
   },
   {
     path: '/logout',
@@ -64,6 +66,7 @@ const routes = [
     name: 'Control Panel',
     component: ControlPanel,
     layout: '/',
+    requiresAuth: true,
   },
 ]
 export default routes

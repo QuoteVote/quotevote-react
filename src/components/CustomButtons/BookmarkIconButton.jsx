@@ -4,6 +4,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import { IconButton } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
+import useGuestGuard from 'utils/useGuestGuard'
 import { CREATE_POST_MESSAGE_ROOM, UPDATE_POST_BOOKMARK } from '../../graphql/mutations'
 import {
   GET_CHAT_ROOMS, GET_POST, GET_TOP_POSTS, GET_USER_ACTIVITY,
@@ -18,9 +19,11 @@ function BookmarkIconButton(props) {
   const [createPostMessageRoom] = useMutation(CREATE_POST_MESSAGE_ROOM)
 
   const [updatePostBookmark] = useMutation(UPDATE_POST_BOOKMARK)
+  const ensureAuth = useGuestGuard()
 
   const handleClick = async (e) => {
     e.stopPropagation()
+    if (!ensureAuth()) return
     await updatePostBookmark({
       variables: { postId: _id, userId: user._id },
     })
