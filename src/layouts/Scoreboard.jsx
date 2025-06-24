@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import {
-    Redirect, Switch, useHistory,
+  Redirect, Switch, useHistory,
 } from 'react-router-dom'
 import PrivateRoute from '../components/PrivateRoute'
 // creates a beautiful scrollbar

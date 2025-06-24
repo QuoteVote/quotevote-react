@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f0f2f5',
   },
   container: {
-    maxWidth: 600,
+    marginLeft: '10%',
+    marginRight: '10%',
   },
   logoContainer: {
     display: 'flex',
@@ -539,7 +540,7 @@ export default function SearchPage() {
             </Grid>
 
             {/* Search Bar - Always visible */}
-            <Grid item style={{ width: '100%' }}>
+            <Grid item style={{ width: '100%', maxWidth: 600 }}>
               <Paper
                 component="form"
                 className={classes.searchBar}
@@ -687,6 +688,67 @@ export default function SearchPage() {
               )}
             </Grid>
 
+            {/* New Section: Discover without bias (matching provided image) */}
+            <Grid item style={{ width: '100%', maxWidth: 1200, margin: '2rem auto 0 auto', padding: '0 5vw' }}>
+                <Typography variant="h4" style={{ fontWeight: 700, marginBottom: 8 }}>
+                    <span style={{ color: '#2ecc71' }}>Discover</span> <span style={{ color: '#111' }}>without bias</span>
+                </Typography>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 32,
+                    flexDirection: 'column',
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    marginTop: '2rem',
+                  }}
+                >
+                  {/* Left: Image */}
+                  <div style={{ flex: '1 1 320px', minWidth: 220, maxWidth: 480, width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <img
+                      src={process.env.PUBLIC_URL + '/assets/three-short-posts.png'}
+                      alt="Example posts"
+                      style={{
+                        width: '100%',
+                        maxWidth: 600,
+                        height: 'auto',
+                      }}
+                    />
+                  </div>
+                  {/* Right: Text and Button */}
+                  <div style={{ flex: '2 1 340px', minWidth: 220, maxWidth: 600, width: '100%', textAlign: 'left', marginLeft: 0 }}>
+                    <Typography variant="subtitle1" style={{ fontWeight: 600, marginBottom: 16, color: '#222' }}>
+                      All conversations are searchable without ads,<br />
+                      and discovered through exploration, not algorithms.
+                    </Typography>
+                    <ul style={{ color: '#333', fontSize: 16, margin: '0 0 24px 18px', padding: 0, lineHeight: 1.7 }}>
+                      <li>Filter by keyword, only show following, sort by most interactions, or select a date range.</li>
+                      <li>Find what people are talking about now, or during a historical event in the past.</li>
+                    </ul>
+                    <Button
+                      variant="contained"
+                      style={{
+                        background: '#2ecc71',
+                        color: '#fff',
+                        fontWeight: 600,
+                        fontSize: 16,
+                        borderRadius: 8,
+                        padding: '10px 32px',
+                        textTransform: 'none',
+                        boxShadow: '0 2px 8px rgba(46,204,113,0.08)'
+                      }}
+                      href="/auth/request-access"
+                    >
+                      Request Invite
+                    </Button>
+                  </div>
+                </div>
+            </Grid>
+
             <Grid item style={{ marginTop: '2rem', textAlign: 'center' }}>
               <Typography variant="body2" color="textSecondary">
                 Sign up to join the conversation and create your own posts!
@@ -718,7 +780,7 @@ export default function SearchPage() {
               </div>
             </Grid>
           )}
-          <Grid item style={{ width: '100%' }}>
+          <Grid item style={{ width: '100%', maxWidth: 600 }}>
             <Paper
               component="form"
               className={classes.searchBar}
@@ -876,5 +938,18 @@ export default function SearchPage() {
       </div>
     </ErrorBoundary>
   )
+}
+
+/* Add this to the bottom of the file (outside the component) for responsive flex direction */
+if (typeof window !== 'undefined') {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @media (min-width: 900px) {
+      .discover-section-flex {
+        flex-direction: row !important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
 }
 

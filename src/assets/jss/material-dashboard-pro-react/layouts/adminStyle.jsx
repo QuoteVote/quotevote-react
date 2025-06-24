@@ -1,8 +1,7 @@
-import React from 'react';
 
 import {
   containerFluid, drawerMiniWidth, drawerWidth, transition,
-} from 'assets/jss/material-dashboard-pro-react'
+} from 'assets/jss/material-dashboard-pro-react';
 
 const appStyle = (theme) => ({
   root: {
@@ -100,8 +99,8 @@ const appStyle = (theme) => ({
     height: '100%',
     marginTop: theme.spacing(10),
     overflow: 'hidden',
-    marginLeft: '10%',
-    marginRight: '10%',
+    // marginLeft: '10%',
+    // marginRight: '10%',
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(7),
       marginRight: 5,
