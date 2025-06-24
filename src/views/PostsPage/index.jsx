@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
-import { Route, useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Route } from 'react-router-dom'
 import PostController from 'components/Post/PostController'
 import { useLocation } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { tokenValidator } from 'store/user'
 import SubmitPost from '../../components/SubmitPost/SubmitPost'
+import RequestInviteDialog from '../../components/RequestInviteDialog'
 
 export default function PostRouter() {
-  const [, setOpen] = React.useState(true)
-  const history = useHistory()
+  const [, setOpen] = useState(true)
+  const [openInvite, setOpenInvite] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -18,14 +19,17 @@ export default function PostRouter() {
 
   useEffect(() => {
     if (location.pathname === '/post' && !tokenValidator(dispatch)) {
-      history.push('/Home')
+      setOpenInvite(true)
     }
-  }, [location.pathname, dispatch, history])
+  }, [location.pathname, dispatch])
 
   if (location.pathname === '/post') {
-    return (
-      <SubmitPost setOpen={setOpen} />
-    )
+    if (!tokenValidator(dispatch)) {
+      return (
+        <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
+      )
+    }
+    return <SubmitPost setOpen={setOpen} />
   }
 
   return (

@@ -11,6 +11,7 @@ import { updateFollowing } from 'store/user'
 import { PersonAdd, PersonAddDisabled } from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton'
 import useGuestGuard from 'utils/useGuestGuard'
+import RequestInviteDialog from '../RequestInviteDialog'
 
 const useStyles = makeStyles((theme) => ({
   followButton: {
@@ -39,7 +40,8 @@ function FollowButton({
 }) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const ensureAuth = useGuestGuard()
+  const [openInvite, setOpenInvite] = React.useState(false)
+  const ensureAuth = useGuestGuard(setOpenInvite)
   const [followMutation] = useMutation(FOLLOW_MUTATION, {
     refetchQueries: [{
       query: GET_USER,
@@ -88,21 +90,22 @@ function FollowButton({
 
   const action = 'follow'
   return (
-    showIcon ? (
-      <IconButton
-        onClick={() => handleClick(action)}
-      >
-        <PersonAdd />
-      </IconButton>
-    ) : (
-      <Button
-        variant="contained"
-        className={classNames(classes.followButton, otherProps.className)}
-        onClick={() => handleClick(action)}
-      >
-        Follow
-      </Button>
-    )
+    <>
+      {showIcon ? (
+        <IconButton onClick={() => handleClick(action)}>
+          <PersonAdd />
+        </IconButton>
+      ) : (
+        <Button
+          variant="contained"
+          className={classNames(classes.followButton, otherProps.className)}
+          onClick={() => handleClick(action)}
+        >
+          Follow
+        </Button>
+      )}
+      <RequestInviteDialog open={openInvite} onClose={() => setOpenInvite(false)} />
+    </>
   )
 }
 
