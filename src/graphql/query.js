@@ -416,3 +416,33 @@ export const GET_NOTIFICATIONS = gql`
     }
   }
 `
+
+export const GET_LATEST_QUOTES = gql`
+  query latestQuotes($limit: Int!, $offset: Int!) {
+    latestQuotes(limit: $limit, offset: $offset) {
+      _id
+      quote
+      created
+      startWordIndex
+      endWordIndex
+      user {
+        _id
+        name
+        username
+        avatar
+      }
+      post {
+        _id
+        title
+        url
+        text
+        creator {
+          _id
+          name
+          username
+          avatar
+        }
+      }
+    }
+  }
+`
