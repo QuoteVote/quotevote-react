@@ -15,6 +15,7 @@ import ErrorBoundary from '../../components/ErrorBoundary';
 import Carousel from '../../components/Carousel/Carousel';
 import PostCard from '../../components/Post/PostCard';
 import Divider from '@material-ui/core/Divider';
+import LatestQuotes from '../../components/Quotes/LatestQuotes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -667,6 +668,12 @@ export default function SearchPage() {
                     </Typography>
                   )}
                 </Paper>
+              </Grid>
+            )}
+
+            {!isGuestMode && (
+              <Grid item style={{ width: '100%', maxWidth: 600 }}>
+                <LatestQuotes limit={5} />
               </Grid>
             )}
             

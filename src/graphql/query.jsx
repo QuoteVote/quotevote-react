@@ -478,4 +478,16 @@ export const GET_NOTIFICATIONS = gql`
       }
     }
   }
+export const GET_LATEST_QUOTES = gql`
+  query latestQuotes($limit: Int!) {
+    latestQuotes(limit: $limit) {
+      _id
+      quote
+      created
+      user {
+        _id
+        username
+      }
+    }
+  }
 `
