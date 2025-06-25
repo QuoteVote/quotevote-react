@@ -37,6 +37,9 @@ const useStyles = makeStyles({
   },
   input: {
     margin: '20px 0px 0px 0px',
+    '& textarea': {
+      minHeight: '75vh',
+    },
   },
   group: {
     margin: '20px 0px',
