@@ -33,7 +33,7 @@ function DisplayAvatar(props) {
   return (
     <>
       <Avatar
-        avatarStyle="Cicle"
+        avatarStyle="Circle"
         topType={topType}
         hatColor={hatColor}
         accessoriesType={accessoriesType}

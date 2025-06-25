@@ -34,7 +34,7 @@ function ApproveButton(props) {
       className={selected ? `${classes.button} ${classes.contained}` : `${classes.button} ${classes.outlined}`}
       startIcon={<CheckIcon style={{ width: 24, height: 24 }} />}
     >
-      APPROVE
+      SUPPORT
     </Button>
   );
 }
