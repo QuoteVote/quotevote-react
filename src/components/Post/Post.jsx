@@ -1,5 +1,13 @@
 import { useState } from 'react'
-import { } from '@material-ui/core'
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  IconButton,
+  FormControlLabel,
+} from '@material-ui/core'
+import Switch from '@material-ui/core/Switch'
 import { makeStyles } from '@material-ui/core/styles'
 import BlockIcon from '@material-ui/icons/Block'
 import LinkIcon from '@material-ui/icons/Link'
@@ -101,6 +109,10 @@ function Post({
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const [popoverType, setPopoverType] = useState('')
+  const [showVoteButtons, setShowVoteButtons] = useState(() => {
+    const stored = localStorage.getItem(`showVoteButtons-${_id}`)
+    return stored ? JSON.parse(stored) : false
+  })
   
   const isFollowing = includes(_followingId, userId)
 
@@ -113,6 +125,13 @@ function Post({
   const handlePopoverClose = () => {
     setAnchorEl(null)
     setPopoverType('')
+  }
+
+  const handleToggleVoteButtons = () => {
+    if (!showVoteButtons) {
+      setShowVoteButtons(true)
+      localStorage.setItem(`showVoteButtons-${_id}`, 'true')
+    }
   }
 
   const [addVote] = useMutation(VOTE, {
@@ -539,7 +558,22 @@ function Post({
           </VotingBoard>
         </CardContent>
 
+        {user._id === userId && !showVoteButtons && (
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={showVoteButtons}
+                onChange={handleToggleVoteButtons}
+                color="primary"
+              />
+            )}
+            label="Enable Voting"
+            style={{ marginLeft: 20 }}
+          />
+        )}
+
         <CardActions disableSpacing style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: 20 }}>
+          {showVoteButtons && (
           <div style={{ display: 'flex', gap: 8 }}>
             <RejectButton
               onMouseOver={(e) => handlePopoverOpen(e, 'rejected')}
@@ -558,6 +592,7 @@ function Post({
               rejectedBy={post.rejectedBy}
             />
           </div>
+          )}
           <div style={{ display: 'flex', gap: 8 }}>
             <FollowButton
               isFollowing={isFollowing}

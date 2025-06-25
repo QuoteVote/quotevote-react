@@ -193,8 +193,8 @@ and democratic technologists alike.
 
 - **Moderation Controls**
   - **Flag Button:** All users can see a "Flag" or "Report" button on each post. Clicking this button opens a dialog where the user can select a reason (e.g., spam, harassment, inappropriate content) and optionally provide additional details. Once submitted, the post is flagged for moderator review. The button may change state to indicate the post has been flagged by the user.
-  - **Approve Button:** If a post is pending approval, users with moderation privileges will see an "Approve" button (e.g., a green outlined button with a thumbs-up icon, as implemented in `ApproveButton.js`). Clicking this button marks the post as approved, making it visible to the wider community. The button is disabled or hidden once the post is approved.
-  - **Reject Button:** If a post is pending approval, users with moderation privileges will see a "Reject" button (e.g., a red outlined button with a thumbs-down or similar icon, as implemented in `RejectButton.js`). Clicking this button marks the post as rejected, optionally prompting the moderator to provide a reason. The post is then hidden or removed from public view. The button is disabled or hidden once the post is rejected or approved.
+  - **Support Button:** If a post is pending approval, users with moderation privileges will see a "Support" button (e.g., a green outlined button with a thumbs-up icon, as implemented in `ApproveButton.js`). Clicking this button marks the post as approved, making it visible to the wider community. The button is disabled or hidden once the post is approved.
+  - **Disagree Button:** If a post is pending approval, users with moderation privileges will see a "Disagree" button (e.g., a red outlined button with a thumbs-down or similar icon, as implemented in `RejectButton.js`). Clicking this button marks the post as rejected, optionally prompting the moderator to provide a reason. The post is then hidden or removed from public view. The button is disabled or hidden once the post is rejected or approved.
 
 - **Comment Section**
   - **Comment Entry Field:** Users can write and submit comments, with support for basic formatting and @mentions.
@@ -234,16 +234,16 @@ and democratic technologists alike.
     - Clicking the button opens a dialog to select a reason and provide details.
     - Submitting the form flags the post for moderator review.
     - The button or post indicates to the user that it has already been flagged by them.
-- As a moderator, I want to see Approve and Reject buttons on posts pending approval so that I can moderate content directly from the post page.
+- As a moderator, I want to see Support and Disagree buttons on posts pending approval so that I can moderate content directly from the post page.
   - *Acceptance Criteria:*
-    - The Approve and Reject buttons are visible only to moderators for posts pending approval.
-    - The Approve button is styled as a green outlined button with a thumbs-up icon (per `ApproveButton.js`).
-    - The Reject button is styled as a red outlined button with a thumbs-down or similar icon (per `RejectButton.js`).
-    - Clicking Approve marks the post as approved and updates its status; the button is disabled or hidden after approval.
-    - Clicking Reject marks the post as rejected, optionally prompts for a reason, and updates its status; the button is disabled or hidden after rejection or approval.
-- As a regular user, I should not see Approve or Reject buttons so that moderation controls are restricted to authorized users.
+    - The Support and Disagree buttons are visible only to moderators for posts pending approval.
+    - The Support button is styled as a green outlined button with a thumbs-up icon (per `ApproveButton.js`).
+    - The Disagree button is styled as a red outlined button with a thumbs-down or similar icon (per `RejectButton.js`).
+    - Clicking Support marks the post as approved and updates its status; the button is disabled or hidden after approval.
+    - Clicking Disagree marks the post as rejected, optionally prompts for a reason, and updates its status; the button is disabled or hidden after rejection or approval.
+- As a regular user, I should not see Support or Disagree buttons so that moderation controls are restricted to authorized users.
   - *Acceptance Criteria:*
-    - Approve and Reject buttons are not rendered for non-moderator users.
+    - Support and Disagree buttons are not rendered for non-moderator users.
 
 **Comment Section**
 - As a user, I want to comment on posts so that I can participate in the discussion.
