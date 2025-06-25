@@ -162,6 +162,7 @@ function MainNavBar(props) {
               color="primary"
               onClick={() => history.push('/auth/login')}
               className={classes.rightMenuButton}
+              style={{ backgroundColor: 'white' }}
             >
               Login
             </Button>
