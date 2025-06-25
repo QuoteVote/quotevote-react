@@ -157,6 +157,15 @@ function MainNavBar(props) {
             >
               Request Invite
             </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => history.push('/auth/login')}
+              className={classes.rightMenuButton}
+              style={{ backgroundColor: 'white' }}
+            >
+              Login
+            </Button>
           </Grid>
         )}
       </Grid>
