@@ -150,20 +150,20 @@ function MainNavBar(props) {
         ) : (
           <Grid item>
             <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => history.push('/auth/login')}
-              className={classes.rightMenuButton}
-            >
-              Login
-            </Button>
-            <Button
               variant="contained"
               color="secondary"
               onClick={() => history.push('/auth/request-access')}
               className={classes.rightMenuButton}
             >
               Request Invite
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => history.push('/auth/login')}
+              className={classes.rightMenuButton}
+            >
+              Login
             </Button>
           </Grid>
         )}
