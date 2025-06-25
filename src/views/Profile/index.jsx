@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import Profile from 'components/Profile/ProfileController'
-import ChangePhoto from 'components/Profile/ChangePhoto'
+import SimpleAvatarEditor from 'components/Profile/SimpleAvatarEditor'
 import FollowInfo from 'components/Profile/FollowInfo'
 
 export default function ProfileRouter() {
@@ -17,7 +17,7 @@ export default function ProfileRouter() {
         <Profile />
       </Route>
       <Route exact path="/Profile/:username/avatar">
-        <ChangePhoto />
+        <SimpleAvatarEditor />
       </Route>
       <Route exact path="/Profile/:username/following">
         <FollowInfo filter="following" />
