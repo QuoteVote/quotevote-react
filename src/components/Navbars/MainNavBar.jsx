@@ -52,7 +52,7 @@ function MainNavBar(props) {
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="flex-start"
         alignItems="center"
         wrap="nowrap"
       >
@@ -81,28 +81,25 @@ function MainNavBar(props) {
                 />
               </NavLink>
             </Grid>
-            <Grid item lg={4}>
-              <Tab
-                icon={(
-                  <img 
-                    src="/assets/AddPost.svg" 
-                    alt="Add Post" 
-                    style={{width: fontSize === 'large' ? '32px' : '24px', height: fontSize === 'large' ? '32px' : '24px'}} 
-                  />
-                )}
-                aria-label="Post"
-                onClick={() => {
-                  if (loggedIn) {
-                    handleMenu(2)
-                    setOpen(true)
-                  } else {
-                    history.push('/auth/request-access')
-                  }
-                }}
-                value="post"
-              />
-            </Grid>
           </Tabs>
+        </Grid>
+        <div className={classes.grow} />
+        <Grid item>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              if (loggedIn) {
+                handleMenu(2)
+                setOpen(true)
+              } else {
+                history.push('/auth/request-access')
+              }
+            }}
+            className={classes.rightMenuButton}
+          >
+            Create Quote
+          </Button>
         </Grid>
         {loggedIn ? (
           <Grid item>
