@@ -8,6 +8,7 @@ import PrivateRoute from '../components/PrivateRoute'
 // creates a beautiful scrollbar
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
+import Hidden from '@material-ui/core/Hidden'
 import { createTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
@@ -17,6 +18,7 @@ import { tokenValidator } from 'store/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_SNACKBAR } from 'store/ui'
 import Snackbar from 'mui-pro/Snackbar/Snackbar'
+import MainNavBar from '../components/Navbars/MainNavBar'
 import Sidebar from '../mui-pro/Sidebar/Sidebar'
 import withUser from '../hoc/withUser'
 
@@ -43,6 +45,7 @@ function Scoreboard(props) {
   const dispatch = useDispatch()
   const snackbar = useSelector((state) => state.ui.snackbar)
   const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [page, setPage] = React.useState('Home')
   // styles
   const classes = useStyles()
   const handleDrawerToggle = () => {
@@ -77,6 +80,28 @@ function Scoreboard(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    const {
+      location: { pathname },
+    } = props
+    const currLocation = pathname.split('/')
+
+    let currentPage
+    if (pathname.includes('/auth') || pathname.includes('/logout') || pathname.includes('/error')) {
+      currentPage = appRoutes.filter(
+        (appRoute) => appRoute.layout === `/${currLocation[1]}` && appRoute.path === `/${currLocation[2]}`,
+      )
+    } else {
+      currentPage = appRoutes.filter(
+        (appRoute) => appRoute.layout === '/' && appRoute.path === `${currLocation[1]}`,
+      )
+    }
+
+    if (currentPage && currentPage.length) {
+      setPage(currentPage[0].name)
+    }
+  }, [props])
+
 
   const currentRoute = () => {
     const {
@@ -90,18 +115,26 @@ function Scoreboard(props) {
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <Sidebar
-          routes={appRoutes}
-          logo={logo}
-          handleDrawerToggle={handleDrawerToggle}
-          open={mobileOpen}
-          color={color}
-          bgColor={bgColor}
-          currentRoute={currentRoute()}
-          {...props}
-          miniActive
-          dispatch={dispatch}
-        />
+        <Hidden only={['xs', 'sm']}>
+          <MainNavBar
+            classes={classes}
+            page={page}
+          />
+        </Hidden>
+        <Hidden only={['md', 'lg', 'xl']}>
+          <Sidebar
+            routes={appRoutes}
+            logo={logo}
+            handleDrawerToggle={handleDrawerToggle}
+            open={mobileOpen}
+            color={color}
+            bgColor={bgColor}
+            currentRoute={currentRoute()}
+            {...props}
+            miniActive
+            dispatch={dispatch}
+          />
+        </Hidden>
         <main className={classes.content}>
           {getRoute() ? (
             <Switch>
