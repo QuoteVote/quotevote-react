@@ -7,6 +7,7 @@ import LogoutPage from './components/LogoutPage'
 import HomeSvg from './assets/svg/Home'
 import ProfileAvatar from './components/Profile/ProfileAvatar'
 import NotificationMobileView from './components/Notifications/NotificationMobileView'
+import SearchIcon from '@material-ui/icons/Search'
 import SearchPage from 'views/SearchPage'
 
 const routes = [
@@ -22,7 +23,7 @@ const routes = [
     path: 'search',
     name: 'Search',
     rtlName: 'التقويم',
-    icon: () => <img src="/assets/TrendingIcon.svg" alt="Trending" style={{width: '100%', height: '100%'}} />,
+    icon: SearchIcon,
     component: SearchPage,
     layout: '/',
   },
