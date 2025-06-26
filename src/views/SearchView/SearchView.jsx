@@ -4,7 +4,10 @@ import {
   IconButton,
   Typography,
   Button,
+  InputBase,
+  Paper,
 } from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import format from 'date-fns/format'
@@ -29,6 +32,24 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     gap: 8,
+  },
+  searchBar: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: theme.palette.common.white,
+    padding: theme.spacing(1, 2),
+    marginBottom: theme.spacing(2),
+    border: '1px solid #ddd',
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+    color: theme.palette.text.secondary,
   },
   icon: {
     margin: theme.spacing(0, 1),
@@ -82,6 +103,7 @@ function SearchView() {
   const [filterMode, setFilterMode] = useState('all')
   const [isCalendarVisible, setIsCalendarVisible] = useState(false)
   const [dateRangeFilter, setDateRangeFilter] = useState({ startDate: null, endDate: null })
+  const [searchKey, setSearchKey] = useState('')
 
   const togglePause = () => setPaused((p) => !p)
   const handleFriendsFilter = () => setFilterMode((m) => (m === 'friends' ? 'all' : 'friends'))
@@ -89,6 +111,12 @@ function SearchView() {
   const handleCalendarToggle = () => setIsCalendarVisible((v) => !v)
   const handleDateChange = ([startDate, endDate]) => setDateRangeFilter({ startDate, endDate })
   const clearDateFilter = () => setDateRangeFilter({ startDate: null, endDate: null })
+
+  const showLiveStream =
+    !searchKey &&
+    filterMode === 'all' &&
+    !dateRangeFilter.startDate &&
+    !dateRangeFilter.endDate
 
   return (
     <div className={classes.root}>
@@ -98,6 +126,19 @@ function SearchView() {
         </IconButton>
         <Typography variant="body2">{paused ? 'Stream paused' : 'Live stream'}</Typography>
       </div>
+
+      <Paper component="form" className={classes.searchBar} onSubmit={(e) => e.preventDefault()}>
+        <InputBase
+          className={classes.input}
+          placeholder="Search..."
+          inputProps={{ 'aria-label': 'search' }}
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)}
+        />
+        <IconButton type="submit" className={classes.iconButton} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
 
       <div className={classes.iconsContainer}>
         <IconButton
@@ -156,13 +197,15 @@ function SearchView() {
         </div>
       )}
 
-      <LivePostStream
-        paused={paused}
-        friendsOnly={filterMode === 'friends'}
-        searchKey=""
-        startDateRange={dateRangeFilter.startDate ? format(dateRangeFilter.startDate, 'yyyy-MM-dd') : ''}
-        endDateRange={dateRangeFilter.endDate ? format(dateRangeFilter.endDate, 'yyyy-MM-dd') : ''}
-      />
+      {showLiveStream && (
+        <LivePostStream
+          paused={paused}
+          friendsOnly={filterMode === 'friends'}
+          searchKey={searchKey}
+          startDateRange={dateRangeFilter.startDate ? format(dateRangeFilter.startDate, 'yyyy-MM-dd') : ''}
+          endDateRange={dateRangeFilter.endDate ? format(dateRangeFilter.endDate, 'yyyy-MM-dd') : ''}
+        />
+      )}
     </div>
   )
 }
