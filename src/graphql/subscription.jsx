@@ -37,3 +37,37 @@ export const NEW_NOTIFICATION_SUBSCRIPTION = gql`
     }
   }
 `
+
+export const NEW_POST_SUBSCRIPTION = gql`
+  subscription post {
+    post {
+      _id
+      userId
+      title
+      text
+      upvotes
+      downvotes
+      bookmarkedBy
+      created
+      url
+      creator {
+        name
+        username
+        avatar
+        _id
+      }
+      votes {
+        _id
+        startWordIndex
+        endWordIndex
+        type
+      }
+      comments { _id }
+      quotes { _id }
+      messageRoom {
+        _id
+        messages { _id }
+      }
+    }
+  }
+`

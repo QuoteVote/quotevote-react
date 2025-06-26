@@ -102,6 +102,7 @@ function Scoreboard(props) {
     }
   }, [props])
 
+
   const currentRoute = () => {
     const {
       location: { pathname },
