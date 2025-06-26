@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   IconButton,
@@ -99,11 +100,13 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchView() {
   const classes = useStyles()
+  const loggedIn = useSelector((state) => !!state.user.data._id)
   const [paused, setPaused] = useState(false)
   const [filterMode, setFilterMode] = useState('all')
   const [isCalendarVisible, setIsCalendarVisible] = useState(false)
   const [dateRangeFilter, setDateRangeFilter] = useState({ startDate: null, endDate: null })
   const [searchKey, setSearchKey] = useState('')
+  const [streamEnabled, setStreamEnabled] = useState(loggedIn)
 
   const togglePause = () => setPaused((p) => !p)
   const handleFriendsFilter = () => setFilterMode((m) => (m === 'friends' ? 'all' : 'friends'))
@@ -112,7 +115,23 @@ function SearchView() {
   const handleDateChange = ([startDate, endDate]) => setDateRangeFilter({ startDate, endDate })
   const clearDateFilter = () => setDateRangeFilter({ startDate: null, endDate: null })
 
+  useEffect(() => {
+    if (
+      streamEnabled &&
+      (
+        searchKey ||
+        filterMode !== 'all' ||
+        dateRangeFilter.startDate ||
+        dateRangeFilter.endDate
+      )
+    ) {
+      setStreamEnabled(false)
+    }
+  }, [searchKey, filterMode, dateRangeFilter.startDate, dateRangeFilter.endDate, streamEnabled])
+
   const showLiveStream =
+    streamEnabled &&
+    loggedIn &&
     !searchKey &&
     filterMode === 'all' &&
     !dateRangeFilter.startDate &&
