@@ -136,7 +136,9 @@ function SubmitPostForm({ options = [], user, setOpen }) {
 
   const parseURLContent = async (url) => {
     try {
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/${url}`)
+      const proxyUrl = 'https://r.jina.ai/https://';
+      const targetUrl = url.replace(/^https?:\/\//, '')
+      const response = await fetch(`${proxyUrl}${targetUrl}`)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }

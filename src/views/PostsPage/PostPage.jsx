@@ -16,6 +16,8 @@ import PostChatSend from '../../components/PostChat/PostChatSend'
 const useStyles = makeStyles(() => ({
   root: {
     marginTop: 10,
+    minHeight: '100vh',
+    boxSizing: 'border-box',
   },
   emptyPost: {
     marginTop: 100,
