@@ -13,12 +13,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 import MenuIcon from "@material-ui/icons/Menu";
 import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sidebarStyle";
 import { SET_SELECTED_PAGE } from "../../store/ui";
 import ChatMenu from "../../components/Chat/ChatMenu";
 import NotificationMenu from "../../components/Notifications/NotificationMenu";
 import SettingsMenu from "../../components/Settings/SettingsMenu";
+import SubmitPost from "../../components/SubmitPost/SubmitPost";
 
 // We've created this component so we can have a ref to the wrapper of the links that appears in our sidebar.
 // This was necessary so that we could initialize PerfectScrollbar on the links.
@@ -48,6 +50,7 @@ class MenuSidebar extends React.Component {
       openAvatar: false,
       miniActive: true,
       MessageDisplay: null,
+      postDialogOpen: false,
       ...this.getCollapseStates(props.routes)
     };
   }
@@ -274,6 +277,14 @@ class MenuSidebar extends React.Component {
             </div>
             {loggedIn ? (
               <>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginLeft: 8, backgroundColor: '#2ecc71', color: 'white' }}
+                  onClick={() => this.setState({ postDialogOpen: true })}
+                >
+                  Create Quote
+                </Button>
                 <ChatMenu />
                 <NotificationMenu />
                 <SettingsMenu />
@@ -313,6 +324,9 @@ class MenuSidebar extends React.Component {
             />
           </Grid>
         </Drawer>
+        <Dialog open={this.state.postDialogOpen} onClose={() => this.setState({ postDialogOpen: false })}>
+          <SubmitPost setOpen={(open) => this.setState({ postDialogOpen: open })} />
+        </Dialog>
       </>
     );
   }
