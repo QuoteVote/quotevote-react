@@ -12,6 +12,7 @@ function LivePostStream({
   startDateRange,
   endDateRange,
   friendsOnly,
+  enabled,
 }) {
   const { data, loading } = useQuery(GET_TOP_POSTS, {
     variables: {
@@ -23,6 +24,7 @@ function LivePostStream({
       friendsOnly,
     },
     fetchPolicy: 'network-only',
+    skip: !enabled,
   })
 
   const [posts, setPosts] = useState([])
@@ -82,6 +84,7 @@ LivePostStream.propTypes = {
   startDateRange: PropTypes.string,
   endDateRange: PropTypes.string,
   friendsOnly: PropTypes.bool,
+  enabled: PropTypes.bool,
 }
 
 LivePostStream.defaultProps = {
@@ -90,6 +93,7 @@ LivePostStream.defaultProps = {
   startDateRange: '',
   endDateRange: '',
   friendsOnly: false,
+  enabled: true,
 }
 
 export default LivePostStream

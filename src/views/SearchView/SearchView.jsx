@@ -223,6 +223,7 @@ function SearchView() {
           searchKey={searchKey}
           startDateRange={dateRangeFilter.startDate ? format(dateRangeFilter.startDate, 'yyyy-MM-dd') : ''}
           endDateRange={dateRangeFilter.endDate ? format(dateRangeFilter.endDate, 'yyyy-MM-dd') : ''}
+          enabled={streamEnabled}
         />
       )}
     </div>
