@@ -6,9 +6,22 @@ import PostCard from './PostCard'
 import { GET_TOP_POSTS } from '../../graphql/query'
 import { NEW_POST_SUBSCRIPTION } from '../../graphql/subscription'
 
-function LivePostStream({ paused }) {
+function LivePostStream({
+  paused,
+  searchKey,
+  startDateRange,
+  endDateRange,
+  friendsOnly,
+}) {
   const { data, loading } = useQuery(GET_TOP_POSTS, {
-    variables: { limit: 10, offset: 0, searchKey: '', startDateRange: '', endDateRange: '', friendsOnly: false },
+    variables: {
+      limit: 10,
+      offset: 0,
+      searchKey,
+      startDateRange,
+      endDateRange,
+      friendsOnly,
+    },
     fetchPolicy: 'network-only',
   })
 
@@ -65,10 +78,18 @@ function LivePostStream({ paused }) {
 
 LivePostStream.propTypes = {
   paused: PropTypes.bool,
+  searchKey: PropTypes.string,
+  startDateRange: PropTypes.string,
+  endDateRange: PropTypes.string,
+  friendsOnly: PropTypes.bool,
 }
 
 LivePostStream.defaultProps = {
   paused: false,
+  searchKey: '',
+  startDateRange: '',
+  endDateRange: '',
+  friendsOnly: false,
 }
 
 export default LivePostStream
