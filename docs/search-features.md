@@ -10,9 +10,9 @@ The Search Page has been enhanced with new filtering and sorting capabilities us
 - **Visual Indicator**: Button turns blue when active
 - **Fallback**: If backend doesn't support native friends filtering, client-side filtering is used
 
-### 🔥 Interactions Sorting
+### 🧲 Interactions Sorting
 - **Functionality**: Sorts posts by total interactions (comments + votes + quotes)
-- **Usage**: Click the 🔥 button to toggle interaction-based sorting
+- **Usage**: Click the 🧲 button to toggle interaction-based sorting
 - **Visual Indicator**: Button turns blue when active
 - **Algorithm**: Posts with more interactions appear first
 

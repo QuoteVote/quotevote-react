@@ -583,7 +583,7 @@ export default function SearchPage() {
                 onClick={handleInteractionsFilter}
                 title="Sort by most interactions"
               >
-                🔥
+                🧲
               </IconButton>
               <IconButton 
                 aria-label="calendar" 
@@ -654,7 +654,7 @@ export default function SearchPage() {
                   <Typography variant="body2" color="textSecondary">
                     Active Filters:
                     {filterMode === 'friends' && ' 👥 Friends only'}
-                    {filterMode === 'interactions' && ' 🔥 Sorted by interactions'}
+                    {filterMode === 'interactions' && ' 🧲 Sorted by interactions'}
                     {dateRangeFilter.startDate && ` 📅 From ${format(dateRangeFilter.startDate, 'MMM d, yyyy')}`}
                     {dateRangeFilter.endDate && ` to ${format(dateRangeFilter.endDate, 'MMM d, yyyy')}`}
                   </Typography>
@@ -834,7 +834,7 @@ export default function SearchPage() {
               onClick={handleInteractionsFilter}
               title="Sort by most interactions"
             >
-              🔥
+              🧲
             </IconButton>
             <IconButton 
               aria-label="calendar" 
@@ -904,7 +904,7 @@ export default function SearchPage() {
                 <Typography variant="body2" color="textSecondary">
                   Active Filters:
                   {filterMode === 'friends' && ' 👥 Friends only'}
-                  {filterMode === 'interactions' && ' 🔥 Sorted by interactions'}
+                  {filterMode === 'interactions' && ' 🧲 Sorted by interactions'}
                   {dateRangeFilter.startDate && ` 📅 From ${format(dateRangeFilter.startDate, 'MMM d, yyyy')}`}
                   {dateRangeFilter.endDate && ` to ${format(dateRangeFilter.endDate, 'MMM d, yyyy')}`}
                 </Typography>
