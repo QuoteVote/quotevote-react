@@ -244,10 +244,10 @@ export const DELETE_POST = gql`
   }
 `
 
-export const SET_FEATURED_SLOT = gql`
-  mutation SetFeaturedSlot($postId: ID!, $slot: Int) {
-    setFeaturedSlot(postId: $postId, slot: $slot) {
-      id
+export const UPDATE_FEATURED_SLOT = gql`
+  mutation updateFeaturedSlot($postId: String!, $featuredSlot: Int) {
+    updateFeaturedSlot(postId: $postId, featuredSlot: $featuredSlot) {
+      _id
       featuredSlot
     }
   }

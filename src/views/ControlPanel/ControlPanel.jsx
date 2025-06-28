@@ -23,7 +23,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 import { USER_INVITE_REQUESTS, GET_TOP_POSTS } from '@/graphql/query'
 import {
   UPDATE_USER_INVITE_STATUS,
-  SET_FEATURED_SLOT,
+  UPDATE_FEATURED_SLOT,
 } from '@/graphql/mutations'
 
 // react plugin for creating charts
@@ -144,7 +144,7 @@ const FeaturedPostsTable = () => {
   const { data, refetch } = useQuery(GET_TOP_POSTS, {
     variables: queryVars,
   })
-  const [setSlot, { loading }] = useMutation(SET_FEATURED_SLOT)
+  const [updateSlot, { loading }] = useMutation(UPDATE_FEATURED_SLOT)
   const [selection, setSelection] = React.useState({})
   const [filter, setFilter] = React.useState('')
 
@@ -173,8 +173,8 @@ const FeaturedPostsTable = () => {
 
   const handleSave = async (id) => {
     const slot = selection[id]
-    await setSlot({
-      variables: { postId: id, slot: slot ? Number(slot) : null },
+    await updateSlot({
+      variables: { postId: id, featuredSlot: slot ? Number(slot) : null },
     })
     refetch()
   }
