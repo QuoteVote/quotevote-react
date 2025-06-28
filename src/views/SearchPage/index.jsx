@@ -471,7 +471,6 @@ export default function SearchPage() {
 
   const featuredPosts = (featuredData?.featuredPosts || [])
     .map((post) => serializePost(post))
-    .sort((a, b) => (a.featuredSlot || 0) - (b.featuredSlot || 0))
 
   // Create carousel items from posts for guest mode
   const createCarouselItems = (posts) => {

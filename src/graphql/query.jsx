@@ -231,7 +231,6 @@ export const GET_TOP_POSTS = gql`
         bookmarkedBy
         created
         url
-        featuredSlot
         creator {
           name
           username
@@ -293,7 +292,6 @@ export const GET_FRIENDS_POSTS = gql`
         bookmarkedBy
         created
         url
-        featuredSlot
         creator {
           name
           username
@@ -507,7 +505,6 @@ export const GET_FEATURED_POSTS = gql`
       bookmarkedBy
       created
       url
-      featuredSlot
       creator {
         name
         username
