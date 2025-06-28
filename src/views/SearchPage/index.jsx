@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import format from 'date-fns/format';
 import { jwtDecode } from 'jwt-decode';
-import { GET_TOP_POSTS } from '../../graphql/query';
+import { GET_TOP_POSTS, GET_FEATURED_POSTS } from '../../graphql/query';
 import { serializePost } from '../../utils/objectIdSerializer';
 import PostsList from '../../components/Post/PostsList';
 import ErrorBoundary from '../../components/ErrorBoundary';
@@ -306,6 +306,8 @@ export default function SearchPage() {
     pollInterval: 3000, // Poll every 3 seconds
   })
 
+  const { data: featuredData } = useQuery(GET_FEATURED_POSTS)
+
   // Auto-show results for guest mode
   useEffect(() => {
     if (isGuestMode && !showResults) {
@@ -467,6 +469,10 @@ export default function SearchPage() {
 
   const processedData = processAndSortData(data)
 
+  const featuredPosts = (featuredData?.featuredPosts || [])
+    .map((post) => serializePost(post))
+    .sort((a, b) => (a.featuredSlot || 0) - (b.featuredSlot || 0))
+
   // Create carousel items from posts for guest mode
   const createCarouselItems = (posts) => {
     if (!posts || !posts.length) return []
@@ -564,7 +570,15 @@ export default function SearchPage() {
                 </IconButton>
               </Paper>
             </Grid>
-            
+
+            {featuredPosts.length > 0 && (
+              <Grid item style={{ width: '100%', maxWidth: '800px' }}>
+                <Carousel navButtonsAlwaysVisible autoplay={false}>
+                  {createCarouselItems(featuredPosts)}
+                </Carousel>
+              </Grid>
+            )}
+
             {/* Filter Buttons - Always visible */}
             <Grid item className={classes.iconsContainer}>
               <IconButton 
@@ -810,6 +824,14 @@ export default function SearchPage() {
               </IconButton>
             </Paper>
           </Grid>
+
+          {featuredPosts.length > 0 && (
+            <Grid item style={{ width: '100%', maxWidth: '800px' }}>
+              <Carousel navButtonsAlwaysVisible autoplay={false}>
+                {createCarouselItems(featuredPosts)}
+              </Carousel>
+            </Grid>
+          )}
           {!showResults && (
             <Grid item>
               <Typography className={classes.tagline}>

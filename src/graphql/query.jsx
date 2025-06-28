@@ -493,3 +493,38 @@ export const GET_LATEST_QUOTES = gql`
     }
   }
 `
+export const GET_FEATURED_POSTS = gql`
+  query featuredPosts {
+    featuredPosts {
+      _id
+      userId
+      title
+      text
+      upvotes
+      downvotes
+      bookmarkedBy
+      created
+      url
+      featuredSlot
+      creator {
+        name
+        username
+        avatar
+        _id
+      }
+      votes {
+        _id
+        startWordIndex
+        endWordIndex
+        type
+      }
+      comments { _id }
+      quotes { _id }
+      messageRoom {
+        _id
+        messages { _id }
+      }
+    }
+  }
+`
+
