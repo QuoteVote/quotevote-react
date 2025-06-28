@@ -81,10 +81,10 @@ function MainNavBar(props) {
                 />
               </NavLink>
             </Grid>
-          </Tabs>
-        </Grid>
-        <div className={classes.grow} />
-        <Grid item>
+        </Tabs>
+      </Grid>
+        <Grid item xs />
+        <Grid item style={{ display: 'flex', alignItems: 'center' }}>
           <Button
             variant="contained"
             color="primary"
