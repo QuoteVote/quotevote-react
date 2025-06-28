@@ -9,7 +9,8 @@ export const CREATE_GROUP = gql`
       url
       created
     }
-  }`
+  }
+`
 
 export const SUBMIT_POST = gql`
   mutation addPost($post: PostInput!) {
@@ -70,7 +71,7 @@ export const ADD_QUOTE = gql`
 export const UPDATE_POST_BOOKMARK = gql`
   mutation updatePostBookmark($postId: String!, $userId: String!) {
     updatePostBookmark(postId: $postId, userId: $userId) {
-      _id,
+      _id
       bookmarkedBy
     }
   }
@@ -100,12 +101,12 @@ export const FOLLOW_MUTATION = gql`
 `
 
 export const REQUEST_USER_ACCESS_MUTATION = gql`
-mutation requestUserAccess($requestUserAccessInput: RequestUserAccessInput!) {
-  requestUserAccess(requestUserAccessInput: $requestUserAccessInput) {
-    _id
-    email
+  mutation requestUserAccess($requestUserAccessInput: RequestUserAccessInput!) {
+    requestUserAccess(requestUserAccessInput: $requestUserAccessInput) {
+      _id
+      email
+    }
   }
-}
 `
 
 export const SEND_INVESTOR_EMAIL = gql`
@@ -143,10 +144,7 @@ export const UPDATE_USER = gql`
 `
 
 export const UPDATE_USER_AVATAR = gql`
-  mutation updateUserAvatar(
-    $user_id: String!
-    $avatarQualities: JSON
-  ) {
+  mutation updateUserAvatar($user_id: String!, $avatarQualities: JSON) {
     updateUserAvatar(user_id: $user_id, avatarQualities: $avatarQualities) {
       _id
       username
@@ -158,9 +156,7 @@ export const UPDATE_USER_AVATAR = gql`
 `
 
 export const CREATE_POST_MESSAGE_ROOM = gql`
-  mutation createPostMessageRoom(
-    $postId: String!
-  ) {
+  mutation createPostMessageRoom($postId: String!) {
     createPostMessageRoom(postId: $postId) {
       _id
       users
@@ -214,7 +210,7 @@ export const ADD_ACTION_REACTION = gql`
 `
 
 export const UPDATE_MESSAGE_REACTION = gql`
-  mutation updateReaction($_id: String! $emoji: String!) {
+  mutation updateReaction($_id: String!, $emoji: String!) {
     updateReaction(_id: $_id, emoji: $emoji) {
       _id
       emoji
@@ -223,7 +219,7 @@ export const UPDATE_MESSAGE_REACTION = gql`
 `
 
 export const UPDATE_ACTION_REACTION = gql`
-  mutation updateReaction($_id: String! $emoji: String!) {
+  mutation updateReaction($_id: String!, $emoji: String!) {
     updateReaction(_id: $_id, emoji: $emoji) {
       _id
       emoji
@@ -244,6 +240,15 @@ export const DELETE_POST = gql`
   mutation deletePost($postId: String!) {
     deletePost(postId: $postId) {
       _id
+    }
+  }
+`
+
+export const SET_FEATURED_SLOT = gql`
+  mutation SetFeaturedSlot($postId: ID!, $slot: Int) {
+    setFeaturedSlot(postId: $postId, slot: $slot) {
+      id
+      featuredSlot
     }
   }
 `

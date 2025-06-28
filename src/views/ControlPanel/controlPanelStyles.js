@@ -87,6 +87,12 @@ const requestAccessStyles = (theme) => ({
     lineHeight: 1.39,
     color: '#333333',
   },
+  featuredRow: {
+    backgroundColor: '#fff8e1',
+  },
+  slotSelect: {
+    minWidth: 80,
+  },
 })
 
 export default requestAccessStyles

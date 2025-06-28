@@ -1,18 +1,18 @@
 import gql from 'graphql-tag'
 
 export const GROUPS_QUERY = gql`
-query groups($limit: Int!) {
-  groups(limit: $limit) {
-    _id
-    creatorId
-    adminIds
-    allowedUserIds
-    privacy
-    title
-    url
-    description
+  query groups($limit: Int!) {
+    groups(limit: $limit) {
+      _id
+      creatorId
+      adminIds
+      allowedUserIds
+      privacy
+      title
+      url
+      description
+    }
   }
-}
 `
 
 export const USER_INVITE_REQUESTS = gql`
@@ -162,7 +162,7 @@ export const GET_CHAT_ROOMS = gql`
 `
 
 export const GET_ROOM_MESSAGES = gql`
-  query messages ($messageRoomId: String!){
+  query messages($messageRoomId: String!) {
     messages(messageRoomId: $messageRoomId) {
       _id
       messageRoomId
@@ -183,7 +183,7 @@ export const GET_ROOM_MESSAGES = gql`
 `
 
 export const GET_MESSAGE_REACTIONS = gql`
-  query messageReactions ($messageId: String!){
+  query messageReactions($messageId: String!) {
     messageReactions(messageId: $messageId) {
       _id
       emoji
@@ -194,7 +194,7 @@ export const GET_MESSAGE_REACTIONS = gql`
 `
 
 export const GET_ACTION_REACTIONS = gql`
-  query actionReactions ($actionId: String!){
+  query actionReactions($actionId: String!) {
     actionReactions(actionId: $actionId) {
       _id
       emoji
@@ -231,6 +231,7 @@ export const GET_TOP_POSTS = gql`
         bookmarkedBy
         created
         url
+        featuredSlot
         creator {
           name
           username
@@ -292,6 +293,7 @@ export const GET_FRIENDS_POSTS = gql`
         bookmarkedBy
         created
         url
+        featuredSlot
         creator {
           name
           username
@@ -342,101 +344,101 @@ export const GET_USER = gql`
 `
 
 export const GET_USER_ACTIVITY = gql`
-query activities(
-  $user_id: String!
-  $limit: Int!
-  $offset: Int!
-  $searchKey: String!
-  $startDateRange: String
-  $endDateRange: String
-  $activityEvent: JSON!
-) {
-  activities(
-    user_id: $user_id
-    limit: $limit
-    offset: $offset
-    searchKey: $searchKey
-    startDateRange: $startDateRange
-    endDateRange: $endDateRange
-    activityEvent: $activityEvent
+  query activities(
+    $user_id: String!
+    $limit: Int!
+    $offset: Int!
+    $searchKey: String!
+    $startDateRange: String
+    $endDateRange: String
+    $activityEvent: JSON!
   ) {
-    entities {
-      created
-      postId
-      userId
-      user {
-        _id
-        name
-        username
-        avatar
-      }
-      activityType
-      content
-      post {
-        _id
-        title
-        text
-        url
-        upvotes
-        downvotes
-        votes {
-          _id
-        }
-        quotes {
-          _id
-        }
-        comments {
-          _id
-        }
-        messageRoom {
-          _id
-          messages {
-            _id
-          }
-        }
-        bookmarkedBy
+    activities(
+      user_id: $user_id
+      limit: $limit
+      offset: $offset
+      searchKey: $searchKey
+      startDateRange: $startDateRange
+      endDateRange: $endDateRange
+      activityEvent: $activityEvent
+    ) {
+      entities {
         created
-        creator {
+        postId
+        userId
+        user {
           _id
           name
           username
           avatar
         }
-      }
-      voteId
-      vote {
-        _id
-        startWordIndex
-        endWordIndex
-        created
-        type
-        tags
-      }
-      commentId
-      comment {
-        _id
-        created
-        userId
+        activityType
         content
-        startWordIndex
-        endWordIndex
+        post {
+          _id
+          title
+          text
+          url
+          upvotes
+          downvotes
+          votes {
+            _id
+          }
+          quotes {
+            _id
+          }
+          comments {
+            _id
+          }
+          messageRoom {
+            _id
+            messages {
+              _id
+            }
+          }
+          bookmarkedBy
+          created
+          creator {
+            _id
+            name
+            username
+            avatar
+          }
+        }
+        voteId
+        vote {
+          _id
+          startWordIndex
+          endWordIndex
+          created
+          type
+          tags
+        }
+        commentId
+        comment {
+          _id
+          created
+          userId
+          content
+          startWordIndex
+          endWordIndex
+        }
+        quoteId
+        quote {
+          _id
+          startWordIndex
+          endWordIndex
+          created
+          quote
+        }
       }
-      quoteId
-      quote {        
-        _id
-        startWordIndex
-        endWordIndex
-        created
-        quote
+      pagination {
+        total_count
+        limit
+        offset
       }
-    }
-    pagination {
-      total_count
-      limit
-      offset
     }
   }
-}
 `
 
 export const GET_CHECK_DUPLICATE_EMAIL = gql`
@@ -451,18 +453,18 @@ export const VERIFY_PASSWORD_RESET_TOKEN = gql`
 `
 
 export const GET_FOLLOW_INFO = gql`
-  query getUserFollowInfo($username: String! $filter: String) {
+  query getUserFollowInfo($username: String!, $filter: String) {
     getUserFollowInfo(username: $username, filter: $filter)
   }
 `
 
 export const GET_NOTIFICATIONS = gql`
-  query notifications{
-    notifications{
+  query notifications {
+    notifications {
       _id
       userId
       userIdBy
-      userBy{
+      userBy {
         _id
         name
         avatar
@@ -518,13 +520,18 @@ export const GET_FEATURED_POSTS = gql`
         endWordIndex
         type
       }
-      comments { _id }
-      quotes { _id }
+      comments {
+        _id
+      }
+      quotes {
+        _id
+      }
       messageRoom {
         _id
-        messages { _id }
+        messages {
+          _id
+        }
       }
     }
   }
 `
-
