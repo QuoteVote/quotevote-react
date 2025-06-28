@@ -14,6 +14,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
+import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Skeleton from '@material-ui/lab/Skeleton'
 import makeStyles from '@material-ui/core/styles/makeStyles'
@@ -145,6 +146,7 @@ const FeaturedPostsTable = () => {
   })
   const [setSlot, { loading }] = useMutation(SET_FEATURED_SLOT)
   const [selection, setSelection] = React.useState({})
+  const [filter, setFilter] = React.useState('')
 
   if (!data) {
     return <Skeleton animation="wave" height={200} />
@@ -154,6 +156,15 @@ const FeaturedPostsTable = () => {
   const usedSlots = {}
   posts.forEach((p) => {
     if (p.featuredSlot) usedSlots[p.featuredSlot] = p._id
+  })
+
+  const filteredPosts = posts.filter((p) => {
+    const q = filter.toLowerCase()
+    return (
+      p.title.toLowerCase().includes(q) ||
+      (p.text || '').toLowerCase().includes(q) ||
+      p._id.includes(q)
+    )
   })
 
   const handleSelect = (id) => (e) => {
@@ -172,6 +183,14 @@ const FeaturedPostsTable = () => {
     <Card style={{ marginTop: 30 }}>
       <CardContent>
         <Typography className={classes.cardHeader}>Featured Posts</Typography>
+        <TextField
+          placeholder="Filter posts"
+          variant="outlined"
+          size="small"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className={classes.filterInput}
+        />
         <TableContainer className={classes.tableContainer}>
           <Table stickyHeader aria-label="featured posts table">
             <TableHead classes={{ head: classes.columnHeader }}>
@@ -194,7 +213,7 @@ const FeaturedPostsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {posts.map((post) => (
+              {filteredPosts.map((post) => (
                 <TableRow
                   key={post._id}
                   className={post.featuredSlot ? classes.featuredRow : ''}

@@ -93,6 +93,9 @@ const requestAccessStyles = (theme) => ({
   slotSelect: {
     minWidth: 80,
   },
+  filterInput: {
+    marginBottom: 15,
+  },
 })
 
 export default requestAccessStyles
