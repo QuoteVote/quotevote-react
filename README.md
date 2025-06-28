@@ -41,9 +41,9 @@ and democratic technologists alike.
     `git clone https://github.com/QuoteVote/quotevote-react.git && cd quotevote-react`
 3. Create a `.env` file and add the following:
     ```
-    NODE_ENV=dev
-    REACT_APP_SERVER=https://api.quote.vote
-    REACT_APP_SERVER_WS=wss://api.quote.vote
+    NODE_ENV=development
+    REACT_APP_SERVER=https://sandbox.quote.vote
+    REACT_APP_SERVER_WS=wss://sandbox.quote.vote
     REACT_APP_DOMAIN=https://quote.vote
     ```
 
